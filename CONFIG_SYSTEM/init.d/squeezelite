@@ -1,0 +1,39 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          squeezelite
+# Required-Start:    $syslog
+# Required-Stop:     $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Script to start squeezelite
+# Description:       Service script for squeezelite, command line squeezebox player
+### END INIT INFO
+#Define some variables.  LMS is the IP of your Logitech Media Server.  Output device can be found by running squeezelite -l
+
+USER=odroid
+#OUTPUT=iec958:CARD=SB,DEV=0
+NAME=$(cat /opt/max2play/playername.txt)
+#LMS=192.168.69.101
+
+case "$1" in
+  start)
+    echo "Starting Squeezelite"
+    echo "Check auf laufenden XBMC - Pulseaudio VS Alsa bringt Probleme"
+    xbmcrunning=$(ps -Al | grep xbmc | wc -l)
+    if [ "1" -gt "$xbmcrunning" ]
+    then
+    	/sbin/start-stop-daemon --start --quiet -b -m -p /opt/squeezelite/log/squeezelite.pid --chuid $USER --exec /opt/squeezelite/squeezelite -- -n $NAME $LMS -o "plug:dmixer"
+    	echo "Erfolgreich gestartet"
+    fi
+  ;;
+  stop)
+    echo "Stopping Squeezelite"
+    /sbin/start-stop-daemon --stop --quiet --pidfile /opt/squeezelite/log/squeezelite.pid
+    rm -f /opt/squeezelite/log/squeezelite.pid
+  ;;
+  *)
+    echo "Usage: /etc/init.d/squeezelite {start|stop}"
+    exit 1
+  ;;
+esac
+exit 0

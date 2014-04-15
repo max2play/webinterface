@@ -1,0 +1,13 @@
+# interfaces(5) file used by ifup(8) and ifdown(8)
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+hwaddress ether 1a:64:b6:bf:36:37
+
+#allow-hotplug wlan0
+#auto wlan0
+#iface wlan0 inet dhcp
+#pre-up wpa_supplicant -B w -D wext -i wlan0 -c /opt/max2play/wpa_supplicant.conf
+#post-down killall -q wpa_supplicant

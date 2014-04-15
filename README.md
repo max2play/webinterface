@@ -23,6 +23,14 @@ HOW TO CONFIGURE
  - some file-permissions and sudoer-configs need to be set in order to get wifi and other things working in the max2play-interface
 
 
-This file is work in progress...
+Webinterface is under /max2play
 
+Config-Files for /etc/ under /CONFIG_SYSTEM
+
+Config-Files for /home/USER under /CONFIG_USER
+
+Packages with Scripts for /opt/ under /opt/
+
+
+This file is work in progress...
 

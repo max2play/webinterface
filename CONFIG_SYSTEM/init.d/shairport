@@ -1,0 +1,36 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          shairport
+# Required-Start:    $syslog
+# Required-Stop:     $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Script to start shairport
+# Description:       Service script for shairport, command line airplay device
+### END INIT INFO
+
+USER=odroid
+NAME=$(cat /opt/max2play/playername.txt)
+
+case "$1" in
+  start)
+    echo "Starting Shairport"
+    echo "Check auf laufenden XBMC - Pulseaudio VS Alsa bringt Probleme"
+    xbmcrunning=$(ps -Al | grep xbmc | wc -l)
+    if [ "1" -gt "$xbmcrunning" ]
+    then
+	/sbin/start-stop-daemon --start --quiet -b -m -p /opt/shairport/log/shairport.pid --chuid $USER --exec /opt/shairport/shairport -- --name "$NAME" -o alsa -- -d plug:dmixer
+        echo "Erfolgreich gestartet"
+    fi
+  ;;
+  stop)
+    echo "Stopping Shairport"
+    /sbin/start-stop-daemon --stop --quiet --pidfile /opt/shairport/log/shairport.pid
+    rm -f /opt/squeezelite/log/shairport.pid
+  ;;
+  *)
+    echo "Usage: /etc/init.d/shairport {start|stop}"
+    exit 1
+  ;;
+esac
+exit 0

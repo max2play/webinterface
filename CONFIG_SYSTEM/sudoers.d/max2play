@@ -1,0 +1,2 @@
+www-data ALL=(root)NOPASSWD: /etc/init.d/squeezelite,/sbin/start-stop-daemon,/usr/sbin/update-rc.d,/bin/kill,/etc/init.d/logitechmediaserver,/sbin/reboot,/bin/mount,/etc/init.d/shairport,/sbin/iwlist,/bin/cp
+

@@ -1,0 +1,1 @@
+ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan*" RUN+="/sbin/iw dev %k set power_save off"
