@@ -1,0 +1,35 @@
+ctrl_interface=/var/run/wpa_supplicant
+eapol_version=1
+# 0: Der Treiber des Interfaces kümmert sich um das Scannen von Netzen und die AP-Auswahl.
+#    Dieser Modus sollte benutzt werden, wenn man eine Verschlüsselung auf ein Kabelnetzwerk legt.
+# 1: wpa_supplicant kümmert sich um das Scannen von Netzen und die AP-Auswahl.
+# 2: Fast wie 0, es wird aber mit Hilfe von Sicherheitsrichtlinien und der SSID zu APs verbunden (BSSID wird nicht unterstützt)
+#
+# Normalerweise funktioniert entweder Modus 1 oder Modus 2.
+ap_scan=1
+
+network={
+        ssid=""
+        scan_ssid=1
+        proto=RSN
+        key_mgmt=WPA-PSK
+        pairwise=CCMP
+        group=TKIP
+        psk=""
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
