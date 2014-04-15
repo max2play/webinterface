@@ -1,0 +1,236 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Max2Play Übersetzungen\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-15 15:51+0100\n"
+"PO-Revision-Date: 2014-04-15 15:52+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de_DE\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: y:\\projects\\max2play\n"
+
+#: y:\projects\max2play/max2play/application/controller/Service.php:93
+msgid "Process is already running"
+msgstr "Dienst läuft bereits"
+
+#: y:\projects\max2play/max2play/application/controller/Service.php:105
+msgid "Trying to launch"
+msgstr "Versucht zu starten"
+
+#: y:\projects\max2play/max2play/application/controller/Service.php:113
+msgid "successful with ID"
+msgstr "Erfolgreich mit ID"
+
+#: y:\projects\max2play/max2play/application/controller/Service.php:115
+msgid "NOT successful"
+msgstr "NICHT Erfolgreich"
+
+#: y:\projects\max2play/max2play/application/controller/Service.php:130
+msgid "Unable to stop process - it seems that it is not running"
+msgstr "Dienst kann nicht gestoppt werden, da er nicht läuft"
+
+#: y:\projects\max2play/max2play/application/controller/Service.php:143
+#: y:\projects\max2play/max2play/application/controller/Service.php:176
+msgid "Trying to stop"
+msgstr "Versucht zu stoppen"
+
+#: y:\projects\max2play/max2play/application/controller/Service.php:151
+msgid "successfully stopped"
+msgstr "Erfolgreich gestoppt"
+
+#: y:\projects\max2play/max2play/application/controller/Service.php:153
+msgid "could NOT stop process - try kill instead"
+msgstr "stoppen NICHT erfolgreich - bitte Kill versuchen"
+
+#: y:\projects\max2play/max2play/application/controller/Service.php:168
+msgid "Unable to kill process - it seems that it is not running"
+msgstr "Dienst kann nicht gekillt werden, da er nicht läuft"
+
+#: y:\projects\max2play/max2play/application/controller/Service.php:179
+msgid "successfully killed"
+msgstr "Erfolgreich gekillt"
+
+#: y:\projects\max2play/max2play/application/controller/Service.php:181
+msgid "could not kill process"
+msgstr "kill NICHT erfolgreich"
+
+#: y:\projects\max2play/max2play/application/controller/Service.php:225
+msgid "successfully removed from autostart"
+msgstr "erfolgreich aus Autostart entfernt"
+
+#: y:\projects\max2play/max2play/application/controller/Service.php:228
+msgid "successfully added to autostart"
+msgstr "erfolgreich zu Autostart hinzugefügt"
+
+#: y:\projects\max2play/max2play/application/controller/Basic.php:35
+msgid "REBOOT gestartet"
+msgstr "REBOOT started"
+
+#: y:\projects\max2play/max2play/application/controller/Basic.php:68
+msgid "Changed display resolution - Reboot needed"
+msgstr "Bildschirmauflösung angepasst - Reboot erforderlich"
+
+#: y:\projects\max2play/max2play/application/controller/Basic.php:70
+msgid "no valid resolution choosen"
+msgstr "keine gültige Auflösung"
+
+#: y:\projects\max2play/max2play/application/controller/Basic.php:96
+msgid "Name not possible! Please do not use special characters."
+msgstr "Ungültiger Name! Bitte keine Sonderzeichen verwenden."
+
+#: y:\projects\max2play/max2play/application/controller/Basic.php:98
+msgid "Changes successful - Reboot needed"
+msgstr "Erfolgreich geändert - Reboot erforderlich"
+
+#: y:\projects\max2play/max2play/application/controller/Basic.php:117
+msgid "Config Files restored for "
+msgstr "Ursprungskonfiguration wiederhergestellt für"
+
+#: y:\projects\max2play/max2play/application/controller/Filesystem.php:66
+msgid "Mountpoint successfully added"
+msgstr "Hinzufügen erfolgreich!"
+
+#: y:\projects\max2play/max2play/application/controller/Filesystem.php:69
+msgid "Mountpoint NOT added! Please refer to the description below!"
+msgstr "Hinzufügen nicht möglich! Bitte Anleitung beachten!"
+
+#: y:\projects\max2play/max2play/application/controller/Filesystem.php:82
+msgid "Entry deleted"
+msgstr "Eintrag gelöscht"
+
+#: y:\projects\max2play/max2play/public/filesystem.php:32
+msgid "Filesystem - mount network paths (e.g. NFS) "
+msgstr "Dateisystem - Mounten von Netzwerkpfaden (z.B. NFS) "
+
+#: y:\projects\max2play/max2play/public/faq.php:31
+msgid "FAQ - frequently asked questions"
+msgstr "FAQ - Häufig gestellte Fragen"
+
+#: y:\projects\max2play/max2play/public/basic.php:31
+msgid "Basic settings for Max2Play"
+msgstr "Grundeinstellungen für Max2Play"
+
+#: y:\projects\max2play/max2play/public/basic.php:42
+msgid "Playername"
+msgstr "Playername"
+
+#: y:\projects\max2play/max2play/public/basic.php:44
+msgid "URL for this Web-administration / name of Squeezelite player"
+msgstr "URL für diese Web-Administration / Name Squeezelite Player"
+
+#: y:\projects\max2play/max2play/public/basic.php:47
+msgid "Display Resolution"
+msgstr "Auflösung"
+
+#: y:\projects\max2play/max2play/public/basic.php:52
+msgid "With this resolution runs desktop and XBMC"
+msgstr "Unter dieser Auflösung läuft XBMC und der Desktop"
+
+#: y:\projects\max2play/max2play/public/basic.php:55
+msgid "Save Settings"
+msgstr "Einstellungen speichern"
+
+#: y:\projects\max2play/max2play/public/basic.php:58
+msgid "Reboot Max2Play"
+msgstr "Reboot Max2Play"
+
+#: y:\projects\max2play/max2play/public/basic.php:62
+msgid "Reset configs to Max2Play delivery configuration"
+msgstr "Max2Play Ursprungskonfiguration Wiederherstellen"
+
+#: y:\projects\max2play/max2play/public/basic.php:63
+msgid "Reset configs - WARNING: deletes all changes"
+msgstr "Konfiguration Reset (löscht alle Änderungen!)"
+
+#: y:\projects\max2play/max2play/public/basic.php:64
+msgid ""
+"Settings for WiFi, autostart, playername, filesystem mounts will be "
+"overwritten."
+msgstr ""
+"Einstellungen zu Wlan, Autostart, Playername und gemountete Verzeichnisse "
+"werden durch die Standardbelegung überschrieben."
+
+#: y:\projects\max2play/max2play/public/basic.php:68
+msgid "DEBUG Info"
+msgstr "DEBUG Info"
+
+#: y:\projects\max2play/max2play/public/header.php:42
+msgid "Choose active Player"
+msgstr "Wähle Player"
+
+#: y:\projects\max2play/max2play/public/header.php:54
+msgid "Start"
+msgstr "Start"
+
+#: y:\projects\max2play/max2play/public/header.php:55
+msgid "Audioplayer"
+msgstr "Audioplayer"
+
+#: y:\projects\max2play/max2play/public/header.php:56
+msgid "Squeezeserver"
+msgstr "Squeezeserver"
+
+#: y:\projects\max2play/max2play/public/header.php:57
+msgid "XBMC (Mediacenter)"
+msgstr "XBMC (Mediacenter)"
+
+#: y:\projects\max2play/max2play/public/header.php:58
+msgid "Filesystem Mount"
+msgstr "Dateisystem Mount"
+
+#: y:\projects\max2play/max2play/public/header.php:59
+msgid "WiFi & LAN"
+msgstr "WLAN & LAN"
+
+#: y:\projects\max2play/max2play/public/header.php:60
+msgid "Reset & Reboot"
+msgstr "Reset & Reboot"
+
+#: y:\projects\max2play/max2play/public/index.php:32
+msgid "Max2Play Media Player - Info"
+msgstr "Max2Play Media Player - Informationen"
+
+#: y:\projects\max2play/max2play/public/index.php:36
+msgid ""
+"READ CAREFULLY: THIS INTERFACE IS STILL A BETA AND MIGHT HAVE BUGS OR "
+"UNEXPECTED BEHAVIOR!"
+msgstr ""
+"ACHTUNG: DIESE KONFIGURATIONSMÖGLICHKEIT IST EINE BETA UND ENTHÄLT "
+"MÖGLICHERWEISE FEHLER!"
+
+#: y:\projects\max2play/max2play/public/index.php:38
+msgid ""
+"The Max2Play Interface is used to configurate the device without having to "
+"set up montior, keyboard and mouse on the device itsself or login by ssh."
+"<br />All settings are directly written to the players config files."
+msgstr ""
+"Über diese Seiten kann der Player konfiguriert werden (Netzwerkinterfaces, "
+"Netzwerkfreigaben, Autostartkonfiguration).<br />Die Einstellungen werden "
+"direkt in Konfigurationsdateien geschrieben, die sich auf dem Player "
+"befinden. Alternativ kann direkt per SSH eine Verbindung aufgebaut werden "
+"oder per HDMI-Kabel und Tastatur/Maus am Gerät die Konfiguration per Konsole "
+"erfolgen."
+
+#: y:\projects\max2play/max2play/public/index.php:40
+msgid ""
+"Questions concerning this project? Please refer to <a href=\"http://shop."
+"max2play.com\" target=\"_blank\">Shop.Max2Play</a>"
+msgstr ""
+"Fragen zum Projekt? Bitte auf <a href=\"http://shop.max2play.com\" target="
+"\"_blank\">Shop.Max2Play</a> den Kontakt nutzen."
+
+#~ msgid "das ist ein test"
+#~ msgstr "blablubtrallala"
+
+#~ msgid " ... Erfolgreich gekillt"
+#~ msgstr " ... Erfolgreich gekillt"
+
+#~ msgid " ... kill NICHT erfolgreich"
+#~ msgstr " ... kill NICHT erfolgreich"
