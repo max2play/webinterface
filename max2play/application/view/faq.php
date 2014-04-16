@@ -22,10 +22,7 @@
 	 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */ 
 ?>
-
-<?php include_once('../application/controller/Service.php') ?>
-
-<?php include_once('header.php') ?>														
+						
 
 <h1 class="entry-header">
 	<?php echo _("FAQ - frequently asked questions") ?>
@@ -39,4 +36,3 @@
 	Der Player benötigt DHCP (automatische Adresszuweisung vom Router). Prüfen Sie auf Ihrem Router, welche Adresse dem Player zugewiesen wurde und geben Sie diese direkt in die Adresszeile des Browsers ein.
 </div>	
 															
-<?php include_once('footer.php') ?>	

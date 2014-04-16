@@ -23,11 +23,6 @@
  */ 
 ?>										
 
-<?php include_once('../application/controller/Service.php') ?>
-<?php include_once('../application/controller/Filesystem.php') ?>
-
-<?php include_once('header.php') ?>		
-
 <h1 class="entry-header">
 	<?php echo _("Filesystem - mount network paths (e.g. NFS) ") ?>
 </h1>
@@ -40,11 +35,11 @@
 		
 		<table>
 			<tr>
-				<td>Montpoint</td>
-				<td>Pfad</td>
-				<td>Typ</td>
-				<td>Optionen</td>
-				<td>Aktion</td>
+				<td><?php echo _('Mountpoint') ?></td>
+				<td><?php echo _('Path') ?></td>
+				<td><?php echo _('Type') ?></td>
+				<td><?php echo _('Options') ?></td>
+				<td><?php echo _('Action') ?></td>
 			</tr>
 		<?php $i=0;
 			 foreach ($fs->view->mounts as $mount){ ?>
@@ -58,7 +53,7 @@
 		<?php $i++; } ?>
 		<tr>
 			<td colspan = 5><br /><hr><br />
-				Neuen Mountpoint hinzufügen:
+				<?php echo _('Add new mountpoint') ?>:
 			</td>
 		</tr>
 		<tr>
@@ -71,13 +66,8 @@
 		</table>	
 	</form>
 	<br /><br />
-	<b>Bitte beachten:</b><br />
-	Normale Netzwerkfreigaben auf NFS (z.B. Synology Diskstation) erfolgen wie im Beispiel:<br />
-	<b>Mountpoint (IP oder Hostname und Pfad):</b> z.B. <i>//IP-ADRESSE/PFAD</i> <br />
-	<b>Pfad auf Max2Play (für Verwendung in Squeezeserver oder XBMC):</b> z.B. <i>/mnt/mountdir/</i> <br />
-	<b>Typ:</b> meist <i>cifs</i> <br />
-	<b>Optionen (Benutzer, Passwort und Optionen für Freigabe):</b> z.B. <i>user=name,password=pass,sec=ntlm,iocharset=utf8</i><br />
-	Achtung: Bei den Optionen bitte immer <i>sec=ntlm</i> angeben! 	
+	<b><?php echo _('Important Information') ?>:</b><br />
+	<?php echo _('Important Information Filesystem Description') ?>	
 	
 	<br /><br /><br /><br />
 	DEBUGINFO
@@ -85,4 +75,3 @@
 	
 </div>	
 															
-<?php include_once('footer.php') ?>	

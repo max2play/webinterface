@@ -23,9 +23,6 @@
  */ 
 ?>												
 
-<?php include_once('../application/controller/Wlan.php') ?>
-
-<?php include_once('header.php') ?>	
 
 <h1 class="entry-header">
 	WLAN & LAN Konfiguration
@@ -101,4 +98,3 @@
 	<textarea rows="5" cols="80" readonly><?php echo $wlan->view->ifconfig_txt ?></textarea>
 </div>	
 															
-<?php include_once('footer.php') ?>	

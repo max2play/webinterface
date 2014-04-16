@@ -23,9 +23,6 @@
  */ 
 ?>											
 
-<?php include_once('../application/controller/Basic.php') ?>
-
-<?php include_once('header.php') ?>	
 
 <h1 class="entry-header">
 	<?php echo _("Basic settings for Max2Play") ?>
@@ -69,4 +66,3 @@
 	<textarea rows="5" cols="80" readonly></textarea>
 </div>	
 															
-<?php include_once('footer.php') ?>	

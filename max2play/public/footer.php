@@ -27,10 +27,10 @@
 			</div>
 			<div id="secondary" class="widget-area">
 				<aside class="widget">
-					<h3 class="widget-title">Themen</h3>
+					<h3 class="widget-title"><?php echo _('Topics') ?></h3>
 					<ul>
-						<li><a href="/" title="Info">Übersicht Funktionen</a></li>	
-						<li><a href="/faq.php" title="FAQ">FAQ - Fragen & Antworten</a></li>					
+						<li><a href="/" title="Info"><?php echo _('Features') ?></a></li>	
+						<li><a href="/faq.php" title="FAQ"><?php echo _('FAQ - Questions & Answers') ?></a></li>					
 					</ul>
 				</aside>		
 			</div>

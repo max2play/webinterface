@@ -23,11 +23,10 @@
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-include_once 'Service.php';
-
 class Squeezeplayer extends Service {
 	public $view;
 	protected $pname = 'squeezelite';
+	public $viewname = 'Squeezelite';
 	
 	public function __construct(){								
 		

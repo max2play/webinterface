@@ -52,12 +52,12 @@
 				<div class="nav-menu">
 					<ul>
 						<li><a href="/" title="Home" class="<?php if($_SERVER['REQUEST_URI'] == '/') echo 'current';?>"><?php echo _('Start')?></a></li>
-						<li><a href="/squeezeplayer.php" class="<?php if(strpos($_SERVER['REQUEST_URI'],'squeezeplayer') !== FALSE) echo 'current';?>"><?php echo _('Audioplayer')?></a></li>
-						<li><a href="/squeezeserver.php" class="<?php if(strpos($_SERVER['REQUEST_URI'],'squeezeserver') !== FALSE) echo 'current';?>"><?php echo _('Squeezeserver')?></a></li>
-						<li><a href="/xbmc.php" class="<?php if(strpos($_SERVER['REQUEST_URI'],'xbmc') !== FALSE) echo 'current';?>"><?php echo _('XBMC (Mediacenter)')?></a></li>
-						<li><a href="/filesystem.php" class="<?php if(strpos($_SERVER['REQUEST_URI'],'filesystem') !== FALSE) echo 'current';?>"><?php echo _('Filesystem Mount')?></a></li>
-						<li><a href="/wlan.php" class="<?php if(strpos($_SERVER['REQUEST_URI'],'wlan') !== FALSE) echo 'current';?>"><?php echo _('WiFi & LAN')?></a></li>
-						<li><a href="/basic.php" class="<?php if(strpos($_SERVER['REQUEST_URI'],'basic') !== FALSE) echo 'current';?>"><?php echo _('Reset & Reboot')?></a></li>
+						<li><a href="/Squeezeplayer.php" class="<?php if(strpos($_SERVER['REQUEST_URI'],'Squeezeplayer') !== FALSE) echo 'current';?>"><?php echo _('Audioplayer')?></a></li>
+						<li><a href="/Squeezeserver.php" class="<?php if(strpos($_SERVER['REQUEST_URI'],'Squeezeserver') !== FALSE) echo 'current';?>"><?php echo _('Squeezeserver')?></a></li>
+						<li><a href="/Xbmc.php" class="<?php if(strpos($_SERVER['REQUEST_URI'],'Xbmc') !== FALSE) echo 'current';?>"><?php echo _('XBMC (Mediacenter)')?></a></li>
+						<li><a href="/Filesystem.php" class="<?php if(strpos($_SERVER['REQUEST_URI'],'Filesystem') !== FALSE) echo 'current';?>"><?php echo _('Filesystem Mount')?></a></li>
+						<li><a href="/Wlan.php" class="<?php if(strpos($_SERVER['REQUEST_URI'],'Wlan') !== FALSE) echo 'current';?>"><?php echo _('WiFi & LAN')?></a></li>
+						<li><a href="/Basic.php" class="<?php if(strpos($_SERVER['REQUEST_URI'],'Basic') !== FALSE) echo 'current';?>"><?php echo _('Reset & Reboot')?></a></li>
 					</ul>
 				</div>
 			</nav>

@@ -23,10 +23,6 @@
  */ 
 ?>										
 
-<?php include_once('../application/controller/Squeezeserver.php') ?>	
-
-<?php include_once('header.php') ?>	
-
 <h1 class="entry-header">
 	Squeezeserver - Status, Start & Stop
 </h1>
@@ -59,4 +55,3 @@
 	Squeezeserver (Logitech Media Server) ist der Server für die Squeezebox und ist für die Steuerung der Player zuständig. Im Netzwerk muss mindestens ein solcher Server laufen.  
 </div>	
 															
-<?php include_once('footer.php') ?>	

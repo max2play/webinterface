@@ -24,22 +24,18 @@
 
 ?>
 
-<?php include_once('../application/controller/Service.php') ?>
+<?php 
 
-<?php include_once('header.php') ?>														
+include_once('../application/bootstrap.php');
 
-<h1 class="entry-header">
-	<?php echo _("Max2Play Media Player - Info") ?>
-</h1>
-	
-<div class="entry-content">
-	<b><?php echo _("READ CAREFULLY: THIS INTERFACE IS STILL A BETA AND MIGHT HAVE BUGS OR UNEXPECTED BEHAVIOR!") ?></b>
-	<br /><br />
-	<?php echo _("The Max2Play Interface is used to configurate the device without having to set up montior, keyboard and mouse on the device itsself or login by ssh.<br />All settings are directly written to the players config files."); ?><br />  
-	<br />
-	<?php echo _('Questions concerning this project? Please refer to <a href="http://shop.max2play.com" target="_blank">Shop.Max2Play</a>') ?><br />
-	
-	
-</div>	
-															
-<?php include_once('footer.php') ?>				
+include_once('header.php');
+
+//search for Controller and View by Name in URL
+$pagename = preg_replace('=[^0-9a-zA-Z\.]=','',$_GET['page']);
+if($pagename == '')
+	$pagename = 'Index.php';
+include_once('../application/controller/'.$pagename);
+include_once('../application/view/'.strtolower($pagename));
+
+include_once('footer.php');	
+			

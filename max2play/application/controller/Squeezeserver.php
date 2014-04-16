@@ -23,12 +23,12 @@
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-include_once 'Service.php';
 
 class Squeezeserver extends Service {
 	public $view;
 	protected $pname = 'logitechmediaserver';
 	protected $prozessname = 'squeezeboxserve';
+	public $viewname = 'Logitechmediaserver / Squeezeboxserver';
 	
 	public function __construct(){						
 				

@@ -23,7 +23,6 @@
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-include_once 'Service.php';
 
 class Wlan extends Service {
 	public $view;
@@ -36,7 +35,7 @@ class Wlan extends Service {
 		
 		if($_GET['action'] == 'save'){
 			$this->_saveWirelessConfig();
-			$this->view->message[] = "Daten gespeichert";
+			$this->view->message[] = _("Data saved");
 			$this->_getWirelessConfig();
 		}
 
@@ -48,17 +47,17 @@ class Wlan extends Service {
 	private function _showWlanNetworks(){
 		$shellanswer = shell_exec("sudo iwlist scan");
 		if(strpos($shellanswer, 'Device or resource busy') !== false){
-			$this->view->message[] = "WLAN Device reagiert nicht - Gerät neu starten.";
+			$this->view->message[] = _("WLAN Device not responding - Reboot and try again.");
 			return false;
 		}
 		preg_match_all('=ESSID:"(.{1,50}?)".*?Group Cipher : (TKIP|CCMP).*?Pairwise Ciphers \(1\) : (TKIP|CCMP).*?Authentication Suites \(1\) : (PSK)=is',$shellanswer, $matches);
 		if(count($matches[1]) > 0){
-			$this->view->message[] = "Netzwerke gefunden und in Auswahlliste eingefügt";
+			$this->view->message[] = _("Networks found and added to dropdown list");
 			for($i = 0; $i < count($matches[1]); $i++){
 				$this->view->wlanNetworks[] = array('ESSID' => $matches[1][$i], 'GCIPHER' => $matches[2][$i], 'PCIPHER' => $matches[3][$i], 'AUTH' => $matches[4][$i]);
 			}			
 		}else{
-			$this->view->message[] = "Keine Netzwerke gefunden";
+			$this->view->message[] = _("No networks found");
 		}
 		return true;
 	}
@@ -83,7 +82,7 @@ class Wlan extends Service {
 			//shell_exec("echo '".$_GET['lanmac']."' > ".$this->mac_address);					
 			$shellanswer_eth = str_replace('hwaddress ether '.$this->view->lanmac, 'hwaddress ether '.$matches[0], $shellanswer_eth);
 			shell_exec("echo '".$shellanswer_eth."' > ".$this->networkinterfaces);			
-			$this->view->message[] = 'MAC-Adresse geändert - bitte Neustarten';
+			$this->view->message[] = _('MAC-Address changed - please reboot');
 		}
 		
 		shell_exec("echo '".$shellanswer."' > ".$this->wpa_config);				
@@ -98,14 +97,14 @@ class Wlan extends Service {
 		
 		if($ssid != '' && $wlanstatus == false && $_GET['wlan_configured'] != false){
 			//WLAN aktivieren
-			$this->view->message[] = 'WLAN aktiviert - bitte Neustarten';
+			$this->view->message[] = _('WLAN activated - please reboot device');
 			$shellanswer_eth = str_replace(
 					array('#pre-up wpa_supplicant','#allow-hotplug wlan0','#auto wlan0','#iface wlan0 inet dhcp','#post-down killall'), 
 					array('pre-up wpa_supplicant','allow-hotplug wlan0','auto wlan0','iface wlan0 inet dhcp','post-down killall'), 
 					$shellanswer_eth);
 			shell_exec("echo '".$shellanswer_eth."' > ".$this->networkinterfaces);
 		}elseif(($ssid == '' || $_GET['wlan_configured'] == false) && $wlanstatus == true){
-			$this->view->message[] = 'WLAN deaktiviert - kein Netzwerk gewählt - bitte Neustarten';
+			$this->view->message[] = _('WLAN deactivated - no network choosen - please reboot');
 			$shellanswer_eth = str_replace(
 					array('pre-up wpa_supplicant','allow-hotplug wlan0','auto wlan0','iface wlan0 inet dhcp','post-down killall'),  
 					array('#pre-up wpa_supplicant','#allow-hotplug wlan0','#auto wlan0','#iface wlan0 inet dhcp','#post-down killall'),

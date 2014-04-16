@@ -13,8 +13,9 @@ FEATURES
 
 HOW TO INSTALL
  - install & configure apache webserver with php5 support: "apt-get install apache2 php5"
- - edit "/etc/apache2/sites_enabled" to point to the max2play directory
- - drop the files of this repository to "var/www/max2play/"
+ - Enable mod_rewrite for Apache "a2enmod rewrite"
+ - Add "/etc/apache2/sites_enabled/max2play" from repository "CONFIG_SYSTEM/apache2/" to point to the max2play directory
+ - drop the files from the max2play-Folder of this repository to "var/www/max2play/"
  - reload webserver "/etc/init.d/apache2 reload"
 
 HOW TO CONFIGURE
@@ -33,4 +34,3 @@ Packages with Scripts for /opt/ under /opt/
 
 
 This file is work in progress...
-

@@ -23,11 +23,11 @@
 	 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-include_once 'Service.php';
 
 class Shairport extends Service {
 	public $view;
 	protected $pname = 'shairport';
+	public $viewname = 'Shairport (Airplay)';
 	
 	public function __construct(){								
 		

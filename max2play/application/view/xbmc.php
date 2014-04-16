@@ -23,9 +23,6 @@
  */ 
 ?>												
 
-<?php include_once('../application/controller/Xbmc.php') ?>
-
-<?php include_once('header.php') ?>	
 
 <h1 class="entry-header">
 	XBMC - Status, Start & Stop
@@ -62,4 +59,3 @@
 	Sobald XBMC beendet wird, startet Squeezelite automatisch wieder.  
 </div>	
 															
-<?php include_once('footer.php') ?>	
