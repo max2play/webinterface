@@ -23,23 +23,25 @@
    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-class Basic extends Service {
-	public $view;	
+class Basic extends Service {	
 	
 	public function __construct(){								
+		parent::__construct();
 		
-		if($_GET['action'] == 'reboot'){
-			shell_exec('sudo /sbin/reboot -n');
-			$this->view->message[] = _("REBOOT gestartet");
-		}
-		
-		if($_GET['action'] == 'reset'){
-			$this->view->message[] = $this->resetFactoryDefaults();
-		}
-		
-		if($_GET['action'] == 'save'){
-			$this->view->message[] = $this->updatePlayername($_GET['playername']);
-			$this->view->message[] = $this->updateDisplayResolution($_GET['displayResolution']);
+		if(isset($_GET['action'])){
+			if($_GET['action'] == 'reboot'){
+				shell_exec('sudo /sbin/reboot -n');
+				$this->view->message[] = _("REBOOT gestartet");
+			}
+			
+			if($_GET['action'] == 'reset'){
+				$this->view->message[] = $this->resetFactoryDefaults();
+			}
+			
+			if($_GET['action'] == 'save'){
+				$this->view->message[] = $this->updatePlayername($_GET['playername']);
+				$this->view->message[] = $this->updateDisplayResolution($_GET['displayResolution']);
+			}
 		}
 		
 		$this->getPlayername();

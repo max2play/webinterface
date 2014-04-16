@@ -25,25 +25,27 @@
 
 
 class Squeezeserver extends Service {
-	public $view;
 	protected $pname = 'logitechmediaserver';
 	protected $prozessname = 'squeezeboxserve';
 	public $viewname = 'Logitechmediaserver / Squeezeboxserver';
 	
 	public function __construct(){						
-				
-		if($_GET['action'] == 'start'){			
-			$this->view->message[] = $this->start($this->pname, '', $this->prozessname);	
-			sleep(10); //Timeout to get process in processlist
-		}
+		parent::__construct();
 		
-		if($_GET['action'] == 'stop'){			
-			$this->view->message[] = $this->stop($this->pname, '', $this->prozessname);
-			sleep(10); //Timeout to get process off processlist
-		}
-		
-		if($_GET['action'] == 'save'){
-			$this->selectAutostart((int)$_GET['autostart'], false);
+		if(isset($_GET['action'])){
+			if($_GET['action'] == 'start'){			
+				$this->view->message[] = $this->start($this->pname, '', $this->prozessname);	
+				sleep(10); //Timeout to get process in processlist
+			}
+			
+			if($_GET['action'] == 'stop'){			
+				$this->view->message[] = $this->stop($this->pname, '', $this->prozessname);
+				sleep(10); //Timeout to get process off processlist
+			}
+			
+			if($_GET['action'] == 'save'){
+				$this->selectAutostart(isset($_GET['autostart']) ? 1 : 0, false);
+			}
 		}
 		
 		$this->view->autostart = $this->checkAutostart($this->pname);

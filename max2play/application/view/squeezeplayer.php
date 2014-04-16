@@ -24,15 +24,16 @@
 ?>											
 
 
-<?php include_once('../application/controller/Shairport.php') ?>		
+<?php //zusätzlich die Shairport konfig laden
+	  include_once('../application/controller/Shairport.php') ?>		
 
 <h1 class="entry-header">
 	<?php echo _("Mediaplayer Squeezelite & Airplay - Status, Start / Stop") ?>
 </h1>
 	
 <div class="entry-content">
-	<?php if($sp->view->message[0]) echo implode('<br />', $sp->view->message).'<br /><br />'; ?>
-	<?php if($ap->view->message[0]) echo implode('<br />', $ap->view->message).'<br /><br />'; ?>
+	<?php if(isset($sp->view->message[0])) echo implode('<br />', $sp->view->message).'<br /><br />'; ?>
+	<?php if(isset($ap->view->message[0])) echo implode('<br />', $ap->view->message).'<br /><br />'; ?>
 	
 	<form action="" method="get">
 		<input type="hidden" id="action" name="action" value="" />

@@ -29,7 +29,7 @@
 </h1>
 	
 <div class="entry-content">
-	<?php if($basic->view->message[0]) echo implode('<br />', $basic->view->message).'<br /><br />'; ?>
+	<?php if(isset($basic->view->message[0])) echo implode('<br />', $basic->view->message).'<br /><br />'; ?>
 	
 	<form action="" method="get">
 	<input type="hidden" id="action" name="action" value="" />

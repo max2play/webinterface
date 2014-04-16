@@ -32,19 +32,22 @@
 
 include_once('../application/model/Mount.php');
 
-class Filesystem {
+class Filesystem extends Service {
 	
-	public $view;
 	//protected $_fstabPath = '/home/webuser/';
 	protected $_fstabPath = '/etc/';
 	
 	public function __construct(){		
-		if($_GET['action'] == 'add'){
-			$this->addMount();
-		}
-		if(strpos($_GET['action'],'delete') !== FALSE){
-			$pos = explode('_', $_GET['action']);
-			$this->removeMount($pos[1]);
+		parent::__construct();
+		
+		if(isset($_GET['action'])){
+			if($_GET['action'] == 'add'){
+				$this->addMount();
+			}
+			if(strpos($_GET['action'],'delete') !== FALSE){
+				$pos = explode('_', $_GET['action']);
+				$this->removeMount($pos[1]);
+			}
 		}
 		
 		$this->getMountsFstab();
@@ -104,15 +107,17 @@ class Filesystem {
 			$mount = preg_replace('=[ ]+=', ' ',$mount);
 			$mountvars = explode(" ",$mount);		
 			
-			$m = new Mount();
-			
-			$test1 = $m->setMountpoint($mountvars[0]);
-			$test2 = $m->setPath($mountvars[1]);
-			$test3 = $m->setType($mountvars[2]);
-			$test4 = $m->setOptions($mountvars[3]);			
-
-			if($test1 && $test2 && $test3 && $test4)
-				$this->view->mounts[] = $m;
+			if(count($mountvars) > 3){							
+				$m = new Mount();
+				
+				$test1 = $m->setMountpoint($mountvars[0]);
+				$test2 = $m->setPath($mountvars[1]);
+				$test3 = $m->setType($mountvars[2]);
+				$test4 = $m->setOptions($mountvars[3]);			
+	
+				if($test1 && $test2 && $test3 && $test4)
+					$this->view->mounts[] = $m;
+			}
 		}
 		
 		return true;

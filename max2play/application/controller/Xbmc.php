@@ -25,26 +25,29 @@
 
 
 class Xbmc extends Service {
-	public $view;
+	
 	protected $pname = 'xbmc';
+	public $viewname = 'Xbmc';
 	private $_autostartfile = '/home/odroid/.config/lxsession/Lubuntu/autostart';
 	//private $_autostartfile = '/home/odroid/.config/autostart_off/XBMC.desktop'; DEBIAN-Version
 	
 	public function __construct(){								
+		parent::__construct();
 		
-		if($_GET['action'] == 'start'){			
-			//dafür muss unter www-data mittels ssh-keygen ein Key erzeugt und zu odroid exportiert werden!
-			$this->view->message[] = $this->start($this->pname, '/usr/bin/ssh odroid@localhost "/etc/init.d/squeezelite stop;export DISPLAY=\':0\'; /usr/local/bin/xbmc > /dev/null 2>&1 &"');					
+		if(isset($_GET['action'])){
+			if($_GET['action'] == 'start'){			
+				//dafür muss unter www-data mittels ssh-keygen ein Key erzeugt und zu odroid exportiert werden!
+				$this->view->message[] = $this->start($this->pname, '/usr/bin/ssh odroid@localhost "/etc/init.d/squeezelite stop;export DISPLAY=\':0\'; /usr/local/bin/xbmc > /dev/null 2>&1 &"');					
+			}
+			
+			if($_GET['action'] == 'stop'){			
+				$this->view->message[] = $this->stop('xbmc.bin', 'sudo kill $PID');
+			}
+			
+			if($_GET['action'] == 'save'){							
+				$this->selectAutostart(isset($_GET['autostart']) ? 1 : 0);
+			}
 		}
-		
-		if($_GET['action'] == 'stop'){			
-			$this->view->message[] = $this->stop('xbmc.bin', 'sudo kill $PID');
-		}
-		
-		if($_GET['action'] == 'save'){			
-			$this->selectAutostart((int)$_GET['autostart']);
-		}
-		
 		$this->view->autostart = $this->checkAutostart($this->pname, true);
 		$this->view->pid = $this->status($this->pname);
 	}		

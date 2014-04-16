@@ -24,26 +24,28 @@
  */
 
 class Squeezeplayer extends Service {
-	public $view;
 	protected $pname = 'squeezelite';
 	public $viewname = 'Squeezelite';
 	
 	public function __construct(){								
+		parent::__construct();
 		
-		if($_GET['action'] == 'start'){			
-			$this->view->message[] = $this->start($this->pname);			
-		}
-		
-		if($_GET['action'] == 'stop'){			
-			$this->view->message[] = $this->stop($this->pname);			
-		}
-		
-		if($_GET['action'] == 'kill'){
-			$this->view->message[] = $this->kill($this->pname);
-		}
-		
-		if($_GET['action'] == 'save'){
-			$this->selectAutostart((bool)$_GET['autostartsqueeze']);
+		if(isset($_GET['action'])){
+			if($_GET['action'] == 'start'){			
+				$this->view->message[] = $this->start($this->pname);			
+			}
+			
+			if($_GET['action'] == 'stop'){			
+				$this->view->message[] = $this->stop($this->pname);			
+			}
+			
+			if($_GET['action'] == 'kill'){
+				$this->view->message[] = $this->kill($this->pname);
+			}
+			
+			if($_GET['action'] == 'save'){
+				$this->selectAutostart(isset($_GET['autostart']) ? 1 : 0);
+			}
 		}
 		
 		$this->view->pid = $this->status($this->pname);

@@ -28,7 +28,7 @@
 </h1>
 	
 <div class="entry-content">
-	<?php if($sp->view->message[0]) echo implode('<br />', $sp->view->message).'<br /><br />'; ?>
+	<?php if(isset($sp->view->message[0])) echo implode('<br />', $sp->view->message).'<br /><br />'; ?>
 	
 	<form action="" method="get">
 	<input type="hidden" id="action" name="action" value="" />

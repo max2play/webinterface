@@ -25,28 +25,29 @@
 
 
 class Shairport extends Service {
-	public $view;
 	protected $pname = 'shairport';
 	public $viewname = 'Shairport (Airplay)';
 	
 	public function __construct(){								
+		parent::__construct();
 		
-		if($_GET['action'] == 'startap'){			
-			$this->view->message[] = $this->start($this->pname);			
+		if(isset($_GET['action'])){
+			if($_GET['action'] == 'startap'){			
+				$this->view->message[] = $this->start($this->pname);			
+			}
+			
+			if($_GET['action'] == 'stopap'){			
+				$this->view->message[] = $this->stop($this->pname);			
+			}
+			
+			if($_GET['action'] == 'killap'){
+				$this->view->message[] = $this->kill($this->pname);
+			}
+			
+			if($_GET['action'] == 'save'){
+				$this->selectAutostart(isset($_GET['autostart']) ? 1 : 0);
+			}
 		}
-		
-		if($_GET['action'] == 'stopap'){			
-			$this->view->message[] = $this->stop($this->pname);			
-		}
-		
-		if($_GET['action'] == 'killap'){
-			$this->view->message[] = $this->kill($this->pname);
-		}
-		
-		if($_GET['action'] == 'save'){
-			$this->selectAutostart((bool)$_GET['autostartap']);
-		}
-		
 		$this->view->pid = $this->status($this->pname);
 		
 		$this->view->autostart = $this->checkAutostart($this->pname, true);

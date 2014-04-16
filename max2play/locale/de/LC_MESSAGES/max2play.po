@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-16 13:58+0100\n"
-"PO-Revision-Date: 2014-04-16 14:08+0100\n"
+"POT-Creation-Date: 2014-04-16 16:17+0100\n"
+"PO-Revision-Date: 2014-04-16 16:35+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,108 +16,391 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: y:\\projects\\Max2Play-Git\n"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:94
+#: y:\projects\Max2Play-Git/max2play/application/view/xbmc.php:28
+msgid "XBMC - Status, Start & Stop"
+msgstr "XBMC - Status, Start & Stop"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/xbmc.php:38
+#: y:\projects\Max2Play-Git/max2play/application/view/xbmc.php:41
+#: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:37
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:42
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:46
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:56
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:60
+msgid "Status"
+msgstr "Status"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/xbmc.php:38
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:42
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:56
+msgid "$SERVICENAME is running with processID"
+msgstr "$SERVICENAME läuft aktuell unter der ProzessID"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/xbmc.php:39
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:43
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:57
+msgid "stop $SERVICENAME"
+msgstr "$SERVICENAME stoppen"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/xbmc.php:41
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:46
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:60
+msgid "$SERVICENAME not running"
+msgstr "$SERVICENAME läuft nicht"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/xbmc.php:42
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:47
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:61
+msgid "start $SERVICENAME"
+msgstr "$SERVICENAME starten"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/xbmc.php:46
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:49
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:64
+msgid "Autostart $SERVICENAME"
+msgstr "Autostart $SERVICENAME"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/xbmc.php:48
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:51
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:66
+msgid "save"
+msgstr "speichern"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/xbmc.php:52
+msgid "XBMC INFO DESCRIPTION"
+msgstr ""
+"XBMC ist ein Media-Center für Videos, Musik und mehr.<br /><br /><sup>#1</"
+"sup>Autostart XBMC: wenn aktiviert, wird XBMC automatisch beim Start von "
+"Max2Play gestartet. Dies empfiehlt sich bei der Nutzung als Videoplayer. "
+"Wenn Max2Play nur für Musik genutzt wird kann auf den Start von XBMC "
+"verzichtet werden. Dadurch verbraucht Max2Play weniger Resourcen und startet "
+"schneller.<br /><br /><b>Hinweise:</b><br />Wenn XBMC läuft wird Squeezelite "
+"automatisch deaktiviert! Anders ist es derzeit nicht möglich Sound in XBMC "
+"abzuspielen, da XBMC Pulseaudio nutzt und Squeezelite sowie Shairplay Alsa "
+"nutzen um gleichzeitig auf das Soundinterface zuzugreifen. Sobald XBMC "
+"beendet wird, startet Squeezelite automatisch wieder."
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:27
+msgid "Filesystem - mount network paths (e.g. NFS) "
+msgstr "Dateisystem - Mounten von Netzwerkpfaden (z.B. NFS) "
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:38
+msgid "Mountpoint"
+msgstr "Mountpoint"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:39
+msgid "Path"
+msgstr "Pfad"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:40
+msgid "Type"
+msgstr "Typ"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:41
+msgid "Options"
+msgstr "Optionen"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:42
+msgid "Action"
+msgstr "Aktion"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:56
+msgid "Add new mountpoint"
+msgstr "Neuen Mountpoint hinzufügen"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:69
+msgid "Important Information"
+msgstr "Bitte beachten"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:70
+msgid "Important Information Filesystem Description"
+msgstr ""
+"Normale Netzwerkfreigaben auf NFS (z.B. Synology Diskstation) erfolgen wie "
+"im Beispiel:<br />\t<b>Mountpoint (IP oder Hostname und Pfad):</b> z.B. <i>//"
+"IP-ADRESSE/PFAD</i> <br />\t<b>Pfad auf Max2Play (für Verwendung in "
+"Squeezeserver oder XBMC):</b> z.B. <i>/mnt/mountdir/</i> <br />\t<b>Typ:</b> "
+"meist <i>cifs</i> <br />\t<b>Optionen (Benutzer, Passwort und Optionen für "
+"Freigabe):</b> z.B. <i>user=name,password=pass,sec=ntlm,iocharset=utf8</"
+"i><br />\tAchtung: Bei den Optionen bitte immer <i>sec=ntlm</i> angeben! \t"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:28
+msgid "WiFi & Network configuration"
+msgstr "WLAN & Netzwerk Konfiguration"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:38
+msgid "active"
+msgstr "aktiv"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:38
+msgid "not active"
+msgstr "nicht aktiv"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:38
+msgid "WiFi USB connection status is <b>$STATUS</b>"
+msgstr "WLAN Verbindungsstatus ist <b>$STATUS</b>"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:39
+msgid "(Only WPA/WPA2-Encryption possible)"
+msgstr "(Nur WPA/WPA2-Verschlüsselung möglich)"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:42
+msgid "Load WiFi Interface"
+msgstr "WLAN Interface laden"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:45
+msgid "Network SSID"
+msgstr "Netzwerkname"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:49
+msgid "Password"
+msgstr "Netzwerkschlüssel"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:53
+msgid "Group Cipher"
+msgstr "Group Cipher"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:59
+msgid "List of available networks"
+msgstr "Liste verfügbarer Netzwerke"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:81
+msgid "start scan"
+msgstr "Scan starten"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:82
+msgid ""
+"Choose your network by clicking on it, enter your password and save the "
+"settings"
+msgstr ""
+"Gewünschtes Netzwerk anklicken, Passwort eingeben und Einstellungen speichern"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:86
+msgid "Configure LAN Mac-Address"
+msgstr "LAN-Konfiguration MAC-Adresse"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:87
+msgid "(Change only if there are more Max2Play-Devices in one network)"
+msgstr "(Nur ändern bei mehreren Playern im Netzwerk)"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:91
+msgid "Save all settings"
+msgstr "Alle Einstellungen speichern"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:96
+msgid "WLAN INFO DESCRIPTION"
+msgstr ""
+"Info: bei Änderung der Netzwerkparameter bitte das Gerät Neustarten! Bei "
+"Betrieb mehrerer Max2Play-Geräte muss die MAC-Adresse für das LAN auf den "
+"Geräten jeweils unterschiedlich sein.\t<br />Bei dem Netzwerknamen Groß/"
+"Kleinschreibung beachten."
+
+#: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:99
+#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:65
+msgid "DEBUG Info"
+msgstr "DEBUG Info"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/faq.php:28
+msgid "FAQ - frequently asked questions"
+msgstr "FAQ - Häufig gestellte Fragen"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:31
+msgid "Mediaplayer Squeezelite & Airplay - Status, Start / Stop"
+msgstr "Mediaplayer Squeezelite & Airplay - Status, Start / Stop"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:44
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:58
+msgid "kill $SERVICENAME"
+msgstr "$SERVICENAME killen"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:71
+msgid "SQUEEZEPLAYER INFO DESCRIPTION"
+msgstr ""
+"Squeezelite ist ein Software Player für Squeezebox, der mit dem Logitech "
+"Media Server (Squeezebox Server) arbeitet und ähnlich wie ein Squeezebox "
+"Receiver \tüber den Server steuerbar ist.<br />\tShairport ist ein Dienst "
+"der Apple Airplay ermöglicht.<br />\tBeide Dienste werden beim Starten des "
+"ODROID etwas verzögert geladen (max. 1 Minute), um Konflikte mit den "
+"Soundtreibern zu vermeiden."
+
+#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:28
+msgid "Basic settings for Max2Play"
+msgstr "Grundeinstellungen für Max2Play"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:39
+msgid "Playername"
+msgstr "Playername"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:41
+msgid "URL for this Web-administration / name of Squeezelite player"
+msgstr "URL für diese Web-Administration / Name Squeezelite Player"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:44
+msgid "Display Resolution"
+msgstr "Auflösung"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:49
+msgid "With this resolution runs desktop and XBMC"
+msgstr "Unter dieser Auflösung läuft XBMC und der Desktop"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:52
+msgid "Save Settings"
+msgstr "Einstellungen speichern"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:55
+msgid "Reboot Max2Play"
+msgstr "Reboot Max2Play"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:59
+msgid "Reset configs to Max2Play delivery configuration"
+msgstr "Max2Play Ursprungskonfiguration Wiederherstellen"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:60
+msgid "Reset configs - WARNING: deletes all changes"
+msgstr "Konfiguration Reset (löscht alle Änderungen!)"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:61
+msgid ""
+"Settings for WiFi, autostart, playername, filesystem mounts will be "
+"overwritten."
+msgstr ""
+"Einstellungen zu Wlan, Autostart, Playername und gemountete Verzeichnisse "
+"werden durch die Standardbelegung überschrieben."
+
+#: y:\projects\Max2Play-Git/max2play/application/view/index.php:2
+msgid "Max2Play Media Player - Info"
+msgstr "Max2Play Media Player - Informationen"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/index.php:6
+msgid ""
+"READ CAREFULLY: THIS INTERFACE IS STILL A BETA AND MIGHT HAVE BUGS OR "
+"UNEXPECTED BEHAVIOR!"
+msgstr ""
+"ACHTUNG: DIESE KONFIGURATIONSMÖGLICHKEIT IST EINE BETA UND ENTHÄLT "
+"MÖGLICHERWEISE FEHLER!"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/index.php:8
+msgid ""
+"The Max2Play Interface is used to configurate the device without having to "
+"set up montior, keyboard and mouse on the device itsself or login by ssh."
+"<br />All settings are directly written to the players config files."
+msgstr ""
+"Über diese Seiten kann der Player konfiguriert werden (Netzwerkinterfaces, "
+"Netzwerkfreigaben, Autostartkonfiguration).<br />Die Einstellungen werden "
+"direkt in Konfigurationsdateien geschrieben, die sich auf dem Player "
+"befinden. Alternativ kann direkt per SSH eine Verbindung aufgebaut werden "
+"oder per HDMI-Kabel und Tastatur/Maus am Gerät die Konfiguration per Konsole "
+"erfolgen."
+
+#: y:\projects\Max2Play-Git/max2play/application/view/index.php:10
+msgid ""
+"Questions concerning this project? Please refer to <a href=\"http://shop."
+"max2play.com\" target=\"_blank\">Shop.Max2Play</a>"
+msgstr ""
+"Fragen zum Projekt? Bitte auf <a href=\"http://shop.max2play.com\" target="
+"\"_blank\">Shop.Max2Play</a> den Kontakt nutzen."
+
+#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:73
 msgid "Process is already running"
 msgstr "Dienst läuft bereits"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:106
+#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:85
 msgid "Trying to launch"
 msgstr "Versucht zu starten"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:114
+#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:93
 msgid "successful with ID"
 msgstr "Erfolgreich mit ID"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:116
+#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:95
 msgid "NOT successful"
 msgstr "NICHT Erfolgreich"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:131
+#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:110
 msgid "Unable to stop process - it seems that it is not running"
 msgstr "Dienst kann nicht gestoppt werden, da er nicht läuft"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:144
-#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:177
+#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:123
+#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:156
 msgid "Trying to stop"
 msgstr "Versucht zu stoppen"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:152
+#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:131
 msgid "successfully stopped"
 msgstr "Erfolgreich gestoppt"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:154
+#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:133
 msgid "could NOT stop process - try kill instead"
 msgstr "stoppen NICHT erfolgreich - bitte Kill versuchen"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:169
+#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:148
 msgid "Unable to kill process - it seems that it is not running"
 msgstr "Dienst kann nicht gekillt werden, da er nicht läuft"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:180
+#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:159
 msgid "successfully killed"
 msgstr "Erfolgreich gekillt"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:182
+#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:161
 msgid "could not kill process"
 msgstr "kill NICHT erfolgreich"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:226
+#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:205
 msgid "successfully removed from autostart"
 msgstr "erfolgreich aus Autostart entfernt"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:229
+#: y:\projects\Max2Play-Git/max2play/application/controller/Service.php:208
 msgid "successfully added to autostart"
 msgstr "erfolgreich zu Autostart hinzugefügt"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:35
+#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:33
 msgid "REBOOT gestartet"
 msgstr "REBOOT started"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:68
+#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:66
 msgid "Changed display resolution - Reboot needed"
 msgstr "Bildschirmauflösung angepasst - Reboot erforderlich"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:70
+#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:68
 msgid "no valid resolution choosen"
 msgstr "keine gültige Auflösung"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:96
+#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:94
 msgid "Name not possible! Please do not use special characters."
 msgstr "Ungültiger Name! Bitte keine Sonderzeichen verwenden."
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:98
+#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:96
 msgid "Changes successful - Reboot needed"
 msgstr "Erfolgreich geändert - Reboot erforderlich"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:117
+#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:115
 msgid "Config Files restored for "
 msgstr "Ursprungskonfiguration wiederhergestellt für"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:39
+#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:38
 msgid "Data saved"
 msgstr "Daten gespeichert"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:51
+#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:50
 msgid "WLAN Device not responding - Reboot and try again."
 msgstr "WLAN Device reagiert nicht - Gerät neu starten."
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:56
+#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:55
 msgid "Networks found and added to dropdown list"
 msgstr "Netzwerke gefunden und in Auswahlliste eingefügt"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:61
+#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:60
 msgid "No networks found"
 msgstr "Keine Netzwerke gefunden"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:86
+#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:85
 msgid "MAC-Address changed - please reboot"
 msgstr "MAC-Adresse geändert - bitte Neustarten"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:101
+#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:100
 msgid "WLAN activated - please reboot device"
 msgstr "WLAN aktiviert - bitte Neustarten"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:108
+#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:107
 msgid "WLAN deactivated - no network choosen - please reboot"
 msgstr "WLAN deaktiviert - kein Netzwerk gewählt - bitte Neustarten"
 
@@ -132,157 +415,6 @@ msgstr "Hinzufügen nicht möglich! Bitte Anleitung beachten!"
 #: y:\projects\Max2Play-Git/max2play/application/controller/Filesystem.php:82
 msgid "Entry deleted"
 msgstr "Eintrag gelöscht"
-
-#: y:\projects\Max2Play-Git/max2play/public/filesystem.php:32
-msgid "Filesystem - mount network paths (e.g. NFS) "
-msgstr "Dateisystem - Mounten von Netzwerkpfaden (z.B. NFS) "
-
-#: y:\projects\Max2Play-Git/max2play/public/filesystem.php:43
-msgid "Mountpoint"
-msgstr "Mountpoint"
-
-#: y:\projects\Max2Play-Git/max2play/public/filesystem.php:44
-msgid "Path"
-msgstr "Pfad"
-
-#: y:\projects\Max2Play-Git/max2play/public/filesystem.php:45
-msgid "Type"
-msgstr "Typ"
-
-#: y:\projects\Max2Play-Git/max2play/public/filesystem.php:46
-msgid "Options"
-msgstr "Optionen"
-
-#: y:\projects\Max2Play-Git/max2play/public/filesystem.php:47
-msgid "Action"
-msgstr "Aktion"
-
-#: y:\projects\Max2Play-Git/max2play/public/filesystem.php:61
-msgid "Add new mountpoint"
-msgstr "Neuen Mountpoint hinzufügen"
-
-#: y:\projects\Max2Play-Git/max2play/public/filesystem.php:74
-msgid "Important Information"
-msgstr "Bitte beachten"
-
-#: y:\projects\Max2Play-Git/max2play/public/filesystem.php:75
-msgid "Important Information Filesystem Description"
-msgstr ""
-"Normale Netzwerkfreigaben auf NFS (z.B. Synology Diskstation) erfolgen wie "
-"im Beispiel:<br />\t<b>Mountpoint (IP oder Hostname und Pfad):</b> z.B. <i>//"
-"IP-ADRESSE/PFAD</i> <br />\t<b>Pfad auf Max2Play (für Verwendung in "
-"Squeezeserver oder XBMC):</b> z.B. <i>/mnt/mountdir/</i> <br />\t<b>Typ:</b> "
-"meist <i>cifs</i> <br />\t<b>Optionen (Benutzer, Passwort und Optionen für "
-"Freigabe):</b> z.B. <i>user=name,password=pass,sec=ntlm,iocharset=utf8</"
-"i><br />\tAchtung: Bei den Optionen bitte immer <i>sec=ntlm</i> angeben! \t"
-
-#: y:\projects\Max2Play-Git/max2play/public/faq.php:31
-msgid "FAQ - frequently asked questions"
-msgstr "FAQ - Häufig gestellte Fragen"
-
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:32
-msgid "Mediaplayer Squeezelite & Airplay - Status, Start / Stop"
-msgstr "Mediaplayer Squeezelite & Airplay - Status, Start / Stop"
-
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:43
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:47
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:57
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:61
-msgid "Status"
-msgstr "Status"
-
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:43
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:57
-msgid "$SERVICENAME is running with processID"
-msgstr "$SERVICENAME läuft aktuell unter der ProzessID"
-
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:44
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:58
-msgid "stop $SERVICENAME"
-msgstr "$SERVICENAME stoppen"
-
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:45
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:59
-msgid "kill $SERVICENAME"
-msgstr "$SERVICENAME killen"
-
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:47
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:61
-msgid "$SERVICENAME not running"
-msgstr "$SERVICENAME läuft nicht"
-
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:48
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:62
-msgid "start $SERVICENAME"
-msgstr "$SERVICENAME starten"
-
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:50
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:65
-msgid "Autostart $SERVICENAME"
-msgstr "Autostart $SERVICENAME"
-
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:52
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:67
-msgid "save"
-msgstr "speichern"
-
-#: y:\projects\Max2Play-Git/max2play/public/squeezeplayer.php:72
-msgid "SQUEEZEPLAYER INFO DESCRIPTION"
-msgstr ""
-"Squeezelite ist ein Software Player für Squeezebox, der mit dem Logitech "
-"Media Server (Squeezebox Server) arbeitet und ähnlich wie ein Squeezebox "
-"Receiver \tüber den Server steuerbar ist.<br />\tShairport ist ein Dienst "
-"der Apple Airplay ermöglicht.<br />\tBeide Dienste werden beim Starten des "
-"ODROID etwas verzögert geladen (max. 1 Minute), um Konflikte mit den "
-"Soundtreibern zu vermeiden."
-
-#: y:\projects\Max2Play-Git/max2play/public/basic.php:31
-msgid "Basic settings for Max2Play"
-msgstr "Grundeinstellungen für Max2Play"
-
-#: y:\projects\Max2Play-Git/max2play/public/basic.php:42
-msgid "Playername"
-msgstr "Playername"
-
-#: y:\projects\Max2Play-Git/max2play/public/basic.php:44
-msgid "URL for this Web-administration / name of Squeezelite player"
-msgstr "URL für diese Web-Administration / Name Squeezelite Player"
-
-#: y:\projects\Max2Play-Git/max2play/public/basic.php:47
-msgid "Display Resolution"
-msgstr "Auflösung"
-
-#: y:\projects\Max2Play-Git/max2play/public/basic.php:52
-msgid "With this resolution runs desktop and XBMC"
-msgstr "Unter dieser Auflösung läuft XBMC und der Desktop"
-
-#: y:\projects\Max2Play-Git/max2play/public/basic.php:55
-msgid "Save Settings"
-msgstr "Einstellungen speichern"
-
-#: y:\projects\Max2Play-Git/max2play/public/basic.php:58
-msgid "Reboot Max2Play"
-msgstr "Reboot Max2Play"
-
-#: y:\projects\Max2Play-Git/max2play/public/basic.php:62
-msgid "Reset configs to Max2Play delivery configuration"
-msgstr "Max2Play Ursprungskonfiguration Wiederherstellen"
-
-#: y:\projects\Max2Play-Git/max2play/public/basic.php:63
-msgid "Reset configs - WARNING: deletes all changes"
-msgstr "Konfiguration Reset (löscht alle Änderungen!)"
-
-#: y:\projects\Max2Play-Git/max2play/public/basic.php:64
-msgid ""
-"Settings for WiFi, autostart, playername, filesystem mounts will be "
-"overwritten."
-msgstr ""
-"Einstellungen zu Wlan, Autostart, Playername und gemountete Verzeichnisse "
-"werden durch die Standardbelegung überschrieben."
-
-#: y:\projects\Max2Play-Git/max2play/public/basic.php:68
-msgid "DEBUG Info"
-msgstr "DEBUG Info"
 
 #: y:\projects\Max2Play-Git/max2play/public/header.php:42
 msgid "Choose active Player"
@@ -315,39 +447,6 @@ msgstr "WLAN & LAN"
 #: y:\projects\Max2Play-Git/max2play/public/header.php:60
 msgid "Reset & Reboot"
 msgstr "Reset & Reboot"
-
-#: y:\projects\Max2Play-Git/max2play/public/index.php:32
-msgid "Max2Play Media Player - Info"
-msgstr "Max2Play Media Player - Informationen"
-
-#: y:\projects\Max2Play-Git/max2play/public/index.php:36
-msgid ""
-"READ CAREFULLY: THIS INTERFACE IS STILL A BETA AND MIGHT HAVE BUGS OR "
-"UNEXPECTED BEHAVIOR!"
-msgstr ""
-"ACHTUNG: DIESE KONFIGURATIONSMÖGLICHKEIT IST EINE BETA UND ENTHÄLT "
-"MÖGLICHERWEISE FEHLER!"
-
-#: y:\projects\Max2Play-Git/max2play/public/index.php:38
-msgid ""
-"The Max2Play Interface is used to configurate the device without having to "
-"set up montior, keyboard and mouse on the device itsself or login by ssh."
-"<br />All settings are directly written to the players config files."
-msgstr ""
-"Über diese Seiten kann der Player konfiguriert werden (Netzwerkinterfaces, "
-"Netzwerkfreigaben, Autostartkonfiguration).<br />Die Einstellungen werden "
-"direkt in Konfigurationsdateien geschrieben, die sich auf dem Player "
-"befinden. Alternativ kann direkt per SSH eine Verbindung aufgebaut werden "
-"oder per HDMI-Kabel und Tastatur/Maus am Gerät die Konfiguration per Konsole "
-"erfolgen."
-
-#: y:\projects\Max2Play-Git/max2play/public/index.php:40
-msgid ""
-"Questions concerning this project? Please refer to <a href=\"http://shop."
-"max2play.com\" target=\"_blank\">Shop.Max2Play</a>"
-msgstr ""
-"Fragen zum Projekt? Bitte auf <a href=\"http://shop.max2play.com\" target="
-"\"_blank\">Shop.Max2Play</a> den Kontakt nutzen."
 
 #: y:\projects\Max2Play-Git/max2play/public/footer.php:30
 msgid "Topics"

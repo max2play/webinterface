@@ -25,22 +25,24 @@
 
 
 class Wlan extends Service {
-	public $view;
 	private $wpa_config = '/opt/max2play/wpa_supplicant.conf';
 	private $networkinterfaces = '/etc/network/interfaces';
 	private $mac_address = '/etc/smsc95xx_mac_addr';
 	
 	public function __construct(){								
-		$this->_getWirelessConfig();
+		parent::__construct();
 		
-		if($_GET['action'] == 'save'){
-			$this->_saveWirelessConfig();
-			$this->view->message[] = _("Data saved");
-			$this->_getWirelessConfig();
-		}
-
-		if($_GET['action'] == 'scanWlanNetworks'){
-			$this->_showWlanNetworks();
+		$this->_getWirelessConfig();
+		if(isset($_GET['action'])){
+			if($_GET['action'] == 'save'){
+				$this->_saveWirelessConfig();
+				$this->view->message[] = _("Data saved");
+				$this->_getWirelessConfig();
+			}
+	
+			if($_GET['action'] == 'scanWlanNetworks'){
+				$this->_showWlanNetworks();
+			}
 		}
 	}
 	

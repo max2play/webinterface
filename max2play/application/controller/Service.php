@@ -30,18 +30,19 @@
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-
+include_once '../application/model/Info.php';
 //TODO: DEBUG für Alle Systembefehle ausgeben
 
 class Service {
-	public $message; // Array of Messages for View
+	public $view;	
 	public $viewname; //Name of Service in View
 	public $info; 
 	public $autostartconf = '/opt/max2play/autostart.conf';
 	
 	public function __construct(){
-		$this->getPlayername();
-		$this->getAllNetworkPlayers();
+		$this->view = new stdClass();
+		$this->view->message = array(); // Array of Messages for View
+		$this->info = new Info();				
 	}
 	
 	public function status($name = ''){
@@ -293,3 +294,6 @@ class Service {
 
 //Create Instance of Service Class
 $service = new Service();
+$service->getPlayername();
+$service->getAllNetworkPlayers();
+
