@@ -68,12 +68,13 @@ class Squeezeserver extends Service {
 		$shellanswer = shell_exec("cat /opt/max2play/cache/install_lms.txt");
 		if($shellanswer != ''){
 			preg_match('=[0-9\: -]*=', $shellanswer, $started);
-			if((time() - 2*60*60) > strtotime($started[0])){
-				$this->view->message[] = "Something went wrong in last Install Attempt";
+			//Use WGET Timestamp - install should never take more than 2 hours			
+			if((time() - 2*60*60) > strtotime(trim($started[0], '- '))){
+				$this->view->message[] = "Something went wrong in last Install Attempt - Deleting Progressfile";
 				shell_exec("rm /opt/max2play/cache/install_lms.txt");
 			}
 			$shellanswer = preg_replace('=[0-9]{1,}s.*?[0-9]{1,}K[\. ]{10,}.*?[0-9]{1,}(M|K) =s', '', $shellanswer);
-			$this->view->message[] = "Installationsfortschritt: (gestartet ".$started[0].") ". $shellanswer;
+			$this->view->message[] = nl2br("Installationsfortschritt: (gestartet ".$started[0].") ". $shellanswer);
 			return false;
 		}else{
 			$shellanswer = shell_exec("sudo /opt/max2play/install_lms.sh");
