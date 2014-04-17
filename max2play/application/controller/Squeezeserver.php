@@ -46,10 +46,52 @@ class Squeezeserver extends Service {
 			if($_GET['action'] == 'save'){
 				$this->selectAutostart(isset($_GET['autostart']) ? 1 : 0, false);
 			}
+			
+			if($_GET['action'] == 'install'){
+				$this->installLMS();
+			}
 		}
 		
+		$this->view->installed = $this->checkInstall();
 		$this->view->autostart = $this->checkAutostart($this->pname);
 		$this->view->pid = $this->status($this->prozessname);
+	}
+	
+	/**
+	 * Due to the lizenz of LMS (not completly GPL) the user needs to start the installation manual
+	 * Preinstalled LMS on images is not allowed
+	 * This needs the sudoers.d rights for the script /opt/max2play/install_lms.sh
+	 */
+	public function installLMS(){
+		ignore_user_abort(true);
+		set_time_limit(7200);
+		$shellanswer = shell_exec("cat /opt/max2play/cache/install_lms.txt");
+		if($shellanswer != ''){
+			preg_match('=[0-9\: -]*=', $shellanswer, $started);
+			if((time() - 2*60*60) > strtotime($started[0])){
+				$this->view->message[] = "Something went wrong in last Install Attempt";
+				shell_exec("rm /opt/max2play/cache/install_lms.txt");
+			}
+			$shellanswer = preg_replace('=[0-9]{1,}s.*?[0-9]{1,}K[\. ]{10,}.*?[0-9]{1,}(M|K) =s', '', $shellanswer);
+			$this->view->message[] = "Installationsfortschritt: (gestartet ".$started[0].") ". $shellanswer;
+			return false;
+		}else{
+			$shellanswer = shell_exec("sudo /opt/max2play/install_lms.sh");
+			$this->view->message[] = 'AUSGABE: '.$shellanswer;
+			return true;
+		}
+	}
+	
+	/**
+	 * This needs the sudoers.d rights for the script /opt/max2play/install_lms.sh
+	 * @return boolean
+	 */
+	public function checkInstall(){
+		$shellanswer = shell_exec("sudo /opt/max2play/install_lms.sh check");
+		if(strpos($shellanswer, 'installed=1')){
+			return true;
+		}else 
+			return false;
 	}
 		
 }

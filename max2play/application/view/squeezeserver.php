@@ -24,7 +24,7 @@
 ?>										
 
 <h1 class="entry-header">
-	Squeezeserver - Status, Start & Stop
+	<?php echo _('Squeezeserver - Status, Start & Stop') ?>
 </h1>
 	
 <div class="entry-content">
@@ -34,24 +34,28 @@
 	<input type="hidden" id="action" name="action" value="" />
 	
 	<?php if ($sp->view->pid) { ?>
-		<b>Status:</b> Squeezeserver (Logitech Media Server) läuft aktuell unter der ProzessID <b><?php echo $sp->view->pid ?></b><br />
-		<a target="_blank" href="http://<?php echo preg_replace('=:.*=','', $_SERVER['HTTP_HOST']).':9000'; ?>" >Squeezeserver Webadministration starten</a><br /><br />
-		<input type="button" value="Squeezeserver stoppen" name="stop" onclick="document.getElementById('action').value='stop';submit();" />
-		<input type="button" value="Squeezeserver killen" name="kill" onclick="document.getElementById('action').value='kill';submit();" />
-	<?php }else { ?>
-		<b>Status:</b> Squeezeserver läuft nicht<br /><br />
-		<input type="button" value="Squeezeserver starten" name="start" onclick="document.getElementById('action').value='start';submit();" />
+		<b><?php echo _('Status')?>:</b> <?php echo str_replace('$SERVICENAME', $sp->viewname, _('$SERVICENAME is running with processID')) ?> <b><?php echo $sp->view->pid ?></b><br /><br />
+		<a target="_blank" href="http://<?php echo preg_replace('=:.*=','', $_SERVER['HTTP_HOST']).':9000'; ?>" ><?php echo _('Start Squeezeserver Webadministration')?></a><br /><br />
+		<input type="button" value="<?php echo str_replace('$SERVICENAME', $sp->viewname, _('stop $SERVICENAME')) ?>" name="stop" onclick="document.getElementById('action').value='stop';submit();" />
+		<input type="button" value="<?php echo str_replace('$SERVICENAME', $sp->viewname, _('kill $SERVICENAME')) ?>" name="kill" onclick="document.getElementById('action').value='kill';submit();" />
+	<?php }elseif($sp->view->installed == true) { ?>
+		<b><?php echo _('Status')?>:</b> <?php echo str_replace('$SERVICENAME', $sp->viewname, _('$SERVICENAME not running')) ?><br /><br />
+		<input type="button" value="<?php echo str_replace('$SERVICENAME', $sp->viewname, _('start $SERVICENAME')) ?>" name="start" onclick="document.getElementById('action').value='start';submit();" />
 		
+	<?php }else { ?>				
+			<b><?php echo str_replace('$NAME', $sp->viewname, _('$NAME start installation')) ?>:</b> 
+			<input type="button" value="<?php echo str_replace('$NAME', $sp->viewname, _('$NAME start installation')) ?>" name="install" onclick="document.getElementById('action').value='install';submit();" />
+			<br /><?php echo _('The installation takes about 5 to 10 minutes depending on your internet connection. At first it downloads the package from http://downloads.slimdevices.com/ and afterwards it installs the package. You may reload this page by clicking the button again to see the status of the install process.')?>	
 	<?php } ?>
 	
 		<br /><br />
-		<b>Autostart Squeezebox Server:</b><br />
+		<b><?php echo str_replace('$SERVICENAME', $sp->viewname, _('Autostart $SERVICENAME')) ?>:</b><br />
 		<input type="checkbox" <?php if($sp->view->autostart) echo "checked"; ?> value="1" name="autostart" />
-		<input type="button" value="speichern" name="save" onclick="document.getElementById('action').value='save';submit();" />
+		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
 	
 	</form>
 	
 	<br /><br />
-	Squeezeserver (Logitech Media Server) ist der Server für die Squeezebox und ist für die Steuerung der Player zuständig. Im Netzwerk muss mindestens ein solcher Server laufen.  
+	<?php echo _('SQUEEZESERVER INFO DESCRIPTION') ?>
+	  
 </div>	
-															
