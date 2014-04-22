@@ -47,6 +47,12 @@
 			</select>
 		</td>
 		<td><?php echo _("With this resolution runs desktop and XBMC") ?></td>
+	  </tr>
+	  <tr>
+		<td><?php echo _("Network Lookup") ?></td>
+		<td><input type="checkbox" id="Max2PlayNetworkLookup" name="Max2PlayNetworkLookup" <?php if($basic->view->Max2PlayNetworkLookup) echo 'checked'; ?> value="1" /></td>
+		<td><?php echo _("Search local Network for other Max2Play-Devices running Squeezelite and display them in the header of this interface") ?></td> 
+	  </tr>
 	</table>
 	<br />
 	<input type="button" value="<?php echo _("Save Settings") ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />

@@ -31,11 +31,13 @@
  */
 
 include_once('../application/model/Mount.php');
+include_once('../application/model/Samba.php');
 
 class Filesystem extends Service {
 	
 	//protected $_fstabPath = '/home/webuser/';
 	protected $_fstabPath = '/etc/';
+	protected $_sambaconf = '/opt/max2play/samba.conf';
 	
 	public function __construct(){		
 		parent::__construct();
@@ -50,7 +52,21 @@ class Filesystem extends Service {
 			}
 		}
 		
+		if(isset($_GET['sambaaction'])){
+			if($_GET['sambaaction'] == 'add'){
+				$this->addSambashare();
+			}
+			if(strpos($_GET['sambaaction'],'delete') !== FALSE){
+				$pos = explode('_', $_GET['sambaaction']);
+				$this->removeSambashare($pos[1]);
+			}
+			if($_GET['sambaaction'] == 'savepassword'){
+				$this->setSambaPassword();
+			}
+		}
+		
 		$this->getMountsFstab();
+		$this->getSambaConfig();
 	}
 	
 	public function addMount(){
@@ -125,13 +141,106 @@ class Filesystem extends Service {
 	
 	/**
 	 * 
-	 * Alles vor ##USERMOUNT gehört zu System Mountpoints
+	 * Everything before ##USERMOUNT belongs to System Mountpoints and SHOULD NEVER BE CHANGED
 	 */
 	private function _separateNonUserMounts($mounts){
 		$mounts = explode("##USERMOUNT\n", $mounts);
 		$usermounts = $mounts[1];
 		return $usermounts;
-	} 
+	}
+	
+	/**
+	 * get Configuration of Samba Shares from /opt/max2play/samba.conf
+	 * 
+	 * Config File uses this Options - Example
+	 * 			[SHARENAME]
+	 * 			comment = max2play share
+ 	 *			path = /home/odroid
+ 	 *			writeable = yes
+ 	 *			create mode = 664
+	 */
+	public function getSambaConfig(){
+		$this->view->sambashares = array();
+		$shellanswer = shell_exec("cat ".$this->_sambaconf);
+		//Split config
+		if(preg_match_all('=(\[[^\[]*)=si', $shellanswer, $matches)){
+			foreach($matches[1] as $match){
+				$smb = new Samba($match);
+				$this->view->sambashares[] = $smb;
+			}
+		}
+		return true;		
+	}
+	
+	/**
+	 * Add a new Sambashare
+	 * If this Method is called with $share as a already existing share it is not really adding a new one but deleting another -> see removeSambashare
+	 * use testparm to check config
+	 * @param Samba $share
+	 * @return boolean
+	 */
+	public function addSambashare($share = false){
+		if(!$share){
+			$smb = new Samba();
+			$test1 = $smb->setName($_GET['name']);
+			$test2 = $smb->setOption('path', $_GET['path']);
+			$test3 = $smb->setOption('comment', $_GET['comment']);
+			$test4 = $smb->setOption('writeable', $_GET['writeable']);
+			$test5 = $smb->setOption('create mode', $_GET['create mode']);
+		}else{
+			$smb = $share;
+			$test1 = true;
+		}
+		if($test1){						
+			shell_exec("echo '".$smb->getShareConf()."' >> ".$this->_sambaconf);
+			$this->getSambaConfig();
+			if(!$share){
+				$this->view->message[] = _("Sambashare successfully added");
+				$this->restartSamba();
+			}
+			return true;
+		}
+		$this->view->message[] = _("Sambashare NOT added! Please refer to the description below!");
+		return false;
+	}
+	
+	/**
+	 * Remove one Entry in Sambashares by
+	 *  - get all active shares
+	 *  - delete all shares
+	 *  - add shares that shall remain
+	 * @param number $pos
+	 */
+	public function removeSambashare($pos = 0){
+		$this->getSambaConfig();
+		shell_exec("echo '#Samba Config Max2Play' > ".$this->_sambaconf);
+		
+		$i = 0;
+		foreach($this->view->sambashares as $share){
+			if($i != $pos){
+				$this->addSambashare($share);
+			}
+			$i++;
+		}			
+		
+		$this->view->message[] = _('Entry deleted');
+		
+		$this->getSambaConfig();
+		$this->restartSamba();
+	}
+	
+	public function setSambaPassword(){		
+		if(strlen(str_replace('*', '', $_GET['sambpass'])) > 0){			
+			$output = shell_exec('sudo /opt/max2play/setSambaPass.sh "'.$_GET['sambpass'].'"');
+			$this->view->message[] = _('Password changed').' - '.$output;
+			$this->restartSamba();
+		}
+	}
+	
+	public function restartSamba(){
+		shell_exec("sudo /etc/init.d/samba restart");
+		$this->view->message[] = _('Samba Service restarted');
+	}
 }
 
 $fs = new Filesystem();

@@ -79,11 +79,13 @@ class Wlan extends Service {
 			$shellanswer = str_replace('psk="'.$this->view->psk.'"', 'psk="'.$psk.'"', $shellanswer);
 		}
 		
-		$shellanswer_eth = shell_exec("cat ".$this->networkinterfaces);				
-		if($_GET['lanmac'] != '' && $this->view->lanmac != $_GET['lanmac'] && preg_match("=([1-9abcdef]{2}:){5}[1-9abcdef]{2}=", $_GET['lanmac'], $matches) == true){			
-			//shell_exec("echo '".$_GET['lanmac']."' > ".$this->mac_address);					
-			$shellanswer_eth = str_replace('hwaddress ether '.$this->view->lanmac, 'hwaddress ether '.$matches[0], $shellanswer_eth);
-			shell_exec("echo '".$shellanswer_eth."' > ".$this->networkinterfaces);			
+		$shellanswer_eth = shell_exec("cat ".$this->networkinterfaces);	
+		if($_GET['lanmac'] != '' && $this->view->lanmac != $_GET['lanmac'] && preg_match("=([0-9abcdefABCDEF]{2}:){5}[0-9abcdefABCDEF]{2}=", $_GET['lanmac'], $matches) == true){			
+			//Set rights to update Mac-Address-File
+			shell_exec("sudo /opt/max2play/change_mac_address.sh");
+			shell_exec("echo '".$matches[0]."' > ".$this->mac_address);
+			//$shellanswer_eth = str_replace('hwaddress ether '.$this->view->lanmac, 'hwaddress ether '.$matches[0], $shellanswer_eth);
+			//shell_exec("echo '".$shellanswer_eth."' > ".$this->networkinterfaces);			
 			$this->view->message[] = _('MAC-Address changed - please reboot');
 		}
 		
@@ -171,9 +173,9 @@ class Wlan extends Service {
 		}
 		
 		//Netzwerk Konfiguration ETH0 / /etc/smsc95xx_mac_addr löschen -> wird neu zugewiesen		
-		//$shellanswer = shell_exec("cat /etc/smsc95xx_mac_addr");
-		//preg_match('=([0-9a-z:]*)=', $shellanswer, $match);		
-		preg_match('=hwaddress ether ([0-9a-z:]*)=', $shellanswer_eth, $match);
+		$shellanswer = shell_exec("cat /etc/smsc95xx_mac_addr");
+		preg_match('=([0-9a-zA-Z:]*)=', $shellanswer, $match);		
+		//preg_match('=hwaddress ether ([0-9a-zA-Z:]*)=', $shellanswer_eth, $match);
 		if($match[1]){
 			$this->view->lanmac = $match[1];			
 		}

@@ -1,2 +1,2 @@
-www-data ALL=(root)NOPASSWD: /etc/init.d/squeezelite,/sbin/start-stop-daemon,/usr/sbin/update-rc.d,/bin/kill,/etc/init.d/logitechmediaserver,/opt/max2play/install_lms.sh,/sbin/reboot,/bin/mount,/etc/init.d/shairport,/sbin/iwlist,/bin/cp
+www-data ALL=(root)NOPASSWD: /etc/init.d/squeezelite,/etc/init.d/samba,/sbin/start-stop-daemon,/opt/max2play/setSambaPass.sh,/usr/sbin/update-rc.d,/bin/kill,/etc/init.d/logitechmediaserver,/opt/max2play/install_lms.sh,/opt/max2play/change_mac_address.sh,/sbin/reboot,/bin/mount,/etc/init.d/shairport,/sbin/iwlist,/bin/cp
 

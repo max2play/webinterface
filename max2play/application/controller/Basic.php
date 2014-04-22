@@ -41,9 +41,10 @@ class Basic extends Service {
 			if($_GET['action'] == 'save'){
 				$this->view->message[] = $this->updatePlayername($_GET['playername']);
 				$this->view->message[] = $this->updateDisplayResolution($_GET['displayResolution']);
+				$this->updateMax2playNetworkLookup();
 			}
 		}
-		
+		$this->getMax2playNetworkLookup();
 		$this->getPlayername();
 		$this->getDisplayResolutions();
 	}		
@@ -115,6 +116,15 @@ class Basic extends Service {
 			$output = shell_exec('cat '.$filename.'.sav > '.$filename);
 		
 		return _("Config Files restored for ").": <br />".implode('<br />',$files);
+	}
+	
+	public function getMax2playNetworkLookup(){
+		$this->view->Max2PlayNetworkLookup = $this->checkAutostart('Max2PlayNetworkLookup', true);
+	}
+	
+	public function updateMax2playNetworkLookup(){		
+		$this->updateAutostart('Max2PlayNetworkLookup', (bool)$_GET['Max2PlayNetworkLookup'], true);
+		$this->view->message[] = _('Max2Play Network Player Lookup saved');
 	}
 }
 

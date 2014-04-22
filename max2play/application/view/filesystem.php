@@ -48,7 +48,7 @@
 				<td><input type="text" name="" value="<?php echo $mount->getPath(); ?>" /></td>
 				<td><input type="text" name="" value="<?php echo $mount->getType(); ?>" /></td>
 				<td><input type="text" name="" value="<?php echo $mount->getOptions(); ?>" /></td>
-				<td><input type="button" value="Löschen" name="delete" onclick="document.getElementById('action').value='delete_<?php echo $i; ?>';submit();" /></td>
+				<td><input type="button" value="<?php echo _('Delete'); ?>" name="delete" onclick="document.getElementById('action').value='delete_<?php echo $i; ?>';submit();" /></td>
 			</tr>
 		<?php $i++; } ?>
 		<tr>
@@ -61,7 +61,7 @@
 			<td><input type="text" name="path" value="" /></td>
 			<td><input type="text" name="type" value="" /></td>
 			<td><input type="text" name="options" value="" /></td>
-			<td><input type="button" value="Speichern" name="add" onclick="document.getElementById('action').value='add';submit();" /></td>
+			<td><input type="button" value="<?php echo _('Save'); ?>" name="add" onclick="document.getElementById('action').value='add';submit();" /></td>
 		</tr>
 		</table>	
 	</form>
@@ -69,9 +69,69 @@
 	<b><?php echo _('Important Information') ?>:</b><br />
 	<?php echo _('Important Information Filesystem Description') ?>	
 	
-	<br /><br /><br /><br />
+	<br /><br />
 	DEBUGINFO
 	<textarea rows="5" cols="80" readonly><?php echo $fs->view->mount_txt ?></textarea>
+	
+	<br /><br />
+	<h1 class="entry-header">
+		<?php echo _("Sambashares on Max2Play - setup network share paths") ?>
+	</h1>
+	<form action="" method="get">
+		<input type="hidden" id="sambaaction" name="sambaaction" value="" />	
+		
+		<table>
+			<tr>
+				<td><?php echo _('Name') ?></td>
+				<td><?php echo _('Path') ?></td>
+				<td><?php echo _('Comment') ?></td>
+				<td><?php echo _('Writable') ?></td>
+				<td><?php echo _('Create Mode') ?></td>
+			</tr>
+		<?php $i=0;
+			foreach ($fs->view->sambashares as $samba){ ?>
+			<tr>
+				<td><input type="text" name="" value="<?php echo $samba->getName(); ?>" /></td>
+				
+				<td><input type="text" name="" value="<?php echo $samba->getOptions('path'); ?>" /></td>
+				<td><input type="text" name="" value="<?php echo $samba->getOptions('comment'); ?>" /></td>
+				<td><input type="text" name="" value="<?php echo $samba->getOptions('writeable'); ?>" /></td>
+				<td><input type="text" name="" value="<?php echo $samba->getOptions('create mode'); ?>" /></td>
+
+				<td><input type="button" value="<?php echo _('Delete'); ?>" name="delete" onclick="document.getElementById('sambaaction').value='delete_<?php echo $i; ?>';submit();" /></td>
+			</tr>
+		<?php $i++; } ?>
+		<tr>
+			<td colspan = 5><br /><hr><br />
+				<?php echo _('Add new Sambashare') ?>:
+			</td>
+		</tr>
+		<tr>
+			<td><input type="text" name="name" value="" /></td>
+			<td><input type="text" name="path" value="" /></td>
+			<td><input type="text" name="comment" value="" /></td>
+			<td><input type="text" name="writeable" value="" /></td>
+			<td><input type="text" name="create mode" value="" /></td>
+			<td><input type="button" value="<?php echo _('Save'); ?>" name="add" onclick="document.getElementById('sambaaction').value='add';submit();" /></td>
+		</tr>
+		</table>
+		<br /><br />
+		<b><?php echo _('Sambashare Access') ?></b><br />
+		
+		<table>
+			<tr><td><?php echo _('User for Samba-Access') ?>:</td> 
+			<td><input type="text" readonly name="sambauser" value="odroid" /></td>
+			</tr>
+			<tr><td><?php echo _('Password for Samba-Access') ?>:</td> 
+			<td><input type="text" name="sambpass" value="<?php echo $fs->view->sambapass ?>" /></td>
+			</tr>
+			</table>
+		<input type="button" value="<?php echo _('Save'); ?>" name="savepassword" onclick="document.getElementById('sambaaction').value='savepassword';submit();" />
+		<br />
+	</form>
+	<br /><br />
+	<b><?php echo _('Samba Important Information') ?>:</b><br />
+	<?php echo _('Important Information Samba Description') ?>	
 	
 </div>	
 															

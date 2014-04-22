@@ -252,6 +252,10 @@ class Service {
 	 * uses /opt/max2play/list_devices.sh
 	 */
 	public function getAllNetworkPlayers(){
+		//Only do network search if activated in basic-settings
+		if(!$this->checkAutostart('Max2PlayNetworkLookup', true)){
+			return false;
+		}
 		//Caching in txt-file - reload every $reload
 		$reload = 3600; // 1 hour
 		

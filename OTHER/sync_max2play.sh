@@ -9,7 +9,7 @@ DESTPATH='/var/www/max2play'
 SOURCEPATHOPT='/home/webuser/projects/Max2Play-Git/opt/max2play/'
 DESTPATHOPT='/opt/max2play'
 
-HOSTS=( "max2play")
+HOSTS=( "testmax2play")
 
 for DESTHOST in "${HOSTS[@]}"
 do
@@ -17,5 +17,6 @@ do
 	echo $DESTHOST
 	rsync -av -rsh=ssh --exclude="*svn*" --exclude="cache" $SOURCEPATH $DESTUSER@$DESTHOST:$DESTPATH
 	rsync -av -rsh=ssh --exclude="*svn*" --exclude="cache" --exclude="wpa_supplicant.conf" $SOURCEPATHOPT $DESTUSER@$DESTHOST:$DESTPATHOPT	
+	# Delete /etc/smsc95xxx_mac_addr !
 	echo "Completed" 
 done
