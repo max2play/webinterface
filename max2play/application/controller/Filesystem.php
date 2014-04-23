@@ -186,7 +186,7 @@ class Filesystem extends Service {
 			$test2 = $smb->setOption('path', $_GET['path']);
 			$test3 = $smb->setOption('comment', $_GET['comment']);
 			$test4 = $smb->setOption('writeable', $_GET['writeable']);
-			$test5 = $smb->setOption('create mode', $_GET['create mode']);
+			$test5 = $smb->setOption('create mode', $_GET['create_mode']);
 		}else{
 			$smb = $share;
 			$test1 = true;

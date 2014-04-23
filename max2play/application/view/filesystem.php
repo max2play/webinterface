@@ -85,7 +85,7 @@
 				<td><?php echo _('Name') ?></td>
 				<td><?php echo _('Path') ?></td>
 				<td><?php echo _('Comment') ?></td>
-				<td><?php echo _('Writable') ?></td>
+				<td><?php echo _('Writeable') ?></td>
 				<td><?php echo _('Create Mode') ?></td>
 			</tr>
 		<?php $i=0;
@@ -95,8 +95,8 @@
 				
 				<td><input type="text" name="" value="<?php echo $samba->getOptions('path'); ?>" /></td>
 				<td><input type="text" name="" value="<?php echo $samba->getOptions('comment'); ?>" /></td>
-				<td><input type="text" name="" value="<?php echo $samba->getOptions('writeable'); ?>" /></td>
-				<td><input type="text" name="" value="<?php echo $samba->getOptions('create mode'); ?>" /></td>
+				<td><input type="text" name="" size=8 value="<?php echo $samba->getOptions('writeable'); ?>" /></td>
+				<td><input type="text" name="" size=8 value="<?php echo $samba->getOptions('create mode'); ?>" /></td>
 
 				<td><input type="button" value="<?php echo _('Delete'); ?>" name="delete" onclick="document.getElementById('sambaaction').value='delete_<?php echo $i; ?>';submit();" /></td>
 			</tr>
@@ -110,8 +110,8 @@
 			<td><input type="text" name="name" value="" /></td>
 			<td><input type="text" name="path" value="" /></td>
 			<td><input type="text" name="comment" value="" /></td>
-			<td><input type="text" name="writeable" value="" /></td>
-			<td><input type="text" name="create mode" value="" /></td>
+			<td><input type="text" size=8 name="writeable" value="" /></td>
+			<td><input type="text" size=8 name="create mode" value="" /></td>
 			<td><input type="button" value="<?php echo _('Save'); ?>" name="add" onclick="document.getElementById('sambaaction').value='add';submit();" /></td>
 		</tr>
 		</table>

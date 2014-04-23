@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-17 15:55+0100\n"
-"PO-Revision-Date: 2014-04-17 15:58+0100\n"
+"POT-Creation-Date: 2014-04-22 18:45+0100\n"
+"PO-Revision-Date: 2014-04-22 19:00+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -63,14 +63,14 @@ msgstr "$SERVICENAME starten"
 #: y:\projects\Max2Play-Git/max2play/application/view/xbmc.php:46
 #: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:49
 #: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:64
-#: y:\projects\Max2Play-Git/max2play/application/view/squeezeserver.php:54
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeserver.php:52
 msgid "Autostart $SERVICENAME"
 msgstr "Autostart $SERVICENAME"
 
 #: y:\projects\Max2Play-Git/max2play/application/view/xbmc.php:48
 #: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:51
 #: y:\projects\Max2Play-Git/max2play/application/view/squeezeplayer.php:66
-#: y:\projects\Max2Play-Git/max2play/application/view/squeezeserver.php:56
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeserver.php:54
 msgid "save"
 msgstr "speichern"
 
@@ -97,6 +97,7 @@ msgid "Mountpoint"
 msgstr "Mountpoint"
 
 #: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:39
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:86
 msgid "Path"
 msgstr "Pfad"
 
@@ -112,9 +113,20 @@ msgstr "Optionen"
 msgid "Action"
 msgstr "Aktion"
 
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:51
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:101
+msgid "Delete"
+msgstr "Löschen"
+
 #: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:56
 msgid "Add new mountpoint"
 msgstr "Neuen Mountpoint hinzufügen"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:64
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:115
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:129
+msgid "Save"
+msgstr "Speichern"
 
 #: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:69
 msgid "Important Information"
@@ -130,6 +142,57 @@ msgstr ""
 "meist <i>cifs</i> <br />\t<b>Optionen (Benutzer, Passwort und Optionen für "
 "Freigabe):</b> z.B. <i>user=name,password=pass,sec=ntlm,iocharset=utf8</"
 "i><br />\tAchtung: Bei den Optionen bitte immer <i>sec=ntlm</i> angeben! \t"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:78
+msgid "Sambashares on Max2Play - setup network share paths"
+msgstr ""
+"Sambafreigaben auf Max2Play konfigurieren - Netzwerkfreigaben für externen "
+"Zugriff"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:85
+msgid "Name"
+msgstr "Name"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:87
+msgid "Comment"
+msgstr "Kommentar"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:88
+msgid "Writeable"
+msgstr "Beschreibbar"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:89
+msgid "Create Mode"
+msgstr "Create Mode"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:106
+msgid "Add new Sambashare"
+msgstr "Neue Sambafreigabe hinzufügen"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:119
+msgid "Sambashare Access"
+msgstr "Sambashare Zugang"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:122
+msgid "User for Samba-Access"
+msgstr "Benutzer für Samba-Zugriff"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:125
+msgid "Password for Samba-Access"
+msgstr "Passwort für Samba-Zugriff"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:133
+msgid "Samba Important Information"
+msgstr "Bitte beachten bei Samba Freigaben"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/filesystem.php:134
+msgid "Important Information Samba Description"
+msgstr ""
+"Mit Samba können Verzeichnisse für das Netzwerk freigegeben werden. Wenn z."
+"B. eine Festplatte über USB angeschlossen ist, so kann diese für andere im "
+"Netzwerk freigegeben werden.<br /><b>Beispiele #1 - USB-Festplatte freigeben "
+"mit Lese und Schreibrechten:</b> <br />Name: max2play-usb<br />Pfad: /media/"
+"usb<br />Beschreibbar: yes<br />"
 
 #: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:28
 msgid "WiFi & Network configuration"
@@ -203,7 +266,7 @@ msgstr ""
 "Kleinschreibung beachten."
 
 #: y:\projects\Max2Play-Git/max2play/application/view/wlan.php:99
-#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:65
+#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:71
 msgid "DEBUG Info"
 msgstr "DEBUG Info"
 
@@ -252,22 +315,34 @@ msgid "With this resolution runs desktop and XBMC"
 msgstr "Unter dieser Auflösung läuft XBMC und der Desktop"
 
 #: y:\projects\Max2Play-Git/max2play/application/view/basic.php:52
+msgid "Network Lookup"
+msgstr "Netzwerk Suche"
+
+#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:54
+msgid ""
+"Search local Network for other Max2Play-Devices running Squeezelite and "
+"display them in the header of this interface"
+msgstr ""
+"Suche nach Max2Play-Devices mit Squeezelite im Netzwerk und zeige diese im "
+"Kopfbereich dieses Interfaces an. Nur sinnvoll bei mehreren Playern."
+
+#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:58
 msgid "Save Settings"
 msgstr "Einstellungen speichern"
 
-#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:55
+#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:61
 msgid "Reboot Max2Play"
 msgstr "Reboot Max2Play"
 
-#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:59
+#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:65
 msgid "Reset configs to Max2Play delivery configuration"
 msgstr "Max2Play Ursprungskonfiguration Wiederherstellen"
 
-#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:60
+#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:66
 msgid "Reset configs - WARNING: deletes all changes"
 msgstr "Konfiguration Reset (löscht alle Änderungen!)"
 
-#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:61
+#: y:\projects\Max2Play-Git/max2play/application/view/basic.php:67
 msgid ""
 "Settings for WiFi, autostart, playername, filesystem mounts will be "
 "overwritten."
@@ -283,12 +358,12 @@ msgstr "Squeezeserver - Status, Start & Stop"
 msgid "Start Squeezeserver Webadministration"
 msgstr "Start Squeezeserver Webadministration"
 
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeserver.php:46
 #: y:\projects\Max2Play-Git/max2play/application/view/squeezeserver.php:47
-#: y:\projects\Max2Play-Git/max2play/application/view/squeezeserver.php:48
 msgid "$NAME start installation"
 msgstr "Starte Installation von $NAME"
 
-#: y:\projects\Max2Play-Git/max2play/application/view/squeezeserver.php:49
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeserver.php:48
 msgid ""
 "The installation takes about 5 to 10 minutes depending on your internet "
 "connection. At first it downloads the package from http://downloads."
@@ -300,7 +375,7 @@ msgstr ""
 "ungefähr 5 - 10 Minuten! Wenn diese Seite nach dem Start der Installation "
 "neu geladen wird, zeigt sie den Installationsfortschritt."
 
-#: y:\projects\Max2Play-Git/max2play/application/view/squeezeserver.php:61
+#: y:\projects\Max2Play-Git/max2play/application/view/squeezeserver.php:59
 msgid "SQUEEZESERVER INFO DESCRIPTION"
 msgstr ""
 "Squeezeserver (Logitech Media Server) ist der Server für die Squeezebox und "
@@ -398,25 +473,29 @@ msgstr "erfolgreich zu Autostart hinzugefügt"
 msgid "REBOOT gestartet"
 msgstr "REBOOT started"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:68
+#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:69
 msgid "Changed display resolution - Reboot needed"
 msgstr "Bildschirmauflösung angepasst - Reboot erforderlich"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:70
+#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:71
 msgid "no valid resolution choosen"
 msgstr "keine gültige Auflösung"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:96
+#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:97
 msgid "Name not possible! Please do not use special characters."
 msgstr "Ungültiger Name! Bitte keine Sonderzeichen verwenden."
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:98
+#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:99
 msgid "Changes successful - Reboot needed"
 msgstr "Erfolgreich geändert - Reboot erforderlich"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:117
+#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:118
 msgid "Config Files restored for "
 msgstr "Ursprungskonfiguration wiederhergestellt für"
+
+#: y:\projects\Max2Play-Git/max2play/application/controller/Basic.php:127
+msgid "Max2Play Network Player Lookup saved"
+msgstr "Max2Play Netzwerk Suche gespeichert"
 
 #: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:39
 msgid "Data saved"
@@ -434,29 +513,46 @@ msgstr "Netzwerke gefunden und in Auswahlliste eingefügt"
 msgid "No networks found"
 msgstr "Keine Netzwerke gefunden"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:87
+#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:89
 msgid "MAC-Address changed - please reboot"
 msgstr "MAC-Adresse geändert - bitte Neustarten"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:102
+#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:104
 msgid "WLAN activated - please reboot device"
 msgstr "WLAN aktiviert - bitte Neustarten"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:109
+#: y:\projects\Max2Play-Git/max2play/application/controller/Wlan.php:111
 msgid "WLAN deactivated - no network choosen - please reboot"
 msgstr "WLAN deaktiviert - kein Netzwerk gewählt - bitte Neustarten"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Filesystem.php:69
+#: y:\projects\Max2Play-Git/max2play/application/controller/Filesystem.php:85
 msgid "Mountpoint successfully added"
 msgstr "Hinzufügen erfolgreich!"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Filesystem.php:72
+#: y:\projects\Max2Play-Git/max2play/application/controller/Filesystem.php:88
 msgid "Mountpoint NOT added! Please refer to the description below!"
 msgstr "Hinzufügen nicht möglich! Bitte Anleitung beachten!"
 
-#: y:\projects\Max2Play-Git/max2play/application/controller/Filesystem.php:85
+#: y:\projects\Max2Play-Git/max2play/application/controller/Filesystem.php:101
+#: y:\projects\Max2Play-Git/max2play/application/controller/Filesystem.php:226
 msgid "Entry deleted"
 msgstr "Eintrag gelöscht"
+
+#: y:\projects\Max2Play-Git/max2play/application/controller/Filesystem.php:198
+msgid "Sambashare successfully added"
+msgstr "Hinzufügen erfolgreich!"
+
+#: y:\projects\Max2Play-Git/max2play/application/controller/Filesystem.php:203
+msgid "Sambashare NOT added! Please refer to the description below!"
+msgstr "Hinzufügen nicht möglich! Bitte Anleitung beachten!"
+
+#: y:\projects\Max2Play-Git/max2play/application/controller/Filesystem.php:235
+msgid "Password changed"
+msgstr "Passwort geändert"
+
+#: y:\projects\Max2Play-Git/max2play/application/controller/Filesystem.php:242
+msgid "Samba Service restarted"
+msgstr "Samba Dienst neu gestartet"
 
 #: y:\projects\Max2Play-Git/max2play/public/header.php:42
 msgid "Choose active Player"
