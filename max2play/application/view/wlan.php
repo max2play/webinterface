@@ -68,14 +68,22 @@
 					networks[<?php echo $i;?>]["ESSID"] = "<?php echo $network['ESSID']; ?>";
 					networks[<?php echo $i++;?>]["GCIPHER"] = "<?php echo $network['GCIPHER']; ?>";
 		<?php } ?>
+
+		function setNetwork(){
+			var e = document.getElementById('choose_ssid');
+			document.getElementById('ssid').value=networks[e.options[e.selectedIndex].value]['ESSID'];
+			document.getElementById('groupcipher').value=networks[e.options[e.selectedIndex].value]['GCIPHER'];
+		}
 	</script>	
 	
-	<select name="choose_ssid">
+	<select name="choose_ssid" id="choose_ssid" onchange="setNetwork();">
 		<?php $i=0; 
-			if(isset($wlan->view->wlanNetworks)) 
+			if(isset($wlan->view->wlanNetworks) && isset($wlan->view->wlanNetworks[0])) {
+				?><option value=""><?php echo _('Choose network...'); ?></option><?php 
 				foreach($wlan->view->wlanNetworks as $network) {?>
-					<option value="<?php echo $i++ ?>" onclick="document.getElementById('ssid').value=networks[this.value]['ESSID'];document.getElementById('groupcipher').value=networks[this.value]['GCIPHER'];"><?php echo $network['ESSID']; ?></option>
-		<?php } ?>
+					<option value="<?php echo $i++ ?>"><?php echo $network['ESSID']; ?></option>
+		<?php }
+			} ?>
 	</select>	
 	
 	<a href="?action=scanWlanNetworks"><?php echo _("start scan") ?></a> 

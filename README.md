@@ -12,9 +12,9 @@ FEATURES
  - adds plug & play to existing audio/video-player releases
 
 HOW TO INSTALL
- - install & configure apache webserver with php5 support: "apt-get install apache2 php5"
+ - install & configure apache webserver with php5 support: "apt-get install apache2 php5 php5-json"
  - Enable mod_rewrite for Apache "a2enmod rewrite"
- - Add "/etc/apache2/sites_enabled/max2play" from repository "CONFIG_SYSTEM/apache2/" to point to the max2play directory
+ - Add "/etc/apache2/sites_enabled/max2play.conf" from repository "CONFIG_SYSTEM/apache2/" to point to the max2play directory and remove default from "/etc/apache2/sites_enabled/"
  - drop the files from the max2play-Folder of this repository to "var/www/max2play/"
  - reload webserver "/etc/init.d/apache2 reload"
 

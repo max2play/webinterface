@@ -46,18 +46,21 @@
 						<?php }?>		
 					</select>
 				<?php }?>
+				<br /><br /><span style="float:right";><?php echo _('Version').' '.$service->info->version ?></span>
 			</div>
 			
 			<nav id="navigation" class="navigation">					
 				<div class="nav-menu">
 					<ul>
 						<li><a href="/" title="Home" class="<?php if($_SERVER['REQUEST_URI'] == '/') echo 'current';?>"><?php echo _('Start')?></a></li>
-						<li><a href="/Squeezeplayer.php" class="<?php if(strpos($_SERVER['REQUEST_URI'],'Squeezeplayer') !== FALSE) echo 'current';?>"><?php echo _('Audioplayer')?></a></li>
-						<li><a href="/Squeezeserver.php" class="<?php if(strpos($_SERVER['REQUEST_URI'],'Squeezeserver') !== FALSE) echo 'current';?>"><?php echo _('Squeezeserver')?></a></li>
-						<li><a href="/Xbmc.php" class="<?php if(strpos($_SERVER['REQUEST_URI'],'Xbmc') !== FALSE) echo 'current';?>"><?php echo _('XBMC (Mediacenter)')?></a></li>
-						<li><a href="/Filesystem.php" class="<?php if(strpos($_SERVER['REQUEST_URI'],'Filesystem') !== FALSE) echo 'current';?>"><?php echo _('Filesystem Mount')?></a></li>
-						<li><a href="/Wlan.php" class="<?php if(strpos($_SERVER['REQUEST_URI'],'Wlan') !== FALSE) echo 'current';?>"><?php echo _('WiFi & LAN')?></a></li>
-						<li><a href="/Basic.php" class="<?php if(strpos($_SERVER['REQUEST_URI'],'Basic') !== FALSE) echo 'current';?>"><?php echo _('Reset & Reboot')?></a></li>
+						<?php if(isset($plugins['plugin']) && count($plugins['plugin']) > 0) { 							
+							foreach($plugins['plugin'] as $plugin){ 
+								if(isset($plugin['navigation']) && $plugin['navigation'] != ''){?>
+									<li><a href="<?php echo $plugin['path'] ?>" class="<?php if(strpos($_SERVER['REQUEST_URI'], $plugin['path']) !== FALSE) echo 'current';?>"><?php echo _($plugin['navigation']) ?></a></li>
+						  <?php }
+							}							
+						}?>
+												
 					</ul>
 				</div>
 			</nav>

@@ -45,7 +45,7 @@ class Shairport extends Service {
 			}
 			
 			if($_GET['action'] == 'save'){
-				$this->selectAutostart(isset($_GET['autostart']) ? 1 : 0);
+				$this->selectAutostart(isset($_GET['autostartap']) ? 1 : 0);
 			}
 		}
 		$this->view->pid = $this->status($this->pname);

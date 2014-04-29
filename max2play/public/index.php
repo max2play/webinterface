@@ -28,14 +28,18 @@
 
 include_once('../application/bootstrap.php');
 
-include_once('header.php');
+include_once(APPLICATION_PATH.'/view/header.php');
 
 //search for Controller and View by Name in URL
-$pagename = preg_replace('=[^0-9a-zA-Z\.]=','',isset($_GET['page']) ? $_GET['page'] : '');
-if($pagename == '')
-	$pagename = 'Index.php';
-include_once('../application/controller/'.$pagename);
-include_once('../application/view/'.strtolower($pagename));
-
-include_once('footer.php');	
+if(strpos($_GET['page'], 'plugin') === FALSE){
+	$pagename = preg_replace('=[^0-9a-zA-Z\.]=','',isset($_GET['page']) ? $_GET['page'] : '');
+	if($pagename == '')
+		$pagename = 'Index.php';
+	include_once(APPLICATION_PATH.'/controller/'.$pagename);
+	include_once(APPLICATION_PATH.'/view/'.strtolower($pagename));
+}else{
+	//get Plugin by Config
+	include_once(APPLICATION_PATH.'/'.$_GET['page']);
+}
+include_once(APPLICATION_PATH.'/view/footer.php');	
 			

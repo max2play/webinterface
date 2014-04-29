@@ -62,6 +62,10 @@
 	<input type="button" value="Reboot" name="reboot" onclick="document.getElementById('action').value='reboot';submit();" />
 	
 	<br /><br />
+	<b><?php echo _("Update Max2Play") ?></b><br />
+	<input type="button" value="checkMax2PlayUpdate" name=checkMax2PlayUpdate onclick="document.getElementById('action').value='checkMax2PlayUpdate';submit();" />
+	
+	<br /><br />
 	<b><?php echo _("Reset configs to Max2Play delivery configuration") ?></b><br />
 	<input type="button" value="<?php echo _("Reset configs - WARNING: deletes all changes") ?>" name="reset" onclick="document.getElementById('action').value='reset';submit();" /><br />
 	<?php echo _("Settings for WiFi, autostart, playername, filesystem mounts will be overwritten.") ?>

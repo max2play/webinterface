@@ -9,7 +9,7 @@ DESTPATH='/var/www/max2play'
 SOURCEPATHOPT='/home/webuser/projects/Max2Play-Git/opt/max2play/'
 DESTPATHOPT='/opt/max2play'
 
-HOSTS=( "testmax2play")
+HOSTS=( "max2play")
 
 for DESTHOST in "${HOSTS[@]}"
 do

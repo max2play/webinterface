@@ -36,8 +36,8 @@ include_once '../application/model/Info.php';
 class Service {
 	public $view;	
 	public $viewname; //Name of Service in View
-	public $info; 
-	public $autostartconf = '/opt/max2play/autostart.conf';
+	public $info;	
+	public $autostartconf = '/opt/max2play/autostart.conf';	
 	
 	public function __construct(){
 		$this->view = new stdClass();
@@ -292,7 +292,14 @@ class Service {
 
 		return true;						
 		
-	}		
+	}
+	
+	/**
+	 * get Current Version of Max2Play-Webinterface
+	 */
+	public function getVersion(){
+		$this->info->version = file_get_contents(APPLICATION_PATH.'/config/version.txt');
+	}
 	
 }
 
@@ -300,4 +307,5 @@ class Service {
 $service = new Service();
 $service->getPlayername();
 $service->getAllNetworkPlayers();
+$service->getVersion();
 

@@ -89,7 +89,7 @@ class Squeezeserver extends Service {
 	 */
 	public function checkInstall(){
 		$shellanswer = shell_exec("sudo /opt/max2play/install_lms.sh check");
-		if(strpos($shellanswer, 'installed=1')){
+		if(strpos($shellanswer, 'installed=1') !== FALSE){
 			return true;
 		}else 
 			return false;

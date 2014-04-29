@@ -27,6 +27,7 @@
 class Info {
 	public $devices;
 	public $playername;
+	public $version;
 	
 	public function __construct(){		
 	}

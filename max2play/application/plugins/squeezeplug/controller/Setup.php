@@ -1,7 +1,9 @@
 <?php 
 
 /**
- Squeezelite Administration Controller
+ Squeezeplug Setup Controller
+ Important: For most scripts sudo rights (without password) for www-data are required -> add scriptnames to /etc/sudoers.d/max2play
+ Example sudoers.d/max2play: www-data ALL=(root)NOPASSWD: /etc/init.d/squeezelite 
 
  @Copyright 2014 Stefan Rick
  @author Stefan Rick
@@ -23,36 +25,31 @@
  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-class Squeezeplayer extends Service {
-	protected $pname = 'squeezelite';
-	public $viewname = 'Squeezelite';
+class Squeezeplug_Setup extends Service {
+
+	public $scriptPath = '/sh/scripts/'; 
 	
-	public function __construct(){								
+	public function __construct(){		
 		parent::__construct();
-		
+	
 		if(isset($_GET['action'])){
-			if($_GET['action'] == 'start'){			
-				$this->view->message[] = $this->start($this->pname);			
+			if($_GET['action'] == 'installMiniDLNA'){
+				$this->_installMiniDLNA();				
 			}
-			
-			if($_GET['action'] == 'stop'){			
-				$this->view->message[] = $this->stop($this->pname);			
-			}
-			
-			if($_GET['action'] == 'kill'){
-				$this->view->message[] = $this->kill($this->pname);
-			}
-			
-			if($_GET['action'] == 'save'){
-				$this->selectAutostart(isset($_GET['autostartsqueeze']) ? 1 : 0);
-			}
+							
 		}
-		
-		$this->view->pid = $this->status($this->pname);
-		
-		$this->view->autostart = $this->checkAutostart($this->pname, true);
-	}		
-		
+			
+	}
+	
+	private function _installMiniDLNA(){
+		//Call Scripts
+		$this->view->message[] = _('MiniDLNA Installation started');
+		$output = shell_exec('sudo '.$scriptPath.'minidlna.sh');
+		$this->view->message[] = $output;
+	}
 }
 
-$sp = new Squeezeplayer();
+$squeezeplug = new Squeezeplug_Setup();
+
+include_once(dirname(__FILE__).'/../view/setup.php');
+

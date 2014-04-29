@@ -38,6 +38,10 @@ class Basic extends Service {
 				$this->view->message[] = $this->resetFactoryDefaults();
 			}
 			
+			if($_GET['action'] == 'checkMax2PlayUpdate'){
+				$this->view->message[] = $this->checkMax2PlayUpdate();
+			}
+			
 			if($_GET['action'] == 'save'){
 				$this->view->message[] = $this->updatePlayername($_GET['playername']);
 				$this->view->message[] = $this->updateDisplayResolution($_GET['displayResolution']);
@@ -125,6 +129,23 @@ class Basic extends Service {
 	public function updateMax2playNetworkLookup(){		
 		$this->updateAutostart('Max2PlayNetworkLookup', (bool)$_GET['Max2PlayNetworkLookup'], true);
 		$this->view->message[] = _('Max2Play Network Player Lookup saved');
+	}
+	
+	/**
+	 * check for available Updates and do it
+	 */
+	public function checkMax2PlayUpdate(){
+		$this->getVersion();
+		//Check auf Update
+		$file = file_get_contents('http://shop.max2play.com/media/downloadable/currentversion/version.txt');
+		if((float)$this->info->version < (float)$file){
+			$this->view->message[] = _('Max2Play update possible');
+			$this->view->message[] = _('UPDATE FUNCTIONALITY NOT YET AVAILABLE');
+			//Start Script -> Download Files for Webserver and /opt/max2play
+			//$shellanswer = shell_exec('sudo /opt/max2play/update_max2play.sh');
+		}else{
+			$this->view->message[] = _('Max2Play is up to date - no update required');
+		}
 	}
 }
 
