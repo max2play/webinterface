@@ -2,7 +2,7 @@
 auto lo
 iface lo inet loopback
 
-auto eth0
+#auto eth0
 iface eth0 inet dhcp
 #hwaddress ether 1a:64:b6:bf:36:37
 

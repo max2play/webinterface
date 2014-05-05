@@ -139,10 +139,14 @@ class Basic extends Service {
 		//Check auf Update
 		$file = file_get_contents('http://shop.max2play.com/media/downloadable/currentversion/version.txt');
 		if((float)$this->info->version < (float)$file){
-			$this->view->message[] = _('Max2Play update possible');
-			$this->view->message[] = _('UPDATE FUNCTIONALITY NOT YET AVAILABLE');
+			$this->view->message[] = _('Max2Play update started');			
 			//Start Script -> Download Files for Webserver and /opt/max2play
-			//$shellanswer = shell_exec('sudo /opt/max2play/update_max2play.sh');
+			$shellanswer = shell_exec('sudo /opt/max2play/update_max2play.sh');			
+			$this->view->message[] = nl2br($shellanswer);
+			if(strpos($shellanswer, 'inflating: /opt/max2play/list_devices.sh') !== FALSE && strpos($shellanswer, 'extracting: /var/www/max2play/application/config/version.txt') !== FALSE)
+				$this->view->message[] = _('UPDATE SUCCESSFUL');
+			else
+				$this->view->message[] = _('UPDATE NOT SUCCESSFUL');
 		}else{
 			$this->view->message[] = _('Max2Play is up to date - no update required');
 		}

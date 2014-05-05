@@ -23,7 +23,10 @@ HOW TO CONFIGURE
  - the browser interface itsself uses script-files and configuration-files located in "/opt/max2play"
  - some file-permissions and sudoer-configs need to be set in order to get wifi and other things working in the max2play-interface
 
-
+HOW TO UPDATE
+ - On Basic-Settings in Webinterface click "check Max2play Update"
+ - If a new version is available, the files in webserver-folder and /opt/max2play will be overwritten, just keeping wifi, samba and playername config-files
+ 
 Webinterface is under /max2play
 
 Config-Files for /etc/ under /CONFIG_SYSTEM
