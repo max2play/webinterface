@@ -3,44 +3,44 @@
 	<!-- Auskommentiert
 		<plugin>
 			<name>Squeezeplug Setup</name>
-			<navigation>Squeezeplug Setup</navigation>
+			<navigation><translate>Squeezeplug Setup</translate></navigation>
 			<path>/plugins/squeezeplug/controller/Setup.php</path>
 			<action />
 		</plugin>
 	-->
 	<plugin>
 		<name>Audioplayer</name>
-		<navigation>Audioplayer</navigation>
+		<navigation><translate>Audioplayer</translate></navigation>
 		<path>/Squeezeplayer.php</path>
 		<action />
 	</plugin>
 	<plugin>
 		<name>Squeezeserver</name>
-		<navigation>Squeezeserver</navigation>
+		<navigation><translate>Squeezeserver</translate></navigation>
 		<path>/Squeezeserver.php</path>
 		<action />
 	</plugin>
 	<plugin>
 		<name>XBMC</name>
-		<navigation>XBMC (Mediacenter)</navigation>
+		<navigation><translate>XBMC (Mediacenter)</translate></navigation>
 		<path>/Xbmc.php</path>
 		<action />
 	</plugin>	
 	<plugin>
-		<name>Dateisystem Mount</name>
-		<navigation>Dateisystem Mount</navigation>
+		<name>Filesystem Mount</name>
+		<navigation><translate>Filesystem Mount</translate></navigation>
 		<path>/Filesystem.php</path>
 		<action />
 	</plugin>	
 	<plugin>
-		<name>WLAN / LAN</name>
-		<navigation>WLAN / LAN</navigation>
+		<name>WiFi / LAN</name>
+		<navigation><translate>WiFi / LAN</translate></navigation>
 		<path>/Wlan.php</path>
 		<action />
 	</plugin>	
 	<plugin>
 		<name>Reset / Reboot</name>
-		<navigation>Reset / Reboot</navigation>
+		<navigation><translate>Reset / Reboot</translate></navigation>
 		<path>/Basic.php</path>
 		<action />
 	</plugin>	

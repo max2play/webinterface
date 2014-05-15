@@ -63,7 +63,7 @@ setTimezone('UTC');
 include_once('controller/Service.php');
 
 //Parse Plugin-Folder for additional Services / Modules to load
-$xml = simplexml_load_file(APPLICATION_PATH.'/config/plugins.cfg');
+$xml = simplexml_load_file(APPLICATION_PATH.'/config/plugins.xml');
 $json = json_encode($xml);
 $plugins = json_decode($json,TRUE);
 // Header, Klassenpfad für index.php, usw. anpassen auf Basis der Pluginstruktur

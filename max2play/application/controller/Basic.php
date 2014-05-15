@@ -27,6 +27,7 @@ class Basic extends Service {
 	
 	public function __construct(){								
 		parent::__construct();
+		$this->view->locales = array('Europe/Berlin' => 'de_DE.UTF-8', 'Europe/London' => 'en_GB.UTF-8','Europe/Rome' => 'it_IT.UTF-8', 'Europe/Paris' => 'fr_FR.UTF-8');
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'reboot'){
@@ -44,10 +45,12 @@ class Basic extends Service {
 			
 			if($_GET['action'] == 'save'){
 				$this->view->message[] = $this->updatePlayername($_GET['playername']);
+				$this->view->message[] = $this->updateLocale($_GET['locale']);
 				$this->view->message[] = $this->updateDisplayResolution($_GET['displayResolution']);
 				$this->updateMax2playNetworkLookup();
 			}
 		}
+		$this->getLocale();
 		$this->getMax2playNetworkLookup();
 		$this->getPlayername();
 		$this->getDisplayResolutions();
@@ -83,6 +86,39 @@ class Basic extends Service {
 		$this->view->hostname = $output;
 		return $output;
 	}
+	
+	public function getLocale(){
+		$this->view->currentLocale = trim(shell_exec('cat /etc/timezone'), "\n");
+		return $this->view->currentLocale;
+	}
+	
+	public function updateLocale($locale = ''){		
+		if(isset($this->view->locales[$locale])) {
+			//Timezone setzen
+			//$output = shell_exec('echo "'.$locale.'" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata');
+			$script[] = 'echo "'.$locale.'" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata';			
+			
+			//Keyboard Layout setzen
+			$output = shell_exec('cat /etc/default/keyboard');
+			preg_match('=XKBLAYOUT\="([a-z]{2})"=', $output, $match);
+			$current_keyboard_layout = $match[1];
+			
+			$script[] = 'echo \''.str_replace(array($match[0],"'"), array('XKBLAYOUT="'.substr($this->view->locales[$locale], 0,2).'"', ""), trim($output, "\n")).'\' > /etc/default/keyboard';			
+			
+			//Sprache setzen
+			$output = shell_exec('cat /etc/default/locale');
+			preg_match('=LANG\="([a-zA-Z0-9\.\-\_]*)"=', $output, $match);
+			$current_locale = $match[1];
+			
+			$script[] = 'echo \''.str_replace($current_locale, $this->view->locales[$locale], trim($output, "\n")).'\' > /etc/default/locale';
+			
+			echo $this->writeDynamicScript($script);
+		}else{
+			return _("Value for Timezone/Language not found.");
+		}
+		return _("Changes successful - Reboot needed");
+	}
+	
 	
 	/**
 	 * Change Player Name

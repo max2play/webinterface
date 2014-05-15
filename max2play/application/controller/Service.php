@@ -37,7 +37,8 @@ class Service {
 	public $view;	
 	public $viewname; //Name of Service in View
 	public $info;	
-	public $autostartconf = '/opt/max2play/autostart.conf';	
+	public $autostartconf = '/opt/max2play/autostart.conf';
+	public $dynamicScript = '/opt/max2play/dynamic_script.sh';
 	
 	public function __construct(){
 		$this->view = new stdClass();
@@ -299,6 +300,23 @@ class Service {
 	 */
 	public function getVersion(){
 		$this->info->version = file_get_contents(APPLICATION_PATH.'/config/version.txt');
+	}
+	
+	/**
+	 * Write to File that has Root Rights to launch specific installations and configs
+	 * $script is an array separated by lines for each task	
+	 */
+	public function writeDynamicScript($script = ''){
+		$fp = fopen($this->dynamicScript, 'w+');
+		
+		fwrite($fp,"#!/bin/bash\n");
+		
+		foreach ($script as $s)
+			fwrite($fp, "\n".$s);
+		
+		fclose($fp);
+		$output = shell_exec('sudo '.$this->dynamicScript);
+		return $output;
 	}
 	
 }

@@ -28,6 +28,7 @@
 	<meta charset="UTF-8" />
 	<title>Max2Play | Media Solution - <?php echo $service->info->playername; ?></title>
 	<meta name='robots' content='noindex,nofollow' />
+	<meta name='viewport' content='width=device-width,initial-scale=1.0'>
 	<link rel='stylesheet' id=''  href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&#038;subset=latin,latin-ext' type='text/css' media='all' />
 	<link rel='stylesheet' id=''  href='/style.css' type='text/css' media='all' />
 </head>
@@ -56,7 +57,7 @@
 						<?php if(isset($plugins['plugin']) && count($plugins['plugin']) > 0) { 							
 							foreach($plugins['plugin'] as $plugin){ 
 								if(isset($plugin['navigation']) && $plugin['navigation'] != ''){?>
-									<li><a href="<?php echo $plugin['path'] ?>" class="<?php if(strpos($_SERVER['REQUEST_URI'], $plugin['path']) !== FALSE) echo 'current';?>"><?php echo _($plugin['navigation']) ?></a></li>
+									<li><a href="<?php echo $plugin['path'] ?>" class="<?php if(strpos($_SERVER['REQUEST_URI'], $plugin['path']) !== FALSE) echo 'current';?>"><?php echo (isset($plugin['navigation']['translate'])) ? _($plugin['navigation']['translate']) : _($plugin['navigation']) ?></a></li>
 						  <?php }
 							}							
 						}?>

@@ -39,8 +39,7 @@ body {
     box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
     margin-bottom: 3.42857rem;
     margin-top: 3.42857rem;
-    padding: 0 2.85714rem;
-    
+    padding: 0 2.85714rem;    
 }
 
 .logo {
@@ -133,7 +132,7 @@ body {
 
 .widget-title {
     color: #636363;
-    font-size: 0.78rem;
+    font-size: 1.0rem;
     font-weight: bold;
     line-height: 2.2;
     text-transform: uppercase;
@@ -172,4 +171,39 @@ input[type="submit"], input[type="button"], input[type="reset"] {
 }
 .settings td {
 	vertical-align: top;
+}
+
+@media only screen 
+and (min-device-width : 220px) 
+and (max-device-width : 800px) 
+{ 
+   .logo {
+       background: url("/logo_k.png") no-repeat scroll left top transparent;
+       width: 140px;
+       height: 65px;
+   }
+   .widget-area {
+       float: none;
+       width: 100%;
+   }
+   .widget-title {
+   	   margin-top:20px;
+   }
+   .site-content {
+       float: none;
+       width: 100%;
+   }
+   .navigation li a {
+   	   line-height: 2;
+   }
+   .navigation li {
+   	   margin: 0 0.5rem 0 0;
+   }
+   #page {
+   	   padding: 0 0.8rem;
+   	   margin: 0 auto;
+   }
+   input[type="text"] {
+   	   width: 40px;
+   }
 }

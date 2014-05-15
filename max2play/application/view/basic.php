@@ -49,6 +49,14 @@
 		<td><?php echo _("With this resolution runs desktop and XBMC") ?></td>
 	  </tr>
 	  <tr>
+		<td><?php echo _("Language") ?></td> 
+		<td><select name="locale">
+			<?php foreach($basic->view->locales as $key => $res) { ?><option value="<?php echo $key?>" <?php if($basic->view->currentLocale == $key) echo 'selected'; ?>><?php echo $key.' - '.$res?></option><?php } ?>
+			</select>
+		</td>
+		<td><?php echo _("Change Keyboard Layout, Language and Timezone for Desktop (this web-interface detects browser language)") ?></td>
+	  </tr>
+	  <tr>
 		<td><?php echo _("Network Lookup") ?></td>
 		<td><input type="checkbox" id="Max2PlayNetworkLookup" name="Max2PlayNetworkLookup" <?php if($basic->view->Max2PlayNetworkLookup) echo 'checked'; ?> value="1" /></td>
 		<td><?php echo _("Search local Network for other Max2Play-Devices running Squeezelite and display them in the header of this interface") ?></td> 
