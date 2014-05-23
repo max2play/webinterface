@@ -6,7 +6,7 @@
 			<navigation><translate>Squeezeplug Setup</translate></navigation>
 			<path>/plugins/squeezeplug/controller/Setup.php</path>
 			<action />
-		</plugin>
+		</plugin>		
 	-->
 	<plugin>
 		<name>Audioplayer</name>
@@ -43,5 +43,11 @@
 		<navigation><translate>Reset / Reboot</translate></navigation>
 		<path>/Basic.php</path>
 		<action />
-	</plugin>	
+	</plugin>
+	<plugin>
+		<name>Advanced Setup</name>
+		<navigation><translate>Advanced</translate></navigation>
+		<path>/plugins/advanced_max2play/controller/Setup.php</path>
+		<action />
+	</plugin>
 </config>

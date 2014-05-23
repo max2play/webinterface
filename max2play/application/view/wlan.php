@@ -29,7 +29,16 @@
 </h1>
 	
 <div class="entry-content">
-	<?php if(isset($wlan->view->message[0])) echo implode('<br />', $wlan->view->message).'<br /><br />'; ?>
+	<?php if(isset($wlan->view->message[0])){ ?>
+		<div class="ui-widget">
+			<div class="ui-state-highlight ui-corner-all" style="margin-bottom: 10px; padding: 0.4em .7em;">
+				<p>
+					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+					<?php echo implode('<br />', $wlan->view->message); ?>					
+				</p>
+			</div>
+		</div>
+	<?php } ?>
 	
 	<form action="" method="get">
 	<input type="hidden" id="action" name="action" value="" />

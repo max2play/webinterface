@@ -23,48 +23,128 @@
  */ 
 ?>											
 
+<style>
+#eq span {
+height:120px; float:left; margin:15px
+}
+</style>
+<script>
+$(function() {
+	$( "#eq > span" ).each(function() {
+	// read initial values from markup and remove that
+	var value = parseInt( $( this ).text(), 10 );
+	var id = $( this ).attr('id');
+	$( this ).empty().slider({
+		value: value,
+		id: id,
+		range: "min",
+		min: 0,
+		max: 100,
+		animate: true,
+		orientation: "vertical",
+		slide: function(event, ui) {
+	        $("#selectedEqual").val( ui.value );
+	        $("#selectedEqualSpan").text( id );
+	    },
+	    stop : function(event, ui){	        
+	        $('[id="'+ id +'"]').val(ui.value);	        
+	    }
+		});
+	});
+});
+</script>
 
 <?php //zusätzlich die Shairport konfig laden
-	  include_once('../application/controller/Shairport.php') ?>		
+	  include_once('../application/controller/Shairport.php');
+	  include_once('../application/controller/Squeezeslave.php') ?>		
 
 <h1 class="entry-header">
 	<?php echo _("Mediaplayer Squeezelite & Airplay - Status, Start / Stop") ?>
 </h1>
 	
 <div class="entry-content">
-	<?php if(isset($sp->view->message[0])) echo implode('<br />', $sp->view->message).'<br /><br />'; ?>
-	<?php if(isset($ap->view->message[0])) echo implode('<br />', $ap->view->message).'<br /><br />'; ?>
+	
+	<?php if(isset($sp->view->message[0]) || isset($ap->view->message[0]) || isset($ss->view->message[0])){ ?>
+		<div class="ui-widget">
+			<div class="ui-state-highlight ui-corner-all" style="margin-bottom: 10px; padding: 0.4em .7em;">
+				<p>
+					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+					<?php if(isset($sp->view->message[0])) echo implode('<br />', $sp->view->message); ?>
+					<?php if(isset($ap->view->message[0])) echo implode('<br />', $ap->view->message); ?>
+					<?php if(isset($ss->view->message[0])) echo implode('<br />', $ss->view->message); ?>
+				</p>
+			</div>
+		</div>
+	<?php } ?>
 	
 	<form action="" method="get">
 		<input type="hidden" id="action" name="action" value="" />
 		
-		<?php if ($sp->view->pid) { ?>
-			<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $sp->viewname, _('$SERVICENAME is running with processID')) ?> <b><?php echo $sp->view->pid ?></b><br />
-			<input type="button" value="<?php echo str_replace('$SERVICENAME', $sp->viewname, _('stop $SERVICENAME')) ?>" name="stop" onclick="document.getElementById('action').value='stop';submit();" />
-			<input type="button" value="<?php echo str_replace('$SERVICENAME', $sp->viewname, _('kill $SERVICENAME')) ?>" name="kill" onclick="document.getElementById('action').value='kill';submit();" />
-		<?php }else { ?>
-			<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $sp->viewname, _('$SERVICENAME not running')) ?><br /><br />
-			<input type="button" value="<?php echo str_replace('$SERVICENAME', $sp->viewname, _('start $SERVICENAME')) ?>" name="start" onclick="document.getElementById('action').value='start';submit();" />	
-		<?php } ?>
+		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+			<span class="ui-icon ui-icon-volume-on" style="float:left; margin:-2px 5px 0 0;"></span>					
+			<?php if ($sp->view->pid) { ?>
+				<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $sp->viewname, _('$SERVICENAME is running with processID')) ?> <b><?php echo $sp->view->pid ?></b></p>
+				<input type="button" value="<?php echo str_replace('$SERVICENAME', $sp->viewname, _('stop $SERVICENAME')) ?>" name="stop" onclick="document.getElementById('action').value='stop';submit();" />
+				<input type="button" value="<?php echo str_replace('$SERVICENAME', $sp->viewname, _('kill $SERVICENAME')) ?>" name="kill" onclick="document.getElementById('action').value='kill';submit();" />
+			<?php }else { ?>
+				<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $sp->viewname, _('$SERVICENAME not running')) ?></p>
+				<input type="button" value="<?php echo str_replace('$SERVICENAME', $sp->viewname, _('start $SERVICENAME')) ?>" name="start" onclick="document.getElementById('action').value='start';submit();" />	
+			<?php } ?>
 		<br /><br /><b><?php echo str_replace('$SERVICENAME', $sp->viewname, _('Autostart $SERVICENAME')) ?>:</b><br />
 		<input type="checkbox" <?php if($sp->view->autostart) echo "checked"; ?> value="1" name="autostartsqueeze" />
 		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
 		
 		<br /><br /><br />
-		
-		<?php if ($ap->view->pid) { ?>
-			<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $ap->viewname, _('$SERVICENAME is running with processID')) ?> <b><?php echo $ap->view->pid ?></b><br />
-			<input type="button" value="<?php echo str_replace('$SERVICENAME', $ap->viewname, _('stop $SERVICENAME')) ?>" name="stopap" onclick="document.getElementById('action').value='stopap';submit();" />
-			<input type="button" value="<?php echo str_replace('$SERVICENAME', $ap->viewname, _('kill $SERVICENAME')) ?>" name="killap" onclick="document.getElementById('action').value='killap';submit();" />
-		<?php }else { ?>
-			<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $ap->viewname, _('$SERVICENAME not running')) ?><br /><br />
-			<input type="button" value="<?php echo str_replace('$SERVICENAME', $ap->viewname, _('start $SERVICENAME')) ?>" name="startap" onclick="document.getElementById('action').value='startap';submit();" />
-			
-		<?php } ?>
+		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+			<span class="ui-icon ui-icon-volume-on" style="float:left; margin:-2px 5px 0 0;"></span>
+			<?php if ($ap->view->pid) { ?>
+				<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $ap->viewname, _('$SERVICENAME is running with processID')) ?> <b><?php echo $ap->view->pid ?></b></p>
+				<input type="button" value="<?php echo str_replace('$SERVICENAME', $ap->viewname, _('stop $SERVICENAME')) ?>" name="stopap" onclick="document.getElementById('action').value='stopap';submit();" />
+				<input type="button" value="<?php echo str_replace('$SERVICENAME', $ap->viewname, _('kill $SERVICENAME')) ?>" name="killap" onclick="document.getElementById('action').value='killap';submit();" />
+			<?php }else { ?>
+				<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $ap->viewname, _('$SERVICENAME not running')) ?></p>
+				<input type="button" value="<?php echo str_replace('$SERVICENAME', $ap->viewname, _('start $SERVICENAME')) ?>" name="startap" onclick="document.getElementById('action').value='startap';submit();" />			
+			<?php } ?>
 		<br /><br /><b><?php echo str_replace('$SERVICENAME', $ap->viewname, _('Autostart $SERVICENAME')) ?>:</b><br />
 		<input type="checkbox" <?php if($ap->view->autostart) echo "checked"; ?> value="1" name="autostartap" />
 		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
+		
+		<br /><br /><br />
+		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+			<span class="ui-icon ui-icon-volume-on" style="float:left; margin:-2px 5px 0 0;"></span>
+			<?php if ($ss->view->pid) { ?>
+				<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $ss->viewname, _('$SERVICENAME is running with processID')) ?> <b><?php echo $ss->view->pid ?></b></p>
+				<input type="button" value="<?php echo str_replace('$SERVICENAME', $ss->viewname, _('stop $SERVICENAME')) ?>" name="stop" onclick="document.getElementById('action').value='stopss';submit();" />
+				<input type="button" value="<?php echo str_replace('$SERVICENAME', $ss->viewname, _('kill $SERVICENAME')) ?>" name="kill" onclick="document.getElementById('action').value='killss';submit();" />
+			<?php }else { ?>
+				<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $ss->viewname, _('$SERVICENAME not running')) ?></p>
+				<input type="button" value="<?php echo str_replace('$SERVICENAME', $ss->viewname, _('start $SERVICENAME')) ?>" name="start" onclick="document.getElementById('action').value='startss';submit();" />	
+			<?php } ?>
+		<br /><br /><b><?php echo str_replace('$SERVICENAME', $ss->viewname, _('Autostart $SERVICENAME')) ?>:</b><br />
+		<input type="checkbox" <?php if($ss->view->autostart) echo "checked"; ?> value="1" name="autostartss" />
+		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
+		
+		<br />
 	
+		<?php foreach($sp->equalvalues as $key => $value) { ?>
+			<input type="hidden" id="<?php echo $key ?>" name="settingsEqualizer[<?php echo $key ?>]" value="<?php echo $value; ?>">
+		<?php } ?>
+		
+		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-top:3em;">
+			<span class="ui-icon ui-icon-signal" style="float:left; margin:-2px 5px 0 0;"></span>
+			<?php echo _('Graphic Equalizer') ?>
+		</p>
+		<div id="eq">
+			<?php foreach($sp->equalvalues as $key => $value) { ?>
+				<span id="<?php echo $key ?>"><?php echo $value ?></span>
+			<?php } ?>
+		</div>
+		<br />
+		<input type="button" value="<?php echo _('Zurücksetzen') ?>" name="save" onclick="document.getElementById('action').value='resetEqualizer';submit();" /><br /><br />
+		<input type="button" value="<?php echo _('Speichern') ?>" name="save" onclick="document.getElementById('action').value='saveEqualizer';submit();" /><br />
+		<br />
+		<input type="text" size="2" value="" id="selectedEqual" /> <span id="selectedEqualSpan"></span>
+		<br /><br />
 	</form>
 	
 	<br /><br /><br />

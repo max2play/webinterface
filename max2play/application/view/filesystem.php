@@ -28,7 +28,16 @@
 </h1>
 	
 <div class="entry-content">
-	<?php if(isset($fs->view->message[0])) foreach($fs->view->message as $message){ echo $message; echo '<br /><br />';} ?>	
+	<?php if(isset($fs->view->message[0])){ ?>
+		<div class="ui-widget">
+			<div class="ui-state-highlight ui-corner-all" style="margin-bottom: 10px; padding: 0.4em .7em;">
+				<p>
+					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+					<?php echo implode('<br />', $fs->view->message); ?>					
+				</p>
+			</div>
+		</div>
+	<?php } ?>	
 	
 	<form action="" method="get">
 		<input type="hidden" id="action" name="action" value="" />	
@@ -120,7 +129,7 @@
 		
 		<table>
 			<tr><td><?php echo _('User for Samba-Access') ?>:</td> 
-			<td><input type="text" readonly name="sambauser" value="odroid" /></td>
+			<td><input type="text" readonly name="sambauser" value="root" /></td>
 			</tr>
 			<tr><td><?php echo _('Password for Samba-Access') ?>:</td> 
 			<td><input type="text" name="sambpass" value="<?php echo $fs->view->sambapass ?>" /></td>

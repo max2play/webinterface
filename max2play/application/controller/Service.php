@@ -118,7 +118,7 @@ class Service {
 		}
 		shell_exec($stopcom);		
 		
-		sleep(2);
+		sleep(3);
 		
 		$shellanswer = _('Trying to stop');
 		
@@ -151,7 +151,7 @@ class Service {
 		
 		shell_exec("sudo kill -9 ".$pid);
 		
-		sleep(2);
+		sleep(3);
 		
 		$shellanswer = _('Trying to stop');
 		$pid = $this->status($name);

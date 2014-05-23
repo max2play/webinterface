@@ -37,7 +37,7 @@ class Xbmc extends Service {
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'start'){			
 				//dafür muss unter www-data mittels ssh-keygen ein Key erzeugt und zu odroid exportiert werden!
-				$this->view->message[] = $this->start($this->pname, '/usr/bin/ssh odroid@localhost "/etc/init.d/squeezelite stop;export DISPLAY=\':0\'; /usr/local/bin/xbmc > /dev/null 2>&1 &"');					
+				$this->view->message[] = $this->start($this->pname, '/usr/bin/ssh odroid@localhost "/etc/init.d/squeezelite stop;/etc/init.d/squeezeslave stop;/etc/init.d/shairport stop;export DISPLAY=\':0\'; /usr/local/bin/xbmc > /dev/null 2>&1 &"');					
 			}
 			
 			if($_GET['action'] == 'stop'){			

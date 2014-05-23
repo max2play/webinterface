@@ -29,7 +29,10 @@
 	<title>Max2Play | Media Solution - <?php echo $service->info->playername; ?></title>
 	<meta name='robots' content='noindex,nofollow' />
 	<meta name='viewport' content='width=device-width,initial-scale=1.0'>
-	<link rel='stylesheet' id=''  href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&#038;subset=latin,latin-ext' type='text/css' media='all' />
+	<link href="/css/ui-lightness/jquery-ui-1.10.4.custom.css" rel="stylesheet">
+	<script src="/js/jquery-1.10.2.js"></script>
+	<script src="/js/jquery-ui-1.10.4.custom.js"></script>
+	<link rel='stylesheet' id=''  href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&#038;subset=latin,latin-ext' type='text/css' media='all' />	
 	<link rel='stylesheet' id=''  href='/style.css' type='text/css' media='all' />
 </head>
 

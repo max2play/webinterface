@@ -15,6 +15,20 @@ then
         then
         /etc/init.d/shairport start
     fi
+    
+    autostart_squeezeslave=$(cat /opt/max2play/autostart.conf | grep squeezeslave=1 | wc -l)
+    if [ "0" -lt "$autostart_squeezeslave" ]
+        then
+        running_squeezeslave=$(ps -Al | grep squeezeslave | wc -l)
+        if [ "1" -gt "$running_squeezeslave" ]
+	        then
+	        /etc/init.d/squeezeslave start
+	        sleep 4
+	        /etc/init.d/squeezeslave stop
+	        sleep 4
+	        /etc/init.d/squeezeslave start
+	    fi
+    fi
 
 fi
 

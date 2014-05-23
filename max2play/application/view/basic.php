@@ -29,7 +29,17 @@
 </h1>
 	
 <div class="entry-content">
-	<?php if(isset($basic->view->message[0])) echo implode('<br />', $basic->view->message).'<br /><br />'; ?>
+	
+	<?php if(isset($basic->view->message[0])){ ?>
+		<div class="ui-widget">
+			<div class="ui-state-highlight ui-corner-all" style="margin-bottom: 10px; padding: 0.4em .7em;">
+				<p>
+					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+					<?php echo implode('<br />', $basic->view->message); ?>					
+				</p>
+			</div>
+		</div>
+	<?php } ?>	
 	
 	<form action="" method="get">
 	<input type="hidden" id="action" name="action" value="" />
@@ -66,15 +76,21 @@
 	<input type="button" value="<?php echo _("Save Settings") ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
 	
 	<br /><br />
-	<b><?php echo _("Reboot Max2Play") ?></b><br />
+	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+		<span class="ui-icon ui-icon-refresh" style="float:left; margin:-2px 5px 0 0;"></span>
+		<b><?php echo _("Reboot Max2Play") ?></b></p>
 	<input type="button" value="Reboot" name="reboot" onclick="document.getElementById('action').value='reboot';submit();" />
 	
 	<br /><br />
-	<b><?php echo _("Update Max2Play") ?></b><br />
+	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+		<span class="ui-icon ui-icon-arrowthickstop-1-s" style="float:left; margin:-2px 5px 0 0;"></span>
+		<b><?php echo _("Update Max2Play") ?></b></p>
 	<input type="button" value="checkMax2PlayUpdate" name=checkMax2PlayUpdate onclick="document.getElementById('action').value='checkMax2PlayUpdate';submit();" />
 	
 	<br /><br />
-	<b><?php echo _("Reset configs to Max2Play delivery configuration") ?></b><br />
+	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+		<span class="ui-icon ui-icon-arrowreturnthick-1-n" style="float:left; margin:-2px 5px 0 0;"></span>
+		<b><?php echo _("Reset configs to Max2Play delivery configuration") ?></b></p>
 	<input type="button" value="<?php echo _("Reset configs - WARNING: deletes all changes") ?>" name="reset" onclick="document.getElementById('action').value='reset';submit();" /><br />
 	<?php echo _("Settings for WiFi, autostart, playername, filesystem mounts will be overwritten.") ?>
 	</form>

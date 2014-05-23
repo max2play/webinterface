@@ -19,6 +19,7 @@ case "$1" in
     xbmcrunning=$(ps -Al | grep xbmc | wc -l)
     if [ "1" -gt "$xbmcrunning" ]
     then
+	# -d plug:plugequal for Equalizer Options
 	/sbin/start-stop-daemon --start --quiet -b -m -p /opt/shairport/log/shairport.pid --chuid $USER --exec /opt/shairport/shairport -- --name "$NAME" -o alsa -- -d plug:dmixer
         echo "Erfolgreich gestartet"
     fi

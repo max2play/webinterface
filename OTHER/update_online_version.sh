@@ -16,10 +16,13 @@ do
 	pushd $SOURCEPATH
 	zip -r webinterface.zip ./max2play
 	zip -r scripts.zip ./opt/max2play -x  /opt/max2play/playername.txt /opt/max2play/samba.conf /opt/max2play/wpa_supplicant.conf	
+	zip -r max2play_complete.zip . -x  *svn*
 	scp $SOURCEPATH/webinterface.zip root@$DESTHOST:$DESTPATH
 	scp $SOURCEPATH/scripts.zip root@$DESTHOST:$DESTPATH
+	scp $SOURCEPATH/max2play_complete.zip root@$DESTHOST:$DESTPATH
 	scp $SOURCEPATH/max2play/application/config/version.txt root@$DESTHOST:$DESTPATH
 	rm webinterface.zip
 	rm scripts.zip
+	rm max2play_complete.zip
 	echo "Completed" 
 done
