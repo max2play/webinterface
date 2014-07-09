@@ -10,7 +10,8 @@ FEATURES
  - no need to ssh to your device any more
  - Plugin configuration to add new features and customize navigation
  - custom CSS and logo possible 
- - easy to use even for non-programmers
+ - easy to use even for non-programmers (configure mount-points, samba-shares, start/stop programs)
+ - responsive layout - optimized for mobile devices
  - adds plug & play to existing audio/video-player releases
 
 HOW TO INSTALL
@@ -30,22 +31,28 @@ HOW TO UPDATE
  - On Basic-Settings in Webinterface click "check Max2play Update"
  - If a new version is available, the files in webserver-folder and /opt/max2play will be overwritten, just keeping wifi, samba and playername config-files
  
-Webinterface is under /max2play
-
-Config-Files for /etc/ under /CONFIG_SYSTEM
-
-Config-Files for /home/USER under /CONFIG_USER
-
-Packages with Scripts for /opt/ under /opt/
+FILESTRUCTURE OF MAX2PLAY PROJECT
+ - Webinterface is under /max2play
+ - Config-Files for /etc/ under /CONFIG_SYSTEM
+ - Config-Files for /home/USER under /CONFIG_USER
+ - Packages with Scripts for /opt/ under /opt/
 
 HOW TO CREATE NEW PLUGINS
 - copy an existing Plugin (e.g. a small one that exists):
-    cp -r /var/www/max2play/application/plugins/squeezeplug /var/www/max2play/application/plugins/myplugin
+    <i>cp -r /var/www/max2play/application/plugins/squeezeplug /var/www/max2play/application/plugins/myplugin</i>
 - change the Pluginname /var/www/max2play/application/plugins/myplugin/controller/Setup.php
 - there is always a backend- (folder "controller") and a frontend-file (folder "view"). Both have the same name and go together (see MVC-Schema).
 - if you want to call shell scripts best use the function $this->writeDynamicScript(array("SCRIPT GOES HERE")); 
 - you can work with the return value of your script and pass it to the view 
 - the view is used to place buttons and output data as well as take input data from forms
 - to activate your new plugin go to "Reset/Reboot" and mark your new Plugin -> save and reload page -> now your Plugin should be visible in the navigation
+
+SCREENS OF CURRENT USAGE - THIS IS HOW IT LOOKS LIKE
+
+<image src="https://raw.githubusercontent.com/max2play/webinterface/master/OTHER/screens/webinterface_audioplayer.gif" />
+<image src="https://raw.githubusercontent.com/max2play/webinterface/master/OTHER/screens/webinterface_reset.gif" />
+<image src="https://raw.githubusercontent.com/max2play/webinterface/master/OTHER/screens/webinterface_filesystem.gif" />
+<image src="https://raw.githubusercontent.com/max2play/webinterface/master/OTHER/screens/webinterface_callblocker.gif" />
+
 
 This file is work in progress...
