@@ -92,10 +92,34 @@
 		<span class="ui-icon ui-icon-arrowreturnthick-1-n" style="float:left; margin:-2px 5px 0 0;"></span>
 		<b><?php echo _("Reset configs to Max2Play delivery configuration") ?></b></p>
 	<input type="button" value="<?php echo _("Reset configs - WARNING: deletes all changes") ?>" name="reset" onclick="document.getElementById('action').value='reset';submit();" /><br />
-	<?php echo _("Settings for WiFi, autostart, playername, filesystem mounts will be overwritten.") ?>
-	</form>
+	<?php echo _("Settings for WiFi, autostart, playername, filesystem mounts will be overwritten.") ?>	
 	
 	<br /><br />
+	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+		<span class="ui-icon ui-icon-gear" style="float:left; margin:-2px 5px 0 0;"></span>
+		<b><?php echo _("Plugin Configuration - Multiselect") ?></b></p>		
+	<?php echo _('Activate Plugins by selecting them. Do multiple Selects by holding &quot;Strg&quot; or &quot;Shift&quot; and Mouseclick') ?>
+	<br />
+	<select name="plugins[]" multiple size="10">
+	<?php foreach($basic->view->pluginselect as $ps) {?>
+		<option value="<?php echo $ps['name'] ?>" <?php if($ps['active']) echo 'selected'; ?>><?php echo $ps['name'] ?></option>
+	<?php }?>
+	</select>
+	<br /><br />
+	
+	<?php echo _('Default Plugin that should be the first in the navigation') ?>
+	<br />
+	<select name="defaultplugin">
+	<?php foreach($basic->view->pluginselect as $ps) { ?>		
+		<option value="<?php echo $ps['name'] ?>" <?php if(isset($ps['default']) && $ps['default'] == 1) echo 'selected'; ?>><?php echo $ps['name'] ?></option>
+	<?php }?>
+	</select>
+	<br /><br />
+	<input type="button" value="<?php echo _("Save Plugin Config - WARNING: removes Navigation for all NOT Selected") ?>" name="pluginconfig" onclick="document.getElementById('action').value='pluginconfig';submit();" /><br />	
+	<br /><br />
+	
+	</form>
+	
 	<?php echo _("DEBUG Info") ?>:
 	<textarea rows="5" cols="80" readonly></textarea>
 </div>	

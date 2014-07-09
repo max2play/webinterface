@@ -31,6 +31,7 @@ class Squeezeserver extends Service {
 	
 	public function __construct(){						
 		parent::__construct();
+		$this->pluginname = _('Squeezeserver');
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'start'){			
@@ -98,3 +99,4 @@ class Squeezeserver extends Service {
 }
 
 $sp = new Squeezeserver();
+include_once(dirname(__FILE__).'/../view/squeezeserver.php');

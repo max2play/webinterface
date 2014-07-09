@@ -4,12 +4,12 @@
  
 LOGFILE='rsync.log'
 DESTUSER='root'
-SOURCEPATH='/home/webuser/projects/Max2Play-Git/max2play/'
+SOURCEPATH='/home/webuser/projects/max2play/max2play/'
 DESTPATH='/var/www/max2play'
-SOURCEPATHOPT='/home/webuser/projects/Max2Play-Git/opt/max2play/'
+SOURCEPATHOPT='/home/webuser/projects/max2play/opt/max2play/'
 DESTPATHOPT='/opt/max2play'
 
-HOSTS=( "max2play")
+HOSTS=( "anrufblocker")
 
 for DESTHOST in "${HOSTS[@]}"
 do

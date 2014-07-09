@@ -31,6 +31,7 @@ class Wlan extends Service {
 	
 	public function __construct(){								
 		parent::__construct();
+		$this->pluginname = _('WiFi / LAN');
 		
 		$this->_getWirelessConfig();
 		if(isset($_GET['action'])){
@@ -184,3 +185,4 @@ class Wlan extends Service {
 }
 
 $wlan = new Wlan();
+include_once(dirname(__FILE__).'/../view/wlan.php');

@@ -29,7 +29,8 @@ class Advanced_Max2play_Setup extends Service {
 	
 	public function __construct(){		
 		parent::__construct();
-	
+		$this->pluginname = _('Advanced Setup');
+		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'disableLEDBlink'){
 				$this->_setLEDBlink();				
@@ -58,5 +59,5 @@ class Advanced_Max2play_Setup extends Service {
 
 $advanced_max2play_setup = new Advanced_Max2play_Setup();
 
-include_once(dirname(__FILE__).'/../view/setup.php');
+include_once(dirname(__FILE__).'/../view/advancedsetup.php');
 

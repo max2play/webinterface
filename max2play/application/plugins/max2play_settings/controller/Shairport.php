@@ -29,7 +29,7 @@ class Shairport extends Service {
 	public $viewname = 'Shairport (Airplay)';
 	
 	public function __construct(){								
-		parent::__construct();
+		parent::__construct();		
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'startap'){			

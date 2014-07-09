@@ -1,8 +1,7 @@
 <?php
 /**
-	 Footer HTML
-	 Create Custom Footer if needed in this directory: footer_custom.php
-	 
+	 FAQ View File
+	
 	 @Copyright 2014 Stefan Rick
 	 @author Stefan Rick
 	 Mail: stefan@rick-software.de
@@ -23,28 +22,17 @@
 	 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */ 
 ?>
+						
 
-</div>
-			</div>
-			<div id="secondary" class="widget-area">
-				<aside class="widget">
-					<h3 class="widget-title"><?php echo _('Topics') ?></h3>
-					<ul>
-						<li><a href="/" title="Info"><?php echo _('Features') ?></a></li>	
-						<li><a href="/plugins/max2play_settings/view/faq.php" title="FAQ"><?php echo _('FAQ - Questions & Answers') ?></a></li>					
-					</ul>
-				</aside>		
-			</div>
-		</div>
+<h1 class="entry-header">
+	<?php echo _("FAQ - frequently asked questions") ?>
+</h1>
 	
-		<footer>
-			<div class="site-info">
-				<br /><br />
-				Max2Play - <a href="http://www.netzberater.de/" title="Powered by Netzberater">powered by Netzberater</a>
-				<br /><br />
-			</div>
-		</footer>
-	</div>
-	<div class="modal"></div>
-</body>
-</html>
+<div class="entry-content">	
+	<b>Wo finde ich eine Anleitung zum Einrichten des Players als Squeezebox?</b><br />
+	Für die Erstkonfiguration von WLAN und Playername muss eine LAN-Verbindung bestehen. Dann kann über den Browser diese Steuerung unter dem Namen http://max2play geöffnet werden.
+	<br /><br />
+	<b>Die Konfigurations-Webseite lädt nicht</b><br />
+	Der Player benötigt DHCP (automatische Adresszuweisung vom Router). Prüfen Sie auf Ihrem Router, welche Adresse dem Player zugewiesen wurde und geben Sie diese direkt in die Adresszeile des Browsers ein.
+</div>	
+															

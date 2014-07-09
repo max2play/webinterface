@@ -303,6 +303,16 @@ class Service {
 	}
 	
 	/**
+	 * Parse Plugin Configuration
+	 */
+	public function getActivePlugins(){
+		$xml = simplexml_load_file(APPLICATION_PATH.'/config/plugins.xml');
+		$json = json_encode($xml);
+		$plugins = json_decode($json,TRUE);
+		return $plugins;
+	}
+	
+	/**
 	 * Write to File that has Root Rights to launch specific installations and configs
 	 * $script is an array separated by lines for each task	
 	 */
@@ -319,6 +329,17 @@ class Service {
 		return $output;
 	}
 	
+	/**
+	 * 
+	 * @param string $directory
+	 * @param string $domain
+	 */
+	public function registerLocale($directory = '', $domain = ''){		
+		//Add Plugin Translation
+		bindtextdomain($domain, $directory);
+		bind_textdomain_codeset($domain, 'UTF-8');
+		define('newLocale', $domain);
+	}
 }
 
 //Create Instance of Service Class

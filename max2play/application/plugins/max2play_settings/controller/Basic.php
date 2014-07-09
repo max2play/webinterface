@@ -23,10 +23,12 @@
    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-class Basic extends Service {	
+class Basic extends Service {		
 	
-	public function __construct(){								
+	public function __construct(){										
 		parent::__construct();
+		$this->pluginname = _('Reset / Reboot');
+		
 		$this->view->locales = array('Europe/Berlin' => 'de_DE.UTF-8', 'Europe/London' => 'en_GB.UTF-8','Europe/Rome' => 'it_IT.UTF-8', 'Europe/Paris' => 'fr_FR.UTF-8');
 		
 		if(isset($_GET['action'])){
@@ -43,6 +45,10 @@ class Basic extends Service {
 				$this->view->message[] = $this->checkMax2PlayUpdate();
 			}
 			
+			if($_GET['action'] == 'pluginconfig'){
+				$this->view->message[] = $this->pluginConfig($_GET['plugins'], $_GET['defaultplugin']);
+			}
+			
 			if($_GET['action'] == 'save'){
 				$this->view->message[] = $this->updatePlayername($_GET['playername']);
 				$this->view->message[] = $this->updateLocale($_GET['locale']);
@@ -54,6 +60,7 @@ class Basic extends Service {
 		$this->getMax2playNetworkLookup();
 		$this->getPlayername();
 		$this->getDisplayResolutions();
+		$this->parsePlugins();
 	}		
 	
 	public function getDisplayResolutions(){
@@ -187,7 +194,105 @@ class Basic extends Service {
 			$this->view->message[] = _('Max2Play is up to date - no update required');
 		}
 	}
+	
+	/**
+	 * get all plugins
+	 * user may activate plugins and add them to the navigation
+	 */
+	public function parsePlugins(){
+		$plugins_avail = array();
+		//Parse Folder				
+		$handle = opendir(APPLICATION_PATH.'/plugins');
+		while (false !== ($file = readdir($handle))) {
+			if ($file != "." && $file != "..") {
+				try {
+					$handle_controller = opendir(APPLICATION_PATH.'/plugins/'.$file.'/controller');
+					if($handle_controller){
+						while (false !== ($action = readdir($handle_controller))) {
+							if ($action != "." && $action != "..") {
+								$path = '/plugins/'.$file.'/controller/'.$action;
+								//Parse Pluginname							
+								$output = shell_exec('cat '.APPLICATION_PATH.$path.' | grep "this->pluginname"');							
+								
+								if(preg_match('=\$this-\>pluginname \= \_\(\'(.*)\'=', $output, $match)){					
+									//only activate plugin if name is set (class of plugin may just be part of another class)
+									$plugins_avail[$match[1]] = array('name' => $match[1], 
+														     'navigation' => array('translate' => $match[1]), 
+														     'path' => $path
+													  );
+								}							
+							}
+						}
+						closedir($handle_controller);
+					}
+				}catch(Exception $e){
+					$this->view->message[] = _('Plugin Error');
+				}				
+			}
+		}		
+		closedir($handle);		
+		
+		// get current Configuration from XML
+		$pluginConf = $this->getActivePlugins();
+		
+		$plugins['configuration'] = $pluginConf['plugin'];
+		$plugins['available'] = $plugins_avail;
+		//Prepare Output for Choosing plugins in Multi SELECT
+		foreach($plugins['available'] as $pa){
+			$active = $default = false;
+			foreach($plugins['configuration'] as $pc){
+				if($pa['name'] == $pc['name'] && isset($pc['active']) && $pc['active'] == 1){
+					$active = true;
+					if(isset($pc['default']) && $pc['default'] == 1){
+						$default = 1;
+					}
+				}
+			}
+			$pluginselect[$pa['name']] = array('name' => $pa['name'], 'active' => $active, 'default' => $default);
+		}
+		
+		$this->view->pluginselect = $pluginselect;
+		return $plugins;
+	}
+	
+	/**
+	 * Save Plugin Configuration to XML
+	 * @param string $plugins
+	 */
+	private function pluginConfig($pluginchoose = false, $defaultplugin = false){				
+		//Make config Folder and Plugin Config File writeable
+		$this->writeDynamicScript(array('chmod -R 777 '.APPLICATION_PATH.'/config'));
+		
+		//Check active Plugins
+		$plugins = $this->parsePlugins();
+		$pos = 1;
+		foreach($plugins['available'] as $pa){
+			$pa['active'] = 0;
+			foreach($pluginchoose as $pc){
+				if($pc == $pa['name'])
+					$pa['active'] = 1;
+			}
+			if($defaultplugin == $pa['name']){
+				$pa['default'] = 1;
+				$newconfig['plugin'][0] = $pa;
+			}else{
+				$newconfig['plugin'][$pos++] = $pa;
+			}
+		}
+		ksort($newconfig['plugin']);
+		
+		include_once(APPLICATION_PATH.'/library/array2xml.php');
+		$xml = Array2XML::createXML('config', $newconfig);
+
+		$xml->save(APPLICATION_PATH.'/config/plugins.xml');
+		return _('Plugin configuration updated - Reload Page to see changes');
+		
+		//redirect to self in 3 seconds
+		
+	}
+		
 }
 
 //Create Instance for view
 $basic = new Basic();
+include_once(dirname(__FILE__).'/../view/basic.php');

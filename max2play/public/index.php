@@ -28,18 +28,30 @@
 
 include_once('../application/bootstrap.php');
 
-include_once(APPLICATION_PATH.'/view/header.php');
+if(file_exists(APPLICATION_PATH.'/view/header_custom.php'))
+	include_once(APPLICATION_PATH.'/view/header_custom.php');
+else
+	include_once(APPLICATION_PATH.'/view/header.php');
 
 //search for Controller and View by Name in URL
 if(strpos($_GET['page'], 'plugin') === FALSE){
 	$pagename = preg_replace('=[^0-9a-zA-Z\.]=','',isset($_GET['page']) ? $_GET['page'] : '');
-	if($pagename == '')
-		$pagename = 'Index.php';
-	include_once(APPLICATION_PATH.'/controller/'.$pagename);
-	include_once(APPLICATION_PATH.'/view/'.strtolower($pagename));
+	if($pagename == ''){
+		//get Default Plugin for first Page
+		foreach($plugins['plugin'] as $plugin){			
+			if(isset($plugin['default']) && $plugin['default'] == 1){
+				include_once(APPLICATION_PATH.$plugin['path']);
+				break;
+			}			
+		}
+	}
 }else{
 	//get Plugin by Config
 	include_once(APPLICATION_PATH.'/'.$_GET['page']);
 }
-include_once(APPLICATION_PATH.'/view/footer.php');	
+
+if(file_exists(APPLICATION_PATH.'/view/footer_custom.php'))
+	include_once(APPLICATION_PATH.'/view/footer_custom.php');
+else
+	include_once(APPLICATION_PATH.'/view/footer.php');
 			

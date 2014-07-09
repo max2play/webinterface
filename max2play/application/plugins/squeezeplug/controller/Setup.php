@@ -31,7 +31,8 @@ class Squeezeplug_Setup extends Service {
 	
 	public function __construct(){		
 		parent::__construct();
-	
+		$this->pluginname = _('Squeezeplug Setup');
+		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'installMiniDLNA'){
 				$this->_installMiniDLNA();				

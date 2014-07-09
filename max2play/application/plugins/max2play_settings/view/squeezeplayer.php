@@ -54,10 +54,6 @@ $(function() {
 });
 </script>
 
-<?php //zusätzlich die Shairport konfig laden
-	  include_once('../application/controller/Shairport.php');
-	  include_once('../application/controller/Squeezeslave.php') ?>		
-
 <h1 class="entry-header">
 	<?php echo _("Mediaplayer Squeezelite & Airplay - Status, Start / Stop") ?>
 </h1>

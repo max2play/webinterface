@@ -30,8 +30,8 @@
 	 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-include_once('../application/model/Mount.php');
-include_once('../application/model/Samba.php');
+include_once(APPLICATION_PATH.'/model/Mount.php');
+include_once(APPLICATION_PATH.'/model/Samba.php');
 
 class Filesystem extends Service {
 	
@@ -41,6 +41,7 @@ class Filesystem extends Service {
 	
 	public function __construct(){		
 		parent::__construct();
+		$this->pluginname = _('Filesystem Mount');
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'add'){
@@ -244,3 +245,4 @@ class Filesystem extends Service {
 }
 
 $fs = new Filesystem();
+include_once(dirname(__FILE__).'/../view/filesystem.php');

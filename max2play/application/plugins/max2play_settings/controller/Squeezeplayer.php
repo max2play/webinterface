@@ -30,7 +30,8 @@ class Squeezeplayer extends Service {
 	public $equalvalues = array();
 	
 	public function __construct(){								
-		parent::__construct();		
+		parent::__construct();
+		$this->pluginname = _('Audioplayer');
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'start'){			
@@ -94,3 +95,9 @@ class Squeezeplayer extends Service {
 }
 
 $sp = new Squeezeplayer();
+
+//zusätzlich die Shairport konfig laden
+include_once(dirname(__FILE__).'/Shairport.php');
+include_once(dirname(__FILE__).'/Squeezeslave.php');
+	  
+include_once(dirname(__FILE__).'/../view/squeezeplayer.php');

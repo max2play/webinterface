@@ -1,6 +1,7 @@
 <?php
 /**
 	 Header HTML
+	 Create Custom Header if needed in this directory: header_custom.php 
 	
 	 @Copyright 2014 Stefan Rick
 	 @author Stefan Rick
@@ -34,6 +35,10 @@
 	<script src="/js/jquery-ui-1.10.4.custom.js"></script>
 	<link rel='stylesheet' id=''  href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&#038;subset=latin,latin-ext' type='text/css' media='all' />	
 	<link rel='stylesheet' id=''  href='/style.css' type='text/css' media='all' />
+	<?php if(file_exists(APPLICATION_PATH.'/../public/custom.css')) { ?>	
+		<link rel='stylesheet' id=''  href='/custom.css' type='text/css' media='all' />
+	<?php } ?>
+	<script>$(document).on("click", "input[type=button]", function() { $("body").addClass("loading");});</script>
 </head>
 
 <body>
@@ -55,12 +60,14 @@
 			
 			<nav id="navigation" class="navigation">					
 				<div class="nav-menu">
-					<ul>
-						<li><a href="/" title="Home" class="<?php if($_SERVER['REQUEST_URI'] == '/') echo 'current';?>"><?php echo _('Start')?></a></li>
+					<ul>						
 						<?php if(isset($plugins['plugin']) && count($plugins['plugin']) > 0) { 							
 							foreach($plugins['plugin'] as $plugin){ 
-								if(isset($plugin['navigation']) && $plugin['navigation'] != ''){?>
-									<li><a href="<?php echo $plugin['path'] ?>" class="<?php if(strpos($_SERVER['REQUEST_URI'], $plugin['path']) !== FALSE) echo 'current';?>"><?php echo (isset($plugin['navigation']['translate'])) ? _($plugin['navigation']['translate']) : _($plugin['navigation']) ?></a></li>
+								if(isset($plugin['navigation']) && $plugin['navigation'] != '' && isset($plugin['active']) && $plugin['active'] == 1){?>
+									<li><a href="<?php echo $plugin['path'] ?>" 
+										   class="<?php if(strpos($_SERVER['REQUEST_URI'], $plugin['path']) !== FALSE || $_SERVER['REQUEST_URI'] == '/' && isset($plugin['default']) && $plugin['default'] == 1) echo 'current';?>"
+										   ><?php echo (isset($plugin['navigation']['translate'])) ? _($plugin['navigation']['translate']) : _($plugin['navigation']) ?></a>
+								    </li>
 						  <?php }
 							}							
 						}?>

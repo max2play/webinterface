@@ -76,3 +76,7 @@ sudo cp -r . /etc/
 
 # Make some Files Writable
 # hostname, ...
+
+#fstab erweitern um ##USERMOUNT
+
+# Remove writeable on sudoers

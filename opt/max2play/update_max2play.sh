@@ -9,3 +9,6 @@ unzip -o /opt/max2play/cache/webinterface.zip -d /var/www
 
 echo "Install Scripts"
 unzip -o /opt/max2play/cache/scripts.zip -d /
+
+# Fix für usbmount Geschwindigkeit
+sed -i 's/^MOUNTOPTIONS="sync,noexec,nodev,noatime,nodiratime"/MOUNTOPTIONS="noexec,nodev,noatime,nodiratime"/' /etc/usbmount/usbmount.conf

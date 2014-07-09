@@ -59,12 +59,17 @@ function setTimezone($default) {
 
 setTimezone('UTC');
 
+//Translate function for different PO-Files - Register in Service Class!
+function _t($string, $domain = ''){
+	if($domain == '' && defined('newLocale'))
+		$domain = newLocale;
+	return dgettext($domain, $string);
+}
+
 //Load Main-Service-Class that is implemented by most services
 include_once('controller/Service.php');
 
 //Parse Plugin-Folder for additional Services / Modules to load
-$xml = simplexml_load_file(APPLICATION_PATH.'/config/plugins.xml');
-$json = json_encode($xml);
-$plugins = json_decode($json,TRUE);
+$plugins = $service->getActivePlugins();
 // Header, Klassenpfad für index.php, usw. anpassen auf Basis der Pluginstruktur
 

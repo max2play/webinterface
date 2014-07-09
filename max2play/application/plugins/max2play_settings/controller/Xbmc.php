@@ -33,6 +33,7 @@ class Xbmc extends Service {
 	
 	public function __construct(){								
 		parent::__construct();
+		$this->pluginname = _('XBMC (Mediacenter)');
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'start'){			
@@ -55,3 +56,4 @@ class Xbmc extends Service {
 }
 
 $sp = new Xbmc();
+include_once(dirname(__FILE__).'/../view/xbmc.php');
