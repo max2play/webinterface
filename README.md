@@ -49,10 +49,10 @@ HOW TO CREATE NEW PLUGINS
 
 SCREENS OF CURRENT USAGE - THIS IS HOW IT LOOKS LIKE
 
-<image src="https://raw.githubusercontent.com/max2play/webinterface/master/OTHER/screens/webinterface_audioplayer.gif" />
-<image src="https://raw.githubusercontent.com/max2play/webinterface/master/OTHER/screens/webinterface_reset.gif" />
-<image src="https://raw.githubusercontent.com/max2play/webinterface/master/OTHER/screens/webinterface_filesystem.gif" />
-<image src="https://raw.githubusercontent.com/max2play/webinterface/master/OTHER/screens/webinterface_callblocker.gif" />
+<img src="https://raw.githubusercontent.com/max2play/webinterface/master/OTHER/screens/webinterface_audioplayer.gif" />
+<img src="https://raw.githubusercontent.com/max2play/webinterface/master/OTHER/screens/webinterface_reset.gif" />
+<img src="https://raw.githubusercontent.com/max2play/webinterface/master/OTHER/screens/webinterface_filesystem.gif" />
+<img src="https://raw.githubusercontent.com/max2play/webinterface/master/OTHER/screens/webinterface_callblocker.gif" />
 
 
 This file is work in progress...
