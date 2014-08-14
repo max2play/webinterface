@@ -7,7 +7,6 @@
  @author Stefan Rick
  Mail: stefan@rick-software.de
  Web: http://www.netzberater.de
-
  */
 
 class Callblocker_Blacklist extends Service {
@@ -65,27 +64,27 @@ class Callblocker_Blacklist extends Service {
 					
 					//Get Information for Blacklisted Callers by tellows OR local Blacklist
 					//If number is on Blacklist but wasn't blacklisted before -> mark it red! Same on Whitelist with green 
-					if(1 == 1 || $call['blacklist']){
-						//Check local file
-						if(in_array($call['number'], $this->blacklist_array)){
-							$call['blacklist_type'] = _t('local');							
-						}else{
-							//TODO: check auf internationale Nummern mit Grep
-							$output = shell_exec('cat /opt/callblocker/cache/tellows.csv | grep ^'.$call['number'].';');
-							// Save tellows Information for Number
-							if(strlen($output) > 10){
-								$tdata = explode(';', $output);
-								$call['blacklist_type'] = 'tellows';
-								$call['name'] = $tdata[6];
-							}
-						}
-						
-						if(in_array($call['number'], $this->whitelist_array)){
-							$call['whitelist'] = true;
-						}else{
-							$call['whitelist'] = false;
+					
+					//Check local file
+					if(in_array($call['number'], $this->blacklist_array)){
+						$call['blacklist_type'] = _t('local');							
+					}else{
+						//TODO: check auf internationale Nummern mit Grep
+						$output = shell_exec('cat /opt/callblocker/cache/tellows.csv | grep ^'.$call['number'].';');
+						// Save tellows Information for Number
+						if(strlen($output) > 10){
+							$tdata = explode(';', $output);
+							$call['blacklist_type'] = 'tellows';
+							$call['name'] = $tdata[6];
 						}
 					}
+					
+					if(in_array($call['number'], $this->whitelist_array)){
+						$call['whitelist'] = true;
+					}else{
+						$call['whitelist'] = false;
+					}
+					
 					
 					if($last_time == '' || ($last_number != $call['number']) || ($last_time != $call['date'])) {
 						//Ignore duplicates by different lines (SIP & POTS)
@@ -188,6 +187,7 @@ class Callblocker_Blacklist extends Service {
 	private function _getTellowsCountry(){
 		$output = shell_exec('cat /opt/callblocker/tellows.conf');		
 		preg_match('=country\=([a-z]*)=', $output, $match);
+		$this->tellows = new stdClass();
 		$this->tellows->country = $match[1];
 		return true;
 	}

@@ -11,6 +11,7 @@
 
 USER=odroid
 NAME=$(cat /opt/max2play/playername.txt)
+SHAIRPORT_PARAMETER=$(grep -a "SHAIRPORT_PARAMETER" /opt/max2play/audioplayer.conf | sed -n -e 's/^.*\=//p')
 
 case "$1" in
   start)
@@ -20,7 +21,7 @@ case "$1" in
     if [ "1" -gt "$xbmcrunning" ]
     then
 	# -d plug:plugequal for Equalizer Options
-	/sbin/start-stop-daemon --start --quiet -b -m -p /opt/shairport/log/shairport.pid --chuid $USER --exec /opt/shairport/shairport -- --name "$NAME" -o alsa -- -d plug:dmixer
+	/sbin/start-stop-daemon --start --quiet -b -m -p /opt/shairport/log/shairport.pid --chuid $USER --exec /opt/shairport/shairport -- --name "$NAME" -o alsa -- $SHAIRPORT_PARAMETER
         echo "Erfolgreich gestartet"
     fi
   ;;

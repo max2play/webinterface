@@ -302,6 +302,16 @@ class Service {
 		$this->info->version = file_get_contents(APPLICATION_PATH.'/config/version.txt');
 	}
 	
+	public function checkForUpdate(){
+		$this->getVersion();
+		//Check auf Update
+		$file = file_get_contents('http://shop.max2play.com/media/downloadable/currentversion/version.txt');
+		if((float)$this->info->version < (float)$file){
+			$this->view->message[] = _('Max2Play update is available - start update on tab Settings / Reboot');
+		}
+		return true;
+	}
+	
 	/**
 	 * Parse Plugin Configuration
 	 */

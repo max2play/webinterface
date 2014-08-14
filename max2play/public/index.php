@@ -25,6 +25,7 @@
 ?>
 
 <?php 
+ob_start();
 
 include_once('../application/bootstrap.php');
 
@@ -34,7 +35,7 @@ else
 	include_once(APPLICATION_PATH.'/view/header.php');
 
 //search for Controller and View by Name in URL
-if(strpos($_GET['page'], 'plugin') === FALSE){
+if(!isset($_GET['page']) || strpos($_GET['page'], 'plugin') === FALSE){
 	$pagename = preg_replace('=[^0-9a-zA-Z\.]=','',isset($_GET['page']) ? $_GET['page'] : '');
 	if($pagename == ''){
 		//get Default Plugin for first Page
@@ -54,4 +55,5 @@ if(file_exists(APPLICATION_PATH.'/view/footer_custom.php'))
 	include_once(APPLICATION_PATH.'/view/footer_custom.php');
 else
 	include_once(APPLICATION_PATH.'/view/footer.php');
-			
+
+ob_flush();

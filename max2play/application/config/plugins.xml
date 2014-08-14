@@ -34,9 +34,9 @@
     <active>0</active>
   </plugin>
   <plugin>
-    <name>Reset / Reboot</name>
+    <name>Settings / Reboot</name>
     <navigation>
-      <translate>Reset / Reboot</translate>
+      <translate>Settings / Reboot</translate>
     </navigation>
     <path>/plugins/max2play_settings/controller/Basic.php</path>
     <active>1</active>

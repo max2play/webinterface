@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-03 09:47+0100\n"
-"PO-Revision-Date: 2014-07-03 09:51+0100\n"
+"POT-Creation-Date: 2014-08-14 11:13+0100\n"
+"PO-Revision-Date: 2014-08-14 11:16+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -75,6 +75,10 @@ msgstr "erfolgreich aus Autostart entfernt"
 msgid "successfully added to autostart"
 msgstr "erfolgreich zu Autostart hinzugefügt"
 
+#: y:\projects\max2play\max2play\application\controller/Service.php:310
+msgid "Max2Play update is available - start update on tab Settings / Reboot"
+msgstr "Max2Play Update ist verfügbar auf dem Reiter Einstellungen / Reboot"
+
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:28
 msgid "XBMC - Status, Start & Stop"
 msgstr "XBMC - Status, Start & Stop"
@@ -84,64 +88,100 @@ msgstr "XBMC - Status, Start & Stop"
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/wlan.php:46
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:82
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:86
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:97
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:101
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:112
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:116
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:46
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:51
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:113
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:117
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:143
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:147
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:48
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:53
 msgid "Status"
 msgstr "Status"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:47
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:82
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:97
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:112
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:46
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:113
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:143
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:48
 msgid "$SERVICENAME is running with processID"
 msgstr "$SERVICENAME läuft aktuell unter der ProzessID"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:48
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:83
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:98
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:113
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:48
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:114
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:144
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:50
 msgid "stop $SERVICENAME"
 msgstr "$SERVICENAME stoppen"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:50
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:86
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:101
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:116
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:51
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:117
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:147
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:53
 msgid "$SERVICENAME not running"
 msgstr "$SERVICENAME läuft nicht"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:51
+msgid ""
+"Reinitialize Display (if screen is black or HDMI was not connected on "
+"startup)"
+msgstr ""
+"Aktualisieren der HDMI-Ausgabe (wenn der Desktop nicht geladen ist oder HDMI "
+"beim Start nicht verbunden war)"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:53
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:87
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:102
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:117
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:52
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:118
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:148
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:54
 msgid "start $SERVICENAME"
 msgstr "$SERVICENAME starten"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:55
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:89
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:104
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:119
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:61
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:56
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:105
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:135
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:165
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:57
 msgid "Autostart $SERVICENAME"
 msgstr "Autostart $SERVICENAME"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:57
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:91
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:106
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:121
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:63
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:58
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:102
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:107
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:133
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:137
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:163
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:167
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:59
 msgid "save"
 msgstr "speichern"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:61
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:63
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:67
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:65
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:82
+msgid "$NAME start installation"
+msgstr "Starte Installation von $NAME"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:63
+msgid "Replaces current $VERSION"
+msgstr "Ersetzt aktuelle $VERSION"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:65
+msgid "Choose XBMC-Package by http-link (package must be .deb) for Update"
+msgstr "Wähle HTTP-Link für XBMC-Update (muss ein .deb Paket sein) "
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:68
+msgid ""
+"The installation may take some time depending on your internet connection. "
+"At first it downloads the package from given source and afterwards it "
+"installs the package."
+msgstr ""
+"Die Installation kann etwas dauern - abhängig von der Internetverbindung. "
+"Zuerst wird das Paket von dem angegebenen Link heruntergeladen und "
+"anschließend installiert."
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:73
 msgid "XBMC INFO DESCRIPTION"
 msgstr ""
 "XBMC ist ein Media-Center für Videos, Musik und mehr.<br /><br /><sup>#1</"
@@ -152,8 +192,11 @@ msgstr ""
 "schneller.<br /><br /><b>Hinweise:</b><br />Wenn XBMC läuft wird Squeezelite "
 "automatisch deaktiviert! Anders ist es derzeit nicht möglich Sound in XBMC "
 "abzuspielen, da XBMC Pulseaudio nutzt und Squeezelite sowie Shairplay Alsa "
-"nutzen um gleichzeitig auf das Soundinterface zuzugreifen. Sobald XBMC "
-"beendet wird, startet Squeezelite automatisch wieder."
+"nutzen, um gleichzeitig auf das Soundinterface zuzugreifen. Sobald XBMC "
+"beendet wird, startet Squeezelite automatisch wieder. Für die Integration "
+"externer USB-Soundkarten und 5.1 Sound gibt es im XBMC-Wiki eine sehr gute "
+"Anleitung: <a href=\"http://wiki.xbmc.org/index.php?title=PulseAudio\" "
+"target=\"_blank\">XBMC Wiki Anleitung Pulseaudio</a>"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/advancedsetup.php:28
 msgid "Advanced Max2Play Setup"
@@ -180,7 +223,7 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/advancedsetup.php:59
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/wlan.php:116
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:123
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:121
 msgid "DEBUG Info"
 msgstr "DEBUG Info"
 
@@ -375,25 +418,43 @@ msgid "Mediaplayer Squeezelite & Airplay - Status, Start / Stop"
 msgstr "Mediaplayer Squeezelite & Airplay - Status, Start / Stop"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:84
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:99
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:114
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:49
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:115
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:145
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:51
 msgid "kill $SERVICENAME"
 msgstr "$SERVICENAME killen"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:131
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:90
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:120
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:150
+msgid "Edit Advanced Options"
+msgstr "Erweiterte Optionen"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:94
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:124
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:154
+msgid "Soundcard"
+msgstr "Soundkarte"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:99
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:130
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:160
+msgid "Select Audio output"
+msgstr "Wähle Audio Ausgabe"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:177
 msgid "Graphic Equalizer"
 msgstr "Grafischer Equalizer (NUR für Squeezeslave und Shairport)"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:139
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:185
 msgid "Zurücksetzen"
 msgstr ""
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:140
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:186
 msgid "Speichern"
 msgstr ""
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:147
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:193
 msgid "SQUEEZEPLAYER INFO DESCRIPTION"
 msgstr ""
 "Squeezelite ist ein Software Player für Squeezebox, der mit dem Logitech "
@@ -415,29 +476,29 @@ msgstr "Playername"
 msgid "URL for this Web-administration / name of Squeezelite player"
 msgstr "URL für diese Web-Administration / Name Squeezelite Player"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:54
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:55
 msgid "Display Resolution"
 msgstr "Auflösung"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:59
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:60
 msgid "With this resolution runs desktop and XBMC"
 msgstr "Unter dieser Auflösung läuft XBMC und der Desktop"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:62
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:64
 msgid "Language"
 msgstr "Sprache / Zeitzone"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:67
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:69
 msgid ""
 "Change Keyboard Layout, Language and Timezone for Desktop (this web-"
 "interface detects browser language)"
 msgstr "Ändere Tastaturlayout, Sprache und Zeitzone für den Desktop"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:70
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:72
 msgid "Network Lookup"
 msgstr "Netzwerk Suche"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:72
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:74
 msgid ""
 "Search local Network for other Max2Play-Devices running Squeezelite and "
 "display them in the header of this interface"
@@ -445,27 +506,31 @@ msgstr ""
 "Suche nach Max2Play-Devices mit Squeezelite im Netzwerk und zeige diese im "
 "Kopfbereich dieses Interfaces an. Nur sinnvoll bei mehreren Playern."
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:76
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:78
 msgid "Save Settings"
 msgstr "Einstellungen speichern"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:81
-msgid "Reboot Max2Play"
-msgstr "Reboot Max2Play"
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:83
+msgid "Reboot / Update / Filesystem Settings"
+msgstr "Reboot / Update Max2Play / Dateisystem Expandieren"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:87
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:85
+msgid "Expand Filesystem"
+msgstr "Expandiere Dateisystem"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:86
 msgid "Update Max2Play"
 msgstr "Update Max2Play"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:93
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:91
 msgid "Reset configs to Max2Play delivery configuration"
 msgstr "Max2Play Ursprungskonfiguration Wiederherstellen"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:94
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:92
 msgid "Reset configs - WARNING: deletes all changes"
 msgstr "Konfiguration Reset (löscht alle Änderungen!)"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:95
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:93
 msgid ""
 "Settings for WiFi, autostart, playername, filesystem mounts will be "
 "overwritten."
@@ -473,11 +538,11 @@ msgstr ""
 "Einstellungen zu Wlan, Autostart, Playername und gemountete Verzeichnisse "
 "werden durch die Standardbelegung überschrieben."
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:100
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:98
 msgid "Plugin Configuration - Multiselect"
-msgstr ""
+msgstr "Plugin Konfiguration - Mehrfachauswahl"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:101
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:99
 msgid ""
 "Activate Plugins by selecting them. Do multiple Selects by holding &quot;"
 "Strg&quot; or &quot;Shift&quot; and Mouseclick"
@@ -486,30 +551,35 @@ msgstr ""
 "geschieht über das Halten von &quot;Strg&quot; oder &quot;Shift&quot; und "
 "gleichzeitigem Mausklick"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:110
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:108
 msgid "Default Plugin that should be the first in the navigation"
 msgstr "Standard-Plugin für erste Seite (erster Eintrag in Navigation)"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:118
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:116
 msgid "Save Plugin Config - WARNING: removes Navigation for all NOT Selected"
 msgstr ""
 "Speichere Plugin Konfiguration - ACHTUNG: entfernt die Navigation für alle "
 "NICHT selektierten Plugins"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:27
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:28
 msgid "Squeezeserver - Status, Start & Stop"
 msgstr "Squeezeserver - Status, Start & Stop"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:47
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:49
 msgid "Start Squeezeserver Webadministration"
 msgstr "Start Squeezeserver Webadministration"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:55
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:56
-msgid "$NAME start installation"
-msgstr "Starte Installation von $NAME"
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:77
+msgid "Show available Versions"
+msgstr "Zeige verfügbare Versionen"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:57
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:79
+msgid "Alternative other source from Slimdevices (package must be .deb)"
+msgstr ""
+"Alternative Paketquelle für LMS von Slimdevices (muss das Debian Package "
+"sein)"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:83
 msgid ""
 "The installation takes about 5 to 10 minutes depending on your internet "
 "connection. At first it downloads the package from http://downloads."
@@ -519,9 +589,11 @@ msgstr ""
 "Zuerst wird das Paket von http://downloads.slimdevices.com/ heruntergeladen "
 "und anschließend installiert. Das ganze dauert je nach Internetverbindung "
 "ungefähr 5 - 10 Minuten! Wenn diese Seite nach dem Start der Installation "
-"neu geladen wird, zeigt sie den Installationsfortschritt."
+"neu geladen wird, zeigt sie den Installationsfortschritt. Sollte das "
+"Webinterface des Squeezeboxservers nach der Installation nicht erreichbar "
+"sein, muss der Player ggf. neu gestartet werden."
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:68
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:88
 msgid "SQUEEZESERVER INFO DESCRIPTION"
 msgstr ""
 "Squeezeserver (Logitech Media Server) ist der Server für die Squeezebox und "
@@ -533,7 +605,7 @@ msgstr ""
 msgid "Max2Play Media Player - Info"
 msgstr "Max2Play Media Player - Informationen"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:6
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:16
 msgid ""
 "READ CAREFULLY: THIS INTERFACE IS STILL A BETA AND MIGHT HAVE BUGS OR "
 "UNEXPECTED BEHAVIOR!"
@@ -541,7 +613,7 @@ msgstr ""
 "ACHTUNG: DIESE KONFIGURATIONSMÖGLICHKEIT IST EINE BETA UND ENTHÄLT "
 "MÖGLICHERWEISE FEHLER!"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:8
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:18
 msgid ""
 "The Max2Play Interface is used to configurate the device without having to "
 "set up montior, keyboard and mouse on the device itsself or login by ssh."
@@ -554,7 +626,7 @@ msgstr ""
 "oder per HDMI-Kabel und Tastatur/Maus am Gerät die Konfiguration per Konsole "
 "erfolgen."
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:10
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:20
 msgid ""
 "Questions concerning this project? Please refer to <a href=\"http://shop."
 "max2play.com\" target=\"_blank\">Shop.Max2Play</a>"
@@ -582,65 +654,69 @@ msgstr "LED-Blink Einstellungen geändert - Reboot benötigt"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:30
 #: y:\projects\max2play\max2play\application\config/plugins.xml:39
-msgid "Reset / Reboot"
-msgstr "Reset & Reboot"
+msgid "Settings / Reboot"
+msgstr "Einstellungen / Reboot"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:37
 msgid "REBOOT gestartet"
 msgstr "REBOOT started"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:83
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:88
 msgid "Changed display resolution - Reboot needed"
 msgstr "Bildschirmauflösung angepasst - Reboot erforderlich"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:85
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:90
 msgid "no valid resolution choosen"
 msgstr "keine gültige Auflösung"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:124
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:132
 msgid "Value for Timezone/Language not found."
 msgstr "Wert für Zeitzone / Sprache nicht gefunden"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:126
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:146
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:134
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:154
 msgid "Changes successful - Reboot needed"
 msgstr "Erfolgreich geändert - Reboot erforderlich"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:144
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:152
 msgid "Name not possible! Please do not use special characters."
 msgstr "Ungültiger Name! Bitte keine Sonderzeichen verwenden."
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:165
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:175
 msgid "Config Files restored for "
 msgstr "Ursprungskonfiguration wiederhergestellt für"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:174
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:184
 msgid "Max2Play Network Player Lookup saved"
 msgstr "Max2Play Netzwerk Suche gespeichert"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:185
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:195
 msgid "Max2Play update started"
 msgstr "Max2Play Update gestartet"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:190
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:200
 msgid "UPDATE SUCCESSFUL"
 msgstr "Update erfolgreich!"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:192
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:202
 msgid "UPDATE NOT SUCCESSFUL"
 msgstr "Update NICHT erfolgreich"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:194
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:204
 msgid "Max2Play is up to date - no update required"
 msgstr "May2Play ist auf dem aktuellsten Stand - kein Update erforderlich"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:227
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:239
 msgid "Plugin Error"
 msgstr "Plugin Fehler"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:286
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:298
 msgid "Plugin configuration updated - Reload Page to see changes"
 msgstr "Pluginkonfiguration geändert - Seite neu laden zum Änderungen zu sehen"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:309
+msgid "Resize Filesystem"
+msgstr "Expandiere Dateisystem"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:34
 #: y:\projects\max2play\max2play\application\config/plugins.xml:47
@@ -676,7 +752,7 @@ msgid "WLAN deactivated - no network choosen - please reboot"
 msgstr "WLAN deaktiviert - kein Netzwerk gewählt - bitte Neustarten"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:44
-#: y:\projects\max2play\max2play\application\config/plugins.xml:63
+#: y:\projects\max2play\max2play\application\config/plugins.xml:55
 msgid "Filesystem Mount"
 msgstr "Dateisystem Mount"
 
@@ -709,18 +785,53 @@ msgstr "Passwort geändert"
 msgid "Samba Service restarted"
 msgstr "Samba Dienst neu gestartet"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:34
-#: y:\projects\max2play\max2play\application\config/plugins.xml:71
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:35
+#: y:\projects\max2play\max2play\application\config/plugins.xml:63
 msgid "Squeezeserver"
 msgstr "Squeezeserver"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:74
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:89
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:73
 msgid "Something went wrong in last Install Attempt - Deleting Progressfile"
 msgstr ""
 "Etwas lief schief beim letzten Installationsversuch - lösche "
 "Installationsdatei und versuche es nochmal"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:82
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:94
+msgid "Installation Progress: "
+msgstr "Installationsfortschritt:"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:98
+msgid "LMS-Version not existing"
+msgstr "LMS-Version existiert nicht"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:108
+msgid ""
+"Installation startet - This Messages refreshes every 3 seconds to show "
+"current status of installation. If finished this message disappears."
+msgstr ""
+"Installation gestartet - Diese Meldung zeigt den aktuellen Status der "
+"Installation aller 3 Sekunden an. Wenn diese abgeschlossen ist verschwindet "
+"die Meldung und der Server läuft."
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:109
+msgid "Installation Package: "
+msgstr "Installationspaket:"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:36
+#: y:\projects\max2play\max2play\application\config/plugins.xml:71
+msgid "XBMC (Mediacenter)"
+msgstr "XBMC (Mediacenter)"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:46
+msgid "Restart Desktop-Manager completed (initialized Display)"
+msgstr "Neustart des Desktop-Managers abgeschlossen"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:81
+msgid "No Link for download given"
+msgstr "Kein Link zum Download angegeben"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:88
 msgid ""
 "Installation gestartet - Seite neu Laden oder Button erneut drücken, um "
 "Status der Installation zu sehen."
@@ -728,28 +839,27 @@ msgstr ""
 "Installation gestartet - Seite neu Laden oder Button erneut drücken, um "
 "Status der Installation zu sehen."
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:36
-#: y:\projects\max2play\max2play\application\config/plugins.xml:79
-msgid "XBMC (Mediacenter)"
-msgstr "XBMC (Mediacenter)"
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:89
+msgid "Installationspaket: "
+msgstr "Installationspaket: "
 
 #: y:\projects\max2play\max2play\application\view/header_custom.php:48
-#: y:\projects\max2play\max2play\application\view/header.php:49
+#: y:\projects\max2play\max2play\application\view/header.php:51
 msgid "Choose active Player"
 msgstr "Wähle Player"
 
 #: y:\projects\max2play\max2play\application\view/header_custom.php:55
-#: y:\projects\max2play\max2play\application\view/header.php:56
+#: y:\projects\max2play\max2play\application\view/header.php:58
 msgid "Version"
 msgstr "Version"
 
 #: y:\projects\max2play\max2play\application\view/header_custom.php:66
-#: y:\projects\max2play\max2play\application\view/header.php:67
+#: y:\projects\max2play\max2play\application\view/header.php:69
 msgid "navigation"
-msgstr ""
+msgstr "Navigation"
 
 #: y:\projects\max2play\max2play\application\view/header_custom.php:66
-#: y:\projects\max2play\max2play\application\view/header.php:67
+#: y:\projects\max2play\max2play\application\view/header.php:69
 msgid "translate"
 msgstr ""
 
@@ -768,24 +878,47 @@ msgid "FAQ - Questions & Answers"
 msgstr "FAQ - Fragen & Antworten"
 
 #: y:\projects\max2play\max2play\application\view/footer_custom.php:32
+msgid ""
+"http://shop.tellows.de/de/lizenzschlussel-fur-tellows-community-sperrliste-"
+"anrufblocker.html"
+msgstr ""
+
+#: y:\projects\max2play\max2play\application\view/footer_custom.php:32
 msgid "get API-Key for tellows"
-msgstr "API-Key kaufen / erneuern"
+msgstr "tellows Lizenz kaufen / erneuern"
+
+#: y:\projects\max2play\max2play\application\view/footer_custom.php:33
+msgid "http://shop.tellows.de/de/anrufblocker-faq"
+msgstr ""
+
+#: y:\projects\max2play\max2play\application\view/footer_custom.php:42
+msgid "tellows Anrufblocker"
+msgstr "tellows Anrufblocker"
 
 #: y:\projects\max2play\max2play\application\config/plugins.xml:6
-msgid "tellows Callblocker Setup"
-msgstr "tellows Anruferschutz Setup"
+msgid "Start"
+msgstr "Start"
 
 #: y:\projects\max2play\max2play\application\config/plugins.xml:15
 msgid "Squeezeplug Setup"
 msgstr ""
 
-#: y:\projects\max2play\max2play\application\config/plugins.xml:55
-msgid "Start"
-msgstr "Start"
-
-#: y:\projects\max2play\max2play\application\config/plugins.xml:87
+#: y:\projects\max2play\max2play\application\config/plugins.xml:79
 msgid "tellows Callblocker Blacklist"
 msgstr "tellows Anrufblocker Sperrliste"
+
+#: y:\projects\max2play\max2play\application\config/plugins.xml:87
+msgid "tellows Callblocker Setup"
+msgstr "tellows Anruferschutz Setup"
+
+#~ msgid "Reset / Reboot"
+#~ msgstr "Reset & Reboot"
+
+#~ msgid "Reboot Max2Play"
+#~ msgstr "Reboot Max2Play"
+
+#~ msgid "Expand Filesystem to maximum available size"
+#~ msgstr "Expandiere Dateisystem auf maximal verfügbare Größe"
 
 #~ msgid "das ist ein test"
 #~ msgstr "blablubtrallala"

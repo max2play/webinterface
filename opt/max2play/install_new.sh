@@ -49,9 +49,11 @@ sudo echo "Y" | apt-get install nmap
 sudo apt-get install ifplugd
 
 # Idle Funktion für ext. Festplatte http://blog.sepa.spb.ru/2013/03/precompiled-hd-idle-armhf-deb-package.html 
-# -> autostart auf aktiv und Kommentar letzte Zeile raus VORINSTALLIEREN!
+# http://hd-idle.sourceforge.net/ -> deb Paket in max2Play vorhanden
+# -> autostart auf aktiv /etc/default/hd-idle und Kommentar letzte Zeile raus VORINSTALLIEREN!
 
 # Alsaequal http://www.thedigitalmachine.net/alsaequal.html -> Alsaequal mit Paket Caps installieren
+# vorher Symlink auf lib Verzeichnis alsa-lib und dann noch apt-get install libasound2-plugin-equal
 
 # XBMC 13 Bibliothek
 apt-get install nettle-dev
@@ -80,3 +82,14 @@ sudo cp -r . /etc/
 #fstab erweitern um ##USERMOUNT
 
 # Remove writeable on sudoers
+
+#USBmount installieren
+apt-get install usbmount
+#Konfigurieren
+#nano /etc/usbmount/usbmount.conf -> sync entfernen
+
+#LMS installieren und CPAN fixen
+# git clone https://github.com/Logitech/slimserver-vendor/
+# ./buildme.sh in CPAN ordner
+# perlbrew installieren und perl 5.14.4 -> in buildme.sh anpassen
+# Pfade zu Perl in LMS anpassen

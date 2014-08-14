@@ -50,14 +50,16 @@
 		<td><input type="text" id="playername" name="playername" value="<?php echo $basic->view->playername; ?>" /></td>
 		<td><?php echo _("URL for this Web-administration / name of Squeezelite player") ?></td> 
 	  </tr>
-	  <tr>
-		<td><?php echo _("Display Resolution") ?></td> 
-		<td><select name="displayResolution">
-			<?php foreach($basic->view->displayResolutions as $res) { ?><option value="<?php echo $res?>" <?php if($basic->view->currentResolution == $res) echo 'selected'; ?>><?php echo $res?></option><?php } ?>
-			</select>
-		</td>
-		<td><?php echo _("With this resolution runs desktop and XBMC") ?></td>
-	  </tr>
+	  <?php if (isset($basic->view->displayResolutions)) {?>
+		  <tr>
+			<td><?php echo _("Display Resolution") ?></td> 
+			<td><select name="displayResolution">
+				<?php foreach($basic->view->displayResolutions as $res) { ?><option value="<?php echo $res?>" <?php if($basic->view->currentResolution == $res) echo 'selected'; ?>><?php echo $res?></option><?php } ?>
+				</select>
+			</td>
+			<td><?php echo _("With this resolution runs desktop and XBMC") ?></td>
+		  </tr>
+	  <?php } ?>
 	  <tr>
 		<td><?php echo _("Language") ?></td> 
 		<td><select name="locale">
@@ -78,14 +80,10 @@
 	<br /><br />
 	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
 		<span class="ui-icon ui-icon-refresh" style="float:left; margin:-2px 5px 0 0;"></span>
-		<b><?php echo _("Reboot Max2Play") ?></b></p>
-	<input type="button" value="Reboot" name="reboot" onclick="document.getElementById('action').value='reboot';submit();" />
-	
-	<br /><br />
-	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
-		<span class="ui-icon ui-icon-arrowthickstop-1-s" style="float:left; margin:-2px 5px 0 0;"></span>
-		<b><?php echo _("Update Max2Play") ?></b></p>
-	<input type="button" value="checkMax2PlayUpdate" name=checkMax2PlayUpdate onclick="document.getElementById('action').value='checkMax2PlayUpdate';submit();" />
+		<b><?php echo _("Reboot / Update / Filesystem Settings") ?></b></p>
+	<input type="button" value="Reboot" name="reboot" onclick="document.getElementById('action').value='reboot';submit();" />&nbsp;&nbsp;
+	<input type="button" value="<?php echo _("Expand Filesystem") ?>" name="expandfs" onclick="document.getElementById('action').value='expandfs';submit();" />&nbsp;&nbsp;
+	<input type="button" value="<?php echo _("Update Max2Play") ?>" name=checkMax2PlayUpdate onclick="document.getElementById('action').value='checkMax2PlayUpdate';submit();" />&nbsp;&nbsp;	
 	
 	<br /><br />
 	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
@@ -121,6 +119,9 @@
 	</form>
 	
 	<?php echo _("DEBUG Info") ?>:
-	<textarea rows="5" cols="80" readonly></textarea>
+	<textarea rows="5" cols="80" readonly><?php foreach ($basic->view->debug as $key => $debug) {
+			echo "#### ". $key. " ####\n"; 
+			 echo $debug." \n\n"; 
+		 }?></textarea>
 </div>	
 															

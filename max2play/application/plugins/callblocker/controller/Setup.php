@@ -10,10 +10,10 @@
  
  */
 
-class Callblocker_Setup extends Service {
+class Callblocker_Setup extends Service {	
 	
 	public function __construct(){		
-		parent::__construct();
+		parent::__construct();		
 		$this->registerLocale(dirname(__FILE__).'/../locale', 'callblocker');
 		$this->pluginname = _('tellows Callblocker Setup');
 		
@@ -66,7 +66,8 @@ class Callblocker_Setup extends Service {
 	 * apikey=test
 	 * minscore=7
 	 */
-	private function _getTellowsConf(){
+	private function _getTellowsConf(){		
+		$this->tellows = new stdClass();
 		$output = shell_exec('cat /opt/callblocker/tellows.conf');
 		preg_match('=apikey\=([a-zA-Z0-9]*)=', $output, $match);
 		$this->tellows->apikey = $match[1];
@@ -76,14 +77,20 @@ class Callblocker_Setup extends Service {
 		$this->tellows->country = $match[1];
 		
 		//tellows Testcall
-		$output = $this->writeDynamicScript(array('wget -O /opt/callblocker/cache/apitest.txt "http://www.tellows.de/stats/partnerscoredata?partner=tellowskey&apikey='.$this->tellows->apikey.'&country=de&lang=de&mosttagged=1&minscore=7&mincomments=3&limit=2"'));
-		$output = shell_exec('cat /opt/callblocker/cache/apitest.txt | grep "NOT AUTHORIZED REQUEST"');
-		if(strpos($output, 'NOT AUTHORIZED') !== FALSE){
-			$this->tellows->registered = str_replace('$MESSAGE', $output, _t('<span style="color:red;">Connection Failure - API-Key not valid: $MESSAGE</span>'));
+		$output = $this->writeDynamicScript(array('wget -O /opt/callblocker/cache/apitest.txt "http://www.tellows.de/api/checklicense?partner=tellowskey&apikeyMd5='.md5($this->tellows->apikey).'"'));		
+		$output = shell_exec('cat /opt/callblocker/cache/apitest.txt');
+		$values = json_decode($output, true);
+		
+		if($values['AUTHENTICATION'] == 'SUCCESSFUL'){
+			$this->tellows->registered = _t('Connection Successful').' '._t('License Valid until').' '.$values['VALIDUNTIL'] ;
+			$this->tellows->registered_bool = true;
+			
+		}elseif($values['AUTHENTICATION'] == 'FAILED'){			
+			$this->tellows->registered = str_replace('$MESSAGE', $values['MESSAGE'], _t('<span style="color:red;">Connection Failure - API-Key not valid: $MESSAGE</span>'));
 			$this->tellows->registered_bool = false;
 		}else{
-			$this->tellows->registered = _t('Connection Successfull');
-			$this->tellows->registered_bool = true;
+			$this->tellows->registered = _t('Could not check tellows Connection! Internet not available?');
+			$this->tellows->registered_bool = false;
 		}
 		
 		//fetch Timestamp of List and number of phonenumbers in blacklist
@@ -93,12 +100,13 @@ class Callblocker_Setup extends Service {
 	}
 	
 	private function _getLinphoneConf(){
+		$this->linphone = new stdClass();
 		$output = shell_exec('cat /opt/callblocker/linphone.conf');
-		$tmp = explode('--', $output);
+		$tmp = explode('--', $output);		
 		$this->linphone->host = trim(str_replace('host', '', $tmp[1]));
 		$this->linphone->user = trim(str_replace('username', '', $tmp[2]));
 		$this->linphone->password = trim(str_replace('password', '', $tmp[3]));
-		
+
 		if($this->linphone->host != '' && $this->linphone->user != ''){
 			$this->linphone->running = $this->status('linphonec');
 			$this->linphone->registered = $this->writeDynamicScript(array('linphonecsh generic "status registered"'));
@@ -117,9 +125,9 @@ class Callblocker_Setup extends Service {
 	private function _saveLinphoneConf(){
 		$this->writeDynamicScript(array("echo '--host ".$_GET['linphone_host']." --username ".$_GET['linphone_user']." --password ".$_GET['linphone_password']."' > /opt/callblocker/linphone.conf"));
 		//Restart Linphone Service
-		$this->writeDynamicScript(array("linphonecsh register $(cat /opt/callblocker/linphone.conf);sleep 2;"));
+		$this->writeDynamicScript(array("linphonecsh generic 'soundcard use files';linphonecsh register $(cat /opt/callblocker/linphone.conf);sleep 2;chmod a+rw /dev/null;"));
 		$this->view->message[] = _t('VOIP-Settings Updated');
-		return true;		
+		return true;
 	}
 	
 	/**
@@ -154,6 +162,7 @@ class Callblocker_Setup extends Service {
 		$out['NCIDD Restart'] = shell_exec('cat /opt/callblocker/cache/ncidd-restart.txt');
 		$out['Blacklistevent Last Sync'] = shell_exec('cat /opt/callblocker/cache/blacklistevent_last.txt');
 		$out['NCID Running'] = shell_exec('ps -Al | grep ncid');
+		$out['NCID Version'] = shell_exec('/usr/sbin/ncidd -V 2>&1');
 		$out['SIPPHONE Running'] = shell_exec('ps -Al | grep linphone');
 		$out['LOAD AVERAGE'] = shell_exec('cat /proc/loadavg');
 		$out['Button Blacklist'] = shell_exec('ps -Al | grep button');

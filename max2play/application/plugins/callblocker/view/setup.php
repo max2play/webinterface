@@ -35,6 +35,9 @@
 	
 	<?php echo _t("This is the Callblocker Setup Page. You need a tellows API Key to get the blocklists from tellows.") ?>
 	<br /><br />
+	
+<?php if($cs->view->installed) { ?>	
+
 	<form action="" method="get">
 	<input type="hidden" id="action" name="action" value="" />
 	
@@ -113,7 +116,7 @@
 	<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='savelinphone';submit();" />
 	</form>
 	<br />
-	
+		
 	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
 			<span class="ui-icon ui-icon-wrench" style="float:left; margin:-2px 5px 0 0;"></span>
 			<b><?php echo _t("Modem for PSTN (analog) Connected: ") ?><?php echo $cs->view->modemconnected ?></b></p>				
@@ -133,10 +136,12 @@
 			 echo $debug." \n\n"; 
 		 }?>
 	</textarea>
-	
+
+<?php }?>
 	<form action="" method="get">
 		<?php echo _('Current Callblocker Version') ?>: <?php echo $cs->view->version ?>
 		<input type="hidden" id="actionupdate" name="actionupdate" value="" />
-		<input type="button" value="<?php echo _('Update tellows Callblocker') ?>" name="update" onclick="document.getElementById('actionupdate').value='updateCallblocker';submit();" />
+		<input type="button" value="<?php echo _t('Update tellows Callblocker') ?>" name="update" onclick="document.getElementById('actionupdate').value='updateCallblocker';submit();" />
 	</form>
+
 </div>	

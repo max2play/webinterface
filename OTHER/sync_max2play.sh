@@ -9,7 +9,7 @@ DESTPATH='/var/www/max2play'
 SOURCEPATHOPT='/home/webuser/projects/max2play/opt/max2play/'
 DESTPATHOPT='/opt/max2play'
 
-HOSTS=( "anrufblocker")
+HOSTS=( "max2play")
 
 for DESTHOST in "${HOSTS[@]}"
 do

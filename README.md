@@ -13,6 +13,7 @@ FEATURES
  - easy to use even for non-programmers (configure mount-points, samba-shares, start/stop programs)
  - responsive layout - optimized for mobile devices
  - adds plug & play to existing audio/video-player releases
+ - multilanguage support for basic settings and new plugins (german and english are already available with PO-files)
 
 HOW TO INSTALL
  - install & configure apache webserver with php5 support: "apt-get install apache2 php5 php5-json"

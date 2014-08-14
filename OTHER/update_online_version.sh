@@ -14,9 +14,9 @@ do
 	echo $'\n'
 	echo $DESTHOST
 	pushd $SOURCEPATH
-	zip -r webinterface.zip ./max2play -x \*custom\*
-	zip -r scripts.zip ./opt/max2play -x  /opt/max2play/playername.txt /opt/max2play/samba.conf /opt/max2play/wpa_supplicant.conf
-	zip -r max2play_complete.zip . -x  *svn* *custom*
+	zip -r max2play_complete.zip . -x  \*svn\* \*custom.php *\custom.css \*screens\*
+	zip -r webinterface.zip ./max2play -x \*svn\* \*custom.php *\custom.css \*screens\*
+	zip -r scripts.zip ./opt/max2play -x  /opt/max2play/playername.txt /opt/max2play/samba.conf /opt/max2play/wpa_supplicant.conf	
 	scp $SOURCEPATH/webinterface.zip root@$DESTHOST:$DESTPATH
 	scp $SOURCEPATH/scripts.zip root@$DESTHOST:$DESTPATH
 	scp $SOURCEPATH/max2play_complete.zip root@$DESTHOST:$DESTPATH

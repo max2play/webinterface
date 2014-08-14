@@ -23,4 +23,6 @@
    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 //$this->pluginname = _('Start');
+$service = new Service();
+$service->checkForUpdate();
 include_once(dirname(__FILE__).'/../view/index.php');

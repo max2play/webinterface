@@ -27,7 +27,8 @@ if [ "$runningNCID" -lt "1" ]; then
 	echo "Install needed - no running NCID found"
 	/opt/callblocker/install.sh
 else
-	echo "Running NCID detected - no new Install required"
+	echo "Running NCID detected - maybe Update required"
+	/opt/callblocker/install.sh
 fi
 
 echo "Finished Update"

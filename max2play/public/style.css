@@ -229,3 +229,7 @@ body.loading {
 body.loading .modal {
     display: block;
 }
+
+.optiondetails {
+	padding: 10px; border: 1px dotted; margin: 10px;
+}

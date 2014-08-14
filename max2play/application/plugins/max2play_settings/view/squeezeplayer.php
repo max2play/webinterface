@@ -86,6 +86,22 @@ $(function() {
 				<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $sp->viewname, _('$SERVICENAME not running')) ?></p>
 				<input type="button" value="<?php echo str_replace('$SERVICENAME', $sp->viewname, _('start $SERVICENAME')) ?>" name="start" onclick="document.getElementById('action').value='start';submit();" />	
 			<?php } ?>
+		
+		<input type="submit" onclick="document.getElementById('squeezelitedetails').style.display='';return false;" value="<?php echo _('Edit Advanced Options') ?>" />
+		<div id="squeezelitedetails" class="optiondetails" style="display:none;">
+			<table>
+				<tr>
+					<td><?php echo _('Soundcard') ?></td>
+					<td><select name="soundcard">
+						<option value='-o plug:dmixer'>Default dmixer (Alsa Mixer Device)</option>
+						</select>
+					</td>
+					<td><?php echo _('Select Audio output') ?></td>
+				</tr>
+			</table>
+			<input type="button" name="save" value="<?php echo _('save') ?>" onclick="document.getElementById('action').value='save';submit();" />
+		</div>
+		
 		<br /><br /><b><?php echo str_replace('$SERVICENAME', $sp->viewname, _('Autostart $SERVICENAME')) ?>:</b><br />
 		<input type="checkbox" <?php if($sp->view->autostart) echo "checked"; ?> value="1" name="autostartsqueeze" />
 		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
@@ -101,6 +117,21 @@ $(function() {
 				<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $ap->viewname, _('$SERVICENAME not running')) ?></p>
 				<input type="button" value="<?php echo str_replace('$SERVICENAME', $ap->viewname, _('start $SERVICENAME')) ?>" name="startap" onclick="document.getElementById('action').value='startap';submit();" />			
 			<?php } ?>
+		<input type="submit" onclick="document.getElementById('shairportdetails').style.display='';return false;" value="<?php echo _('Edit Advanced Options') ?>" />
+		<div id="shairportdetails" class="optiondetails" style="display:none;">
+			<table>
+				<tr>
+					<td><?php echo _('Soundcard') ?></td>
+					<td><select name="soundcard">
+						<option value='-d plug:plugequal'>Use Equalizer</option>
+						<option value='-d plug:dmixer'>Default dmixer (Alsa Mixer Device)</option>
+						</select>
+					</td>
+					<td><?php echo _('Select Audio output') ?></td>
+				</tr>
+			</table>
+			<input type="button" name="save" value="<?php echo _('save') ?>" onclick="document.getElementById('action').value='save';submit();" />
+		</div>
 		<br /><br /><b><?php echo str_replace('$SERVICENAME', $ap->viewname, _('Autostart $SERVICENAME')) ?>:</b><br />
 		<input type="checkbox" <?php if($ap->view->autostart) echo "checked"; ?> value="1" name="autostartap" />
 		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
@@ -116,6 +147,21 @@ $(function() {
 				<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $ss->viewname, _('$SERVICENAME not running')) ?></p>
 				<input type="button" value="<?php echo str_replace('$SERVICENAME', $ss->viewname, _('start $SERVICENAME')) ?>" name="start" onclick="document.getElementById('action').value='startss';submit();" />	
 			<?php } ?>
+		<input type="submit" onclick="document.getElementById('squeezeslavedetails').style.display='';return false;" value="<?php echo _('Edit Advanced Options') ?>" />
+		<div id="squeezeslavedetails" class="optiondetails" style="display:none;">
+			<table>
+				<tr>
+					<td><?php echo _('Soundcard') ?></td>
+					<td><select name="soundcard">
+						<option value='-n dmixer'>Default dmixer (Alsa Mixer Device)</option>
+						<option value='-n plugequal'>Use Equalizer</option>
+						</select>
+					</td>
+					<td><?php echo _('Select Audio output') ?></td>
+				</tr>
+			</table>
+			<input type="button" name="save" value="<?php echo _('save') ?>" onclick="document.getElementById('action').value='save';submit();" />
+		</div>
 		<br /><br /><b><?php echo str_replace('$SERVICENAME', $ss->viewname, _('Autostart $SERVICENAME')) ?>:</b><br />
 		<input type="checkbox" <?php if($ss->view->autostart) echo "checked"; ?> value="1" name="autostartss" />
 		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />

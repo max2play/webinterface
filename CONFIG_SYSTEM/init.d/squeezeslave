@@ -13,6 +13,7 @@
 USER=odroid
 NAME=$(cat /opt/max2play/playername.txt)
 LMS=$(/opt/squeezeslave/squeezeslave -I | sed -e 's/[^\(]*(\([^\)]\+\).*/\1/g')
+SQUEEZESLAVE_PARAMETER=$(grep -a "SQUEEZESLAVE_PARAMETER" /opt/max2play/audioplayer.conf | sed -n -e 's/^.*\=//p')
 
 case "$1" in
   start)
@@ -21,7 +22,7 @@ case "$1" in
     xbmcrunning=$(ps -Al | grep xbmc | wc -l)
     if [ "1" -gt "$xbmcrunning" ]
     then
-    	/sbin/start-stop-daemon --start --quiet -b -m -p /opt/squeezeslave/log/squeezeslave.pid --chuid $USER --exec /opt/squeezeslave/squeezeslave -- -n "plugequal" $LMS
+    	/sbin/start-stop-daemon --start --quiet -b -m -p /opt/squeezeslave/log/squeezeslave.pid --chuid $USER --exec /opt/squeezeslave/squeezeslave -- $SQUEEZESLAVE_PARAMETER $LMS
     	echo "Erfolgreich gestartet"
     fi
   ;;

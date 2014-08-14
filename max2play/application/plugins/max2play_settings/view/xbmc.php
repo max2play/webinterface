@@ -47,14 +47,26 @@
 		<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $sp->viewname, _('$SERVICENAME is running with processID')) ?> <b><?php echo $sp->view->pid ?></b><br />
 		<input type="button" value="<?php echo str_replace('$SERVICENAME', $sp->viewname, _('stop $SERVICENAME')) ?>" name="stop" onclick="document.getElementById('action').value='stop';submit();" />		
 	<?php }else { ?>
-		<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $sp->viewname, _('$SERVICENAME not running')) ?><br /><br />
+		<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $sp->viewname, _('$SERVICENAME not running')) ?><br /><br />				
+		<?php echo _('Reinitialize Display (if screen is black or HDMI was not connected on startup)') ?><input type="checkbox" value="1" name="reinitx" />
+		<br />
 		<input type="button" value="<?php echo str_replace('$SERVICENAME', $sp->viewname, _('start $SERVICENAME')) ?>" name="start" onclick="document.getElementById('action').value='start';submit();" />
-	
 	<?php } ?>
 		<br /><br />
 		<b><?php echo str_replace('$SERVICENAME', $sp->viewname, _('Autostart $SERVICENAME')) ?>:</b><sup>#1</sup><br />
 		<input type="checkbox" <?php if($sp->view->autostart) echo "checked"; ?> value="1" name="autostart" />
 		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
+		
+		<br /><br />
+		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+		<span class="ui-icon ui-icon-gear" style="float:left; margin:-2px 5px 0 0;"></span>
+		<?php echo str_replace('$NAME', $sp->viewname, _('$NAME start installation')) ?> - <?php echo str_replace('$VERSION', $sp->xbmcversion, _('Replaces current $VERSION')) ?></p>
+			
+		<?php echo _('Choose XBMC-Package by http-link (package must be .deb) for Update') ?>: 
+		<input id="downloadurl" type="text" value="" name="downloadurl" style="width:200px;" /><br /><br /> 	
+		<input type="button" value="<?php echo str_replace('$NAME', $sp->viewname, _('$NAME start installation')) ?>" name="install" onclick="document.getElementById('action').value='install';submit();" />
+		<br /><br /> <?php echo _('The installation may take some time depending on your internet connection. At first it downloads the package from given source and afterwards it installs the package.')?>			
+		
 	</form>
 	
 	<br /><br />

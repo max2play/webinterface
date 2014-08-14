@@ -15,6 +15,8 @@ $lang = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
 if(file_exists($directory. '/'.$lang.'/LC_MESSAGES/'.$domain.'.mo')){
 	if($lang == 'de')
 		$locale = 'de_DE.utf8';
+	elseif($lang == 'fr')
+		$locale = 'fr_FR.utf8';
 	else
 		$locale = 'en_GB.utf8';
 }else{

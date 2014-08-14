@@ -27,7 +27,7 @@ class Basic extends Service {
 	
 	public function __construct(){										
 		parent::__construct();
-		$this->pluginname = _('Reset / Reboot');
+		$this->pluginname = _('Settings / Reboot');
 		
 		$this->view->locales = array('Europe/Berlin' => 'de_DE.UTF-8', 'Europe/London' => 'en_GB.UTF-8','Europe/Rome' => 'it_IT.UTF-8', 'Europe/Paris' => 'fr_FR.UTF-8');
 		
@@ -41,6 +41,10 @@ class Basic extends Service {
 				$this->view->message[] = $this->resetFactoryDefaults();
 			}
 			
+			if($_GET['action'] == 'expandfs'){
+				$this->resizeFS();
+			}
+			
 			if($_GET['action'] == 'checkMax2PlayUpdate'){
 				$this->view->message[] = $this->checkMax2PlayUpdate();
 			}
@@ -52,15 +56,16 @@ class Basic extends Service {
 			if($_GET['action'] == 'save'){
 				$this->view->message[] = $this->updatePlayername($_GET['playername']);
 				$this->view->message[] = $this->updateLocale($_GET['locale']);
-				$this->view->message[] = $this->updateDisplayResolution($_GET['displayResolution']);
+				//$this->view->message[] = $this->updateDisplayResolution($_GET['displayResolution']);
 				$this->updateMax2playNetworkLookup();
 			}
 		}
 		$this->getLocale();
 		$this->getMax2playNetworkLookup();
 		$this->getPlayername();
-		$this->getDisplayResolutions();
+		//$this->getDisplayResolutions(); deactivated
 		$this->parsePlugins();
+		$this->getDebug();
 	}		
 	
 	public function getDisplayResolutions(){
@@ -117,7 +122,10 @@ class Basic extends Service {
 			preg_match('=LANG\="([a-zA-Z0-9\.\-\_]*)"=', $output, $match);
 			$current_locale = $match[1];
 			
-			$script[] = 'echo \''.str_replace($current_locale, $this->view->locales[$locale], trim($output, "\n")).'\' > /etc/default/locale';
+			preg_match('=LANGUAGE\="([a-zA-Z0-9\.\-\_:]*)"=', $output, $match);
+			$current_language = $match[1];
+			
+			$script[] = 'echo \''.str_replace(array($current_locale, $current_language), $this->view->locales[$locale], trim($output, "\n")).'\' > /etc/default/locale';			
 			
 			echo $this->writeDynamicScript($script);
 		}else{
@@ -159,8 +167,10 @@ class Basic extends Service {
 					   '/opt/wpa_supplicant.conf'
 				);
 		
-		foreach($files as $filename)
-			$output = shell_exec('cat '.$filename.'.sav > '.$filename);
+		foreach($files as $filename){
+			if(file_exists($filename))
+				$output = shell_exec('cat '.$filename.'.sav > '.$filename);
+		}
 		
 		return _("Config Files restored for ").": <br />".implode('<br />',$files);
 	}
@@ -290,7 +300,28 @@ class Basic extends Service {
 		//redirect to self in 3 seconds
 		
 	}
+	
+	/**
+	 * Expandiere Root-FS auf ODROID auf Max. Größe
+	 */
+	private function resizeFS(){
+		$script = array('/opt/max2play/expandfs.sh > /opt/max2play/cache/resize-max2play-log.txt');
+		$this->view->message[] = _('Resize Filesystem');
+		$this->view->message[] = $this->writeDynamicScript($script);
+		$this->view->message[] = shell_exec('cat /opt/max2play/cache/resize-max2play-log.txt');
+		return true;
+	}
+	
+	/**
+	 * get Debuginformation
+	 */
+	private function getDebug(){
+		$out['FILESYSTEM'] = shell_exec('df');
+		$out['LOAD AVERAGE'] = shell_exec('cat /proc/loadavg');	
+		$out['KERNEL'] = shell_exec('uname -a');
 		
+		$this->view->debug = $out;
+	}
 }
 
 //Create Instance for view

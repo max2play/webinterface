@@ -57,14 +57,14 @@
 				<?php echo $log['date'] ?></td>
 			<td><?php echo $log['line']?></td>
 			<td><a href="http://www.tellows.<?php echo $cb->tellows->country; ?>/num/<?php echo urlencode($log['number']) ?>" style="text-decoration: none;" target="_blank">
-				<?php if ($log['blacklist_type'] != '') echo '<span style="color:red;" title="'._t('Number is on Blacklist').'">'.$log['number'].'</span>'; 
+				<?php if ($log['blacklist_type'] != '' && !$log['whitelist']) echo '<span style="color:red;" title="'._t('Number is on Blacklist').'">'.$log['number'].'</span>'; 
 					  elseif($log['whitelist']) echo '<span style="color:green;" title="'._t('Number is on Whitelist').'">'.$log['number'].'</span>'; 
 					  else echo $log['number']; ?>
 			    </a>
 			</td>
 			<td><?php echo $log['name'] ?></td>
 			<td><?php echo $log['blacklist_type'] ?></td>
-			<td><?php if ($log['blacklist_type'] != ''){ ?>
+			<td><?php if ($log['blacklist_type'] != '' && !$log['whitelist']){ ?>
 				<input type="button" value="<?php echo _t('whitelist')?>" onclick="document.getElementById('number').value='<?php echo $log['number'] ?>';document.getElementById('action').value='whitelist';submit();" />
 				<?php } else { ?>
 				<input type="button" value="<?php echo _t('blacklist')?>" onclick="document.getElementById('number').value='<?php echo $log['number'] ?>';document.getElementById('action').value='blacklist';submit();" />
