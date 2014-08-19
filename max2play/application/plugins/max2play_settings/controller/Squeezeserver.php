@@ -106,8 +106,8 @@ class Squeezeserver extends Service {
 			}
 			$shellanswer = shell_exec("sudo /opt/max2play/install_lms.sh update ".$downurl." > /dev/null &");
 			$this->view->message[] = _('Installation startet - This Messages refreshes every 3 seconds to show current status of installation. If finished this message disappears.');
-			$this->view->message[] = _('Installation Package: ').$downurl;
-			$this->view->message[] = '<div id="msgprogress"></div><script type="text/javascript">setTimeout(function(){reloadprogress("msgprogress")}, 3000);</script>';
+			$this->view->message[] = _('Installation Package: ').$downurl;			
+			$this->view->message[] = '<div id="msgprogress"></div><script type="text/javascript">setTimeout(function(){reloadprogress("msgprogress", "/plugins/max2play_settings/controller/Squeezeserver.php", 1)}, 3000);</script>';
 			return true;
 		}
 	}

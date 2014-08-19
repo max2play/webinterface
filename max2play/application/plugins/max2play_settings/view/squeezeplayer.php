@@ -91,12 +91,18 @@ $(function() {
 		<div id="squeezelitedetails" class="optiondetails" style="display:none;">
 			<table>
 				<tr>
-					<td><?php echo _('Soundcard') ?></td>
-					<td><select name="soundcard">
-						<option value='-o plug:dmixer'>Default dmixer (Alsa Mixer Device)</option>
+					<td><?php echo _('Soundcard') ?></td>					
+					<td style="width: 25%;"><select name="squeezelite_soundcard" style="width: 90%;">
+						<option value='plug:dmixer'>Default dmixer (Alsa Mixer Device)</option>
 						</select>
 					</td>
 					<td><?php echo _('Select Audio output') ?></td>
+				</tr>
+				<tr>
+					<td><?php echo _('Command Line Options') ?></td>					
+					<td><input style="width: 90%;" type="text" name="squeezelite_commandline" value="<?php echo $sp->view->squeezelite_commandline ?>" />
+					</td>
+					<td><?php echo _('Advanced Users may add Start-Parameters here') ?></td>
 				</tr>
 			</table>
 			<input type="button" name="save" value="<?php echo _('save') ?>" onclick="document.getElementById('action').value='save';submit();" />
@@ -122,9 +128,10 @@ $(function() {
 			<table>
 				<tr>
 					<td><?php echo _('Soundcard') ?></td>
-					<td><select name="soundcard">
-						<option value='-d plug:plugequal'>Use Equalizer</option>
-						<option value='-d plug:dmixer'>Default dmixer (Alsa Mixer Device)</option>
+					<td style="width: 25%;">
+					    <select name="shairport_soundcard" style="width: 90%;">
+						<option <?php if($ap->view->shairport_soundcard == 'plug:plugequal') echo 'selected'; ?> value='plug:plugequal'>Use Equalizer</option>
+						<option <?php if($ap->view->shairport_soundcard == 'plug:dmixer') echo 'selected'; ?> value='plug:dmixer'>Default dmixer (Alsa Mixer Device)</option>
 						</select>
 					</td>
 					<td><?php echo _('Select Audio output') ?></td>

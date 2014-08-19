@@ -5,7 +5,11 @@ wget http://shop.max2play.com/media/downloadable/currentversion/webinterface.zip
 wget http://shop.max2play.com/media/downloadable/currentversion/scripts.zip -O /opt/max2play/cache/scripts.zip
 
 echo "Install Webinterface"
-unzip -o /opt/max2play/cache/webinterface.zip -d /var/www
+if [ -e /var/www/max2play/application/config/plugins.xml ]; then 
+	unzip -o /opt/max2play/cache/webinterface.zip -d /var/www -x \*plugins.xml
+else
+	unzip -o /opt/max2play/cache/webinterface.zip -d /var/www
+fi
 
 echo "Install Scripts"
 unzip -o /opt/max2play/cache/scripts.zip -d /

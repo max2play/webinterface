@@ -350,6 +350,81 @@ class Service {
 		bind_textdomain_codeset($domain, 'UTF-8');
 		define('newLocale', $domain);
 	}
+	
+	/**
+	 * Function to save specific Parameter to specified Configfile
+	 * @param string $configfile
+	 * @param string $parameter
+	 * @param string $value
+	 */
+	public function saveConfigFileParameter($configfile = '', $parameter = '', $value = ''){		
+		if(file_exists($configfile)){
+			$old_parameter = trim($this->getConfigFileParameter($configfile, $parameter));
+			
+			if($old_parameter == $value){
+				//No changes
+				return false;
+			}
+			if($old_parameter != ''){
+				$this->writeDynamicScript(array('sed -i "s/^'.$parameter.'.*$/'.$parameter.'='.$value.'/g" '.$configfile));
+				$this->view->message[] = _("Update Configfile - existing Entry changed");
+			}else{
+				$this->writeDynamicScript(array('echo "'.$parameter.'='.$value.'" >> '.$configfile));
+				$this->view->message[] = _("Update Configfile - new Entry created");
+			}
+		}
+		else{
+			$this->writeDynamicScript(array('echo "'.$parameter.'='.$value.'" > '.$configfile));
+			$this->view->message[] = _("Update Configfile - new Configfile created");
+		}
+		return true;
+	}
+	
+	/**
+	 * Function to get specific Parameter from specified Configfile
+	 * @return boolean
+	 */
+	public function getConfigFileParameter($configfile = '', $parameter = ''){
+		$output = shell_exec('grep -a "'.$parameter.'" '.$configfile.' | sed -n -e "s/^.*\=//p"');
+		return $output;
+	}
+	
+	/**
+	 * Longer Tasks need some progress shown to the user while completing
+	 * Call this function first and than put all Output into the progressfile
+	 *  1. Ending when Progressfile is deleted by calling Script at the end
+	 *  2. Ending when Progressfile has output "finished" somewhere
+	 * @param $progressfile File that as long as it exists shows current status of install
+	 * @param $create First call creates Outputfile and Message
+	 * @param $reloadWhenFinished Reload Window when everything is finished
+	 * @return Message for Ajax-Output
+	 */
+	public function getProgressWithAjax($progressfile = '', $create = 0, $reloadWhenFinished = 0){
+		if(!file_exists($progressfile) && $create == 1){		
+			//Create File and set Message Output for Ajax-Call
+			shell_exec('echo `date +"%Y-%m-%d %H:%M|"` > '.$progressfile);
+			$this->view->message[] = _('Installation startet - This Messages refreshes every 3 seconds to show current status of installation. If finished this message disappears.');
+			//Separate Parameters from current Filename
+			$url = preg_replace('=\?.*$=', '', $_SERVER['REQUEST_URI']);
+			$this->view->message[] = '<div id="msgprogress"></div><script type="text/javascript">setTimeout(function(){reloadprogress("msgprogress", "'.$url.'", "'.$reloadWhenFinished.'")}, 3000);</script>';
+			return true;
+		}elseif(file_exists($progressfile) && $create == 0){
+			//Check for Status finished and return current status and progressfile and reload if neccesary
+			$shellanswer = shell_exec("cat $progressfile");			
+			return $shellanswer;
+		}elseif(file_exists($progressfile) && $create == 1){
+			//File should not be existing - show error and delete file!
+			$shellanswer = shell_exec("cat $progressfile");
+			preg_match('=[0-9\: -]*=', $shellanswer, $started);					
+			$this->view->message[] = _('Something went wrong in last Install Attempt - Deleting Progressfile');
+			shell_exec("rm $progressfile");			
+			return false;
+		}else{
+			//!file_exists($progressfile) && $create == 0 --> Finished
+			$this->view->message[] = '<!-- finished -->';
+			return true;
+		}
+	}
 }
 
 //Create Instance of Service Class

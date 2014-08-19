@@ -1,4 +1,4 @@
-function reloadprogress(msgboxid){
+function reloadprogress(msgboxid, successurl, reloadWindowWhenFinished){
 	$("body").addClass("loading");
 	$.ajax({
         url : document.URL,
@@ -6,12 +6,16 @@ function reloadprogress(msgboxid){
         data : "ajax=1&loadprogress=1"
     }).done(function (data) {
     	//reload message box (still in progress) OR reload window (finished) -> variable finished
-    	var Finished = data.match(/finished/g);
+    	var Finished = data.match(/finished|Finished/g);
     	if (Finished){
-    		window.open('/plugins/max2play_settings/controller/Squeezeserver.php','_self');
+    		if(reloadWindowWhenFinished){
+    			window.open(successurl,'_self');
+    		}else{
+    			document.getElementById(msgboxid).innerHTML = data;
+    		}
     	}else{
     		document.getElementById(msgboxid).innerHTML = data;    	
-    		setTimeout(function(){reloadprogress("msgprogress")}, 3000);
+    		setTimeout(function(){reloadprogress("msgprogress", successurl, reloadWindowWhenFinished)}, 3000);
     	}
     	    	
     	$("body").removeClass("loading");

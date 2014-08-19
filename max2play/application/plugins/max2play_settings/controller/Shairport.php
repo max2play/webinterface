@@ -46,11 +46,48 @@ class Shairport extends Service {
 			
 			if($_GET['action'] == 'save'){
 				$this->selectAutostart(isset($_GET['autostartap']) ? 1 : 0);
+				$this->saveShairportCommandline();
 			}
 		}
 		$this->view->pid = $this->status($this->pname);
 		
 		$this->view->autostart = $this->checkAutostart($this->pname, true);
+		
+		$this->getShairportCommandline();
+	}
+	
+	/**
+	 * Save Command-Line Options from
+	 * shairport_soundcard	 
+	 */
+	public function saveShairportCommandline(){
+		$commandLine = array();
+		if(in_array($_GET['shairport_soundcard'], array('plug:plugequal', 'plug:dmixer')))
+			$commandLine[] = '-d '.$_GET['shairport_soundcard'];
+		else{
+			$commandLine[] = '-d plug:plugequal';
+		}		
+	
+		$value = trim(implode(' ', $commandLine));
+		if($this->saveConfigFileParameter('/opt/max2play/audioplayer.conf', 'SHAIRPORT_PARAMETER', $value)){
+			$this->view->message[] = str_replace('$SERVICE', $this->viewname ,_('Updated $SERVICE Settings - Restart $SERVICE to apply changes!'));
+		}
+	
+		return true;
+	}
+	
+	/**
+	 * Get Commandline Options for Audioplayer by Config File
+	 * @return boolean
+	 */
+	public function getShairportCommandline(){
+		$output = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'SHAIRPORT_PARAMETER');
+		if(preg_match_all('=-d ([^ ]*)=', $output, $match)){
+			$this->view->shairport_soundcard = trim($match[1][0]);			
+		}else{
+			return false;
+		}
+		return true;
 	}
 		
 }

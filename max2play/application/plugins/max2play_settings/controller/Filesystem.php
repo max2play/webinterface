@@ -82,9 +82,10 @@ class Filesystem extends Service {
 		//Hinzufügen in FSTAB hinter ##USERMOUNT (Trennlinie für Usereigene Mounts)
 		if($test1 && $test2 && $test3 && $test4){			
 			shell_exec("echo ".$m->getMountpoint()." ".$m->getPath()." ".$m->getType()." ".$m->getOptions()." >> ".$this->_fstabPath."fstab");			
-			$this->reloadMount();
-			$this->view->message[] = _("Mountpoint successfully added");
-			return true;
+			if($this->reloadMount()){
+				$this->view->message[] = _("Mountpoint successfully added");
+				return true;
+			}
 		}
 		$this->view->message[] = _("Mountpoint NOT added! Please refer to the description below!");
 		
@@ -106,7 +107,11 @@ class Filesystem extends Service {
 	}
 	
 	public function reloadMount(){
-		shell_exec("sudo mount -a");
+		$reload = shell_exec("sudo mount -a 2>&1");
+		if($reload != ''){
+			$this->view->message[] = $reload;
+			return false;
+		}
 		return true;
 	}
 	

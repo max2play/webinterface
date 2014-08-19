@@ -47,7 +47,7 @@
 	<table class="settings">
 	  <tr>
 		<td><?php echo _("Playername") ?></td>
-		<td><input type="text" id="playername" name="playername" value="<?php echo $basic->view->playername; ?>" /></td>
+		<td style="width:25%;"><input style="width:95%;" type="text" id="playername" name="playername" value="<?php echo $basic->view->playername; ?>" /></td>
 		<td><?php echo _("URL for this Web-administration / name of Squeezelite player") ?></td> 
 	  </tr>
 	  <?php if (isset($basic->view->displayResolutions)) {?>
@@ -62,7 +62,7 @@
 	  <?php } ?>
 	  <tr>
 		<td><?php echo _("Language") ?></td> 
-		<td><select name="locale">
+		<td><select name="locale" style="width:95%;">
 			<?php foreach($basic->view->locales as $key => $res) { ?><option value="<?php echo $key?>" <?php if($basic->view->currentLocale == $key) echo 'selected'; ?>><?php echo $key.' - '.$res?></option><?php } ?>
 			</select>
 		</td>
@@ -100,7 +100,7 @@
 	<br />
 	<select name="plugins[]" multiple size="10">
 	<?php foreach($basic->view->pluginselect as $ps) {?>
-		<option value="<?php echo $ps['name'] ?>" <?php if($ps['active']) echo 'selected'; ?>><?php echo $ps['name'] ?></option>
+		<option value="<?php echo $ps['name'] ?>" <?php if($ps['active']) echo 'selected'; ?>><?php echo _($ps['name']); ?></option>
 	<?php }?>
 	</select>
 	<br /><br />
@@ -109,7 +109,7 @@
 	<br />
 	<select name="defaultplugin">
 	<?php foreach($basic->view->pluginselect as $ps) { ?>		
-		<option value="<?php echo $ps['name'] ?>" <?php if(isset($ps['default']) && $ps['default'] == 1) echo 'selected'; ?>><?php echo $ps['name'] ?></option>
+		<option value="<?php echo $ps['name'] ?>" <?php if(isset($ps['default']) && $ps['default'] == 1) echo 'selected'; ?>><?php echo _($ps['name']); ?></option>
 	<?php }?>
 	</select>
 	<br /><br />

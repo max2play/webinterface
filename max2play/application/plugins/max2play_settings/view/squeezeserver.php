@@ -21,8 +21,7 @@
 	 with this program; if not, write to the Free Software Foundation, Inc.,
 	 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */ 
-?>										
-<script type="text/javascript" src="/js/reloadprogress.js"></script>
+?>
 
 <h1 class="entry-header">
 	<?php echo _('Squeezeserver - Status, Start & Stop') ?>
@@ -71,13 +70,13 @@
 	<script type="text/javascript">
 		function copytodownloadurl(item){
 			document.getElementById("downloadurl").value = item.options[item.selectedIndex].value;
-			document.getElementById("downloadurl").style = "width:500px";
+			document.getElementById("downloadurl").style.width = "500px";
 		}
 	</script>
 	<input type="button" value="<?php echo _('Show available Versions') ?>" name="fetchLMS" onclick="document.getElementById('action').value='showavailablelms';submit();" /><br /><br />
 	 
 	<?php echo _('Alternative other source from Slimdevices (package must be .deb)') ?>: 
-	<input id="downloadurl" type="text" value="" name="downloadurl" style="width:200px;" /><br /><br /> 
+	<input id="downloadurl" type="text" value="" name="downloadurl" style="" /><br /><br /> 
 	
 	<input type="button" value="<?php echo str_replace('$NAME', $sp->viewname, _('$NAME start installation')) ?>" name="install" onclick="document.getElementById('action').value='install';submit();" />
 	<br /><br /> <?php echo _('The installation takes about 5 to 10 minutes depending on your internet connection. At first it downloads the package from http://downloads.slimdevices.com/ and afterwards it installs the package. You may reload this page by clicking the button again to see the status of the install process.')?>			

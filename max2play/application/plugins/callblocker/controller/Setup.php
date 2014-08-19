@@ -17,6 +17,15 @@ class Callblocker_Setup extends Service {
 		$this->registerLocale(dirname(__FILE__).'/../locale', 'callblocker');
 		$this->pluginname = _('tellows Callblocker Setup');
 		
+		if($_GET['ajax'] == 1 && $_GET['actionupdate'] == 'updateCallblocker'){
+			//Function to get Progress of Installation			
+			$this->_updateCallblocker(1);
+			ob_end_clean();
+			echo implode('<br />', $this->view->message);
+			ob_flush();
+			die();
+		}
+		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'savetellows'){
 				$this->_saveTellowsConf();
@@ -133,22 +142,36 @@ class Callblocker_Setup extends Service {
 	/**
 	 * Update Max2Play-Plugin AND Settings under /opt/callblocker
 	 * To extend Features for Callblocker in later Versions
+	 * @param $ajax if set just show progress
 	 */
-	private function _updateCallblocker(){		
-		$this->getCBVersion();
-		//Check auf Update
-		$file = file_get_contents('http://cdn.tellows.de/uploads/downloads/callblocker/currentversion/version.txt');
-		if((float)$this->view->version < (float)$file || !$this->view->installed){
-			$this->view->message[] = _t('Callblocker update started');
-			//Start Script -> Download Files for Webserver and Scripts
-			$shellanswer = $this->writeDynamicScript(array("/opt/max2play/update_callblocker.sh"));			
-			$this->view->message[] = nl2br($shellanswer);
-			if(strpos($shellanswer, 'inflating: /opt/callblocker/incoming.sh') !== FALSE)
-				$this->view->message[] = _t('UPDATE SUCCESSFUL - Please Restart Device');
-			else
-				$this->view->message[] = _t('UPDATE NOT SUCCESSFUL');
+	private function _updateCallblocker($ajax = 0){		
+		if($ajax == 0){
+			ignore_user_abort(true);
+			set_time_limit(3000);
+			$this->getCBVersion();
+			//Check auf Update
+			$file = file_get_contents('http://cdn.tellows.de/uploads/downloads/callblocker/currentversion/version.txt');
+			if((float)$this->view->version < (float)$file || !$this->view->installed){
+				$this->view->message[] = _t('Callblocker update started');
+				//Start Script -> Download Files for Webserver and Scripts
+				if($this->getProgressWithAjax('/opt/max2play/cache/update_callblocker.txt', 1, 0)){				
+					$shellanswer = $this->writeDynamicScript(array("/opt/max2play/update_callblocker.sh >> /opt/max2play/cache/update_callblocker.txt &"));
+				}								
+			}else{
+				$this->view->message[] = _t('Callblocker is up to date - no update required');
+			}
 		}else{
-			$this->view->message[] = _t('Callblocker is up to date - no update required');
+			$status = $this->getProgressWithAjax('/opt/max2play/cache/update_callblocker.txt');
+			$this->view->message[] = nl2br($status);
+			if(strpos($status, 'Finished') !== FALSE){
+				//Finished Progress - did not delete progressfile
+				if(strpos($status, 'inflating: /opt/callblocker/incoming.sh') !== FALSE){
+					$this->view->message[] = _t('UPDATE SUCCESSFUL - Please Restart Device');
+					shell_exec('rm /opt/max2play/cache/update_callblocker.txt');
+				}
+				else
+					$this->view->message[] = _t('UPDATE NOT SUCCESSFUL');
+			}							
 		}
 	}
 

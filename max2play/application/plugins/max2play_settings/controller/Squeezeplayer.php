@@ -35,7 +35,7 @@ class Squeezeplayer extends Service {
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'start'){			
-				$this->view->message[] = $this->start($this->pname);			
+				$this->view->message[] = $this->start($this->pname);
 			}
 			
 			if($_GET['action'] == 'stop'){			
@@ -48,6 +48,7 @@ class Squeezeplayer extends Service {
 			
 			if($_GET['action'] == 'save'){
 				$this->selectAutostart(isset($_GET['autostartsqueeze']) ? 1 : 0);
+				$this->saveSqueezeliteCommandline();
 			}
 			
 			if($_GET['action'] == 'resetEqualizer'){
@@ -59,6 +60,8 @@ class Squeezeplayer extends Service {
 			
 		}
 		$this->getEqualizer();
+		
+		$this->getSqueezeliteCommandline();
 		
 		$this->view->pid = $this->status($this->pname);
 		
@@ -89,6 +92,44 @@ class Squeezeplayer extends Service {
 			preg_match('=\[(.*)\]=', $output, $match);
 			$this->equalvalues[$key] = $match[1];
 		}		
+		return true;
+	}
+	
+	/**
+	 * Save Command-Line Options from
+	 * squeezelite_soundcard
+	 * squeezelite_commandline
+	 */
+	public function saveSqueezeliteCommandline(){
+		$commandLine = array();
+		if(in_array($_GET['squeezelite_soundcard'], array('plug:dmixer')))
+			$commandLine[] = '-o '.$_GET['squeezelite_soundcard'];
+		else{
+			$commandLine[] = '-o plug:dmixer';
+		}
+		//TODO: Regex für korrekte Erkennung der Commandlineeingabe der Parameter
+		$commandLine[] = trim($_GET['squeezelite_commandline']);
+		
+		$value = trim(implode(' ', $commandLine));
+		if($this->saveConfigFileParameter('/opt/max2play/audioplayer.conf', 'SQUEEZELITE_PARAMETER', $value)){
+			$this->view->message[] = str_replace('$SERVICE', $this->viewname ,_('Updated $SERVICE Settings - Restart $SERVICE to apply changes!'));
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * Get Commandline Options for Audioplayer by Config File
+	 * @return boolean
+	 */
+	public function getSqueezeliteCommandline(){
+		$output = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'SQUEEZELITE_PARAMETER');		
+		if(preg_match_all('=-o ([^ ]*) (.*)=', $output, $match)){
+			$this->view->squeezelite_soundcard = $match[1][0];
+			$this->view->squeezelite_commandline = $match[2][0];
+		}else{
+			return false;
+		}
 		return true;
 	}
 		

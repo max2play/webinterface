@@ -14,9 +14,14 @@ do
 	echo $'\n'
 	echo $DESTHOST
 	pushd $SOURCEPATH
-	zip -r max2play_complete.zip . -x  \*svn\* \*custom.php *\custom.css \*screens\*
+	zip -r max2play_complete.zip . -x  \*svn\* \*custom.php *\custom.css \*screens\* CPAN_ARM_ODROID\* Anleitung_Install.txt hd-idle_1.05\*
 	zip -r webinterface.zip ./max2play -x \*svn\* \*custom.php *\custom.css \*screens\*
-	zip -r scripts.zip ./opt/max2play -x  /opt/max2play/playername.txt /opt/max2play/samba.conf /opt/max2play/wpa_supplicant.conf	
+	#include files from /etc and put them to right place before zipping
+	mkdir etc
+	cp -R CONFIG_SYSTEM/init.d etc/init.d
+	cp -R CONFIG_SYSTEM/sudoers.d etc/sudoers.d	
+	zip -r scripts.zip ./opt/max2play ./etc/init.d/squeezelite ./etc/init.d/shairport ./etc/sudoers.d/max2play -x  /opt/max2play/playername.txt /opt/max2play/samba.conf /opt/max2play/wpa_supplicant.conf /opt/max2play/audioplayer.conf
+	rm -R etc		
 	scp $SOURCEPATH/webinterface.zip root@$DESTHOST:$DESTPATH
 	scp $SOURCEPATH/scripts.zip root@$DESTHOST:$DESTPATH
 	scp $SOURCEPATH/max2play_complete.zip root@$DESTHOST:$DESTPATH
