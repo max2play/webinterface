@@ -45,6 +45,10 @@ class Basic extends Service {
 				$this->resizeFS();
 			}
 			
+			if($_GET['action'] == 'fixusbmount'){
+				$this->fixUsbMount();
+			}
+			
 			if($_GET['action'] == 'checkMax2PlayUpdate'){
 				$this->view->message[] = $this->checkMax2PlayUpdate();
 			}
@@ -321,6 +325,18 @@ class Basic extends Service {
 		$out['KERNEL'] = shell_exec('uname -a');
 		
 		$this->view->debug = $out;
+	}
+	
+	/**
+	 * Install ntfs-3g update Udev-Rules for Udisks2 and configure usbmount
+	 */
+	private function fixUsbMount(){
+		$script[] = 'apt-get install ntfs-3g';
+		$script[] = 'echo SUBSYSTEMS==\"usb\",ENV{UDISKS_AUTO}=\"0\" > /etc/udev/rules.d/99-udisks2.rules';
+		$script[] = 'udevadm control --reload-rules';		
+		$this->view->message[] = nl2br($this->writeDynamicScript($script));
+		$this->view->message[] = _('udev-Rules added and reloaded... Completed');
+		return true;
 	}
 }
 

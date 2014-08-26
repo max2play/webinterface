@@ -83,6 +83,7 @@
 		<b><?php echo _("Reboot / Update / Filesystem Settings") ?></b></p>
 	<input type="button" value="Reboot" name="reboot" onclick="document.getElementById('action').value='reboot';submit();" />&nbsp;&nbsp;
 	<input type="button" value="<?php echo _("Expand Filesystem") ?>" name="expandfs" onclick="document.getElementById('action').value='expandfs';submit();" />&nbsp;&nbsp;
+	<input type="button" value="<?php echo _("Fix USB-Mount") ?>" name="fixusbmount" onclick="document.getElementById('action').value='fixusbmount';submit();" />&nbsp;&nbsp;
 	<input type="button" value="<?php echo _("Update Max2Play") ?>" name=checkMax2PlayUpdate onclick="document.getElementById('action').value='checkMax2PlayUpdate';submit();" />&nbsp;&nbsp;	
 	
 	<br /><br />

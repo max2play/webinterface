@@ -61,7 +61,7 @@ class Service {
 		return false;			
 	}
 	
-	public function start($name = '', $command = '', $statusname = ''){
+	public function start($name = '', $command = '', $statusname = '', $rootstart = false){
 		if($name == '')
 			return false;
 		if($statusname != '')
@@ -78,7 +78,12 @@ class Service {
 		}else{
 			$startcom = 'sudo /etc/init.d/'.$name.' start';
 		}
-		shell_exec($startcom);
+		
+		if(!$rootstart){
+			shell_exec($startcom);
+		}else{
+			$this->writeDynamicScript(array($startcom));
+		}
 		
 		sleep(2);
 		
@@ -406,7 +411,7 @@ class Service {
 			$this->view->message[] = _('Installation startet - This Messages refreshes every 3 seconds to show current status of installation. If finished this message disappears.');
 			//Separate Parameters from current Filename
 			$url = preg_replace('=\?.*$=', '', $_SERVER['REQUEST_URI']);
-			$this->view->message[] = '<div id="msgprogress"></div><script type="text/javascript">setTimeout(function(){reloadprogress("msgprogress", "'.$url.'", "'.$reloadWhenFinished.'")}, 3000);</script>';
+			$this->view->message[] = '<div id="msgprogress"></div><script type="text/javascript">setTimeout(function(){reloadprogress("msgprogress", "'.$url.'", '.$reloadWhenFinished.')}, 3000);</script>';
 			return true;
 		}elseif(file_exists($progressfile) && $create == 0){
 			//Check for Status finished and return current status and progressfile and reload if neccesary

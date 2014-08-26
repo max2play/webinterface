@@ -33,6 +33,8 @@ class Callblocker_Setup extends Service {
 				$this->_saveLinphoneConf();
 			}elseif($_GET['action'] == 'updateCallblocker'){
 				$this->_updateCallblocker();
+			}elseif($_GET['action'] == 'savemodemsettings'){
+				$this->_saveModemSettings((int)$_GET['hangup_type']);
 			}
 		}
 		
@@ -47,7 +49,9 @@ class Callblocker_Setup extends Service {
 		$this->_getTellowsConf();
 		
 		//Check auf Modem
-		$this->modemConnected();
+		if($this->modemConnected()){	
+			$this->_getModemSettings();
+		}
 		
 		$this->getAllLogs();
 		
@@ -57,7 +61,7 @@ class Callblocker_Setup extends Service {
 	private function _saveTellowsConf(){
 		//Call Scripts
 		$this->view->message[] = _t('Save tellows Settings');		
-		$this->writeDynamicScript(array("echo 'partner=tellowskey\napikey=".$_GET['tellows_apikey']."\nminscore=".$_GET['tellows_minscore']."\ncountry=".$_GET['tellows_country']."\nchecked=1' > /opt/callblocker/tellows.conf"));
+		$this->writeDynamicScript(array("echo 'partner=tellowskey\napikey=".$_GET['tellows_apikey']."\nminscore=".$_GET['tellows_minscore']."\ncountry=".$_GET['tellows_country']."\nchecked=1\naudiofile=".$_GET['tellows_audiofile']."' > /opt/callblocker/tellows.conf"));
 		$this->_getTellowsConf();
 		if($this->tellows->registered_bool === FALSE){
 			$this->writeDynamicScript(array("echo 'partner=tellowskey\napikey=".$_GET['tellows_apikey']."\nminscore=".$_GET['tellows_minscore']."\ncountry=".$_GET['tellows_country']."\nchecked=0' > /opt/callblocker/tellows.conf"));
@@ -84,6 +88,14 @@ class Callblocker_Setup extends Service {
 		$this->tellows->minscore = $match[1];
 		preg_match('=country\=([a-z]*)=', $output, $match);
 		$this->tellows->country = $match[1];
+		
+		// What happens with callers on blacklist - play Sound or just block?
+		if(!preg_match('=audiofile\=([0-9]*)=', $output, $match)){
+			//create entry
+			$this->writeDynamicScript(array("echo 'audiofile=1' >> /opt/callblocker/tellows.conf"));
+			$this->tellows->audiofile = 1;
+		}else
+			$this->tellows->audiofile = $match[1];
 		
 		//tellows Testcall
 		$output = $this->writeDynamicScript(array('wget -O /opt/callblocker/cache/apitest.txt "http://www.tellows.de/api/checklicense?partner=tellowskey&apikeyMd5='.md5($this->tellows->apikey).'"'));		
@@ -114,7 +126,7 @@ class Callblocker_Setup extends Service {
 		$tmp = explode('--', $output);		
 		$this->linphone->host = trim(str_replace('host', '', $tmp[1]));
 		$this->linphone->user = trim(str_replace('username', '', $tmp[2]));
-		$this->linphone->password = trim(str_replace('password', '', $tmp[3]));
+		$this->linphone->password = trim(str_replace('password', '', $tmp[3]));				
 
 		if($this->linphone->host != '' && $this->linphone->user != ''){
 			$this->linphone->running = $this->status('linphonec');
@@ -134,7 +146,7 @@ class Callblocker_Setup extends Service {
 	private function _saveLinphoneConf(){
 		$this->writeDynamicScript(array("echo '--host ".$_GET['linphone_host']." --username ".$_GET['linphone_user']." --password ".$_GET['linphone_password']."' > /opt/callblocker/linphone.conf"));
 		//Restart Linphone Service
-		$this->writeDynamicScript(array("linphonecsh generic 'soundcard use files';linphonecsh register $(cat /opt/callblocker/linphone.conf);sleep 2;chmod a+rw /dev/null;"));
+		$this->writeDynamicScript(array("linphonecsh init;sleep 2;linphonecsh generic 'soundcard use files';linphonecsh register $(cat /opt/callblocker/linphone.conf);sleep 2;chmod a+rw /dev/null;"));
 		$this->view->message[] = _t('VOIP-Settings Updated');
 		return true;
 	}
@@ -178,7 +190,7 @@ class Callblocker_Setup extends Service {
 	private function modemConnected(){
 		$out = shell_exec('if [ -e /dev/ttyACM0 ]; then echo "1"; else echo "0"; fi;');
 		$this->view->modemconnected = $out;
-		return true;
+		return $out;
 	}
 	
 	private function getAllLogs(){
@@ -206,6 +218,21 @@ class Callblocker_Setup extends Service {
 		}
 		
 		return $this->view->version;
+	}
+	
+	private function _getModemSettings(){
+		$this->modem = new stdClass();		
+		$hangup = preg_replace('=[^0-9]*=', '', shell_exec('grep -a "^set hangup" /etc/ncid/ncidd.conf'));
+		$this->modem->hangup_type = $hangup;
+		return $hangup;
+	}
+	
+	private function _saveModemSettings($hangup_type = 1){
+		//SED-Call?
+		$hangup = $this->_getModemSettings();
+		$this->writeDynamicScript(array("sed -i 's/^set hangup = ".$hangup."/set hangup = ".$hangup_type."/' /etc/ncid/ncidd.conf",'sudo /opt/callblocker/tellowsblacklist.sh'));
+		$this->view->message[] = _t('Modem Settings saved');
+		return true;
 	}
 		
 }

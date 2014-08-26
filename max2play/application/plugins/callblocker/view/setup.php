@@ -106,20 +106,35 @@
 	  <tr>
 		<td><?php echo _t("Audio File for Blacklist") ?></td>
 		<td>
-			<select name="linphone_audiofile">
-				<option value="1" selected>Soundfile 1</option>
+			<select name="tellows_audiofile">
+				<option value="0" <?php if($cs->tellows->audiofile == 0) echo 'selected'; ?> ><?php echo _t("Hang up without Sound") ?></option>
+				<option value="1" <?php if($cs->tellows->audiofile == 0) echo 'selected'; ?> ><?php echo _t("Play: You are blocked") ?></option>
 			</select>
 		</td>
 		<td><?php echo _t("Choose which audio file should be played when the incoming caller is on the blacklist.") ?></td> 
 	  </tr>	
 	</table>
-	<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='savelinphone';submit();" />
-	</form>
+	<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='savelinphone';submit();" />	
 	<br />
-		
+	<br />	
 	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
 			<span class="ui-icon ui-icon-wrench" style="float:left; margin:-2px 5px 0 0;"></span>
-			<b><?php echo _t("Modem for PSTN (analog) Connected: ") ?><?php echo $cs->view->modemconnected ?></b></p>				
+			<b><?php echo _t("Modem for PSTN (analog) Connected: ") ?><?php echo $cs->view->modemconnected ?></b></p>
+	<?php if ($cs->view->modemconnected) { ?>
+		<table class="settings">
+		  <tr>
+			<td><?php echo _t("Hangup Type") ?></td>
+			<td><select name="hangup_type">
+					<option value="0" <?php if($cs->modem->hangup_type == 0) echo 'selected'; ?> ><?php echo _t("Do Nothing (not recommended)") ?></option>
+					<option value="1" <?php if($cs->modem->hangup_type == 1) echo 'selected'; ?> ><?php echo _t("Hangup (block call)") ?></option>
+					<option value="2" <?php if($cs->modem->hangup_type == 2) echo 'selected'; ?> ><?php echo _t("Answer as Fax-Machine") ?></option>
+				</select></td>
+			<td><?php echo _t("Choose how the callblocker will react on a blacklisted Caller (number on blacklist)") ?></td> 
+		  </tr>
+		</table>
+		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='savemodemsettings';submit();" />
+	<?php } ?>	
+	</form>
 	<br />
 	
 	<h3><?php echo _t('How it works'); ?></h3>	

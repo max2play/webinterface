@@ -16,6 +16,14 @@ then
         sudo /etc/init.d/shairport start
     fi
     
+    autostart_jivelite=$(cat /opt/max2play/autostart.conf | grep jivelite=1 | wc -l)
+    running_jivelite=$(ps -Al | grep jivelite | wc -l)
+    if [ "0" -lt "$autostart_jivelite" -a  "1" -gt "$running_jivelite" ]
+        then
+        export DISPLAY=':0'
+        sudo --user=odroid -H /opt/jivelite/jivelite/bin/jivelite > /dev/null 2>&1 &
+    fi
+    
     autostart_squeezeslave=$(cat /opt/max2play/autostart.conf | grep squeezeslave=1 | wc -l)
     if [ "0" -lt "$autostart_squeezeslave" ]
         then

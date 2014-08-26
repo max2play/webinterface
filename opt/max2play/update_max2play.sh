@@ -16,3 +16,5 @@ unzip -o /opt/max2play/cache/scripts.zip -d /
 
 # Fix für usbmount Geschwindigkeit
 sed -i 's/^MOUNTOPTIONS="sync,noexec,nodev,noatime,nodiratime"/MOUNTOPTIONS="noexec,nodev,noatime,nodiratime"/' /etc/usbmount/usbmount.conf
+
+/op/max2play/update_max2play_addscripts.sh 2>&1
