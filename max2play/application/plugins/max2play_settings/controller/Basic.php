@@ -29,7 +29,7 @@ class Basic extends Service {
 		parent::__construct();
 		$this->pluginname = _('Settings / Reboot');
 		
-		$this->view->locales = array('Europe/Berlin' => 'de_DE.UTF-8', 'Europe/London' => 'en_GB.UTF-8','Europe/Rome' => 'it_IT.UTF-8', 'Europe/Paris' => 'fr_FR.UTF-8');
+		$this->view->locales = array('Europe/Berlin' => 'de_DE.UTF-8', 'Europe/London' => 'en_GB.UTF-8','Europe/Rome' => 'it_IT.UTF-8', 'Europe/Paris' => 'fr_FR.UTF-8', 'Europe/Istanbul' => 'tr_TR.UTF-8', 'Europe/Amsterdam' => 'nl_NL.UTF-8');
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'reboot'){
@@ -110,8 +110,7 @@ class Basic extends Service {
 	
 	public function updateLocale($locale = ''){		
 		if(isset($this->view->locales[$locale])) {
-			//Timezone setzen
-			//$output = shell_exec('echo "'.$locale.'" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata');
+			//Timezone setzen			
 			$script[] = 'echo "'.$locale.'" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata';			
 			
 			//Keyboard Layout setzen
@@ -121,17 +120,22 @@ class Basic extends Service {
 			
 			$script[] = 'echo \''.str_replace(array($match[0],"'"), array('XKBLAYOUT="'.substr($this->view->locales[$locale], 0,2).'"', ""), trim($output, "\n")).'\' > /etc/default/keyboard';			
 			
+			//Ist die neue Sprache verfügbar?
+			if(trim(shell_exec('locale -a | grep '.str_replace('UTF-8','utf8',$this->view->locales[$locale])),"\n") == ''){
+				$script[] = 'locale-gen '.$this->view->locales[$locale];
+			}
+			
 			//Sprache setzen
 			$output = shell_exec('cat /etc/default/locale');
-			preg_match('=LANG\="([a-zA-Z0-9\.\-\_]*)"=', $output, $match);
+			preg_match('=LANG\=["]?([a-zA-Z0-9\.\-\_]*)=', $output, $match);
 			$current_locale = $match[1];
 			
-			preg_match('=LANGUAGE\="([a-zA-Z0-9\.\-\_:]*)"=', $output, $match);
+			preg_match('=LANGUAGE\=["]?([a-zA-Z0-9\.\-\_:]*)=', $output, $match);
 			$current_language = $match[1];
 			
 			$script[] = 'echo \''.str_replace(array($current_locale, $current_language), $this->view->locales[$locale], trim($output, "\n")).'\' > /etc/default/locale';			
 			
-			echo $this->writeDynamicScript($script);
+			$this->view->message[] = $this->writeDynamicScript($script);
 		}else{
 			return _("Value for Timezone/Language not found.");
 		}
@@ -301,7 +305,7 @@ class Basic extends Service {
 		$xml->save(APPLICATION_PATH.'/config/plugins.xml');
 		return _('Plugin configuration updated - Reload Page to see changes');
 		
-		//redirect to self in 3 seconds
+		//TODO: redirect to self in 3 seconds
 		
 	}
 	

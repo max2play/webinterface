@@ -189,7 +189,7 @@ class Callblocker_Setup extends Service {
 
 	private function modemConnected(){
 		$out = shell_exec('if [ -e /dev/ttyACM0 ]; then echo "1"; else echo "0"; fi;');
-		$this->view->modemconnected = $out;
+		$this->view->modemconnected = trim($out, "\n");
 		return $out;
 	}
 	
@@ -214,7 +214,10 @@ class Callblocker_Setup extends Service {
 		if(file_exists('/opt/callblocker/buttonblacklist.sh'))
 			$this->view->installed = true;
 		else{
-			$this->view->message[] = _t('Callblocker is not installed - start installation by clicking on UPDATE button at the end of the page!');
+			if(!isset($this->view->message[0])){
+				//Only print message if nothing else happend (e.g. install event)
+				$this->view->message[] = _t('Callblocker is not installed - start installation by clicking on UPDATE button at the end of the page!');
+			}
 		}
 		
 		return $this->view->version;
