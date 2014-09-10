@@ -233,3 +233,8 @@ body.loading .modal {
 .optiondetails {
 	padding: 10px; border: 1px dotted; margin: 10px;
 }
+.optiondetails td {	
+	border-bottom: 1px dashed;
+    padding-bottom: 15px;
+    padding-top: 5px;
+}

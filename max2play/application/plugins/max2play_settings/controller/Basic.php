@@ -29,7 +29,7 @@ class Basic extends Service {
 		parent::__construct();
 		$this->pluginname = _('Settings / Reboot');
 		
-		$this->view->locales = array('Europe/Berlin' => 'de_DE.UTF-8', 'Europe/London' => 'en_GB.UTF-8','Europe/Rome' => 'it_IT.UTF-8', 'Europe/Paris' => 'fr_FR.UTF-8', 'Europe/Istanbul' => 'tr_TR.UTF-8', 'Europe/Amsterdam' => 'nl_NL.UTF-8');
+		$this->view->locales = array('Europe/Berlin' => 'de_DE.UTF-8', 'Europe/Zurich' => 'de_CH.UTF-8', 'Europe/London' => 'en_GB.UTF-8','Europe/Rome' => 'it_IT.UTF-8', 'Europe/Paris' => 'fr_FR.UTF-8', 'Europe/Istanbul' => 'tr_TR.UTF-8', 'Europe/Amsterdam' => 'nl_NL.UTF-8');
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'reboot'){
@@ -39,6 +39,11 @@ class Basic extends Service {
 			
 			if($_GET['action'] == 'reset'){
 				$this->view->message[] = $this->resetFactoryDefaults();
+			}
+			
+			if($_GET['action'] == 'shutdown'){
+				$this->view->message[] = _("Shutdown initiated - press the power button on device to start it again");
+				$this->view->message[] = $this->writeDynamicScript(array('poweroff'));				
 			}
 			
 			if($_GET['action'] == 'expandfs'){

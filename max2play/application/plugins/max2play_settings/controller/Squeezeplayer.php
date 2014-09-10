@@ -27,7 +27,7 @@ class Squeezeplayer extends Service {
 	protected $pname = 'squeezelite';
 	public $viewname = 'Squeezelite';
 	public $equal = array('01. 31 Hz', '02. 63 Hz', '03. 125 Hz', '04. 250 Hz', '05. 500 Hz', '06. 1 kHz', '07. 2 kHz', '08. 4 kHz', '09. 8 kHz', '10. 16 kHz');
-	public $equalvalues = array();
+	public $equalvalues = array();	
 	
 	public function __construct(){								
 		parent::__construct();
@@ -49,6 +49,7 @@ class Squeezeplayer extends Service {
 			if($_GET['action'] == 'save'){
 				$this->selectAutostart(isset($_GET['autostartsqueeze']) ? 1 : 0);
 				$this->saveSqueezeliteCommandline();
+				$this->setUseUSB_DAC();
 			}
 			
 			if($_GET['action'] == 'resetEqualizer'){
@@ -58,8 +59,19 @@ class Squeezeplayer extends Service {
 				$this->updateEqualizer($_GET['settingsEqualizer']);
 			}
 			
+			if($_GET['action'] == 'installLadspa'){
+				$this->installLADSPA();
+			}
+			if($_GET['update_squeezelite'] == 1){
+				$this->updateSqueezelite();
+			}						
+			
 		}
 		$this->getEqualizer();
+		
+		$this->configLADSPA();
+		
+		$this->getAllLogs();
 		
 		$this->getSqueezeliteCommandline();
 		
@@ -72,6 +84,9 @@ class Squeezeplayer extends Service {
 	 * use Alsaequal 
 	 */
 	public function updateEqualizer($equalvalue){		
+		if($this->saveConfigFileParameter('/opt/max2play/audioplayer.conf', 'USE_EQUALIZER', ($_GET['use_equalizer'] == 1) ? 1 : 0)){
+			$this->view->message[] = _('Equalizer settings changed');
+		}
 		
 		foreach($this->equal as $key){
 			$value = (isset($equalvalue[$key])) ? (int)$equalvalue[$key] : 66;
@@ -86,12 +101,15 @@ class Squeezeplayer extends Service {
 	 * get Alsaequal Settings
 	 */
 	public function getEqualizer(){		
-		foreach($this->equal as $key){
-			$script = array('su - odroid -c \'amixer -D equal sget "'.$key.'"\'');
-			$output = $this->writeDynamicScript($script);
-			preg_match('=\[(.*)\]=', $output, $match);
-			$this->equalvalues[$key] = $match[1];
-		}		
+		$this->view->use_equalizer = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'USE_EQUALIZER');
+		if($this->view->use_equalizer){
+			foreach($this->equal as $key){
+				$script = array('su - odroid -c \'amixer -D equal sget "'.$key.'"\'');
+				$output = $this->writeDynamicScript($script);
+				preg_match('=\[(.*)\]=', $output, $match);
+				$this->equalvalues[$key] = $match[1];
+			}		
+		}
 		return true;
 	}
 	
@@ -102,7 +120,7 @@ class Squeezeplayer extends Service {
 	 */
 	public function saveSqueezeliteCommandline(){
 		$commandLine = array();
-		if(in_array($_GET['squeezelite_soundcard'], array('plug:dmixer')))
+		if(in_array($_GET['squeezelite_soundcard'], array('plug:dmixer', 'plug:plugequal')))
 			$commandLine[] = '-o '.$_GET['squeezelite_soundcard'];
 		else{
 			$commandLine[] = '-o plug:dmixer';
@@ -123,13 +141,78 @@ class Squeezeplayer extends Service {
 	 * @return boolean
 	 */
 	public function getSqueezeliteCommandline(){
-		$output = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'SQUEEZELITE_PARAMETER');		
+		$output = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'SQUEEZELITE_PARAMETER');
 		if(preg_match_all('=-o ([^ ]*) (.*)=', $output, $match)){
 			$this->view->squeezelite_soundcard = $match[1][0];
 			$this->view->squeezelite_commandline = $match[2][0];
-		}else{
-			return false;
 		}
+		$this->view->use_usb_dac = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'USE_USB_DAC');
+		return true;
+	}
+	
+	/**
+	 * Plugin for audiophile headphone listening
+	 */
+	public function installLADSPA(){		
+		$this->view->message[] = nl2br($this->writeDynamicScript(array('/opt/max2play/install_ladspa.sh')));
+		return true;
+	}
+	
+	/**
+	 * controls [ 700 4.5 ] means lowpass filter cut frequency (700) and crossfeed level (4.5 dB)
+	 * Possible values: 300-1000 for lowpass filter and 1 to 15 for crossfeed level
+	 * Presets: http://bs2b.sourceforge.net/
+	 */
+	public function configLADSPA(){
+		$installcheck=shell_exec('grep -a controls /etc/asound.conf');
+		if($installcheck != ''){
+			$this->view->ladspa_installed = true;
+			//controls [ 500 4.5 ]
+			preg_match_all('=controls.\[.([0-9]*).([0-9\.]*).?\]=',$installcheck, $matches);
+			$this->view->ladspa_lowpass = $matches[1][0];
+			$this->view->ladspa_crossfeed = $matches[2][0];
+		}else{
+			$this->view->ladspa_installed = false;
+			return true;
+		}
+		if($_GET['action'] == 'saveLadspa' && $_GET['lowpass'] && $_GET['crossfeed']){
+			$frequency = $_GET['lowpass'];
+			$crossfeed = $_GET['crossfeed'];
+			$this->writeDynamicScript(array('sed -i "s/controls \[.*\]/controls [ '.$frequency.' '.$crossfeed.' ]/" /etc/asound.conf;alsa force-reload;'));
+			$this->view->message[] = _('Settings saved! Set Squeezelite options (advanced-button) to use headphones output with "-o headphones"');
+			$this->view->ladspa_lowpass = $frequency;
+			$this->view->ladspa_crossfeed = $crossfeed;
+		}
+		return true;
+	}
+	
+	public function setUseUSB_DAC(){				
+		if($_GET['use_usb_dac'] == 1){
+			$value = 1;
+			//Set Soundoutput to 100% for Card 1 all Speakers - should be done on FIRST usage
+			$this->writeDynamicScript(array('sudo --user odroid amixer -c 1 sset Speaker 100%'));
+		}else 
+			$value = 0;
+		
+		if($this->saveConfigFileParameter('/opt/max2play/audioplayer.conf', 'USE_USB_DAC', $value)){
+			$this->view->message[] = str_replace('$SERVICE', 'USB DAC' ,_('Updated $SERVICE Settings - Restart $SERVICE to apply changes!'));
+		}
+		return true;
+	}
+	
+	private function getAllLogs(){
+		$out['SQUEEZELITE VERSION'] = shell_exec('/opt/squeezelite/squeezelite --help | grep ^Squeezelite');
+		//$out['SQUEEZESLAVE VERSION'] = shell_exec('/opt/squeezeslave/squeezeslave -V | grep ^squeezeslave');
+		$out['AUDIOPLAYER CONFIG'] = shell_exec('cat /opt/max2play/audioplayer.conf');
+	
+		$this->view->debug = $out;
+		return true;
+	}
+	
+	private function updateSqueezelite(){
+		$this->view->message[] = $this->stop($this->pname);
+		$this->view->message[] = $this->writeDynamicScript(array('wget http://squeezelite-downloads.googlecode.com/git/squeezelite-armv6hf -O /opt/squeezelite/squeezelite 2>&1; chmod 777 /opt/squeezelite/squeezelite'));
+		$this->view->message[] = $this->start($this->pname);
 		return true;
 	}
 		

@@ -28,8 +28,9 @@ class Callblocker_Setup extends Service {
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'savetellows'){
-				$this->_saveTellowsConf();
-			}elseif($_GET['action'] == 'savelinphone'){
+				$this->_saveTellowsConf(); //zusätzlich speichern der SIP-Anrufabnahme (Sound)
+			}
+			if($_GET['action'] == 'savelinphone'){
 				$this->_saveLinphoneConf();
 			}elseif($_GET['action'] == 'updateCallblocker'){
 				$this->_updateCallblocker();
@@ -64,7 +65,7 @@ class Callblocker_Setup extends Service {
 		$this->writeDynamicScript(array("echo 'partner=tellowskey\napikey=".$_GET['tellows_apikey']."\nminscore=".$_GET['tellows_minscore']."\ncountry=".$_GET['tellows_country']."\nchecked=1\naudiofile=".$_GET['tellows_audiofile']."' > /opt/callblocker/tellows.conf"));
 		$this->_getTellowsConf();
 		if($this->tellows->registered_bool === FALSE){
-			$this->writeDynamicScript(array("echo 'partner=tellowskey\napikey=".$_GET['tellows_apikey']."\nminscore=".$_GET['tellows_minscore']."\ncountry=".$_GET['tellows_country']."\nchecked=0' > /opt/callblocker/tellows.conf"));
+			$this->writeDynamicScript(array("echo 'partner=tellowskey\napikey=".$_GET['tellows_apikey']."\nminscore=".$_GET['tellows_minscore']."\ncountry=".$_GET['tellows_country']."\nchecked=0\naudiofile=".$_GET['tellows_audiofile']."' > /opt/callblocker/tellows.conf"));
 			$this->view->message[] = _t('API-Key could not be registered and seems to be wrong!');
 		}else{
 			$this->view->message[] = _t('API-Key successfully registered!');			
@@ -144,7 +145,10 @@ class Callblocker_Setup extends Service {
 	}
 	
 	private function _saveLinphoneConf(){
-		$this->writeDynamicScript(array("echo '--host ".$_GET['linphone_host']." --username ".$_GET['linphone_user']." --password ".$_GET['linphone_password']."' > /opt/callblocker/linphone.conf"));
+		//write linphone settings + write audiofile config
+		$this->writeDynamicScript(array("echo '--host ".$_GET['linphone_host']." --username ".$_GET['linphone_user']." --password ".$_GET['linphone_password']."' > /opt/callblocker/linphone.conf",
+										'sed -i "s/audiofile=[0-9]/audiofile='.$_GET['tellows_audiofile'].'/" /opt/callblocker/tellows.conf'));
+		
 		//Restart Linphone Service
 		$this->writeDynamicScript(array("linphonecsh init;sleep 2;linphonecsh generic 'soundcard use files';linphonecsh register $(cat /opt/callblocker/linphone.conf);sleep 2;chmod a+rw /dev/null;"));
 		$this->view->message[] = _t('VOIP-Settings Updated');

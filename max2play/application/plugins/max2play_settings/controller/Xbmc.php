@@ -45,8 +45,11 @@ class Xbmc extends Service {
 					sleep(5);
 					$this->view->message[] = _('Restart Desktop-Manager completed (initialized Display)');
 				}				
-				//dafür muss unter www-data mittels ssh-keygen ein Key erzeugt und zu odroid exportiert werden!				
-				$this->view->message[] = $this->start($this->pname, '/usr/bin/ssh odroid@localhost "/etc/init.d/squeezelite stop;/etc/init.d/squeezeslave stop;/etc/init.d/shairport stop;export DISPLAY=\':0\'; /usr/local/bin/xbmc > /dev/null 2>&1 &"');					
+				//dafür muss unter www-data mittels ssh-keygen ein Key erzeugt und zu odroid exportiert werden!
+				//$this->view->message[] = $this->start($this->pname, '/usr/bin/ssh odroid@localhost "export DISPLAY=\':0\'; /opt/max2play/start_xbmc.sh > /dev/null 2>&1 &"');
+				
+				//Alternative Methode:
+				$this->view->message[] = $this->start($this->pname, 'export DISPLAY=\':0\';sudo --user=odroid -H -s /opt/max2play/start_xbmc.sh > /dev/null 2>&1 &', '',true);					
 			}
 			
 			if($_GET['action'] == 'stop'){			
@@ -55,6 +58,9 @@ class Xbmc extends Service {
 			
 			if($_GET['action'] == 'save'){							
 				$this->selectAutostart(isset($_GET['autostart']) ? 1 : 0);
+			}
+			if($_GET['action'] == 'install'){
+				$this->installXBMC();
 			}
 		}
 		$this->view->autostart = $this->checkAutostart($this->pname, true);

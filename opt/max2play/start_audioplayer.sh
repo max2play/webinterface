@@ -1,28 +1,33 @@
 #!/bin/sh
 echo "Squeezelite und Shairport starten, falls XBMC nicht läuft entsprechend autostart.conf"
-echo "Check auf laufenden XBMC - Pulseaudio VS Alsa bringt Probleme"
+echo "Check auf laufenden XBMC - Pulseaudio VS Alsa bringt Probleme - Alternativ Check auf USB-DAC (Nur Squeezelite)"
+
 xbmcrunning=$(ps -Al | grep xbmc | wc -l)
-if [ "1" -gt "$xbmcrunning" ]
+
+useusbdac=$(grep -a USE_USB_DAC=1 /opt/max2play/audioplayer.conf | wc -l)
+
+if [ "1" -gt "$xbmcrunning" -o "0" -lt "$useusbdac" ]
 then
-    autostart_squeezelite=$(cat /opt/max2play/autostart.conf | grep squeezelite=1 | wc -l)
+    autostart_squeezelite=$(cat /opt/max2play/autostart.conf | grep squeezelite=1 | wc -l)    
     if [ "0" -lt "$autostart_squeezelite" ]
 	then
-		sudo /etc/init.d/squeezelite start
-    fi
+		running_squeezelite=$(ps -Al | grep squeezelite | wc -l)
+		if [ "1" -gt "$running_squeezelite" ]; then
+			sudo /etc/init.d/squeezelite start
+		fi
+    fi   
+fi
 
-    autostart_shairport=$(cat /opt/max2play/autostart.conf | grep shairport=1 | wc -l)
+if [ "1" -gt "$xbmcrunning" ]; then
+	
+	autostart_shairport=$(cat /opt/max2play/autostart.conf | grep shairport=1 | wc -l)    
     if [ "0" -lt "$autostart_shairport" ]
         then
-        sudo /etc/init.d/shairport start
-    fi
-    
-    autostart_jivelite=$(cat /opt/max2play/autostart.conf | grep jivelite=1 | wc -l)
-    running_jivelite=$(ps -Al | grep jivelite | wc -l)
-    if [ "0" -lt "$autostart_jivelite" -a  "1" -gt "$running_jivelite" ]
-        then
-        export DISPLAY=':0'
-        sudo --user=odroid -H /opt/jivelite/jivelite/bin/jivelite > /dev/null 2>&1 &
-    fi
+        running_shairport=$(ps -Al | grep shairport | wc -l)
+        if [ "1" -gt "$running_shairport" ]; then
+        	sudo /etc/init.d/shairport start
+        fi
+    fi        
     
     autostart_squeezeslave=$(cat /opt/max2play/autostart.conf | grep squeezeslave=1 | wc -l)
     if [ "0" -lt "$autostart_squeezeslave" ]
@@ -37,7 +42,12 @@ then
 	        sudo /etc/init.d/squeezeslave start
 	    fi
     fi
-
+	
+	autostart_jivelite=$(cat /opt/max2play/autostart.conf | grep jivelite=1 | wc -l)
+    running_jivelite=$(ps -Al | grep jivelite | wc -l)
+    if [ "0" -lt "$autostart_jivelite" -a  "1" -gt "$running_jivelite" ]
+        then
+        export DISPLAY=':0'
+        sudo --user=odroid -H /opt/jivelite/jivelite/bin/jivelite > /dev/null 2>&1 &
+    fi
 fi
-
-

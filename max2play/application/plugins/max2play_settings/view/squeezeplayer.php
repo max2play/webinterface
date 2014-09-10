@@ -54,6 +54,32 @@ $(function() {
 });
 </script>
 
+<script>
+
+	$(function() {
+		$( "#slider-lowpass" ).slider({
+			range: "min",
+			min: 300,
+			value: $( "#lowpass" ).attr('value'),
+			max: 1000,
+			slide: function( event, ui ) {
+				$( "#lowpass" ).val( ui.value );
+			}
+		});
+	});
+	$(function() {
+		$( "#slider-crossfeed" ).slider({
+			range: "min",
+			value: $( "#crossfeed" ).attr('value') * 10,
+			min: 10,
+			max: 150,
+			slide: function( event, ui ) {
+				$( "#crossfeed" ).val( ui.value / 10 );
+			}
+		});		
+	});
+</script>
+
 <h1 class="entry-header">
 	<?php echo _("Mediaplayer Squeezelite & Airplay - Status, Start / Stop") ?>
 </h1>
@@ -93,7 +119,8 @@ $(function() {
 				<tr>
 					<td><?php echo _('Soundcard') ?></td>					
 					<td style="width: 25%;"><select name="squeezelite_soundcard" style="width: 90%;">
-						<option value='plug:dmixer'>Default dmixer (Alsa Mixer Device)</option>
+						<option <?php if($sp->view->squeezelite_soundcard == 'plug:dmixer') echo 'selected'; ?> value='plug:dmixer'>Default dmixer (Alsa Mixer Device)</option>
+						<option <?php if($sp->view->squeezelite_soundcard == 'plug:plugequal') echo 'selected'; ?> value='plug:plugequal'>Equalizer</option>
 						</select>
 					</td>
 					<td><?php echo _('Select Audio output') ?></td>
@@ -103,6 +130,17 @@ $(function() {
 					<td><input style="width: 90%;" type="text" name="squeezelite_commandline" value="<?php echo $sp->view->squeezelite_commandline ?>" />
 					</td>
 					<td><?php echo _('Advanced Users may add Start-Parameters here') ?></td>
+				</tr>
+				<tr>
+					<td><?php echo _('Use USB-DAC') ?></td>					
+					<td><input type="checkbox" name="use_usb_dac" <?php if ($sp->view->use_usb_dac == 1) echo "checked" ?> value="1" />
+					</td>
+					<td><?php echo _('Enable "Use USB-DAC" for simultaneous usage of XBMC AND Squeezelite - only possible if either XBMC OR Squeezelite is using a separate USB-DAC (e.g. Logi-Link 7.1 or Creative X-Fi) for sound-output (use command line option so set USB-DAC output for squeezelite, e.g. "-o hw:1,0" OR use detailed instructions on XBMC-Page for XBMC). Otherwise Squeezelite and XBMC will stutter or play no sound at all. When checked, sound-volume of USB-DAC will be set to 100%.') ?></td>
+				</tr>
+				<tr>
+					<td><?php echo _('Update Squeezelite') ?></td>					
+					<td><input type="checkbox" name="update_squeezelite" value="1" /></td>
+					<td><?php echo str_replace('$VERSION', $sp->view->debug['SQUEEZELITE VERSION'] ,_('Update current version $VERSION to newest available')) ?></td>
 				</tr>
 			</table>
 			<input type="button" name="save" value="<?php echo _('save') ?>" onclick="document.getElementById('action').value='save';submit();" />
@@ -183,20 +221,57 @@ $(function() {
 			<span class="ui-icon ui-icon-signal" style="float:left; margin:-2px 5px 0 0;"></span>
 			<?php echo _('Graphic Equalizer') ?>
 		</p>
-		<div id="eq">
-			<?php foreach($sp->equalvalues as $key => $value) { ?>
-				<span id="<?php echo $key ?>"><?php echo $value ?></span>
-			<?php } ?>
-		</div>
-		<br />
-		<input type="button" value="<?php echo _('Zurücksetzen') ?>" name="save" onclick="document.getElementById('action').value='resetEqualizer';submit();" /><br /><br />
-		<input type="button" value="<?php echo _('Speichern') ?>" name="save" onclick="document.getElementById('action').value='saveEqualizer';submit();" /><br />
-		<br />
-		<input type="text" size="2" value="" id="selectedEqual" /> <span id="selectedEqualSpan"></span>
+		<?php echo _('Use Equalizer (activate settings in this webinterface)') ?> <input type="checkbox" name="use_equalizer" <?php if ($sp->view->use_equalizer == 1) echo "checked" ?> value="1" />
+		<?php if($sp->view->use_equalizer == 1) { ?>
+			<div id="eq">
+				<?php foreach($sp->equalvalues as $key => $value) { ?>
+					<span id="<?php echo $key ?>"><?php echo $value ?></span>
+				<?php } ?>
+			</div>
+			<br />
+			<input type="button" value="<?php echo _('Zurücksetzen') ?>" name="save" onclick="document.getElementById('action').value='resetEqualizer';submit();" /><br /><br />
+			<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='saveEqualizer';submit();" /><br />
+			<br />
+			<input type="text" size="2" value="" id="selectedEqual" /> <span id="selectedEqualSpan"></span>
+		<?php } else { ?>
+			<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='saveEqualizer';submit();" />
+		<?php } ?>
 		<br /><br />
+		
+		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-top:3em;">
+			<span class="ui-icon ui-icon-signal" style="float:left; margin:-2px 5px 0 0;"></span>
+			<?php echo _('Lowpassfilter and Crossfeed Level Adjuster for Headphones') ?>
+		</p>
+		<br />
+		<?php echo _("This is a filter for audiophile usage to change lowpass filter cut frequency and crossfeed level of the audio-output. These settings take effect when using the output <b>\"-o headphones\"</b> in advanced settings of Squeezelite. More infos about the filter technique can be found on <a href=\"http://bs2b.sourceforge.net/\">http://bs2b.sourceforge.net/</a>"); ?>
+		<br /><br />
+		<?php if ($sp->view->ladspa_installed) { ?>
+			<div style="float:left;">
+				<label for="lowpass"><?php echo _("Lowpass filter cut frequency:") ?></label>
+				<input type="text" id="lowpass" name="lowpass" value="<?php echo $sp->view->ladspa_lowpass ?>" readonly style="border:0; color:#f6931f; font-weight:bold;">
+				<div id="slider-lowpass"></div>
+				<label for="crossfeed"><?php echo _("Crossfeed Level:") ?></label>
+				<input type="text" id="crossfeed" name="crossfeed" value="<?php echo $sp->view->ladspa_crossfeed ?>" readonly style="border:0; color:#f6931f; font-weight:bold;">
+				<div id="slider-crossfeed"></div>
+			</div>
+			<input type="button" style="float:left;margin: 25px;" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='saveLadspa';submit();" />
+			<br style="width:100%;clear:both;" />
+		<?php } else { ?>
+			<?php echo _("This button sets up the plugin and your ALSA-Soundconfiguration.") ?>
+			<br /><br />
+			<input type="button" value="<?php echo _('Install') ?>" name="save" onclick="document.getElementById('action').value='installLadspa';submit();" /><br />		
+		<?php } ?>		
 	</form>
 	
-	<br /><br /><br />
+	<br /><br />
 	<?php echo _('SQUEEZEPLAYER INFO DESCRIPTION') ?>
+	
+	<br /><br />
+	<a href="#javascript" onclick="document.getElementById('debug').style.display='';return false;">DEBUG Informationen</a>
+	<textarea id="debug" rows="30" cols="70" style="display:none;"><?php foreach ($sp->view->debug as $key => $debug) {
+			echo "#### ". $key. " ####\n"; 
+			 echo $debug." \n\n"; 
+		 }?>
+	</textarea>
 </div>	
 															

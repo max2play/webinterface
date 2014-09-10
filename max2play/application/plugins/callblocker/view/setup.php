@@ -108,7 +108,7 @@
 		<td>
 			<select name="tellows_audiofile">
 				<option value="0" <?php if($cs->tellows->audiofile == 0) echo 'selected'; ?> ><?php echo _t("Hang up without Sound") ?></option>
-				<option value="1" <?php if($cs->tellows->audiofile == 0) echo 'selected'; ?> ><?php echo _t("Play: You are blocked") ?></option>
+				<option value="1" <?php if($cs->tellows->audiofile == 1) echo 'selected'; ?> ><?php echo _t("Play: You are blocked") ?></option>
 			</select>
 		</td>
 		<td><?php echo _t("Choose which audio file should be played when the incoming caller is on the blacklist.") ?></td> 
@@ -154,7 +154,7 @@
 
 <?php }?>
 	<form action="" method="get">
-		<?php echo _('Current Callblocker Version') ?>: <?php echo $cs->view->version ?>
+		<?php echo _t('Current Callblocker Version') ?>: <?php echo $cs->view->version ?>
 		<input type="hidden" id="actionupdate" name="actionupdate" value="" />
 		<input type="button" value="<?php echo _t('Update tellows Callblocker') ?>" name="update" onclick="document.getElementById('actionupdate').value='updateCallblocker';submit();" />
 	</form>
