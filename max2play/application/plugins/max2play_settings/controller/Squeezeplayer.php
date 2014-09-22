@@ -209,10 +209,52 @@ class Squeezeplayer extends Service {
 		return true;
 	}
 	
+	/**
+	 * Remove Autostart for time during Update!
+	 * Update Squeezelite from Sources and Compile it
+	 * 
+	 * @return boolean
+	 */
 	private function updateSqueezelite(){
+		$outfile = '/opt/max2play/cache/update_squeezelite.txt';
+		ignore_user_abort(true);
+		set_time_limit(3000);
+		
+// 		if($ajax == 0){
+// 			ignore_user_abort(true);
+// 			set_time_limit(3000);			
+// 				$this->view->message[] = _('Update started');				
+// 				if($this->getProgressWithAjax($outfile, 1, 0)){
+// 					$shellanswer = $this->writeDynamicScript(array("/opt/max2play/update_callblocker.sh >> ".$outfile." &"));
+// 				}			
+// 		}else{
+// 			$status = $this->getProgressWithAjax($outfile);
+// 			$this->view->message[] = nl2br($status);
+// 			if(strpos($status, 'Finished') !== FALSE){
+// 				//Finished Progress - did not delete progressfile
+// 				if(strpos($status, '-lpthread -lm -lrt -ldl -o squeezelite') !== FALSE){
+// 					$this->view->message[] = _('UPDATE SUCCESSFUL');
+// 					shell_exec('rm '.$outfile);
+// 				}
+// 				else
+// 					$this->view->message[] = _('UPDATE NOT SUCCESSFUL');
+// 			}
+// 		}				
+		
+		$autostart = $this->checkAutostart($this->pname, true);
+		if($autostart){
+			$this->selectAutostart(0);
+		}
 		$this->view->message[] = $this->stop($this->pname);
-		$this->view->message[] = $this->writeDynamicScript(array('wget http://squeezelite-downloads.googlecode.com/git/squeezelite-armv6hf -O /opt/squeezelite/squeezelite 2>&1; chmod 777 /opt/squeezelite/squeezelite'));
+		
+		//$script[] = 'wget http://squeezelite-downloads.googlecode.com/git/squeezelite-armv6hf -O /opt/squeezelite/squeezelite 2>&1; chmod 777 /opt/squeezelite/squeezelite';
+		$script[] = 'echo "Y" | apt-get install libav-tools libsoxr-dev;cd /tmp;git clone https://code.google.com/p/squeezelite/;cd squeezelite;OPTS="-DFFMPEG -DRESAMPLE -DVISEXPORT" make;cp /tmp/squeezelite/squeezelite /opt/squeezelite/;echo "Finished Update - Restart Device!";';
+		$this->view->message[] = nl2br($this->writeDynamicScript($script));
 		$this->view->message[] = $this->start($this->pname);
+		
+		if($autostart){
+			$this->selectAutostart(1);
+		}
 		return true;
 	}
 		

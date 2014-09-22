@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-10 12:29+0100\n"
-"PO-Revision-Date: 2014-09-10 12:29+0100\n"
+"POT-Creation-Date: 2014-09-10 15:44+0100\n"
+"PO-Revision-Date: 2014-09-16 16:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -485,7 +485,8 @@ msgid "Update current version $VERSION to newest available"
 msgstr ""
 "Update der aktuellen Version ($VERSION) auf die neuste verfügbare Version "
 "von <a href=\"https://code.google.com/p/squeezelite/\" target=\"blank"
-"\">https://code.google.com/p/squeezelite/</a>"
+"\">https://code.google.com/p/squeezelite/</a> (Compiler Optionen: FFMPEG "
+"RESAMPLE VISEXPORT)"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:146
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:151
@@ -950,18 +951,18 @@ msgstr "Max2Play Media Player - Informationen"
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:16
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/index.php:16
 msgid ""
-"READ CAREFULLY: THIS INTERFACE IS STILL A BETA AND MIGHT HAVE BUGS OR "
-"UNEXPECTED BEHAVIOR!"
+"Welcome to Max2Play - Your easy to use Interface for Multiroom-Audio and "
+"Video!"
 msgstr ""
-"ACHTUNG: DIESE KONFIGURATIONSMÖGLICHKEIT IST EINE BETA UND ENTHÄLT "
-"MÖGLICHERWEISE FEHLER!"
+"Willkommen bei Max2Play - deiner einfachen Bedienung von Multiroom-Audio und "
+"Video!"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:18
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/index.php:18
 msgid ""
-"The Max2Play Interface is used to configurate the device without having to "
-"set up montior, keyboard and mouse on the device itsself or login by ssh."
-"<br />All settings are directly written to the players config files."
+"The Max2Play Interface is used to configure the device without having to set "
+"up monitor, keyboard and mouse on the device itsself or login by ssh.<br /"
+">All settings are directly written to the players config files."
 msgstr ""
 "Über diese Seiten kann der Player konfiguriert werden (Netzwerkinterfaces, "
 "Netzwerkfreigaben, Autostartkonfiguration).<br />Die Einstellungen werden "
@@ -972,12 +973,26 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:20
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/index.php:20
+msgid "What is Max2Play?"
+msgstr "Was ist Max2Play und wobei hilft es mir?"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:23
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/index.php:23
 msgid ""
 "Questions concerning this project? Please refer to <a href=\"http://shop."
 "max2play.com\" target=\"_blank\">Shop.Max2Play</a>"
 msgstr ""
 "Fragen zum Projekt? Bitte auf <a href=\"http://shop.max2play.com\" target="
 "\"_blank\">Shop.Max2Play</a> den Kontakt nutzen."
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:25
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/index.php:25
+msgid ""
+"READ CAREFULLY: THIS INTERFACE IS STILL A BETA AND MIGHT HAVE BUGS OR "
+"UNEXPECTED BEHAVIOR!"
+msgstr ""
+"ACHTUNG: DIESE KONFIGURATIONSMÖGLICHKEIT IST EINE BETA UND ENTHÄLT "
+"MÖGLICHERWEISE FEHLER!"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/AdvancedSetup.php:32
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/AdvancedSetup.php:32

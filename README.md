@@ -3,7 +3,7 @@ Max2Play - Webinterface
 
 Browser Administration for Linux-Based Audio/Video-Player like ODROID or Raspberry Pi.
 
-More Information on <a href="http://shop.max2play.com/">http://shop.max2play.com</a>
+More Information on <a href="http://www.max2play.com/">http://www.max2play.com</a> and <a href="http://shop.max2play.com/">http://shop.max2play.com</a>
 
 FEATURES
  - browser interface for configuring WiFi, filesystem mountpoints, autostarts, display resolution, init-scripts, etc.

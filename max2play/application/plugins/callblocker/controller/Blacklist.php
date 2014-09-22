@@ -68,6 +68,10 @@ class Callblocker_Blacklist extends Service {
 					//Check local file
 					if(in_array($call['number'], $this->blacklist_array)){
 						$call['blacklist_type'] = _t('local');							
+					}elseif(in_array($call['name'], $this->blacklist_array) && strlen($call['name']) > 2){
+						//Block by Name
+						$call['blacklist_type'] = _t('local');
+						$call['blacklist_byname'] = true;
 					}else{
 						//TODO: check auf internationale Nummern mit Grep
 						$output = shell_exec('cat /opt/callblocker/cache/tellows.csv | grep ^'.$call['number'].';');
@@ -115,8 +119,8 @@ class Callblocker_Blacklist extends Service {
 		if($whitelist !== false){
 			$this->writeDynamicScript(array('echo "'.trim(str_replace("\r\n", "\n", $whitelist), "\n").'" > '.$this->local_whitelist));
 		}
-		
-		$this->writeDynamicScript(array('sudo /opt/callblocker/tellowsblacklist.sh'));
+		//2>&1 > /opt/callblocker/cache/tellowsblacklist.txt
+		$this->writeDynamicScript(array('sudo /opt/callblocker/tellowsblacklist.sh'), true);
 		
 		return true;
 	}

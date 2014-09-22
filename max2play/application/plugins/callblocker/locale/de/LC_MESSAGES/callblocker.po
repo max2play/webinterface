@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Callblocker Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-26 10:48+0100\n"
-"PO-Revision-Date: 2014-08-29 11:24+0100\n"
+"PO-Revision-Date: 2014-09-15 17:49+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -315,7 +315,7 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:70
 msgid "API-Key successfully registered!"
-msgstr "Lizentschlüssel erfolgreich registriert"
+msgstr "Lizenzschlüssel erfolgreich registriert"
 
 #: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:106
 msgid "Connection Successful"

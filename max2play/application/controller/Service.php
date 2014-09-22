@@ -331,7 +331,7 @@ class Service {
 	 * Write to File that has Root Rights to launch specific installations and configs
 	 * $script is an array separated by lines for each task	
 	 */
-	public function writeDynamicScript($script = ''){
+	public function writeDynamicScript($script = '', $background = false){
 		$fp = fopen($this->dynamicScript, 'w+');
 		
 		fwrite($fp,"#!/bin/bash\n");
@@ -340,7 +340,7 @@ class Service {
 			fwrite($fp, "\n".$s);
 		
 		fclose($fp);
-		$output = shell_exec('sudo '.$this->dynamicScript);
+		$output = shell_exec('sudo '.$this->dynamicScript.((true == $background) ? ' > /dev/null &' : ''));
 		return $output;
 	}
 	

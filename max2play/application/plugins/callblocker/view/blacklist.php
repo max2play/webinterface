@@ -62,7 +62,9 @@
 					  else echo $log['number']; ?>
 			    </a>
 			</td>
-			<td><?php echo $log['name'] ?></td>
+			<td><?php if (isset($log['blacklist_byname'])) echo '<span style="color:red;" title="'._t('Name is on Blacklist').'">'.$log['name'].'</span>';
+				else echo $log['name']; ?>
+			</td>
 			<td><?php echo $log['blacklist_type'] ?></td>
 			<td><?php if ($log['blacklist_type'] != '' && !$log['whitelist']){ ?>
 				<input type="button" value="<?php echo _t('whitelist')?>" onclick="document.getElementById('number').value='<?php echo $log['number'] ?>';document.getElementById('action').value='whitelist';submit();" />
