@@ -36,7 +36,8 @@ include_once '../application/model/Info.php';
 class Service {
 	public $view;	
 	public $viewname; //Name of Service in View
-	public $info;	
+	public $info;
+	public $plugins;
 	public $autostartconf = '/opt/max2play/autostart.conf';
 	public $dynamicScript = '/opt/max2play/dynamic_script.sh';
 	
@@ -44,6 +45,17 @@ class Service {
 		$this->view = new stdClass();
 		$this->view->message = array(); // Array of Messages for View
 		$this->info = new Info();				
+	}
+	
+	/**
+	 * Function for Instance of Serviceclass to load Global Parameters (e.g. for Header)
+	 */
+	public function loadDefaults(){
+		$this->getPlayername();
+		$this->getAllNetworkPlayers();
+		$this->getVersion();
+		$this->getDonate();
+		return true;
 	}
 	
 	public function status($name = ''){
@@ -219,6 +231,7 @@ class Service {
 	 * Update Autostart by Config-File OR update-rc.d
 	 * @param string $name
 	 * @param string $active
+	 * @return bool Value Changed
 	 */
 	public function updateAutostart($name = '', $active = false, $autostartconf = true){
 		
@@ -230,13 +243,17 @@ class Service {
 			if(!$autostartconf){
 				shell_exec("sudo update-rc.d -f ".$name." remove");
 			}else{
-				shell_exec("echo '".str_replace($name.'=1', $name.'=0', $output)."' > ".$this->autostartconf);
+				//Write Config-file
+				return $this->saveConfigFileParameter($this->autostartconf, $name, 0);
+				//shell_exec("echo '".str_replace($name.'=1', $name.'=0', $output)."' > ".$this->autostartconf);
 			}
 		}else{
 			if(!$autostartconf){
 				shell_exec("sudo update-rc.d ".$name." defaults");
 			}else{
-				shell_exec("echo '".str_replace($name.'=0', $name.'=1', $output)."' > ".$this->autostartconf);
+				//Write Config-file
+				return $this->saveConfigFileParameter($this->autostartconf, $name, 1);
+				//shell_exec("echo '".str_replace($name.'=0', $name.'=1', $output)."' > ".$this->autostartconf);
 			}
 		}
 		return true;
@@ -307,6 +324,11 @@ class Service {
 		$this->info->version = file_get_contents(APPLICATION_PATH.'/config/version.txt');
 	}
 	
+	public function getDonate(){
+		$this->info->removedonate = $this->getConfigFileParameter('/opt/max2play/options.conf', 'removedonate');
+		return $this->info->removedonate;
+	}
+	
 	public function checkForUpdate(){
 		$this->getVersion();
 		//Check auf Update
@@ -323,13 +345,14 @@ class Service {
 	public function getActivePlugins(){
 		$xml = simplexml_load_file(APPLICATION_PATH.'/config/plugins.xml');
 		$json = json_encode($xml);
-		$plugins = json_decode($json,TRUE);
-		return $plugins;
+		$this->plugins = json_decode($json,TRUE);
+		return $this->plugins;
 	}
 	
 	/**
 	 * Write to File that has Root Rights to launch specific installations and configs
 	 * $script is an array separated by lines for each task	
+	 * $background to run script in background
 	 */
 	public function writeDynamicScript($script = '', $background = false){
 		$fp = fopen($this->dynamicScript, 'w+');
@@ -430,11 +453,39 @@ class Service {
 			return true;
 		}
 	}
+	
+	/**
+	 * Function to render View Header
+	 * @param reload Set to reload Header after Changes (if global settings changed)
+	 */
+	public function loadViewHeader($reload = false){
+		global $service;		
+	
+		if(true == $reload){
+			//Clear Output
+			ob_end_clean();
+			$service->loadDefaults(); //Global Scope
+		}
+		if(file_exists(APPLICATION_PATH.'/view/header_custom.php'))
+			include(APPLICATION_PATH.'/view/header_custom.php');
+		else
+			include(APPLICATION_PATH.'/view/header.php');
+	
+		return true;
+	}
+	
+	public function loadViewFooter(){
+		global $service;
+		if(file_exists(APPLICATION_PATH.'/view/footer_custom.php'))
+			include_once(APPLICATION_PATH.'/view/footer_custom.php');
+		else
+			include_once(APPLICATION_PATH.'/view/footer.php');
+	
+		return true;
+	}
 }
 
 //Create Instance of Service Class
 $service = new Service();
-$service->getPlayername();
-$service->getAllNetworkPlayers();
-$service->getVersion();
+$service->loadDefaults();
 

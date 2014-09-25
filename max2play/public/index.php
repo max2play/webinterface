@@ -29,17 +29,14 @@ ob_start();
 
 include_once('../application/bootstrap.php');
 
-if(file_exists(APPLICATION_PATH.'/view/header_custom.php'))
-	include_once(APPLICATION_PATH.'/view/header_custom.php');
-else
-	include_once(APPLICATION_PATH.'/view/header.php');
+$service->loadViewHeader();
 
 //search for Controller and View by Name in URL
 if(!isset($_GET['page']) || strpos($_GET['page'], 'plugin') === FALSE){
 	$pagename = preg_replace('=[^0-9a-zA-Z\.]=','',isset($_GET['page']) ? $_GET['page'] : '');
 	if($pagename == ''){
 		//get Default Plugin for first Page
-		foreach($plugins['plugin'] as $plugin){			
+		foreach($service->plugins['plugin'] as $plugin){			
 			if(isset($plugin['default']) && $plugin['default'] == 1){
 				include_once(APPLICATION_PATH.$plugin['path']);
 				break;
@@ -51,9 +48,6 @@ if(!isset($_GET['page']) || strpos($_GET['page'], 'plugin') === FALSE){
 	include_once(APPLICATION_PATH.'/'.$_GET['page']);
 }
 
-if(file_exists(APPLICATION_PATH.'/view/footer_custom.php'))
-	include_once(APPLICATION_PATH.'/view/footer_custom.php');
-else
-	include_once(APPLICATION_PATH.'/view/footer.php');
+$service->loadViewFooter();
 
 ob_flush();

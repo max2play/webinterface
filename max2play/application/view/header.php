@@ -56,14 +56,18 @@
 						<?php }?>		
 					</select>
 				<?php }?>
-				<br /><br /><span style="float:right";><?php echo _('Version').' '.$service->info->version ?></span>
+				<br />
+				<span style="float:right;margin-top:5px;">
+					<?php if ($service->info->removedonate != 1) echo _('DONATE-BUTTON'); ?>		
+					<br /><?php echo _('Version').' '.$service->info->version ?>
+				</span>
 			</div>
 			
 			<nav id="navigation" class="navigation">					
 				<div class="nav-menu">
 					<ul>						
-						<?php if(isset($plugins['plugin']) && count($plugins['plugin']) > 0) { 							
-							foreach($plugins['plugin'] as $plugin){ 
+						<?php if(isset($service->plugins['plugin']) && count($service->plugins['plugin']) > 0) { 							
+							foreach($service->plugins['plugin'] as $plugin){ 
 								if(isset($plugin['navigation']) && $plugin['navigation'] != '' && isset($plugin['active']) && $plugin['active'] == 1){?>
 									<li><a href="<?php echo $plugin['path'] ?>" 
 										   class="<?php if(strpos($_SERVER['REQUEST_URI'], $plugin['path']) !== FALSE || $_SERVER['REQUEST_URI'] == '/' && isset($plugin['default']) && $plugin['default'] == 1) echo 'current';?>"

@@ -29,6 +29,9 @@ else
 		#ln -f /usr/lib/arm-linux-gnueabihf/libgif.a /usr/lib/libungif.a
 		#ln -f /usr/lib/arm-linux-gnueabihf/libgif.so.4.1.6 /usr/lib/libungif.so
 		
+		#Add squeezeboxserver to group audio (e.g. for waveinput plugin)
+		usermod -a -G audio squeezeboxserver
+		
 		#Image::Scale FIX, if file not exists
 		if [ -e /opt/CPAN/arm-linux-gnueabihf-thread-multi-64int/auto/Image/Scale/Scale.so ]; then
 			echo "NO Image-Fix"
@@ -40,6 +43,7 @@ else
 		
 		#Fix ubuntu 14 interpreter
 		ln /lib/arm-linux-gnueabihf/ld-linux.so.3 /lib/ld-linux.so.3
+		
 		sleep 3
 		/etc/init.d/logitechmediaserver restart
 	else

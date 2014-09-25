@@ -61,18 +61,21 @@ class Callblocker_Blacklist extends Service {
 					$call['name'] = $match[5];
 					$call['blacklist'] = ($type == 'HUP') ? true : false;
 					$call['blacklist_type'] = '';
+					$call['blacklist_byname'] = false;
 					
 					//Get Information for Blacklisted Callers by tellows OR local Blacklist
 					//If number is on Blacklist but wasn't blacklisted before -> mark it red! Same on Whitelist with green 
 					
 					//Check local file
 					if(in_array($call['number'], $this->blacklist_array)){
-						$call['blacklist_type'] = _t('local');							
-					}elseif(in_array($call['name'], $this->blacklist_array) && strlen($call['name']) > 2){
+						$call['blacklist_type'] = _t('local');
+					}
+					if(in_array($call['name'], $this->blacklist_array) && strlen($call['name']) > 2){
 						//Block by Name
 						$call['blacklist_type'] = _t('local');
 						$call['blacklist_byname'] = true;
-					}else{
+					}
+					if($call['blacklist_type'] == ''){
 						//TODO: check auf internationale Nummern mit Grep
 						$output = shell_exec('cat /opt/callblocker/cache/tellows.csv | grep ^'.$call['number'].';');
 						// Save tellows Information for Number

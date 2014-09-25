@@ -62,7 +62,8 @@
 					  else echo $log['number']; ?>
 			    </a>
 			</td>
-			<td><?php if (isset($log['blacklist_byname'])) echo '<span style="color:red;" title="'._t('Name is on Blacklist').'">'.$log['name'].'</span>';
+			<td><?php if ($log['blacklist_byname'] == true) 
+					echo '<span style="color:red;" title="'._t('Name is on Blacklist').'">'.$log['name'].'</span>';
 				else echo $log['name']; ?>
 			</td>
 			<td><?php echo $log['blacklist_type'] ?></td>

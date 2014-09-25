@@ -60,13 +60,18 @@ class Basic extends Service {
 			
 			if($_GET['action'] == 'pluginconfig'){
 				$this->view->message[] = $this->pluginConfig($_GET['plugins'], $_GET['defaultplugin']);
+				$this->loadViewHeader(true);
 			}
 			
 			if($_GET['action'] == 'save'){
-				$this->view->message[] = $this->updatePlayername($_GET['playername']);
-				$this->view->message[] = $this->updateLocale($_GET['locale']);
+				if(isset($_GET['playername']))
+					$this->updatePlayername($_GET['playername']);
+				if(isset($_GET['locale']))
+					$this->updateLocale($_GET['locale']);
+				
+				$this->setDonateButton((isset($_GET['removedonate']) ? 1 : 0));
 				//$this->view->message[] = $this->updateDisplayResolution($_GET['displayResolution']);
-				$this->updateMax2playNetworkLookup();
+				$this->updateMax2playNetworkLookup();				
 			}
 		}
 		$this->getLocale();
@@ -75,6 +80,8 @@ class Basic extends Service {
 		//$this->getDisplayResolutions(); deactivated
 		$this->parsePlugins();
 		$this->getDebug();
+		$this->view->removedonate = $this->getDonate();
+		
 	}		
 	
 	public function getDisplayResolutions(){
@@ -101,9 +108,9 @@ class Basic extends Service {
 	}
 	
 	public function getPlayername(){
-		$output = shell_exec('cat /opt/max2play/playername.txt');
+		$output = trim(shell_exec('cat /opt/max2play/playername.txt'), "\n");
 		$this->view->playername = $output;
-		$output = shell_exec('cat /etc/hostname');
+		$output = trim(shell_exec('cat /etc/hostname'), "\n");
 		$this->view->hostname = $output;
 		return $output;
 	}
@@ -115,6 +122,12 @@ class Basic extends Service {
 	
 	public function updateLocale($locale = ''){		
 		if(isset($this->view->locales[$locale])) {
+			$this->getLocale();						
+			if($this->view->currentLocale == $locale){
+				//No changes!
+				return false;
+			}
+			
 			//Timezone setzen			
 			$script[] = 'echo "'.$locale.'" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata';			
 			
@@ -141,10 +154,13 @@ class Basic extends Service {
 			$script[] = 'echo \''.str_replace(array($current_locale, $current_language), $this->view->locales[$locale], trim($output, "\n")).'\' > /etc/default/locale';			
 			
 			$this->view->message[] = $this->writeDynamicScript($script);
+			
+			$this->view->message[] = _("Changes successful - Reboot needed");
+			return true;
 		}else{
-			return _("Value for Timezone/Language not found.");
-		}
-		return _("Changes successful - Reboot needed");
+			$this->view->message[] = _("Value for Timezone/Language not found.");
+			return false;
+		}		
 	}
 	
 	
@@ -154,17 +170,21 @@ class Basic extends Service {
 	public function updatePlayername($name = ''){
 		$name = preg_replace('=[^a-zA-Z0-9]=i', '', $name);
 		if($name != ''){
-			if($name != $this->view->playername){
-				//Squeezelite anpassen
+			$this->getPlayername();		
+			if($name != $this->view->playername){				
+				//Playername anpassen
 				$output = shell_exec('echo '.$name.' > /opt/max2play/playername.txt');
 				
 				//Hostname anpassen
 				$output = shell_exec('echo '.$name.' > /etc/hostname');
+				
+				$this->view->message[] = _("Changes successful - Reboot needed");
+				return true;
 			}
-		}else{
-			return _("Name not possible! Please do not use special characters.");
-		}
-		return _("Changes successful - Reboot needed");
+		}else{			 
+			$this->view->message[] = _("Name not possible! Please do not use special characters.");
+			return false;
+		}		
 	}
 	
 	/**
@@ -189,12 +209,23 @@ class Basic extends Service {
 	}
 	
 	public function getMax2playNetworkLookup(){
-		$this->view->Max2PlayNetworkLookup = $this->checkAutostart('Max2PlayNetworkLookup', true);
+		return $this->view->Max2PlayNetworkLookup = $this->checkAutostart('Max2PlayNetworkLookup', true);
 	}
 	
-	public function updateMax2playNetworkLookup(){		
-		$this->updateAutostart('Max2PlayNetworkLookup', (bool)$_GET['Max2PlayNetworkLookup'], true);
-		$this->view->message[] = _('Max2Play Network Player Lookup saved');
+	public function updateMax2playNetworkLookup(){
+		if($this->updateAutostart('Max2PlayNetworkLookup', (bool)$_GET['Max2PlayNetworkLookup'], true)){
+			$this->view->message[] = _('Max2Play Network Player Lookup saved');
+			$this->loadViewHeader(true);
+		}
+		return true;
+	}
+	
+	public function setDonateButton($removedonate = 0){
+		if($this->saveConfigFileParameter('/opt/max2play/options.conf', 'removedonate', $removedonate)){
+			$this->loadViewHeader(true);
+			$this->view->message[] = _('Thank you so much for your donation! We will keep up the work on the project to make it even better!');
+		}
+		return true;	
 	}
 	
 	/**
@@ -205,14 +236,20 @@ class Basic extends Service {
 		//Check auf Update
 		$file = file_get_contents('http://shop.max2play.com/media/downloadable/currentversion/version.txt');
 		if((float)$this->info->version < (float)$file){
-			$this->view->message[] = _('Max2Play update started');			
+			$this->view->message[] = _('Max2Play update started');
 			//Start Script -> Download Files for Webserver and /opt/max2play
 			$shellanswer = shell_exec('sudo /opt/max2play/update_max2play.sh');			
 			$this->view->message[] = nl2br($shellanswer);
-			if(strpos($shellanswer, 'inflating: /opt/max2play/list_devices.sh') !== FALSE && strpos($shellanswer, 'extracting: /var/www/max2play/application/config/version.txt') !== FALSE)
+			if(strpos($shellanswer, 'inflating: /opt/max2play/list_devices.sh') !== FALSE && strpos($shellanswer, 'extracting: /var/www/max2play/application/config/version.txt') !== FALSE){
 				$this->view->message[] = _('UPDATE SUCCESSFUL');
+				$this->view->message[] = _('Max2Play-Webinterface Restarted - Reload Page to see Changes');
+				//Reload apache!
+				$this->writeDynamicScript(array('/etc/init.d/apache2 reload'));
+			}
 			else
 				$this->view->message[] = _('UPDATE NOT SUCCESSFUL');
+			
+			$this->loadViewHeader(true);
 		}else{
 			$this->view->message[] = _('Max2Play is up to date - no update required');
 		}
@@ -308,9 +345,12 @@ class Basic extends Service {
 		$xml = Array2XML::createXML('config', $newconfig);
 
 		$xml->save(APPLICATION_PATH.'/config/plugins.xml');
-		return _('Plugin configuration updated - Reload Page to see changes');
 		
-		//TODO: redirect to self in 3 seconds
+		//Reload Plugins
+		global $service;
+		$service->plugins = $this->getActivePlugins();
+		
+		return _('Plugin configuration updated - Reload Page to see changes');				
 		
 	}
 	
@@ -342,7 +382,7 @@ class Basic extends Service {
 	private function fixUsbMount(){
 		$script[] = 'apt-get install ntfs-3g';
 		$script[] = 'echo SUBSYSTEMS==\"usb\",ENV{UDISKS_AUTO}=\"0\" > /etc/udev/rules.d/99-udisks2.rules';
-		$script[] = 'udevadm control --reload-rules';		
+		$script[] = 'udevadm control --reload-rules';
 		$this->view->message[] = nl2br($this->writeDynamicScript($script));
 		$this->view->message[] = _('udev-Rules added and reloaded... Completed');
 		return true;

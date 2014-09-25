@@ -25,7 +25,7 @@ do
 	mkdir -p home/odroid/.config
 	cp -R CONFIG_USER/lxpanel home/odroid/.config
 	
-	zip -r scripts.zip ./opt/max2play ./etc/usbmount/usbmount.conf ./etc/init.d/squeezelite ./etc/init.d/shairport ./etc/sudoers.d/max2play ./home/odroid/.config/lxpanel -x  /opt/max2play/playername.txt /opt/max2play/samba.conf /opt/max2play/wpa_supplicant.conf /opt/max2play/audioplayer.conf
+	zip -r scripts.zip ./opt/max2play ./etc/usbmount/usbmount.conf ./etc/init.d/squeezelite ./etc/init.d/shairport ./etc/sudoers.d/max2play ./home/odroid/.config/lxpanel -x  /opt/max2play/playername.txt /opt/max2play/samba.conf /opt/max2play/wpa_supplicant.conf /opt/max2play/audioplayer.conf /opt/max2play/autostart.conf
 	rm -R etc
 	rm -R home		
 	scp $SOURCEPATH/webinterface.zip root@$DESTHOST:$DESTPATH

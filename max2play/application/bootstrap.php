@@ -4,7 +4,7 @@ define('APPLICATION_PATH', dirname(__FILE__));
 /**
  * translate init for all output strings
  * translate strings should be defined in /locale/de_DE/LC_MESSAGES/max2play.mo
- * TODO: additional translate strings are parsed from /locale/de_DE/LC_MESSAGES/custom.mo
+ * additional translate strings are parsed from /locale/de_DE/LC_MESSAGES/custom.mo
  */
 
 $directory = APPLICATION_PATH.'/../locale';
