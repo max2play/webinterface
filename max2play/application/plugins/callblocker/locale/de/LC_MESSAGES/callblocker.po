@@ -2,20 +2,109 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Callblocker Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-26 10:48+0100\n"
-"PO-Revision-Date: 2014-09-15 17:49+0100\n"
+"POT-Creation-Date: 2014-10-01 14:43+0100\n"
+"PO-Revision-Date: 2014-10-01 14:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de_DE\n"
 "X-Poedit-KeywordsList: _t;gettext;gettext_noop;translate\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: y:\\projects\\max2play\\max2play\\application\\plugins"
 "\\callblocker\n"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:22
+msgid "Callblocker Blacklist & Whitelist"
+msgstr "Anrufblocker Sperrliste & Weiße Liste"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:36
+msgid ""
+"On this page you may edit a local blacklist and whitelist. This is used "
+"additionally to the tellows blacklist. Use one column per number."
+msgstr ""
+"Auf dieser Seite kannst du die Sperrliste und die Weiße Liste editieren. "
+"Diese Listen werden zusätzlich zur tellows Sperrliste verwendet. Bitte trage "
+"pro Zeile immer eine Nummer ein."
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:44
+msgid "Callerlog for the last incoming Calls"
+msgstr "Anruferliste für die letzten Anrufe"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:47
+msgid "DATE"
+msgstr "DATUM"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:48
+msgid "LINE"
+msgstr "LINE"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:49
+msgid "NUMBER"
+msgstr "NUMMER"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:50
+msgid "NAME"
+msgstr "NAME"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:51
+msgid "BLOCKED"
+msgstr "GEBLOCKT"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:52
+msgid "ACTION"
+msgstr "AKTION"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:56
+msgid "Blocked by Blacklist"
+msgstr "blockiert durch Sperrliste"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:60
+msgid "Number is on Blacklist"
+msgstr "Nummer ist auf Sperrliste"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:61
+msgid "Number is on Whitelist"
+msgstr "Nummer ist auf Weißer Liste"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:66
+msgid "Name is on Blacklist"
+msgstr "Nummer ist auf Sperrliste"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:71
+msgid "whitelist"
+msgstr "weiße Liste"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:73
+msgid "blacklist"
+msgstr "Sperrliste"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:83
+msgid "Modify Blacklist"
+msgstr "Sperrliste bearbeiten"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:84
+msgid ""
+"To block Callers that do not transfer their Caller ID enter \"PRIVATE\" in a "
+"separate row."
+msgstr ""
+"Um Anrufer zu blockieren, die nicht ihre Nummer übermitteln muss \"PRIVATE\" "
+"in eine separate Zeile eingetragen werden."
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:87
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:95
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:83
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:117
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:135
+msgid "save"
+msgstr "speichern"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:92
+msgid "Modify Whitelist (numbers that will definitly NOT be blocked)"
+msgstr "Weiße Liste Bearbeiten (diese Nummern werden definitiv nicht geblockt)"
 
 #: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:22
 #: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:18
@@ -79,14 +168,6 @@ msgid ""
 msgstr ""
 "In welchem Land lebst du? Wichtig für den Abruf der richtigen Sperrliste und "
 "für die Zuordnung internationaler Nummern."
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:83
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:117
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:135
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:84
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:92
-msgid "save"
-msgstr "speichern"
 
 #: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:88
 msgid "SIP Settings for VOIP Setup - Register Status: "
@@ -215,117 +296,28 @@ msgstr "Aktuelle Anrufblocker Version"
 msgid "Update tellows Callblocker"
 msgstr "Aktualisiere tellows Anrufblocker"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:22
-msgid "Callblocker Blacklist & Whitelist"
-msgstr "Anrufblocker Sperrliste & Weiße Liste"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:36
-msgid ""
-"On this page you may edit a local blacklist and whitelist. This is used "
-"additionally to the tellows blacklist. Use one column per number."
-msgstr ""
-"Auf dieser Seite kannst du die Sperrliste und die Weiße Liste editieren. "
-"Diese Listen werden zusätzlich zur tellows Sperrliste verwendet. Bitte trage "
-"pro Zeile immer eine Nummer ein."
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:44
-msgid "Callerlog for the last incoming Calls"
-msgstr "Anruferliste für die letzten Anrufe"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:47
-msgid "DATE"
-msgstr "DATUM"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:48
-msgid "LINE"
-msgstr "LINE"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:49
-msgid "NUMBER"
-msgstr "NUMMER"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:50
-msgid "NAME"
-msgstr "NAME"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:51
-msgid "BLOCKED"
-msgstr "GEBLOCKT"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:52
-msgid "ACTION"
-msgstr "AKTION"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:56
-msgid "Blocked by Blacklist"
-msgstr "blockiert durch Sperrliste"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:60
-msgid "Number is on Blacklist"
-msgstr "Nummer ist auf Sperrliste"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:61
-msgid "Number is on Whitelist"
-msgstr "Nummer ist auf Weißer Liste"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:68
-msgid "whitelist"
-msgstr "weiße Liste"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:70
-msgid "blacklist"
-msgstr "Sperrliste"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:80
-msgid "Modify Blacklist"
-msgstr "Sperrliste bearbeiten"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:81
-msgid ""
-"To block Callers that do not transfer their Caller ID enter \"PRIVATE\" in a "
-"separate row."
-msgstr ""
-"Um Anrufer zu blockieren, die nicht ihre Nummer übermitteln muss \"PRIVATE\" "
-"in eine separate Zeile eingetragen werden."
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:89
-msgid "Modify Whitelist (numbers that will definitly NOT be blocked)"
-msgstr "Weiße Liste Bearbeiten (diese Nummern werden definitiv nicht geblockt)"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Blacklist.php:20
-msgid "tellows Callblocker Blacklist"
-msgstr "tellows Anruferschutz Sperrliste"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Blacklist.php:70
-msgid "local"
-msgstr "lokal"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Blacklist.php:106
-msgid "Updated local Blacklist / Whitlist for Callblocker"
-msgstr "Lokale Sperrliste / Weiße Liste wurden aktualisiert"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:63
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:64
 msgid "Save tellows Settings"
 msgstr "Alle tellows Einstellungen speichern"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:68
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:69
 msgid "API-Key could not be registered and seems to be wrong!"
 msgstr ""
 "Lizenzschlüssel konnte nicht registriert werden und scheint falsch zu sein!"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:70
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:71
 msgid "API-Key successfully registered!"
 msgstr "Lizenzschlüssel erfolgreich registriert"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:106
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:107
 msgid "Connection Successful"
 msgstr "Verbindung erfolgreich!"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:106
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:107
 msgid "License Valid until"
 msgstr "Lizenz gültig bis"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:110
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:111
 msgid ""
 "<span style=\"color:red;\">Connection Failure - API-Key not valid: $MESSAGE</"
 "span>"
@@ -333,11 +325,11 @@ msgstr ""
 "<span style=\"color:red;\">Verbindungsfehler - Lizenzschlüssel nicht gültig: "
 "$MESSAGE</span>"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:113
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:114
 msgid "Could not check tellows Connection! Internet not available?"
 msgstr "Konnte tellows-Verbindung nicht prüfen! Internet nicht verfügbar?"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:136
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:137
 msgid ""
 "<span style=\"color:red;\">Connection Failure - SIP not connected (check "
 "settings)</span>"
@@ -345,38 +337,38 @@ msgstr ""
 "<span style=\"color:red;\">Verbindungsfehler - SIP nicht verbunden (prüfe "
 "die Einstellungen)</span>"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:138
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:139
 msgid "Successfull Connected"
 msgstr "Erfolgreich Verbunden"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:141
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:142
 msgid "SIP not configured"
 msgstr "SIP nicht konfiguriert"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:150
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:154
 msgid "VOIP-Settings Updated"
 msgstr "VOIP-Einstellungen aktualisiert"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:167
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:171
 msgid "Callblocker update started"
 msgstr "Anrufblocker Aktualisierung gestartet"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:173
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:177
 msgid "Callblocker is up to date - no update required"
 msgstr ""
 "tellows Anrufblocker ist auf dem aktuellsten Stand - kein Update erforderlich"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:181
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:185
 msgid "UPDATE SUCCESSFUL - Please Restart Device"
 msgstr ""
 "Aktualisierung erfolgreich - bitte das Gerät neu Starten (Netzstecker ziehen "
 "und wieder einstecken)"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:185
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:189
 msgid "UPDATE NOT SUCCESSFUL"
 msgstr "Update NICHT erfolgreich!"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:217
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:223
 msgid ""
 "Callblocker is not installed - start installation by clicking on UPDATE "
 "button at the end of the page!"
@@ -384,9 +376,22 @@ msgstr ""
 "Anrufblocker ist nicht installiert - Zum Starten der Installation auf den "
 "UPDATE Button am Ende der Seite klicken!"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:234
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:241
 msgid "Modem Settings saved"
 msgstr "Modem Einstellungen gespeichert"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Blacklist.php:20
+msgid "tellows Callblocker Blacklist"
+msgstr "tellows Anruferschutz Sperrliste"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Blacklist.php:71
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Blacklist.php:75
+msgid "local"
+msgstr "lokal"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Blacklist.php:113
+msgid "Updated local Blacklist / Whitlist for Callblocker"
+msgstr "Lokale Sperrliste / Weiße Liste wurden aktualisiert"
 
 #~ msgid "Connection Failure - Wrong API-Key"
 #~ msgstr "Verbindungsfehler zu tellows API - falscher API-Key"

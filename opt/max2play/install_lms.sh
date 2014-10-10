@@ -9,12 +9,29 @@ if [ "$1" = "check" ]; then
 else
 	if [ "1" -gt "$installcheck" ] || [ "$1" = "update" ]; then
 		echo `date +"%Y-%m-%d %H:%M|"` > /opt/max2play/cache/install_lms.txt
+		#Uninstall to remove problems with plugins
+		apt-get remove logitechmediaserver
 		wget -O /opt/max2play/lms.deb $source -o /opt/max2play/cache/install_lms.txt
 		echo "| START INSTALL | " >> /opt/max2play/cache/install_lms.txt
 		dpkg -i /opt/max2play/lms.deb >> /opt/max2play/cache/install_lms.txt
 		echo "Installation abgeschlossen"
 		rm /opt/max2play/cache/install_lms.txt
-		ln -s /opt/CPAN/arm-linux-gnueabihf-thread-multi-64int/ /usr/share/squeezeboxserver/CPAN/arch/5.18/
+		
+		#Parse Version from $source to link to correct CPAN-Folder
+		case "$source" in 
+   			*"7.8"* ) 
+   			    if [ -e /opt/CPAN/7.8 ]; then
+   					ln -sf /opt/CPAN/7.8/arm-linux-gnueabihf-thread-multi-64int/ /usr/share/squeezeboxserver/CPAN/arch/5.18/
+   					echo "Linking CPAN to 7.8"
+   				else
+   					ln -sf /opt/CPAN/arm-linux-gnueabihf-thread-multi-64int/ /usr/share/squeezeboxserver/CPAN/arch/5.18/
+   					echo "Linking CPAN to Latest"
+   				fi;;
+   			* ) 
+   				ln -sf /opt/CPAN/arm-linux-gnueabihf-thread-multi-64int/ /usr/share/squeezeboxserver/CPAN/arch/5.18/
+   				echo "Linking CPAN to Latest";;
+		esac	
+				
 		(echo "y") | apt-get install lame		
 		
 		#(echo "y") | apt-get install flac		

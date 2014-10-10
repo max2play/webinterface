@@ -205,7 +205,9 @@ class Callblocker_Setup extends Service {
 		$out['SIPPHONE Running'] = shell_exec('ps -Al | grep linphone');
 		$out['LOAD AVERAGE'] = shell_exec('cat /proc/loadavg');
 		$out['Button Blacklist'] = shell_exec('ps -Al | grep button');
-		$out['CallerID LOG Last 10'] = shell_exec('tail -10 /var/log/cidcall.log');
+		$out['CallerID LOG Last 50'] = shell_exec('tail -50 /var/log/cidcall.log');
+		$out['SIP2NCID LOG Last 50'] = shell_exec('tail -50 /var/log/sip2ncid.log');
+		$out['NCIDD LOG Last 50'] = shell_exec('tail -50 /var/log/ncidd.log');
 		$out['tellows blacklist download'] = shell_exec('cat /opt/callblocker/cache/tellowsblacklist.txt');
 		
 		$this->view->debug = $out;

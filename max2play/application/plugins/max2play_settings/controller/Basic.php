@@ -153,7 +153,7 @@ class Basic extends Service {
 			
 			$script[] = 'echo \''.str_replace(array($current_locale, $current_language), $this->view->locales[$locale], trim($output, "\n")).'\' > /etc/default/locale';			
 			
-			$this->view->message[] = $this->writeDynamicScript($script);
+			$output = $this->writeDynamicScript($script);
 			
 			$this->view->message[] = _("Changes successful - Reboot needed");
 			return true;
@@ -197,11 +197,12 @@ class Basic extends Service {
 				       '/etc/network/interfaces', 				 
 					   '/etc/fstab',
 					   '/boot/boot.scr',
-					   '/opt/wpa_supplicant.conf'
+					   '/opt/max2play/wpa_supplicant.conf',
+					   '/opt/max2play/samba.conf'				       
 				);
 		
 		foreach($files as $filename){
-			if(file_exists($filename))
+			if(file_exists($filename) && file_exists($filename.'sav'))
 				$output = shell_exec('cat '.$filename.'.sav > '.$filename);
 		}
 		

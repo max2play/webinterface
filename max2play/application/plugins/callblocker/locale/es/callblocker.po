@@ -2,20 +2,112 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Callblocker Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-29 13:58+0100\n"
-"PO-Revision-Date: 2014-08-05 15:52+0100\n"
+"POT-Creation-Date: 2014-10-01 14:44+0100\n"
+"PO-Revision-Date: 2014-10-01 14:44+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de_DE\n"
 "X-Poedit-KeywordsList: _t;gettext;gettext_noop;translate\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: y:\\projects\\max2play\\max2play\\application\\plugins"
 "\\callblocker\n"
+"X-Poedit-SearchPath-1: y:\\projects\\callblocker\\callblocker"
+"\\Max2Play_Addon\n"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:22
+msgid "Callblocker Blacklist & Whitelist"
+msgstr "Lista blanca y negra del bloqueador de llamadas"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:36
+msgid ""
+"On this page you may edit a local blacklist and whitelist. This is used "
+"additionally to the tellows blacklist. Use one column per number."
+msgstr ""
+"En esta página puedes modificar la lista blanca y negra. Esta lista será "
+"utilizada de forma adicional a la lista negra de tellows. Por favor utiliza "
+"una columna por número."
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:44
+msgid "Callerlog for the last incoming Calls"
+msgstr "Lista de llamadas para las últimas llamadas entrantes"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:47
+msgid "DATE"
+msgstr "FECHA"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:48
+msgid "LINE"
+msgstr "LÍNEA"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:49
+msgid "NUMBER"
+msgstr "NÚMERO"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:50
+msgid "NAME"
+msgstr "NOMBRE"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:51
+msgid "BLOCKED"
+msgstr "BLOQUEADO"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:52
+msgid "ACTION"
+msgstr "ACCIÓN"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:56
+msgid "Blocked by Blacklist"
+msgstr "Bloqueado por la lista negra"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:60
+msgid "Number is on Blacklist"
+msgstr "Este número está en la lista negra"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:61
+msgid "Number is on Whitelist"
+msgstr "Este número está en la lista blanca"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:66
+#, fuzzy
+msgid "Name is on Blacklist"
+msgstr "Este número está en la lista negra"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:71
+msgid "whitelist"
+msgstr "lista blanca"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:73
+msgid "blacklist"
+msgstr "lista negra"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:83
+msgid "Modify Blacklist"
+msgstr "Modificar la lista negra"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:84
+msgid ""
+"To block Callers that do not transfer their Caller ID enter \"PRIVATE\" in a "
+"separate row."
+msgstr ""
+"Para bloquear números entrantes que no tienen identificador en la llamada, "
+"debes introducir \"PRIVADO\" en una fila a parte."
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:87
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:95
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:83
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:117
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:135
+msgid "save"
+msgstr "guardar"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:92
+msgid "Modify Whitelist (numbers that will definitly NOT be blocked)"
+msgstr "Modificar la lista blanca (números que NUNCA serán bloqueados)"
 
 #: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:22
 #: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:18
@@ -80,13 +172,6 @@ msgstr ""
 "En que país vives? Es muy importante que indiques el país correctamente para "
 "obtener la lista negra e identificar las llamadas internacionales."
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:83
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:116
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:84
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:92
-msgid "save"
-msgstr "guardar"
-
 #: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:88
 msgid "SIP Settings for VOIP Setup - Register Status: "
 msgstr "Configuración SIP para VOIP- Estado del registro: "
@@ -119,7 +204,15 @@ msgstr "Esta es tu contraseña VOIP"
 msgid "Audio File for Blacklist"
 msgstr "Archivo de sonido para la lista negra (sólo VOIP)"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:113
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:110
+msgid "Hang up without Sound"
+msgstr ""
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:111
+msgid "Play: You are blocked"
+msgstr ""
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:114
 msgid ""
 "Choose which audio file should be played when the incoming caller is on the "
 "blacklist."
@@ -131,11 +224,34 @@ msgstr ""
 msgid "Modem for PSTN (analog) Connected: "
 msgstr "Módem para la PSTN (línea de teléfono fijo) está conectado: "
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:125
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:126
+msgid "Hangup Type"
+msgstr ""
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:128
+msgid "Do Nothing (not recommended)"
+msgstr ""
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:129
+#, fuzzy
+msgid "Hangup (block call)"
+msgstr "Bloquear llamadas"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:130
+msgid "Answer as Fax-Machine"
+msgstr ""
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:132
+msgid ""
+"Choose how the callblocker will react on a blacklisted Caller (number on "
+"blacklist)"
+msgstr ""
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:140
 msgid "How it works"
 msgstr "Cómo funciona"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:126
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:141
 msgid "SETUP_DESCRIPTION"
 msgstr ""
 "Existen 3 posibilidades para la integración del bloqueador de llamadas:\t<ul "
@@ -158,11 +274,11 @@ msgstr ""
 "router-anrufblocker\" target=\"_blank\">Los ejemplos para la integración de "
 "varios routers para VOIP los puedes encontrar aquí.</a> "
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:129
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:144
 msgid "Copyrights"
 msgstr "Licencia para la utilización del Software"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:130
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:145
 msgid "Copyrights_TEXT"
 msgstr ""
 "El software del bloqueador de llamadas de tellows está sujeto a la GPL v3 y "
@@ -176,125 +292,35 @@ msgstr ""
 "Scripts para recuperar las listas de tellows las ponemos a tu disposición "
 "previa solicitud. Por favor escríbenos un email a kontakt@tellows.de."
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:142
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:157
 msgid "Current Callblocker Version"
 msgstr "Versión del bloqueador de llamadas actualizada"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:144
+#: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:159
 msgid "Update tellows Callblocker"
 msgstr "Actualizar versión del bloqueador de llamadas"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:22
-msgid "Callblocker Blacklist & Whitelist"
-msgstr "Lista blanca y negra del bloqueador de llamadas"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:36
-msgid ""
-"On this page you may edit a local blacklist and whitelist. This is used "
-"additionally to the tellows blacklist. Use one column per number."
-msgstr ""
-"En esta página puedes modificar la lista blanca y negra. Esta lista será "
-"utilizada de forma adicional a la lista negra de tellows. Por favor utiliza "
-"una columna por número."
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:44
-msgid "Callerlog for the last incoming Calls"
-msgstr "Lista de llamadas para las últimas llamadas entrantes"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:47
-msgid "DATE"
-msgstr "FECHA"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:48
-msgid "LINE"
-msgstr "LÍNEA"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:49
-msgid "NUMBER"
-msgstr "NÚMERO"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:50
-msgid "NAME"
-msgstr "NOMBRE"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:51
-msgid "BLOCKED"
-msgstr "BLOQUEADO"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:52
-msgid "ACTION"
-msgstr "ACCIÓN"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:56
-msgid "Blocked by Blacklist"
-msgstr "Bloqueado por la lista negra"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:60
-msgid "Number is on Blacklist"
-msgstr "Este número está en la lista negra"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:61
-msgid "Number is on Whitelist"
-msgstr "Este número está en la lista blanca"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:68
-msgid "whitelist"
-msgstr "lista blanca"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:70
-msgid "blacklist"
-msgstr "lista negra"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:80
-msgid "Modify Blacklist"
-msgstr "Modificar la lista negra"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:81
-msgid ""
-"To block Callers that do not transfer their Caller ID enter \"PRIVATE\" in a "
-"separate row."
-msgstr ""
-"Para bloquear números entrantes que no tienen identificador en la llamada, "
-"debes introducir \"PRIVADO\" en una fila a parte."
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:89
-msgid "Modify Whitelist (numbers that will definitly NOT be blocked)"
-msgstr "Modificar la lista blanca (números que NUNCA serán bloqueados)"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Blacklist.php:20
-msgid "tellows Callblocker Blacklist"
-msgstr "lista negra del bloqueador de llamadas"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Blacklist.php:70
-msgid "local"
-msgstr "local"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Blacklist.php:106
-msgid "Updated local Blacklist / Whitlist for Callblocker"
-msgstr ""
-"Lista negra local / Actualizar la lista blanca para el bloqueador de llamadas"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:50
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:64
 msgid "Save tellows Settings"
 msgstr "Guardar la configuración de tellows"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:55
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:69
 msgid "API-Key could not be registered and seems to be wrong!"
 msgstr "¡La lista API no pudo ser registrada y parece que es erronea!"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:57
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:71
 msgid "API-Key successfully registered!"
 msgstr "¡La lista API ha sido registrada correctamente!"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:84
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:107
 msgid "Connection Successful"
 msgstr "¡Conexión correcta!"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:84
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:107
 msgid "License Valid until"
 msgstr "Licencia válida hasta"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:88
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:111
 msgid ""
 "<span style=\"color:red;\">Connection Failure - API-Key not valid: $MESSAGE</"
 "span>"
@@ -302,13 +328,13 @@ msgstr ""
 "<span style=\"color:red;\">Error en la conexión  - La lista API no es "
 "válida: $MESSAGE</span>"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:91
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:114
 msgid "Could not check tellows Connection! Internet not available?"
 msgstr ""
 "¡No se pudo establecer la conexión con tellows! ¿No está disponible la "
 "conexión a Internet?"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:112
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:137
 msgid ""
 "<span style=\"color:red;\">Connection Failure - SIP not connected (check "
 "settings)</span>"
@@ -316,43 +342,95 @@ msgstr ""
 "<span style=\"color:red;\">Fallo en la conexión - SIP no está conectado "
 "(comprobar la configuración)</span>"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:114
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:139
 msgid "Successfull Connected"
 msgstr "Conexión establecida"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:117
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:142
 msgid "SIP not configured"
 msgstr "SIP no está configurado"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:126
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:154
 msgid "VOIP-Settings Updated"
 msgstr "VOIP-configuración actualizada"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:139
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:171
 msgid "Callblocker update started"
 msgstr "La actualización del bloqueador de llamadas empezó"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:144
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:177
+msgid "Callblocker is up to date - no update required"
+msgstr "El dispositivo está actualizado - no se requiere ninguna actualización"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:185
 msgid "UPDATE SUCCESSFUL - Please Restart Device"
 msgstr ""
 "ACTUALIZACIÓN CORRECTA - por favor reinicia el dispositivo (desconecta y "
 "conecta el dispositivo de nuevo)"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:146
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:189
 msgid "UPDATE NOT SUCCESSFUL"
 msgstr "¡ACTUALIZACIÓN FALLIDA!"
 
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:148
-msgid "Callblocker is up to date - no update required"
-msgstr "El dispositivo está actualizado - no se requiere ninguna actualización"
-
-#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:179
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:223
 msgid ""
 "Callblocker is not installed - start installation by clicking on UPDATE "
 "button at the end of the page!"
 msgstr ""
 "El bloqueador de llamadas no está instalado - ¡Comienza la instalación "
 "clicando el botón ACTUALIZAR al final de la página!"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:241
+#, fuzzy
+msgid "Modem Settings saved"
+msgstr "Einstellungen speichern"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Blacklist.php:20
+msgid "tellows Callblocker Blacklist"
+msgstr "lista negra del bloqueador de llamadas"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Blacklist.php:71
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Blacklist.php:75
+msgid "local"
+msgstr "local"
+
+#: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Blacklist.php:113
+msgid "Updated local Blacklist / Whitlist for Callblocker"
+msgstr ""
+"Lista negra local / Actualizar la lista blanca para el bloqueador de llamadas"
+
+#: y:\projects\callblocker\callblocker\Max2Play_Addon/application/view/header_custom.php:29
+#: y:\projects\callblocker\callblocker\Max2Play_Addon/application/view/header_custom.php:45
+#: y:\projects\callblocker\callblocker\Max2Play_Addon/application/view/footer_custom.php:42
+#, fuzzy
+msgid "tellows Anrufblocker"
+msgstr "Configuración del bloqueador de llamadas"
+
+#: y:\projects\callblocker\callblocker\Max2Play_Addon/application/view/header_custom.php:45
+msgid "logo"
+msgstr ""
+
+#: y:\projects\callblocker\callblocker\Max2Play_Addon/application/view/footer_custom.php:30
+msgid "Topics"
+msgstr "Themen"
+
+#: y:\projects\callblocker\callblocker\Max2Play_Addon/application/view/footer_custom.php:32
+msgid ""
+"http://shop.tellows.de/de/lizenzschlussel-fur-tellows-community-sperrliste-"
+"anrufblocker.html"
+msgstr ""
+
+#: y:\projects\callblocker\callblocker\Max2Play_Addon/application/view/footer_custom.php:32
+msgid "get API-Key for tellows"
+msgstr ""
+
+#: y:\projects\callblocker\callblocker\Max2Play_Addon/application/view/footer_custom.php:33
+msgid "http://shop.tellows.de/de/anrufblocker-faq"
+msgstr ""
+
+#: y:\projects\callblocker\callblocker\Max2Play_Addon/application/view/footer_custom.php:33
+msgid "FAQ - Questions & Answers"
+msgstr "FAQ - Fragen & Antworten"
 
 #~ msgid "Connection Failure - Wrong API-Key"
 #~ msgstr "Verbindungsfehler zu tellows API - falscher API-Key"
@@ -633,9 +711,6 @@ msgstr ""
 #~ "Suche nach Max2Play-Devices mit Squeezelite im Netzwerk und zeige diese "
 #~ "im Kopfbereich dieses Interfaces an. Nur sinnvoll bei mehreren Playern."
 
-#~ msgid "Save Settings"
-#~ msgstr "Einstellungen speichern"
-
 #~ msgid "Reboot Max2Play"
 #~ msgstr "Reboot Max2Play"
 
@@ -822,14 +897,8 @@ msgstr ""
 #~ msgid "Version"
 #~ msgstr "Version"
 
-#~ msgid "Topics"
-#~ msgstr "Themen"
-
 #~ msgid "Features"
 #~ msgstr "Übersicht Funktionen"
-
-#~ msgid "FAQ - Questions & Answers"
-#~ msgstr "FAQ - Fragen & Antworten"
 
 #~ msgid "Start"
 #~ msgstr "Start"

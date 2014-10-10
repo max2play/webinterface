@@ -19,7 +19,7 @@
 	<br />
 	<h3><?php echo _("What is Max2Play?")?></h3>
 	<br />
-	<iframe width="560" height="315" src="//www.youtube.com/embed/GjYnHZF2Oek" frameborder="0" allowfullscreen></iframe>
+	<iframe width="560" height="315" src="<?php echo _("//www.youtube.com/embed/GjYnHZF2Oek")?>" frameborder="0" allowfullscreen></iframe>
 	<br /><br />
 	<?php echo _('Questions concerning this project? Please refer to <a href="http://shop.max2play.com" target="_blank">Shop.Max2Play</a>') ?><br />
 	<br /><br />
