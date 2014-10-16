@@ -413,6 +413,8 @@ class Service {
 	 * @return boolean
 	 */
 	public function getConfigFileParameter($configfile = '', $parameter = ''){
+		if(!file_exists($configfile))
+			return false;
 		$output = shell_exec('grep -a "'.$parameter.'" '.$configfile.' | sed -n -e "s/^.*\=//p"');
 		return $output;
 	}

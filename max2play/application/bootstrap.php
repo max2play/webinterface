@@ -17,6 +17,10 @@ if(file_exists($directory. '/'.$lang.'/LC_MESSAGES/'.$domain.'.mo')){
 		$locale = 'de_DE.utf8';
 	elseif($lang == 'fr')
 		$locale = 'fr_FR.utf8';
+	elseif($lang == 'it')
+		$locale = 'it_IT.utf8';
+	elseif($lang == 'es')
+		$locale = 'es_ES.utf8';
 	else
 		$locale = 'en_GB.utf8';
 }else{

@@ -142,9 +142,9 @@ class Squeezeplayer extends Service {
 	 */
 	public function getSqueezeliteCommandline(){
 		$output = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'SQUEEZELITE_PARAMETER');
-		if(preg_match_all('=-o ([^ ]*) (.*)=', $output, $match)){
-			$this->view->squeezelite_soundcard = $match[1][0];
-			$this->view->squeezelite_commandline = $match[2][0];
+		if(preg_match_all('=-o ([^ ]*)( (.*))?=', $output, $match)){
+			$this->view->squeezelite_soundcard = trim($match[1][0]);
+			$this->view->squeezelite_commandline = $match[3][0];
 		}
 		$this->view->use_usb_dac = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'USE_USB_DAC');
 		return true;
