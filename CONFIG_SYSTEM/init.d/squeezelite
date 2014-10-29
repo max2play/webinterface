@@ -13,7 +13,7 @@
 USER=odroid
 #OUTPUT=iec958:CARD=SB,DEV=0
 NAME=$(cat /opt/max2play/playername.txt)
-SQUEEZELITE_PARAMETER=$(grep -a "SQUEEZELITE_PARAMETER" /opt/max2play/audioplayer.conf | sed -n -e 's/^.*\=//p')
+SQUEEZELITE_PARAMETER=$(grep -a "SQUEEZELITE_PARAMETER" /opt/max2play/audioplayer.conf | sed -n -e 's/^[A-Z_]*\=//p')
 #LMS=192.168.69.101
 
 case "$1" in

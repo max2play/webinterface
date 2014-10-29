@@ -165,6 +165,7 @@ input[type="submit"], input[type="button"], input[type="reset"] {
     font-weight: normal;
     line-height: 1.4;
     padding: 0.4rem 0.7rem;
+    /*margin: 8px 0;*/
 }
 .entry-content {
 	line-height: 1.2em;

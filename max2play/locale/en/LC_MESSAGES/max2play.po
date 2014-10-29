@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-09 16:27+0100\n"
-"PO-Revision-Date: 2014-10-09 16:28+0100\n"
+"POT-Creation-Date: 2014-10-21 16:13+0100\n"
+"PO-Revision-Date: 2014-10-21 16:13+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_GB\n"
@@ -37,6 +37,10 @@ msgstr ""
 msgid "Version"
 msgstr ""
 
+#: y:\projects\max2play/max2play/application/view/header_custom.php:45
+msgid "logo"
+msgstr "logo-en"
+
 #: y:\projects\max2play/max2play/application/view/faq.php:28
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/faq.php:28
 msgid "FAQ - frequently asked questions"
@@ -68,7 +72,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/view/footer_custom.php:42
 msgid "tellows Anrufblocker"
-msgstr ""
+msgstr "tellows Callblocker"
 
 #: y:\projects\max2play/max2play/application/view/footer.php:33
 msgid "Features"
@@ -143,14 +147,14 @@ msgstr ""
 msgid "Update Configfile - new Configfile created"
 msgstr ""
 
-#: y:\projects\max2play/max2play/application/controller/Service.php:434
+#: y:\projects\max2play/max2play/application/controller/Service.php:436
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeserver.php:108
 msgid ""
 "Installation startet - This Messages refreshes every 3 seconds to show "
 "current status of installation. If finished this message disappears."
 msgstr ""
 
-#: y:\projects\max2play/max2play/application/controller/Service.php:447
+#: y:\projects\max2play/max2play/application/controller/Service.php:449
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Xbmc.php:79
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeserver.php:89
 msgid "Something went wrong in last Install Attempt - Deleting Progressfile"
@@ -1038,53 +1042,53 @@ msgstr ""
 msgid "Name not possible! Please do not use special characters."
 msgstr ""
 
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:208
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:209
 msgid "Config Files restored for "
 msgstr ""
 
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:217
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:218
 msgid "Max2Play Network Player Lookup saved"
 msgstr ""
 
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:226
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:227
 msgid ""
 "Thank you so much for your donation! We will keep up the work on the project "
 "to make it even better!"
 msgstr ""
 
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:239
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:240
 msgid "Max2Play update started"
 msgstr ""
 
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:244
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:245
 msgid "UPDATE SUCCESSFUL"
 msgstr ""
 
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:245
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:246
 msgid "Max2Play-Webinterface Restarted - Reload Page to see Changes"
 msgstr ""
 
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:250
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:251
 msgid "UPDATE NOT SUCCESSFUL"
 msgstr ""
 
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:254
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:255
 msgid "Max2Play is up to date - no update required"
 msgstr ""
 
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:289
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:290
 msgid "Plugin Error"
 msgstr ""
 
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:353
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:354
 msgid "Plugin configuration updated - Reload Page to see changes"
 msgstr ""
 
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:362
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:363
 msgid "Resize Filesystem"
 msgstr ""
 
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:387
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:388
 msgid "udev-Rules added and reloaded... Completed"
 msgstr ""
 

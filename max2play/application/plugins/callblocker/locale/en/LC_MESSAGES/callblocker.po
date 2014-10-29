@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Callblocker Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-01 14:40+0100\n"
-"PO-Revision-Date: 2014-10-01 14:41+0100\n"
+"PO-Revision-Date: 2014-10-27 16:27+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -28,6 +28,8 @@ msgid ""
 "On this page you may edit a local blacklist and whitelist. This is used "
 "additionally to the tellows blacklist. Use one column per number."
 msgstr ""
+"On this page you may edit a local blacklist and whitelist. This is used "
+"additionally to the tellows blacklist. Use one row per number."
 
 #: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:44
 msgid "Callerlog for the last incoming Calls"
@@ -103,7 +105,7 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application\plugins\callblocker/view/blacklist.php:92
 msgid "Modify Whitelist (numbers that will definitly NOT be blocked)"
-msgstr ""
+msgstr "Modify Whitelist (numbers that will definitely NOT be blocked)"
 
 #: y:\projects\max2play\max2play\application\plugins\callblocker/view/setup.php:22
 #: y:\projects\max2play\max2play\application\plugins\callblocker/controller/Setup.php:18

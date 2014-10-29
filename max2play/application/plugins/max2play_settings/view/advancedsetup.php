@@ -28,34 +28,87 @@
 	<?php echo _("Advanced Max2Play Setup") ?>
 </h1>
 <div class="entry-content">
-	<?php if(isset($advanced_max2play_setup->view->message[0])){ ?>
+	<?php if(isset($as->view->message[0])){ ?>
 		<div class="ui-widget">
 			<div class="ui-state-highlight ui-corner-all" style="margin-bottom: 10px; padding: 0.4em .7em;">
 				<p>
 					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-					<?php echo implode('<br />', $advanced_max2play_setup->view->message); ?>					
+					<?php echo implode('<br />', $as->view->message); ?>					
 				</p>
 			</div>
 		</div>
 	<?php } ?>		
 	
-	<?php echo _("This is the Advanced Setup Page. You may configure additional settings on this page.") ?>
-	<br /><br />
-	<form action="" method="get">
-	<input type="hidden" id="action" name="action" value="" />
-		
-	<table class="settings">
-	  <tr>
-		<td><?php echo _("Disable LED-Blink") ?></td>
-		<td><input type="button" id="disableLEDBlink" name="disableLEDBlink" onclick="document.getElementById('action').value='disableLEDBlink';submit();" value="<?php echo _("Disable LED-Blink") ?>" /></td>
-		<td><?php echo _("Set LED Blink of ODROID to 10 secondes - Press Button again to set LED-Blink back to original settings.") ?></td> 
-	  </tr>	 
-	</table>
-	<br />
+	<?php echo _("This is the Advanced Setup Page. You may configure additional settings like the blinking LED, the behavior of the Power Button and more on this page.") ?>
 	
+	<form action="" method="get">
+		<input type="hidden" id="action" name="action" value="" />
+	
+		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-top:3em;">
+				<span class="ui-icon ui-icon-lightbulb" style="float:left; margin:-2px 5px 0 0;"></span>
+				<?php echo _('Disable LED-Blink') ?>
+		</p>
+		<input type="button" id="disableLEDBlink" name="disableLEDBlink" onclick="document.getElementById('action').value='disableLEDBlink';submit();" value="<?php echo _("Disable LED-Blink") ?>" />
+		<br /><?php echo _("Set LED Blink of ODROID to 10 secondes - Press Button again to set LED-Blink back to original settings.") ?>	
+				
+		<br />
+		
+		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-top:3em;">
+				<span class="ui-icon ui-icon-power" style="float:left; margin:-2px 5px 0 0;"></span>
+				<?php echo _('Power Button Settings') ?>
+		</p>
+		<input type="submit" onclick="document.getElementById('powerbutton').style.display='';return false;" value="<?php echo _('Edit Power Button Options') ?>" />
+			<div id="powerbutton" class="optiondetails" style="display:none;">
+				<?php echo _('You can adopt the event that should happen when the Power Button is pressed (separating short and long presses)') ?>
+				<table>
+					<tr>
+						<td><?php echo _('Short Press (under 1 second)') ?></td>					
+						<td style="width: 25%;"><select name="powerbuttonshort" style="width: 90%;">
+							<option <?php if($as->powerbutton['shortpress'] == 'shutdown') echo 'selected'; ?> value='shutdown'><?php echo _('Poweroff Max2Play') ?></option>
+							<option <?php if($as->powerbutton['shortpress'] == 'xbmc') echo 'selected'; ?> value='xbmc'><?php echo _('Toggle XBMC / Squeezelite') ?></option>
+							<option <?php if($as->powerbutton['shortpress'] == 'myscript') echo 'selected'; ?> value='myscript'><?php echo _('Start my own Script') ?></option>
+							</select>
+						</td>
+						<td><?php echo _('Default: Shutdown the device. If you use XBMC and Squeezelite you can use the Power Button to stop XBMC and start Squeezelite and vice versa. You may even set your own script that should start on pressed Power Button.') ?></td>
+					</tr>
+					<tr>
+						<td><?php echo _('Shortpress Script') ?></td>					
+						<td><input style="width: 90%;" type="text" name="powerbuttonshort_script" value="<?php echo $as->powerbutton['short_script'] ?>" />
+						</td>
+						<td><?php echo _('Set up the script that should be started. For Short Press the value must be Start my own Script.') ?></td>
+					</tr>
+					<tr>
+						<td><?php echo _('Long Press (between 1 and 9 seconds)') ?></td>					
+						<td style="width: 25%;"><select name="powerbuttonlong" style="width: 90%;">
+							<option <?php if($as->powerbutton['longpress'] == 'myscript') echo 'selected'; ?> value='myscript'><?php echo _('Start my own Script') ?></option>
+							</select>
+						</td>
+						<td><?php echo _('Default: No Action. You may set your own script that should start on pressed Power Button.') ?></td>
+					</tr>
+					<tr>
+						<td><?php echo _('Longpress Script') ?></td>					
+						<td><input style="width: 90%;" type="text" name="powerbuttonlong_script" value="<?php echo $as->powerbutton['long_script'] ?>" />
+						</td>
+						<td><?php echo _('Set up the script that should be started. For Long Press the value must be Start my own Script.') ?></td>
+					</tr>
+				</table>
+				<input type="button" name="save" value="<?php echo _('save') ?>" onclick="document.getElementById('action').value='configurePowerButton';submit();" />
+			</div>
+		
+		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-top:3em;">
+				<span class="ui-icon ui-icon-video" style="float:left; margin:-2px 5px 0 0;"></span>
+				<?php echo _("Install MiniDLNA") ?>
+		</p>
+		<input type="button" id="installMiniDLNA" name="installMiniDLNA" onclick="document.getElementById('action').value='installMiniDLNA';submit();" value="<?php echo _("Install MiniDLNA") ?>" /></td>
+		<?php echo _("MiniDLNA is a Service for sharing media-data from Max2Play with other devices in your network.") ?>
+		
 	</form>
 	
-	<br /><br />
-	<?php echo _("DEBUG Info") ?>:
-	<textarea rows="5" cols="80" readonly></textarea>
+	<br /><br />	
+	<a href="#javascript" onclick="document.getElementById('debug').style.display='';return false;"><?php echo _("DEBUG Info") ?></a>
+	<textarea id="debug" rows="30" cols="70" style="display:none;"><?php foreach ($as->view->debug as $key => $debug) {
+			echo "#### ". $key. " ####\n"; 
+			 echo $debug." \n\n"; 
+		 }?>
+	</textarea>
 </div>	

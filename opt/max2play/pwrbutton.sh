@@ -1,11 +1,14 @@
 #!/bin/bash
 echo "Power button $1 seconds pressed"
 if [ "$1" -lt "1" ]; then
-   #Shut down
+#Short Button Code
+#Short Press
+   #Shutdown
    poweroff
+#Short Press END
 elif [ "$1" -gt "9" ]; then
-   # make blue LED BLINK
-   
+   # make blue LED BLINK and Reset Config - Default
+      
    echo "Reset to Default Config"
    if [ -e /opt/max2play/factory/max2play_complete.zip ]; then
 	   echo timer > /sys/class/leds/led1/trigger;
@@ -19,6 +22,11 @@ elif [ "$1" -gt "9" ]; then
 	   echo "Factory Setting Successful"
 	   reboot
    fi
+else
+#Long Button Code
+#Long Press
+	
+#Long Press END
 fi
 
 exit 0

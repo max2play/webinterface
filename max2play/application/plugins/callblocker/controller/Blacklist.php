@@ -112,14 +112,12 @@ class Callblocker_Blacklist extends Service {
 		//Message Output (print it just once...)
 		$this->view->message[_t('Updated local Blacklist / Whitlist for Callblocker')] = _t('Updated local Blacklist / Whitlist for Callblocker');
 		
-		//Remove not Wanted chars
-		preg_replace('=[^0-9\*\+\n]=', '', $blacklist);
-		preg_replace('=[^0-9\*\+\n]=', '',$whitelist);
-		
 		if($blacklist !== false){
+			$blacklist = preg_replace('=[^0-9\*\+\r\na-zA-Z]=', '', $blacklist);
 			$this->writeDynamicScript(array('echo "'.trim(str_replace("\r\n", "\n", $blacklist), "\n").'" > '.$this->local_blacklist));
 		}
 		if($whitelist !== false){
+			$whitelist = preg_replace('=[^0-9\*\+\r\na-zA-Z]=', '',$whitelist);
 			$this->writeDynamicScript(array('echo "'.trim(str_replace("\r\n", "\n", $whitelist), "\n").'" > '.$this->local_whitelist));
 		}
 		//2>&1 > /opt/callblocker/cache/tellowsblacklist.txt
@@ -195,7 +193,10 @@ class Callblocker_Blacklist extends Service {
 		$output = shell_exec('cat /opt/callblocker/tellows.conf');		
 		preg_match('=country\=([a-z]*)=', $output, $match);
 		$this->tellows = new stdClass();
-		$this->tellows->country = $match[1];
+		$this->tellows->country = $match[1];		
+		if($match[1] == 'us'){
+			$this->tellows->country = 'com';
+		}
 		return true;
 	}
 }
