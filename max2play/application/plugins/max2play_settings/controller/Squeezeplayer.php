@@ -120,7 +120,7 @@ class Squeezeplayer extends Service {
 	 */
 	public function saveSqueezeliteCommandline(){
 		$commandLine = array();
-		if(in_array($_GET['squeezelite_soundcard'], array('plug:dmixer', 'plug:plugequal')))
+		if(in_array($_GET['squeezelite_soundcard'], array('plug:dmixer', 'plug:plugequal', 'hw:CARD=Audio,DEV=0', 'plughw:CARD=Audio,DEV=0', 'dmix:CARD=Audio,DEV=0', 'hw:CARD=Audio,DEV=1', 'plughw:CARD=Audio,DEV=1', 'dmix:CARD=Audio,DEV=1', 'iec958:CARD=Device,DEV=0', 'hw:CARD=Device,DEV=0', 'dmix:CARD=Device,DEV=0', 'plughw:CARD=Device,DEV=0')))
 			$commandLine[] = '-o '.$_GET['squeezelite_soundcard'];
 		else{
 			$commandLine[] = '-o plug:dmixer';
@@ -248,6 +248,7 @@ class Squeezeplayer extends Service {
 		$this->view->message[] = $this->stop($this->pname);
 		
 		//$script[] = 'wget http://squeezelite-downloads.googlecode.com/git/squeezelite-armv6hf -O /opt/squeezelite/squeezelite 2>&1; chmod 777 /opt/squeezelite/squeezelite';
+		//libfaad-dev libmpg123-dev libmad0-dev
 		$script[] = 'echo "Y" | apt-get install libav-tools libsoxr-dev;cd /tmp;git clone https://code.google.com/p/squeezelite/;cd squeezelite;OPTS="-DFFMPEG -DRESAMPLE -DVISEXPORT" make;cp /tmp/squeezelite/squeezelite /opt/squeezelite/;echo "Finished Update - Restart Device!";';
 		$this->view->message[] = nl2br($this->writeDynamicScript($script));
 		$this->view->message[] = $this->start($this->pname);

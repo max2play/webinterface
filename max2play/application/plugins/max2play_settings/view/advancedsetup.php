@@ -62,7 +62,7 @@
 				<?php echo _('You can adopt the event that should happen when the Power Button is pressed (separating short and long presses)') ?>
 				<table>
 					<tr>
-						<td><?php echo _('Short Press (under 1 second)') ?></td>					
+						<td><?php echo _('Short Press (less than 1 second)') ?></td>					
 						<td style="width: 25%;"><select name="powerbuttonshort" style="width: 90%;">
 							<option <?php if($as->powerbutton['shortpress'] == 'shutdown') echo 'selected'; ?> value='shutdown'><?php echo _('Poweroff Max2Play') ?></option>
 							<option <?php if($as->powerbutton['shortpress'] == 'xbmc') echo 'selected'; ?> value='xbmc'><?php echo _('Toggle XBMC / Squeezelite') ?></option>
@@ -73,7 +73,7 @@
 					</tr>
 					<tr>
 						<td><?php echo _('Shortpress Script') ?></td>					
-						<td><input style="width: 90%;" type="text" name="powerbuttonshort_script" value="<?php echo $as->powerbutton['short_script'] ?>" />
+						<td><input style="width: 90%;" type="text" name="powerbuttonshort_script" value="<?php echo htmlspecialchars($as->powerbutton['short_script']) ?>" />
 						</td>
 						<td><?php echo _('Set up the script that should be started. For Short Press the value must be Start my own Script.') ?></td>
 					</tr>
@@ -87,7 +87,7 @@
 					</tr>
 					<tr>
 						<td><?php echo _('Longpress Script') ?></td>					
-						<td><input style="width: 90%;" type="text" name="powerbuttonlong_script" value="<?php echo $as->powerbutton['long_script'] ?>" />
+						<td><input style="width: 90%;" type="text" name="powerbuttonlong_script" value="<?php echo htmlspecialchars($as->powerbutton['long_script']) ?>" />
 						</td>
 						<td><?php echo _('Set up the script that should be started. For Long Press the value must be Start my own Script.') ?></td>
 					</tr>
@@ -95,12 +95,30 @@
 				<input type="button" name="save" value="<?php echo _('save') ?>" onclick="document.getElementById('action').value='configurePowerButton';submit();" />
 			</div>
 		
+		
 		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-top:3em;">
 				<span class="ui-icon ui-icon-video" style="float:left; margin:-2px 5px 0 0;"></span>
-				<?php echo _("Install MiniDLNA") ?>
+				<?php echo _("MiniDLNA Service (easy media access for other network devices)") ?>
 		</p>
-		<input type="button" id="installMiniDLNA" name="installMiniDLNA" onclick="document.getElementById('action').value='installMiniDLNA';submit();" value="<?php echo _("Install MiniDLNA") ?>" /></td>
-		<?php echo _("MiniDLNA is a Service for sharing media-data from Max2Play with other devices in your network.") ?>
+		<?php echo _("MiniDLNA is a Service for sharing media-data from Max2Play with other devices in your network.") ?><br />
+		<?php if ($as->minidlna['installed'] == false) { ?>
+			<input type="button" id="installMiniDLNA" name="installMiniDLNA" onclick="document.getElementById('action').value='installMiniDLNA';submit();" value="<?php echo _("Install MiniDLNA") ?>" /><br />
+		<?php } else { ?>
+			<input type="button" id="uninstallMiniDLNA" name="uninstallMiniDLNA" onclick="document.getElementById('action').value='uninstallMiniDLNA';submit();" value="<?php echo _("Uninstall MiniDLNA") ?>" /><br />
+			<?php echo _("Media Path") ?> <input style="width: 90%;" type="text" name="minidlnaMediapath" value="<?php echo $as->minidlna['mediapath'] ?>" /><br />		
+			<input type="button" id="saveMiniDLNA" name="saveMiniDLNA" onclick="document.getElementById('action').value='saveMiniDLNA';submit();" value="<?php echo _("Save") ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" id="reloadMiniDLNA" name="reloadMiniDLNA" onclick="document.getElementById('action').value='reloadMiniDLNA';submit();" value="<?php echo _("Force Reload (reindex Folder)") ?>" />
+			<br />
+		<?php } ?>
+	
+		
+		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-top:3em;">
+				<span class="ui-icon ui-icon-gear" style="float:left; margin:-2px 5px 0 0;"></span>
+				<?php echo _("Update APT-GET Sources and APT-GET UPGRADE") ?>
+		</p>		
+		<input type="button" id="checkUpgrade" name="checkUpgrade" onclick="document.getElementById('action').value='checkUpgrade';submit();" value="<?php echo _("Check Available Upgrades") ?>" /><br />
+		<input type="button" id="upgradeSystem" name="upgradeSystem" onclick="document.getElementById('action').value='upgradeSystem';submit();" value="<?php echo _("Upgrade Packages") ?>" /><br />		
+		<?php echo _("Fetch all current Updates and upgrade packages. ONLY DO THIS IF YOU ALREADY HAVE THE LATEST MAX2PLAY-UBUNTU-IMAGE 14!") ?>
 		
 	</form>
 	

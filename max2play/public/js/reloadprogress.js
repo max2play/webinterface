@@ -1,3 +1,4 @@
+var reloadcount = 0;
 function reloadprogress(msgboxid, successurl, reloadWindowWhenFinished){
 	$("body").addClass("loading");
 	$.ajax({
@@ -19,8 +20,16 @@ function reloadprogress(msgboxid, successurl, reloadWindowWhenFinished){
     	}
     	    	
     	$("body").removeClass("loading");
-    }).fail({
-        
+    }).fail(function (data) {
+        //count tries
+    	reloadcount = reloadcount + 1;
+    	if(reloadcount < 10){    		
+    		setTimeout(function(){reloadprogress("msgprogress", successurl, reloadWindowWhenFinished)}, 3000);
+    		$("body").removeClass("loading");
+    	}else{
+    		alert('ERROR');
+    		$("body").removeClass("loading");    		
+    	}
     }).always({        
     });
 }

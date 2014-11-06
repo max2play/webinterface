@@ -353,17 +353,25 @@ class Service {
 	 * Write to File that has Root Rights to launch specific installations and configs
 	 * $script is an array separated by lines for each task	
 	 * $background to run script in background
+	 * $daemon to run as real daemon - survives even a apache restart. e.g. for update and upgrade
 	 */
-	public function writeDynamicScript($script = '', $background = false){
+	public function writeDynamicScript($script = '', $background = false, $daemon = false){
 		$fp = fopen($this->dynamicScript, 'w+');
 		
-		fwrite($fp,"#!/bin/bash\n");
+		fwrite($fp,"#!/bin/bash\n");				
 		
 		foreach ($script as $s)
-			fwrite($fp, "\n".$s);
+			fwrite($fp, "\n".$s);			
 		
 		fclose($fp);
-		$output = shell_exec('sudo '.$this->dynamicScript.((true == $background) ? ' > /dev/null &' : ''));
+		
+		if($daemon){
+			$command = escapeshellarg('sudo '.$this->dynamicScript);
+			exec("php /opt/max2play/dynamicscriptdaemon.php {$command} >> /dev/null 2>&1 &");
+		}else{
+			$output = shell_exec('sudo '.((true == $background) ? 'nohup ' : ' ').$this->dynamicScript.((true == $background) ? ' > /dev/null &' : ''));
+		}		
+		
 		return $output;
 	}
 	
@@ -415,7 +423,7 @@ class Service {
 	public function getConfigFileParameter($configfile = '', $parameter = ''){
 		if(!file_exists($configfile))
 			return false;
-		$output = shell_exec('grep -a "'.$parameter.'" '.$configfile.' | sed -n -e "s/^.*\=//p"');
+		$output = shell_exec('grep -a "'.$parameter.'" '.$configfile.' | sed -n -e "s/^[A-Za-z_0-9]*\=//p"');
 		return $output;
 	}
 	

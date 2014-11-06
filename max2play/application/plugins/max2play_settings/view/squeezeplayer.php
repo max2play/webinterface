@@ -118,16 +118,37 @@ $(function() {
 			<table>
 				<tr>
 					<td><?php echo _('Soundcard') ?></td>					
-					<td style="width: 25%;"><select name="squeezelite_soundcard" style="width: 90%;">
+					<td style="width: 25%;"><select id="squeezelite_soundcard" name="squeezelite_soundcard" style="width: 90%;" onChange="autosetCommandline(this);">
 						<option <?php if($sp->view->squeezelite_soundcard == 'plug:dmixer') echo 'selected'; ?> value='plug:dmixer'>Default dmixer (Alsa Mixer Device)</option>
 						<option <?php if($sp->view->squeezelite_soundcard == 'plug:plugequal') echo 'selected'; ?> value='plug:plugequal'>Equalizer</option>
+						<option <?php if($sp->view->squeezelite_soundcard == 'hw:CARD=Audio,DEV=0') echo 'selected'; ?> value='hw:CARD=Audio,DEV=0'>Direct HW No Conversions (DEV0)</option>
+						<option <?php if($sp->view->squeezelite_soundcard == 'plughw:CARD=Audio,DEV=0') echo 'selected'; ?> value='plughw:CARD=Audio,DEV=0'>Direct HW Conversions (DEV0)</option>
+						<option <?php if($sp->view->squeezelite_soundcard == 'dmix:CARD=Audio,DEV=0') echo 'selected'; ?> value='dmix:CARD=Audio,DEV=0'>Direct Sample DMix(DEV0)</option>
+						<option <?php if($sp->view->squeezelite_soundcard == 'hw:CARD=Audio,DEV=1') echo 'selected'; ?> value='hw:CARD=Audio,DEV=1'>Direct HW No Conversions (DEV1)</option>
+						<option <?php if($sp->view->squeezelite_soundcard == 'plughw:CARD=Audio,DEV=1') echo 'selected'; ?> value='plughw:CARD=Audio,DEV=1'>Direct HW Conversions (DEV1)</option>
+						<option <?php if($sp->view->squeezelite_soundcard == 'dmix:CARD=Audio,DEV=1') echo 'selected'; ?> value='dmix:CARD=Audio,DEV=1'>Direct Sample DMix(DEV1)</option>
+						<option <?php if($sp->view->squeezelite_soundcard == 'iec958:CARD=Device,DEV=0') echo 'selected'; ?> value='iec958:CARD=Device,DEV=0'>USB SPDIF</option>
+						<option <?php if($sp->view->squeezelite_soundcard == 'hw:CARD=Device,DEV=0') echo 'selected'; ?> value='hw:CARD=Device,DEV=0'>Direct HW No Conversions (USB)</option>
+						<option <?php if($sp->view->squeezelite_soundcard == 'dmix:CARD=Device,DEV=0') echo 'selected'; ?> value='dmix:CARD=Device,DEV=0'>Direct Sample DMix (USB)</option>
+						<option <?php if($sp->view->squeezelite_soundcard == 'plughw:CARD=Device,DEV=0') echo 'selected'; ?> value='plughw:CARD=Device,DEV=0'>Direct HW Conversions (USB)</option>
 						</select>
+						<script>
+							function autosetCommandline(select){
+								if(select.options[select.selectedIndex].value == 'hw:CARD=Audio,DEV=0' && document.getElementById('squeezelite_commandline').value == ''){
+									document.getElementById('squeezelite_commandline').value = '-a 120::16:';
+								}
+								if(select.options[select.selectedIndex].value == 'plughw:CARD=Audio,DEV=0' && document.getElementById('squeezelite_commandline').value == ''){
+									document.getElementById('squeezelite_commandline').value = '-a 120::16:';
+								}
+								return true;	
+							}
+						</script>
 					</td>
 					<td><?php echo _('Select Audio output') ?></td>
 				</tr>
 				<tr>
 					<td><?php echo _('Command Line Options') ?></td>					
-					<td><input style="width: 90%;" type="text" name="squeezelite_commandline" value="<?php echo $sp->view->squeezelite_commandline ?>" />
+					<td><input style="width: 90%;" type="text" name="squeezelite_commandline" id="squeezelite_commandline" value="<?php echo $sp->view->squeezelite_commandline ?>" />
 					</td>
 					<td><?php echo _('Advanced Users may add Start-Parameters here') ?></td>
 				</tr>
