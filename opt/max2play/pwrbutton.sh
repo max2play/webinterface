@@ -1,10 +1,15 @@
 #!/bin/bash
+# Need to disable power button in xfce with: DOESNT WORK -> BUG in lUbuntu! 
+# /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml value=0 
+# /etc/systemd/logind.conf : HandlePowerKey=ignore
+
 echo "Power button $1 seconds pressed"
 if [ "$1" -lt "1" ]; then
+echo "Short Press"
 #Short Button Code
 #Short Press
-   #Shutdown
-   poweroff
+#Shutdown
+poweroff
 #Short Press END
 elif [ "$1" -gt "9" ]; then
    # make blue LED BLINK and Reset Config - Default
@@ -23,9 +28,10 @@ elif [ "$1" -gt "9" ]; then
 	   reboot
    fi
 else
+echo "Long Press"
 #Long Button Code
 #Long Press
-	
+
 #Long Press END
 fi
 

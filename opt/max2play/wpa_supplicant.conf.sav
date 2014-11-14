@@ -13,8 +13,8 @@ network={
         scan_ssid=1
         proto=RSN
         key_mgmt=WPA-PSK
-        pairwise=CCMP
-        group=TKIP
+        pairwise=CCMP TKIP
+        group=CCMP TKIP
         psk=""
 }
 

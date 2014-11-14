@@ -67,7 +67,7 @@
 		<td><select name="tellows_country">
 				<option <?php if($cs->tellows->country == 'de') echo 'selected' ?>>de</option>
 				<option <?php if($cs->tellows->country == 'it') echo 'selected' ?>>it</option>
-				<option <?php if($cs->tellows->country == 'uk') echo 'selected' ?>>uk</option>
+				<option <?php if($cs->tellows->country == 'gb') echo 'selected' ?>>gb</option>
 				<option <?php if($cs->tellows->country == 'fr') echo 'selected' ?>>fr</option>
 				<option <?php if($cs->tellows->country == 'at') echo 'selected' ?>>at</option>
 				<option <?php if($cs->tellows->country == 'ch') echo 'selected' ?>>ch</option>

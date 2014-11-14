@@ -63,7 +63,10 @@ class Advanced_Max2play_Setup extends Service {
 			}
 			if($_GET['action'] == 'checkUpgrade'){
 				$this->_checkUpgrade();
-			}			
+			}
+			if($_GET['action'] == 'installFlash'){
+				$this->_installFlash();
+			}	
 		}
 		$this->_getMiniDLNASetup();
 		$this->_getPowerButton();
@@ -235,6 +238,18 @@ class Advanced_Max2play_Setup extends Service {
 		$out = array();
 		$out['MiniDLNA'] = shell_exec('tail -20 /opt/max2play/cache/minidlna/minidlna.log');			
 		$this->view->debug = $out;
+	}
+	
+	/**
+	 * Install Pepperflash to make Chromium work with Flash and youtube,etc.
+	 */
+	private function _installFlash(){
+		$script[] = 'wget http://odroidxu.leeharris.me.uk/PepperFlash-12.0.0.77-armv7h.tar.gz -O /opt/max2play/cache/pepperflash.tar.gz;tar -xzf /opt/max2play/cache/pepperflash.tar.gz -C /usr/lib;';
+		$script[] = 'sed -i \'s/CHROMIUM_FLAGS=""/CHROMIUM_FLAGS=" --ppapi-flash-path=\/usr\/lib\/PepperFlash\/libpepflashplayer.so --ppapi-flash-version=11.7.700.225"/\' /etc/chromium-browser/default';
+		$this->view->message[] = 'Start Install';
+		$this->view->message[] = $this->writeDynamicScript($script);
+		$this->view->message[] = _('After Installation you must open the Chromium URL "chrome:plugins" and set check [Always allowed] for Adobe Flash player. Then Restart Max2Play.');
+		return true;
 	}
 }
 

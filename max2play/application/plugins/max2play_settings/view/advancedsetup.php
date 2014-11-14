@@ -120,6 +120,13 @@
 		<input type="button" id="upgradeSystem" name="upgradeSystem" onclick="document.getElementById('action').value='upgradeSystem';submit();" value="<?php echo _("Upgrade Packages") ?>" /><br />		
 		<?php echo _("Fetch all current Updates and upgrade packages. ONLY DO THIS IF YOU ALREADY HAVE THE LATEST MAX2PLAY-UBUNTU-IMAGE 14!") ?>
 		
+		
+		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-top:3em;">
+				<span class="ui-icon ui-icon-video" style="float:left; margin:-2px 5px 0 0;"></span>
+				<?php echo _("Install Flash for Desktop Chromium Browser - Enable Youtube/Vimeo Flashplayer") ?>
+		</p>
+		<input type="button" id="installFlash" name="installFlash" onclick="document.getElementById('action').value='installFlash';submit();" value="<?php echo _("Install Pepperflash") ?>" /><br />
+		<?php echo _('After Installation you must open the Chromium URL "chrome:plugins" and set check [Always allowed] for Adobe Flash player. Then Restart Max2Play.') ?>
 	</form>
 	
 	<br /><br />	

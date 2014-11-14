@@ -202,7 +202,7 @@ class Basic extends Service {
 				);
 		
 		foreach($files as $filename){
-			if(file_exists($filename) && file_exists($filename.'sav'))
+			if(file_exists($filename) && file_exists($filename.'.sav'))
 				$output = shell_exec('cat '.$filename.'.sav > '.$filename);
 		}
 		

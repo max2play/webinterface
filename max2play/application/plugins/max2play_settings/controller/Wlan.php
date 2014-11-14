@@ -75,7 +75,7 @@ class Wlan extends Service {
 		
 		$shellanswer = shell_exec("cat ".$this->wpa_config);
 		$shellanswer = str_replace('ssid="'.$this->view->ssid.'"', 'ssid="'.$ssid.'"', $shellanswer);
-		$shellanswer = str_replace('group="'.$this->view->groupcipher.'"', 'group="'.$gcipher.'"', $shellanswer);
+		//$shellanswer = str_replace('group="'.$this->view->groupcipher.'"', 'group="'.$gcipher.'"', $shellanswer);
 		if(strlen(str_replace('*', '', $psk)) > 0 || $psk == ''){
 			$shellanswer = str_replace('psk="'.$this->view->psk.'"', 'psk="'.$psk.'"', $shellanswer);
 		}

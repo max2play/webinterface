@@ -93,7 +93,7 @@ class Callblocker_Setup extends Service {
 		// What happens with callers on blacklist - play Sound or just block?
 		if(!preg_match('=audiofile\=([0-9]*)=', $output, $match)){
 			//create entry
-			$this->writeDynamicScript(array("echo 'audiofile=1' >> /opt/callblocker/tellows.conf"));
+			$this->saveConfigFileParameter('/opt/callblocker/tellows.conf', 'audiofile', '1');
 			$this->tellows->audiofile = 1;
 		}else
 			$this->tellows->audiofile = $match[1];

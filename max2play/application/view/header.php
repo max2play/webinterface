@@ -33,10 +33,9 @@
 	<link href="/css/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
 	<script src="/js/jquery-1.10.2.js"></script>
 	<script src="/js/jquery-ui-1.10.4.custom.js"></script>
-	<script type="text/javascript" src="/js/reloadprogress.js"></script>
-	<link rel='stylesheet' id=''  href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&#038;subset=latin,latin-ext' type='text/css' media='all' />	
+	<script type="text/javascript" src="/js/reloadprogress.js"></script>	
 	<link rel='stylesheet' id=''  href='/style.css' type='text/css' media='all' />
-	<?php if(file_exists(APPLICATION_PATH.'/../public/custom.css')) { ?>	
+	<?php if(file_exists(APPLICATION_PATH.'/../public/custom.css')) { ?>
 		<link rel='stylesheet' id=''  href='/custom.css' type='text/css' media='all' />
 	<?php } ?>
 	<script>$(document).on("click", "input[type=button]", function() { $("body").addClass("loading");});</script>

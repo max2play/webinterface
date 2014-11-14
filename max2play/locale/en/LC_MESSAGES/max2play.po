@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-21 16:13+0100\n"
-"PO-Revision-Date: 2014-10-21 16:13+0100\n"
+"PO-Revision-Date: 2014-11-12 11:52+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_GB\n"
@@ -56,6 +56,7 @@ msgid ""
 "http://shop.tellows.de/de/lizenzschlussel-fur-tellows-community-sperrliste-"
 "anrufblocker.html"
 msgstr ""
+"http://shop.tellows.de/en/licence-key-for-tellows-blocklist-callblocker.html"
 
 #: y:\projects\max2play/max2play/application/view/footer_custom.php:32
 msgid "get API-Key for tellows"
@@ -63,7 +64,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/view/footer_custom.php:33
 msgid "http://shop.tellows.de/de/anrufblocker-faq"
-msgstr ""
+msgstr "http://shop.tellows.de/en/anrufblocker-faq"
 
 #: y:\projects\max2play/max2play/application/view/footer_custom.php:33
 #: y:\projects\max2play/max2play/application/view/footer.php:34

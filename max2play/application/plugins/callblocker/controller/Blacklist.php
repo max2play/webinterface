@@ -196,6 +196,8 @@ class Callblocker_Blacklist extends Service {
 		$this->tellows->country = $match[1];		
 		if($match[1] == 'us'){
 			$this->tellows->country = 'com';
+		}elseif($match[1] == 'gb'){
+			$this->tellows->country = 'co.uk';
 		}
 		return true;
 	}
