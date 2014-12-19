@@ -1,6 +1,6 @@
 <?php
 /**
-	 Example Setup View File
+	 Homematic Anwesenheit über Fritzbox View File
 	
 	 @Copyright 2014 Stefan Rick
 	 @author Stefan Rick
@@ -42,7 +42,9 @@
 	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
 			<span class="ui-icon ui-icon-wrench" style="float:left; margin:-2px 5px 0 0;"></span>
 			<b><?php echo _("Anwesenheitsüberwachung mittels FritzBox und Homematic Variablen") ?></b></p>
-			
+	Über die Fritzbox lässt sich der Status einzelner Geräte im WLAN ermittlen. So kann bei Anwesenheit (Smartphone angemeldet) eine Variable im Homematic-System gesetzt werden.
+	Dieses Script simuliert eine Nutzeranmeldung an der Fritzbox, liest den Status der angegebenen Geräte aus und setzt die korrespondierenden Variablen in Homematic. Voraussetzung ist ein Installierter Cuxd-Dienst in der Homematic-Zentrale.
+	<br /> 
 	<form action="" method="get">
 		<input type="hidden" id="action" name="action" value="" />				
 		
@@ -51,37 +53,37 @@
 			  <tr>
 				<td><?php echo _("Autostart") ?></td>
 				<td><input type="checkbox" name="config[autostart]" value="1" <?php if($homematic->view->autostart > 0) echo "checked" ?> /></td>
-				<td><?php echo _("Always run this service") ?></td> 
+				<td><?php echo _("Diesen Dienst immer starten") ?></td> 
 			  </tr>
 			  <tr>
 				<td><?php echo _("FritzBox IP / Name") ?></td>
 				<td><input type="text" name="config[ip]" value="<?php echo $homematic->config->ip ?>" /></td>
-				<td><?php echo _("Usually this is fritz.box") ?></td> 
+				<td><?php echo _("Meistens ist das fritz.box") ?></td> 
 			  </tr>
 			  <tr>
-				<td><?php echo _("FritzBox User") ?></td>
+				<td><?php echo _("FritzBox Benutzer") ?></td>
 				<td><input type="text" name="config[user]" value="<?php echo $homematic->config->user ?>" /></td>
-				<td><?php echo _("You need a user that can access the webinterface. Enter the name of the user.") ?></td> 
+				<td><?php echo _("Falls Benutzer in der Fritzbox eingerichtet sind, muss hier der Benutzername eingetragen werden") ?></td> 
 			  </tr>	 
 			  <tr>
-				<td><?php echo _("FritzBox Secret") ?></td>
+				<td><?php echo _("FritzBox Passwort") ?></td>
 				<td><input type="text" name="config[secret]" value="<?php echo $homematic->config->secret ?>" /></td>
-				<td><?php echo _("Enter the password of the FritzBox user.") ?></td> 
+				<td><?php echo _("Das Benutzerpasswort für den FritzBox-Nutzer oder das allgemeine Passwort für das Weblogin") ?></td> 
 			  </tr>	 
 			  <tr>
-				<td><?php echo _("FritzBox Devices to watch") ?></td>
+				<td><?php echo _("FritzBox Geräte") ?></td>
 				<td><input type="text" name="config[device_list]" value="<?php echo $homematic->config->device_list ?>" /></td>
-				<td><?php echo _("Enter the Devices to watch, separated by spaces.") ?></td> 
+				<td><?php echo _("Die Geräte, die überwacht werden sollen - getrennt durch Leerzeichen") ?></td> 
 			  </tr>	 
 			  <tr>
 				<td><?php echo _("Homematic Variables") ?></td>
 				<td><input type="text" name="config[hmvar]" value="<?php echo $homematic->config->hmvar ?>" /></td>
-				<td><?php echo _("Enter the corresponding homematic variables for the devices to set their Online-Status") ?></td> 
+				<td><?php echo _("Die korrespondierenden Homematic Variablen für die angegebenen Fritzbox Geräte") ?></td> 
 			  </tr>	 
 			  <tr>
 				<td><?php echo _("FritzBox Looptime") ?></td>
 				<td><input type="text" name="config[looptime]" value="<?php echo $homematic->config->looptime ?>" /></td>
-				<td><?php echo _("Intervall for running updates on the Status") ?></td> 
+				<td><?php echo _("Intervall für Statusupdates") ?></td> 
 			  </tr>	 
 			</table>
 			

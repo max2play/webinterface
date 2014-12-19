@@ -203,8 +203,8 @@ class Squeezeplayer extends Service {
 	private function getAllLogs(){
 		$out['SQUEEZELITE VERSION'] = shell_exec('/opt/squeezelite/squeezelite --help | grep ^Squeezelite');
 		//$out['SQUEEZESLAVE VERSION'] = shell_exec('/opt/squeezeslave/squeezeslave -V | grep ^squeezeslave');
-		$out['AUDIOPLAYER CONFIG'] = shell_exec('cat /opt/max2play/audioplayer.conf');
-	
+		$out['AUDIOPLAYER CONFIG'] = shell_exec('cat /opt/max2play/audioplayer.conf');		
+		$out['SQUEEZELITE -l'] = $this->writeDynamicScript(array('/opt/squeezelite/squeezelite -l'));
 		$this->view->debug = $out;
 		return true;
 	}

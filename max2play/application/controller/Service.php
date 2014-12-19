@@ -405,6 +405,11 @@ class Service {
 				$this->writeDynamicScript(array('sed -i "s/^'.$parameter.'.*$/'.$parameter.'='.$value.'/g" '.$configfile));
 				$this->view->message[] = _("Update Configfile - existing Entry changed");
 			}else{
+				//check for Newline in Last Line in config file
+				if(strpos(shell_exec('xxd -p '.$configfile.' | tail -c 3'), '0a') === FALSE){
+					//Newline missing -> add one
+					$parameter = "\n".$parameter;
+				}
 				$this->writeDynamicScript(array('echo "'.$parameter.'='.$value.'" >> '.$configfile));
 				$this->view->message[] = _("Update Configfile - new Entry created");
 			}
@@ -455,7 +460,7 @@ class Service {
 			$shellanswer = shell_exec("cat $progressfile");
 			preg_match('=[0-9\: -]*=', $shellanswer, $started);					
 			$this->view->message[] = _('Something went wrong in last Install Attempt - Deleting Progressfile');
-			shell_exec("rm $progressfile");			
+			$this->writeDynamicScript(array("rm $progressfile"));
 			return false;
 		}else{
 			//!file_exists($progressfile) && $create == 0 --> Finished

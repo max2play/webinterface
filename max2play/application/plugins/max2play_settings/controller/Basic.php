@@ -168,7 +168,7 @@ class Basic extends Service {
 	 * Change Player Name
 	 */
 	public function updatePlayername($name = ''){
-		$name = preg_replace('=[^a-zA-Z0-9]=i', '', $name);
+		$name = preg_replace('=[^a-zA-Z0-9\.]=i', '', $name);
 		if($name != ''){
 			$this->getPlayername();		
 			if($name != $this->view->playername){				
@@ -177,6 +177,9 @@ class Basic extends Service {
 				
 				//Hostname anpassen
 				$output = shell_exec('echo '.$name.' > /etc/hostname');
+				
+				//Hosts anpassen
+				$output = $this->writeDynamicScript(array('sed -i \'s/'.$this->getHostname($this->view->playername).' '.$this->view->playername.'/'.$this->getHostname($name).' '.$name.'/\' /etc/hosts'));
 				
 				$this->view->message[] = _("Changes successful - Reboot needed");
 				return true;
@@ -387,6 +390,17 @@ class Basic extends Service {
 		$this->view->message[] = nl2br($this->writeDynamicScript($script));
 		$this->view->message[] = _('udev-Rules added and reloaded... Completed');
 		return true;
+	}
+	
+	/**
+	 * Difference between FQDN and Hostname -> divided by fist "."
+	 */
+	public function getHostname($name){
+		if(strpos($name,'.') !== FALSE){
+			$parts = explode('.',$name);
+			return $parts[0];
+		}else
+			return $name;
 	}
 }
 

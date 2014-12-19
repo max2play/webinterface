@@ -1,4 +1,4 @@
-/bin/bash
+#!/bin/bash
 LOGFILE=/opt/max2play/cache/fritzbox.txt
 
 while true; do
