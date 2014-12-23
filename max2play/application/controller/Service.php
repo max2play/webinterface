@@ -361,7 +361,7 @@ class Service {
 		fwrite($fp,"#!/bin/bash\n");				
 		
 		foreach ($script as $s)
-			fwrite($fp, "\n".$s);			
+			fwrite($fp, "\n".str_ireplace("\x0D", "", $s));			
 		
 		fclose($fp);
 		
