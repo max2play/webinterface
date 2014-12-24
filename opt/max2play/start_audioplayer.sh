@@ -51,3 +51,10 @@ if [ "1" -gt "$xbmcrunning" ]; then
         sudo --user=odroid -H /opt/jivelite/jivelite/bin/jivelite > /dev/null 2>&1 &
     fi
 fi
+
+autostart_presence_detection=$(cat /opt/max2play/autostart.conf | grep presence_detection=1 | wc -l)
+running_presence_detection=$(ps -Al | grep fritzbox_devic | wc -l)
+if [ "0" -lt "$autostart_presence_detection" -a  "1" -gt "$running_presence_detection" ]
+   then
+     /opt/max2play/fritzbox_devices.sh &
+fi
