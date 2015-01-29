@@ -48,6 +48,9 @@ class Callbot_Setup extends Service {
 		//Set your Pluginname
 		$this->pluginname = _('Callbot Setup');
 		
+		if($this->checkLicense(true) == false)
+			return true;
+		
 		//If Button clicked or Form sent do Something
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'save'){
@@ -131,17 +134,19 @@ class Callbot_Setup extends Service {
 	protected $sip_start_call = 'NOTREGISTERED=$(linphonecsh generic "status registered" | grep "registered=-1\|registered=0" | wc -l);
          if [ "$NOTREGISTERED" -gt "0" ]; then echo "NOT REGISTERED"; exit 1; fi
          linphonecsh generic "call $NUMBER";
+		 linphonecsh generic "mute";
          STREAMRUNNING=0
          COUNTER=0
-         while [ "$STREAMRUNNING" -lt "1" -a "$COUNTER" -lt "10" ]; do
+         while [ "$STREAMRUNNING" -lt "1" -a "$COUNTER" -lt "20" ]; do
            STREAMRUNNING=$(linphonecsh generic "calls" | grep StreamsRunning | wc -l);
            let COUNTER=COUNTER+1;
            sleep 1;
          done
-         if [ "$STREAMRUNNING" -gt "0" ]; then
+         if [ "$STREAMRUNNING" -gt "0" ]; then			
             if [ "$ACTION" = "play" ]; then
-                  echo "Start sending WAV-File $WAVFILE"
-                  linphonecsh generic "play /opt/max2play/record$WAVFILE.wav";
+                  echo "Start sending WAV-File $WAVFILE"                  
+			      linphonecsh generic "unmute";
+				  linphonecsh generic "play /opt/max2play/record$WAVFILE.wav";
                 else
                   echo "Record WAV-File $WAVFILE"
                   rm /opt/max2play/record$WAVFILE.wav

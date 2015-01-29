@@ -35,7 +35,7 @@
 			<div class="ui-state-highlight ui-corner-all" style="margin-bottom: 10px; padding: 0.4em .7em;">
 				<p>
 					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-					<?php echo implode('<br />', $basic->view->message); ?>					
+					<?php echo implode('<br /><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>', $basic->view->message); ?>					
 				</p>
 			</div>
 		</div>
@@ -60,6 +60,11 @@
 			<td><?php echo _("With this resolution runs desktop and XBMC") ?></td>
 		  </tr>
 	  <?php } ?>
+	  <tr>
+		<td><?php echo _("Your eMail-Address") ?></td> 
+		<td style="width:25%;"><input style="width:95%;" type="text" id="email" name="email" value="<?php echo $basic->view->email; ?>" /></td>
+		<td><?php echo _("To access all functions and plugins of Max2Play and constantly get new features, you need to be a customer of shop.max2play.com. This is verified with your eMail-address. If you are no customer yet, you may buy the <a href='http://shop.max2play.com/en/max2play-full-license.html' target='_blank'>Max2Play-Full-Package here</a>.") ?></td>
+	  </tr>
 	  <tr>
 		<td><?php echo _("Language") ?></td> 
 		<td><select name="locale" style="width:95%;">
@@ -91,8 +96,16 @@
 	<input type="button" value="<?php echo _("Expand Filesystem") ?>" name="expandfs" onclick="document.getElementById('action').value='expandfs';submit();" />&nbsp;&nbsp;
 	<input type="button" value="<?php echo _("Fix USB-Mount") ?>" name="fixusbmount" onclick="document.getElementById('action').value='fixusbmount';submit();" />&nbsp;&nbsp;
 	<input type="button" value="<?php echo _("Update Max2Play") ?>" name=checkMax2PlayUpdate onclick="document.getElementById('action').value='checkMax2PlayUpdate';submit();" />&nbsp;&nbsp;	
-	
 	<br /><br />
+	
+	<?php if($basic->view->betaEnabled) { ?>
+		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+			<span class="ui-icon ui-icon-refresh" style="float:left; margin:-2px 5px 0 0;"></span>
+			<b><?php echo _("Force Update to latest Beta for Max2Play (Development)") ?></b></p>
+		<input type="button" value="<?php echo _("Update2Beta Max2Play") ?>" name=checkMax2PlayBetaUpdate onclick="document.getElementById('action').value='checkMax2PlayBetaUpdate';submit();" />&nbsp;&nbsp;
+		<br /><br />
+	<?php } ?>	
+	
 	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
 		<span class="ui-icon ui-icon-arrowreturnthick-1-n" style="float:left; margin:-2px 5px 0 0;"></span>
 		<b><?php echo _("Reset configs to Max2Play delivery configuration") ?></b></p>
@@ -122,7 +135,10 @@
 	<br /><br />
 	<input type="button" value="<?php echo _("Save Plugin Config - WARNING: removes Navigation for all NOT Selected") ?>" name="pluginconfig" onclick="document.getElementById('action').value='pluginconfig';submit();" /><br />	
 	<br /><br />
-	
+	<?php echo _('You may install new Plugins by entering the http-link to the Pluginfile (zip/tar/tar.gz). <a href="http://www.max2play.com/features/plugins/" target="_blank"> A list of Max2Play-Plugins can be found here</a>.') ?>
+	<input type="text" id="installplugin" name="installplugin" value="" />	
+	<input type="button" value="<?php echo _("Install new Plugin") ?>" name="installplugin" onclick="document.getElementById('action').value='installplugin';submit();" /><br />	
+	<br /><br />
 	</form>
 	
 	<?php echo _("DEBUG Info") ?>:

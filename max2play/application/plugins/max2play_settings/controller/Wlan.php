@@ -53,7 +53,7 @@ class Wlan extends Service {
 			$this->view->message[] = _("WLAN Device not responding - Reboot and try again.");
 			return false;
 		}
-		preg_match_all('=ESSID:"(.{1,50}?)".*?Group Cipher : (TKIP|CCMP).*?Pairwise Ciphers \(1\) : (TKIP|CCMP).*?Authentication Suites \(1\) : (PSK)=is',$shellanswer, $matches);
+		preg_match_all('=ESSID:"(.{1,50}?)".*?Group Cipher : (TKIP|CCMP|CCMP TKIP).*?Pairwise Ciphers \(1\) : (TKIP|CCMP|CCMP TKIP).*?Authentication Suites \(1\) : (PSK)=is',$shellanswer, $matches);
 		if(count($matches[1]) > 0){
 			$this->view->message[] = _("Networks found and added to dropdown list");
 			for($i = 0; $i < count($matches[1]); $i++){

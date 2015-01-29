@@ -59,6 +59,7 @@
 				<span style="float:right;margin-top:5px;">
 					<?php if ($service->info->removedonate != 1) echo _('DONATE-BUTTON'); ?>		
 					<br /><?php echo _('Version').' '.$service->info->version ?>
+					<br /><?php echo $service->info->hardware ?>
 				</span>
 			</div>
 			

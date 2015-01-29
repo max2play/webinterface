@@ -10,11 +10,13 @@
 ### END INIT INFO
 #Define some variables.  LMS is the IP of your Logitech Media Server.  Output device can be found by running squeezelite -l
 
-USER=odroid
-#OUTPUT=iec958:CARD=SB,DEV=0
+USER=$(grep -a "SYSTEM_USER" /opt/max2play/audioplayer.conf | sed -n -e 's/^[A-Z_]*\=//p')
+if [ "$USER" = "" ]; then
+    USER=odroid
+fi 
+
 NAME=$(cat /opt/max2play/playername.txt)
 SQUEEZELITE_PARAMETER=$(grep -a "SQUEEZELITE_PARAMETER" /opt/max2play/audioplayer.conf | sed -n -e 's/^[A-Z_]*\=//p')
-#LMS=192.168.69.101
 
 case "$1" in
   start)

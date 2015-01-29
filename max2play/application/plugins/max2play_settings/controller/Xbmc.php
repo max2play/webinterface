@@ -34,6 +34,8 @@ class Xbmc extends Service {
 	public function __construct(){								
 		parent::__construct();
 		$this->pluginname = _('XBMC (Mediacenter)');
+		if (file_exists('/usr/local/bin/kodi'))
+			$this->pname = 'kodi';
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'start'){			
@@ -53,7 +55,7 @@ class Xbmc extends Service {
 			}
 			
 			if($_GET['action'] == 'stop'){			
-				$this->view->message[] = $this->stop('xbmc.bin', 'sudo kill -9 $PID');
+				$this->view->message[] = $this->stop($this->pname.'.bin', 'sudo kill -9 $PID');
 			}
 			
 			if($_GET['action'] == 'save'){							
@@ -98,7 +100,7 @@ class Xbmc extends Service {
 	}
 	
 	public function getXbmcVersion(){
-		 $this->xbmcversion = $this->writeDynamicScript(array('dpkg -s xbmc | grep Version'));
+		 $this->xbmcversion = $this->writeDynamicScript(array('dpkg -s '.$this->pname.' | grep Version'));
 		 return true;
 	}
 	

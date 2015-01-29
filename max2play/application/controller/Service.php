@@ -55,6 +55,7 @@ class Service {
 		$this->getAllNetworkPlayers();
 		$this->getVersion();
 		$this->getDonate();
+		$this->getHardwareInfo();
 		return true;
 	}
 	
@@ -322,7 +323,7 @@ class Service {
 	 */
 	public function getVersion(){
 		$this->info->version = file_get_contents(APPLICATION_PATH.'/config/version.txt');
-	}
+	}		
 	
 	public function getDonate(){
 		$this->info->removedonate = $this->getConfigFileParameter('/opt/max2play/options.conf', 'removedonate');
@@ -369,7 +370,7 @@ class Service {
 			$command = escapeshellarg('sudo '.$this->dynamicScript);
 			exec("php /opt/max2play/dynamicscriptdaemon.php {$command} >> /dev/null 2>&1 &");
 		}else{
-			$output = shell_exec('sudo '.((true == $background) ? 'nohup ' : ' ').$this->dynamicScript.((true == $background) ? ' > /dev/null &' : ''));
+			$output = shell_exec('sudo './*((true == $background) ? 'nohup ' : ' ').*/$this->dynamicScript.((true == $background) ? ' > /dev/null &' : ''));
 		}		
 		
 		return $output;
@@ -401,7 +402,9 @@ class Service {
 				//No changes
 				return false;
 			}
-			if($old_parameter != ''){
+			//Check for empty entry
+			$param_exists = shell_exec('grep -a "'.$parameter.'" '.$configfile.' | wc -l');
+			if($old_parameter != '' || $param_exists > 0){
 				$this->writeDynamicScript(array('sed -i "s/^'.$parameter.'.*$/'.$parameter.'='.$value.'/g" '.$configfile));
 				$this->view->message[] = _("Update Configfile - existing Entry changed");
 			}else{
@@ -428,7 +431,7 @@ class Service {
 	public function getConfigFileParameter($configfile = '', $parameter = ''){
 		if(!file_exists($configfile))
 			return false;
-		$output = shell_exec('grep -a "'.$parameter.'" '.$configfile.' | sed -n -e "s/^[A-Za-z_0-9]*\=//p"');
+		$output = trim(shell_exec('grep -a "'.$parameter.'" '.$configfile.' | sed -n -e "s/^[A-Za-z_0-9]*\=//p"'));
 		return $output;
 	}
 	
@@ -442,7 +445,7 @@ class Service {
 	 * @param $reloadWhenFinished Reload Window when everything is finished
 	 * @return Message for Ajax-Output
 	 */
-	public function getProgressWithAjax($progressfile = '', $create = 0, $reloadWhenFinished = 0){
+	public function getProgressWithAjax($progressfile = '', $create = 0, $reloadWhenFinished = 0, $lastlines = 0){
 		if(!file_exists($progressfile) && $create == 1){		
 			//Create File and set Message Output for Ajax-Call
 			shell_exec('echo `date +"%Y-%m-%d %H:%M|"` > '.$progressfile);
@@ -453,7 +456,10 @@ class Service {
 			return true;
 		}elseif(file_exists($progressfile) && $create == 0){
 			//Check for Status finished and return current status and progressfile and reload if neccesary
-			$shellanswer = shell_exec("cat $progressfile");			
+			if($lastlines > 0){
+				$shellanswer = shell_exec("tail -$lastlines $progressfile");
+			}else
+				$shellanswer = shell_exec("cat $progressfile");			
 			return $shellanswer;
 		}elseif(file_exists($progressfile) && $create == 1){
 			//File should not be existing - show error and delete file!
@@ -497,6 +503,54 @@ class Service {
 			include_once(APPLICATION_PATH.'/view/footer.php');
 	
 		return true;
+	}
+	
+	public function getHardwareInfo(){
+		$output = shell_exec("cat /proc/cpuinfo | grep Hardware");
+		if(strpos($output, 'BCM2708'))
+			$this->info->hardware = 'Raspberry PI';
+		else{
+			preg_match('=Hardware.*: ([^ ]*)=', $output, $matches);
+			$this->info->hardware = $matches[1];
+		}
+		return true;
+	}
+	
+	public function getSystemUser(){
+		$system_user = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'SYSTEM_USER');
+		if($system_user)
+			$this->info->system_user = $system_user;
+		else
+			$this->info->system_user = 'odroid';
+		return $this->info->system_user;
+	}		
+	
+	/**
+	 * 
+	 * @param string $local do only local check (on update always check online)
+	 * @param boolean $silent do not print messages
+	 * @return boolean
+	 */
+	public function checkLicense($local = false, $silent = false){
+		if($local == true){
+			if($this->getConfigFileParameter('/opt/max2play/options.conf', 'license') == 1){				
+				return true;
+			}else{
+				if(!$silent)
+					$this->view->message[] = _('No valid Max2Play-License for additional plugins and features found. Please enter a valid eMail-address on the Settings-page to verify that you are a customer of Max2Play and to access all features.');
+				return false;
+			}
+		}
+		$email = $this->getConfigFileParameter('/opt/max2play/options.conf', 'email');
+		
+		include_once '../application/model/CheckLicense.php';
+		if($license == true){
+			$this->saveConfigFileParameter('/opt/max2play/options.conf', 'license', '1');
+			return true;
+		}else{
+			$this->saveConfigFileParameter('/opt/max2play/options.conf', 'license', '0');
+			return false;
+		}
 	}
 }
 

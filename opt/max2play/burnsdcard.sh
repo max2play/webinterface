@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script can be run from Powerbutton
 # insert your own script in max2play-webinterface
-# e.g. /opt/max2play/burnsdcard.sh /home/odroid/Callblocker_Image_12112014.img 2>&1 > /opt/max2play/cache/burnsdcard.txt
+# e.g. /opt/max2play/burnsdcard.sh /home/odroid/Callblocker_Image_06012015.img 2>&1 > /opt/max2play/cache/burnsdcard.txt
 
 # first argument is image file
 echo "START burning $1" 

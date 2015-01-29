@@ -84,13 +84,16 @@ class Squeezeplayer extends Service {
 	 * use Alsaequal 
 	 */
 	public function updateEqualizer($equalvalue){		
+		$user = $this->getSystemUser();
+		//if($_GET['use_equalizer'] == 1 && $this->checkLicense(true) == false)
+		//	return true;
 		if($this->saveConfigFileParameter('/opt/max2play/audioplayer.conf', 'USE_EQUALIZER', ($_GET['use_equalizer'] == 1) ? 1 : 0)){
-			$this->view->message[] = _('Equalizer settings changed');
+			//Changes successful
 		}
 		
 		foreach($this->equal as $key){
 			$value = (isset($equalvalue[$key])) ? (int)$equalvalue[$key] : 66;
-			$script[] = 'su - odroid -c \'amixer -D equal -q set "'.$key.'" '.$value.'\'';
+			$script[] = 'su - '.$user.' -c \'amixer -D equal -q set "'.$key.'" '.$value.'\'';
 		}
 		
 		$this->view->message[] = $this->writeDynamicScript($script);
@@ -101,10 +104,11 @@ class Squeezeplayer extends Service {
 	 * get Alsaequal Settings
 	 */
 	public function getEqualizer(){		
+		$user = $this->getSystemUser();
 		$this->view->use_equalizer = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'USE_EQUALIZER');
-		if($this->view->use_equalizer){
+		if($this->view->use_equalizer){			
 			foreach($this->equal as $key){
-				$script = array('su - odroid -c \'amixer -D equal sget "'.$key.'"\'');
+				$script = array('su - '.$user.' -c \'amixer -D equal sget "'.$key.'"\'');
 				$output = $this->writeDynamicScript($script);
 				preg_match('=\[(.*)\]=', $output, $match);
 				$this->equalvalues[$key] = $match[1];
@@ -154,6 +158,8 @@ class Squeezeplayer extends Service {
 	 * Plugin for audiophile headphone listening
 	 */
 	public function installLADSPA(){		
+		//if($this->checkLicense(true) == false)
+		//	return true;
 		$this->view->message[] = nl2br($this->writeDynamicScript(array('/opt/max2play/install_ladspa.sh')));
 		return true;
 	}
@@ -186,11 +192,12 @@ class Squeezeplayer extends Service {
 		return true;
 	}
 	
-	public function setUseUSB_DAC(){				
+	public function setUseUSB_DAC(){						
 		if($_GET['use_usb_dac'] == 1){
 			$value = 1;
 			//Set Soundoutput to 100% for Card 1 all Speakers - should be done on FIRST usage
-			$this->writeDynamicScript(array('sudo --user odroid amixer -c 1 sset Speaker 100%'));
+			$user = $this->getSystemUser();
+			$this->writeDynamicScript(array('sudo --user '.$user.' amixer -c 1 sset Speaker 100%'));
 		}else 
 			$value = 0;
 		
@@ -257,7 +264,7 @@ class Squeezeplayer extends Service {
 			$this->selectAutostart(1);
 		}
 		return true;
-	}
+	}		
 		
 }
 

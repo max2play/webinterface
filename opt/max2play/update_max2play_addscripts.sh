@@ -46,3 +46,15 @@ else
 	echo "Install Scripts"
 	unzip -o /opt/max2play/cache/scripts.zip -d /
 fi
+
+#Update Bootoptions for setting resolution from http://forum.odroid.com/viewtopic.php?f=52&t=2947
+if [ -e /media/boot/boot-auto_edid.scr ]; then
+	echo "Boot Options for HDMI existing"
+else	
+	wget http://builder.mdrjr.net/tools/boot.scr_ubuntu.tar -O /opt/max2play/cache/boot_scr.tar
+	tar -xf /opt/max2play/cache/boot_scr.tar -C /opt/max2play/cache
+	rm -Rf /opt/max2play/cache/x
+	cp /opt/max2play/cache/x2u2/boot-* /media/boot
+	rm -Rf /opt/max2play/cache/x2u2
+	cp -f /media/boot/boot.scr /media/boot/boot-auto_edid.scr
+fi

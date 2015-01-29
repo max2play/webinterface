@@ -55,12 +55,18 @@ class Basic extends Service {
 			}
 			
 			if($_GET['action'] == 'checkMax2PlayUpdate'){
-				$this->view->message[] = $this->checkMax2PlayUpdate();
+				$this->checkMax2PlayUpdate();
+			}
+			if($_GET['action'] == 'checkMax2PlayBetaUpdate'){
+				$this->checkMax2PlayUpdate('beta');
 			}
 			
 			if($_GET['action'] == 'pluginconfig'){
 				$this->view->message[] = $this->pluginConfig($_GET['plugins'], $_GET['defaultplugin']);
 				$this->loadViewHeader(true);
+			}
+			if($_GET['action'] == 'installplugin'){				
+				$this->installPlugin($_GET['installplugin']);
 			}
 			
 			if($_GET['action'] == 'save'){
@@ -70,41 +76,55 @@ class Basic extends Service {
 					$this->updateLocale($_GET['locale']);
 				
 				$this->setDonateButton((isset($_GET['removedonate']) ? 1 : 0));
-				//$this->view->message[] = $this->updateDisplayResolution($_GET['displayResolution']);
+				$this->updateEmail($_GET['email']);
+				$this->updateDisplayResolution($_GET['displayResolution']);
 				$this->updateMax2playNetworkLookup();				
 			}
 		}
 		$this->getLocale();
 		$this->getMax2playNetworkLookup();
 		$this->getPlayername();
-		//$this->getDisplayResolutions(); deactivated
+		$this->getDisplayResolutions();
 		$this->parsePlugins();
 		$this->getDebug();
+		$this->getEmail();
+		$this->enableBetaUpdates();
 		$this->view->removedonate = $this->getDonate();
 		
 	}		
 	
 	public function getDisplayResolutions(){
-		$output = shell_exec('ls /boot/ | grep boot-hdmi');
-		preg_match_all("=boot-hdmi-(.*?).scr=", $output, $matches);
+		$resolutions = array('1024x768' => '1024x768-noedid', '1920x1080@60' => '1080p-edid', '1080p' => '1080p-noedid', '1280x720M@60' => '720p-edid', '720p' => '720p-noedid');
+		$output = shell_exec('ls /boot/ | grep boot-');
+		preg_match_all("=boot-(.*?).scr=", $output, $matches);
 		if($matches[1])
 			$this->view->displayResolutions = $matches[1];
-		$output = shell_exec('cat /boot/boot.scr ');
-		preg_match_all("=Boot\.scr for hdmi at ([0-9pihz]*)=", $output, $matches);
+		$output = shell_exec('cat /boot/boot.scr');
+		preg_match_all("=HDMI-A-1:([0-9xM@]*)=", $output, $matches);
 		
 		if($matches[1][0])
-			$this->view->currentResolution = $matches[1][0];
+			//EDID Options
+			$this->view->currentResolution = $resolutions[$matches[1][0]];
+		else{
+			//NOEDID Options
+			preg_match_all("=-([0-9px]{4,})-(edid|noedid)=", $output, $matches);
+			if($matches[1][0]){
+				$this->view->currentResolution = $resolutions[$matches[1][0]];
+			}else
+				$this->view->currentResolution = 'auto_edid';
+		}
 		return true;
 	}
 	
 	public function updateDisplayResolution($newResolution = ''){
 		$this->getDisplayResolutions();
 		if($this->view->currentResolution != $newResolution && in_array($newResolution,$this->view->displayResolutions)){			
-			$output = shell_exec('sudo cp /boot/boot-hdmi-'.$newResolution.'.scr /boot/boot.scr');
-			return _('Changed display resolution - Reboot needed');
+			$output = shell_exec('sudo cp /boot/boot-'.$newResolution.'.scr /boot/boot.scr');
+			$this->view->message[] = _('Changed display resolution - Reboot needed');
 		}else{
-			return _('no valid resolution choosen');
+			//$this->view->message[] = _('no valid resolution choosen');
 		}
+		return true;
 	}
 	
 	public function getPlayername(){
@@ -197,11 +217,13 @@ class Basic extends Service {
 		//Ursprungsfiles sind als Sicherungen in den jeweiligen Ordnern enthalten
 		$files = array('/opt/max2play/playername.txt', 
 					   '/etc/hostname', 
-				       '/etc/network/interfaces', 				 
+				       '/etc/network/interfaces',				 
 					   '/etc/fstab',
 					   '/boot/boot.scr',
 					   '/opt/max2play/wpa_supplicant.conf',
-					   '/opt/max2play/samba.conf'				       
+					   '/opt/max2play/samba.conf',
+					   '/opt/max2play/options.conf', //TODO: .sav
+					   '/opt/max2play/audioplayer.conf', //TODO: .sav
 				);
 		
 		foreach($files as $filename){
@@ -232,17 +254,39 @@ class Basic extends Service {
 		return true;	
 	}
 	
+	public function updateEMail($email = ''){
+		if($this->saveConfigFileParameter('/opt/max2play/options.conf', 'email', $email)){
+			$this->view->message[] = _('Your eMail-address is saved.');
+			if($this->checkLicense() == true){
+				$this->view->message[] = _('Your license is validated. Now you have access to all features and plugins.');
+			}else{
+				$this->view->message[] = _('Your license could not be validated. Did you choose the right eMail-Address that is registered as a customer at www.max2play.com?');
+			}
+			return true;
+		}
+		return true;
+	}
+
+	public function getEmail(){
+		$this->view->email = $this->getConfigFileParameter('/opt/max2play/options.conf', 'email');
+		return true;
+	}
+	
 	/**
 	 * check for available Updates and do it
 	 */
-	public function checkMax2PlayUpdate(){
+	public function checkMax2PlayUpdate($version = ''){		
 		$this->getVersion();
+		if($version == 'beta'){
+			$this->info->version = 0; // Reset
+		}
+		
 		//Check auf Update
 		$file = file_get_contents('http://shop.max2play.com/media/downloadable/currentversion/version.txt');
 		if((float)$this->info->version < (float)$file){
 			$this->view->message[] = _('Max2Play update started');
 			//Start Script -> Download Files for Webserver and /opt/max2play
-			$shellanswer = shell_exec('sudo /opt/max2play/update_max2play.sh');			
+			$shellanswer = shell_exec('sudo /opt/max2play/update_max2play.sh '.$version);			
 			$this->view->message[] = nl2br($shellanswer);
 			if(strpos($shellanswer, 'inflating: /opt/max2play/list_devices.sh') !== FALSE && strpos($shellanswer, 'extracting: /var/www/max2play/application/config/version.txt') !== FALSE){
 				$this->view->message[] = _('UPDATE SUCCESSFUL');
@@ -253,10 +297,13 @@ class Basic extends Service {
 			else
 				$this->view->message[] = _('UPDATE NOT SUCCESSFUL');
 			
+			$this->checkLicense();
+			
 			$this->loadViewHeader(true);
 		}else{
-			$this->view->message[] = _('Max2Play is up to date - no update required');
+			$this->view->message[] = _('Max2Play is up to date - no update required');			
 		}
+		return true;
 	}
 	
 	/**
@@ -359,6 +406,21 @@ class Basic extends Service {
 	}
 	
 	/**
+	 * Install a new Plugin from HTTP-Resource
+	 * @param string $pathToPlugin
+	 */
+	private function installPlugin($pathToPlugin = ''){		
+		if($this->checkLicense(true) == false)
+			return true;
+		if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$pathToPlugin)) {
+  			$this->view->message[] = _("Invalid Plugin-URL");
+		}else{
+			$this->view->message[] = nl2br($this->writeDynamicScript(array('/opt/max2play/install_plugin.sh '.$pathToPlugin)));
+		}
+		return true;
+	}
+	
+	/**
 	 * Expandiere Root-FS auf ODROID auf Max. Größe
 	 */
 	private function resizeFS(){
@@ -401,6 +463,16 @@ class Basic extends Service {
 			return $parts[0];
 		}else
 			return $name;
+	}
+	
+	/**
+	 * For Development and easy Beta-Updates
+	 * @return boolean
+	 */
+	public function enableBetaUpdates(){
+		if($this->checkLicense(true, true) == false)
+			return true;
+		$this->view->betaEnabled = true;
 	}
 }
 

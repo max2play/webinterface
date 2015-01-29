@@ -28,6 +28,8 @@ class Info {
 	public $devices;
 	public $playername;
 	public $version;
+	public $hardware;
+	public $system_user;
 	
 	public function __construct(){		
 	}

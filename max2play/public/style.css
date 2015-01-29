@@ -199,6 +199,11 @@ input[type="submit"], input[type="button"], input[type="reset"] {
 	vertical-align: top;
 }
 
+.description {
+    list-style: outside none circle;
+    padding-left: 20px;
+}
+
 @media only screen 
 and (min-device-width : 220px) 
 and (max-device-width : 800px) 

@@ -1,0 +1,823 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Example Übersetzungen\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-24 13:49+0100\n"
+"PO-Revision-Date: 2014-09-24 13:49+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _t;gettext;gettext_noop;translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: y:\\projects\\max2play\\max2play\\application\\plugins"
+"\\example\n"
+
+#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:28
+#: y:\projects\max2play\max2play\application\plugins\example/controller/Setup.php:37
+msgid "Example Setup"
+msgstr ""
+
+#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:35
+msgid "This is the Example Setup Page. Configure and Test your own Plugin :)"
+msgstr ""
+
+#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:40
+msgid "Example Variable: "
+msgstr ""
+
+#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:47
+msgid "Example Table"
+msgstr ""
+
+#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:48
+msgid "Do Something"
+msgstr ""
+
+#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:49
+msgid "Do something to get things done ..."
+msgstr ""
+
+#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:56
+#, fuzzy
+msgid "DEBUG Informations"
+msgstr "DEBUG Info"
+
+#: y:\projects\max2play\max2play\application\plugins\example/controller/Setup.php:62
+msgid "Do Something started"
+msgstr ""
+
+#~ msgid "Jivelite Squeezebox Desktop Visualisation"
+#~ msgstr "Jivelite Squeezebox Desktop Visualisierung"
+
+#~ msgid "This is the Jivelite Setup Page."
+#~ msgstr ""
+#~ "Das ist die Jivelite Setup Seite. Hier kann der Dienst installiert, "
+#~ "gestartet und beendet werden. Jivelite dient zur Steuerung der "
+#~ "Audioplayer Squeezelite oder Squeezeslave und besitzt eine grafische "
+#~ "Ausgabe über den HDMI-Anschluss von Max2Play. Für die Anzeige von "
+#~ "Jivelite im Vollbild kann die Anzeige der Taskleiste minimiert werden. "
+#~ "Nach dem Start von Jivelite wird nach ein paar Sekunden automatisch der "
+#~ "laufende Titel auf dem Bildschirm angezeigt."
+
+#~ msgid "Status"
+#~ msgstr "Status"
+
+#~ msgid "$SERVICENAME is running with processID"
+#~ msgstr "$SERVICENAME läuft aktuell unter der ProzessID"
+
+#~ msgid "stop $SERVICENAME"
+#~ msgstr "$SERVICENAME stoppen"
+
+#~ msgid "$SERVICENAME not running"
+#~ msgstr "$SERVICENAME läuft nicht"
+
+#~ msgid "start $SERVICENAME"
+#~ msgstr "$SERVICENAME starten"
+
+#~ msgid "Autostart $SERVICENAME"
+#~ msgstr "Autostart $SERVICENAME"
+
+#~ msgid "save"
+#~ msgstr "speichern"
+
+#~ msgid "$NAME start installation"
+#~ msgstr "Starte Installation von $NAME"
+
+#~ msgid "Autohide Panel (Taskbar) for Fullscreen"
+#~ msgstr "Verstecke Taskleiste für Vollbildansicht"
+
+#~ msgid ""
+#~ "Jivelite is not installed - start installation by clicking on INSTALL "
+#~ "button at the end of the page!"
+#~ msgstr ""
+#~ "Jivelite ist nicht installiert - Zum Starten der Installation auf den "
+#~ "Installations-Button am Ende der Seite klicken!"
+
+#~ msgid "INSTALL SUCCESSFUL"
+#~ msgstr "INSTALLATION ERFOLGREICH"
+
+#~ msgid "Updated Autohide Panel Setting to"
+#~ msgstr "Taskleiste verstecken gesetzt auf"
+
+#~ msgid "kill $SERVICENAME"
+#~ msgstr "$SERVICENAME killen"
+
+#~ msgid "tellows Callblocker Setup"
+#~ msgstr "tellows Anruferschutz Setup"
+
+#~ msgid ""
+#~ "This is the Callblocker Setup Page. You need a tellows API Key to get the "
+#~ "blocklists from tellows."
+#~ msgstr ""
+#~ "Auf dieser Seite findest du die Grundeinstellungen für den Anruferschutz. "
+#~ "Für die Nutzung der tellows-Listen (häufig als negativ markierte Nummern) "
+#~ "ist es nötig einen Lizenzschlüssel zu hinterlegen. <a href=\"http://shop."
+#~ "tellows.de/de/lizenzschlussel-fur-tellows-community-sperrliste-"
+#~ "anrufblocker.html\" target=\"_blank\">Hier kann eine Lizenz für die "
+#~ "Sperrliste erworben werden</a>."
+
+#~ msgid "Main tellows Settings - Connected to tellows: "
+#~ msgstr "tellows Einstellungen - Verbunden zu tellows: "
+
+#~ msgid ""
+#~ "The current tellows blacklist has $COUNT phonenumbers and was last "
+#~ "updated on $DATE."
+#~ msgstr ""
+#~ "Die aktuelle tellows Sperrliste umfasst $COUNT Telefonnummern und wurde "
+#~ "zuletzt am $DATE aktualisiert."
+
+#~ msgid "Block calls"
+#~ msgstr "Blockiere Anrufe"
+
+#~ msgid ""
+#~ "Block calls from numbers that have a tellows score euqal or higher than "
+#~ "this value and at least 3 comments."
+#~ msgstr ""
+#~ "Blockiere Anrufe von Nummern die diesen oder einen höheren tellows-Score "
+#~ "haben und mindestens 3 Kommentare."
+
+#~ msgid "API-Key"
+#~ msgstr "Lizenzschlüssel"
+
+#~ msgid "You need a API-Key to get all numbers that should be blocked."
+#~ msgstr ""
+#~ "Du benötigst einen Lizenzschlüssel (beim Kauf des Anrufblockers auf dem "
+#~ "Gerät aufgedruckt), um von tellows eine aktuelle Sperrliste zu erhalten."
+
+#~ msgid "Country ISO Code"
+#~ msgstr "Länder ISO Code"
+
+#~ msgid ""
+#~ "In which country do you live? Important for getting the correct blacklist "
+#~ "and for identifying international numbers."
+#~ msgstr ""
+#~ "In welchem Land lebst du? Wichtig für den Abruf der richtigen Sperrliste "
+#~ "und für die Zuordnung internationaler Nummern."
+
+#~ msgid "SIP Settings for VOIP Setup - Register Status: "
+#~ msgstr "SIP Einstellungen für VOIP-Setup - Registrierungsstatus: "
+
+#~ msgid "VOIP-Host"
+#~ msgstr "VOIP-Host (Domain)"
+
+#~ msgid "If you have a fritzbox the value is &quot;fritz.box&quot;"
+#~ msgstr "Wenn du eine Fritzbox hast, dann ist der Wert &quot;fritz.box&quot;"
+
+#~ msgid "VOIP-User"
+#~ msgstr "VOIP-Benutzer"
+
+#~ msgid "If you have a fritzbox the value is problably &quot;620&quot;"
+#~ msgstr ""
+#~ "Wenn du eine Fritzbox hast, dann ist der Wert wahrscheinlich "
+#~ "&quot;620&quot;"
+
+#~ msgid "VOIP-Password"
+#~ msgstr "VOIP-Passwort"
+
+#~ msgid "This is your VOIP-Password."
+#~ msgstr "Dein VOIP-Passwort"
+
+#~ msgid "Audio File for Blacklist"
+#~ msgstr "Audio-Datei für Blacklist (nur VOIP)"
+
+#~ msgid ""
+#~ "Choose which audio file should be played when the incoming caller is on "
+#~ "the blacklist."
+#~ msgstr ""
+#~ "Diese Audio Datei soll abgespielt werden, wenn ein Anrufer auf der "
+#~ "Sperrliste steht."
+
+#~ msgid "Modem for PSTN (analog) Connected: "
+#~ msgstr "Modem für analoge Telefonleitung angeschlossen: "
+
+#~ msgid "How it works"
+#~ msgstr "Einrichtung"
+
+#~ msgid "SETUP_DESCRIPTION"
+#~ msgstr ""
+#~ "Es gibt 3 Möglichkeiten der Integration des Callblockers:\t<ul class="
+#~ "\"description\">\t\t<li>reine SIP (VOIP) Telefonie: es genügt den "
+#~ "Callblocker an das LAN / WLAN anzuschließen und die tellows sowie die "
+#~ "VOIP-Konfiguration durchzuführen</li>\t\t<li>reine analoge Telefonie: das "
+#~ "Modem muss über USB an den Callblocker angeschlossen werden und "
+#~ "zusätzlich muss LAN / WLAN angeschlossen sein, da sonst die "
+#~ "Aktualisierung der Blocklisten nicht stattfinden kann. Ein Anschlussset "
+#~ "mit USB-Modem und Zubehör gibt es <a href=\"http://shop.max2play.com/de/"
+#~ "analoges-anschlussset-odroid-u3-tellows-anrufblocker.html\" target="
+#~ "\"_blank\">hier zu kaufen</a></li>\t\t<li>kombinierter Anschluss (VOIP "
+#~ "verfügbar, Analoges Telefon wird genutzt): ebenso wie reine SIP-"
+#~ "Konfiguration</li>  \t</ul>\tBesonderheiten: Falls ein VOIP-Anschluss "
+#~ "genutzt wird ist die Erkennung schneller und kann bereits vor oder "
+#~ "unmittelbar nach dem Klingeln erfolgen.<br />\tDie Konfiguration des "
+#~ "Callblockers in der Telefonanlage muss bei SIP zusätzlich erfolgen. Siehe "
+#~ "Fritzbox Konfiguration - entsprechend bei anderen Geräten. \t<a href="
+#~ "\"http://shop.tellows.de/de/voip-router-anrufblocker\" target=\"_blank"
+#~ "\">Beispiele für die Integration in verschiedenen VOIP-fähigen Routern "
+#~ "findet ihr hier.</a> "
+
+#~ msgid "Copyrights"
+#~ msgstr "Verwendete Software & Lizenz"
+
+#~ msgid "Copyrights_TEXT"
+#~ msgstr ""
+#~ "Diese Software des tellows Anrufblockers unterliegt der GPL v3 und nutzt "
+#~ "NCID und Linphone zur Anrufererkennung (CallerID). Details zu GPL v3 "
+#~ "hier: http://www.gnu.org/licenses/gpl.html<br />Der Quellcode zu NCID ist "
+#~ "hier zu finden: http://ncid.sourceforge.net/<br />Der Quellcode zu "
+#~ "Linphone ist hier zu finden: http://www.linphone.org/<br />Den Quellcode "
+#~ "zu Max2Play (Basis für dieses Webinterface und Steuerung des "
+#~ "Anrufblockers) gibt es hier: https://github.com/max2play/webinterface<br /"
+#~ ">Die verwendeten Scripte zum Abruf der tellows Listen stellen wir auf "
+#~ "Anfrage zur Verfügung. Bitte dafür eine Mail an kontakt@tellows.de "
+#~ "schreiben."
+
+#~ msgid "Current Callblocker Version"
+#~ msgstr "Aktuelle Anrufblocker Version"
+
+#~ msgid "Update tellows Callblocker"
+#~ msgstr "Aktualisiere tellows Anrufblocker"
+
+#~ msgid "Callblocker Blacklist & Whitelist"
+#~ msgstr "Anrufblocker Sperrliste & Weiße Liste"
+
+#~ msgid ""
+#~ "On this page you may edit a local blacklist and whitelist. This is used "
+#~ "additionally to the tellows blacklist. Use one column per number."
+#~ msgstr ""
+#~ "Auf dieser Seite kannst du die Sperrliste und die Weiße Liste editieren. "
+#~ "Diese Listen werden zusätzlich zur tellows Sperrliste verwendet. Bitte "
+#~ "trage pro Zeile immer eine Nummer ein."
+
+#~ msgid "Callerlog for the last incoming Calls"
+#~ msgstr "Anruferliste für die letzten Anrufe"
+
+#~ msgid "DATE"
+#~ msgstr "DATUM"
+
+#~ msgid "LINE"
+#~ msgstr "LINE"
+
+#~ msgid "NUMBER"
+#~ msgstr "NUMMER"
+
+#~ msgid "NAME"
+#~ msgstr "NAME"
+
+#~ msgid "BLOCKED"
+#~ msgstr "GEBLOCKT"
+
+#~ msgid "ACTION"
+#~ msgstr "AKTION"
+
+#~ msgid "Blocked by Blacklist"
+#~ msgstr "blockiert durch Sperrliste"
+
+#~ msgid "Number is on Blacklist"
+#~ msgstr "Nummer ist auf Sperrliste"
+
+#~ msgid "Number is on Whitelist"
+#~ msgstr "Nummer ist auf Weißer Liste"
+
+#~ msgid "whitelist"
+#~ msgstr "weiße Liste"
+
+#~ msgid "blacklist"
+#~ msgstr "Sperrliste"
+
+#~ msgid "Modify Blacklist"
+#~ msgstr "Sperrliste bearbeiten"
+
+#~ msgid ""
+#~ "To block Callers that do not transfer their Caller ID enter \"PRIVATE\" "
+#~ "in a separate row."
+#~ msgstr ""
+#~ "Um Anrufer zu blockieren, die nicht ihre Nummer übermitteln muss \"PRIVATE"
+#~ "\" in eine separate Zeile eingetragen werden."
+
+#~ msgid "Modify Whitelist (numbers that will definitly NOT be blocked)"
+#~ msgstr ""
+#~ "Weiße Liste Bearbeiten (diese Nummern werden definitiv nicht geblockt)"
+
+#~ msgid "tellows Callblocker Blacklist"
+#~ msgstr "tellows Anruferschutz Sperrliste"
+
+#~ msgid "local"
+#~ msgstr "lokal"
+
+#~ msgid "Updated local Blacklist / Whitlist for Callblocker"
+#~ msgstr "Lokale Sperrliste / Weiße Liste wurden aktualisiert"
+
+#~ msgid "Save tellows Settings"
+#~ msgstr "Alle tellows Einstellungen speichern"
+
+#~ msgid "API-Key could not be registered and seems to be wrong!"
+#~ msgstr ""
+#~ "Lizenzschlüssel konnte nicht registriert werden und scheint falsch zu "
+#~ "sein!"
+
+#~ msgid "API-Key successfully registered!"
+#~ msgstr "Lizentschlüssel erfolgreich registriert"
+
+#~ msgid "Connection Successful"
+#~ msgstr "Verbindung erfolgreich!"
+
+#~ msgid "License Valid until"
+#~ msgstr "Lizenz gültig bis"
+
+#~ msgid ""
+#~ "<span style=\"color:red;\">Connection Failure - API-Key not valid: "
+#~ "$MESSAGE</span>"
+#~ msgstr ""
+#~ "<span style=\"color:red;\">Verbindungsfehler - Lizenzschlüssel nicht "
+#~ "gültig: $MESSAGE</span>"
+
+#~ msgid "Could not check tellows Connection! Internet not available?"
+#~ msgstr "Konnte tellows-Verbindung nicht prüfen! Internet nicht verfügbar?"
+
+#~ msgid ""
+#~ "<span style=\"color:red;\">Connection Failure - SIP not connected (check "
+#~ "settings)</span>"
+#~ msgstr ""
+#~ "<span style=\"color:red;\">Verbindungsfehler - SIP nicht verbunden (prüfe "
+#~ "die Einstellungen)</span>"
+
+#~ msgid "Successfull Connected"
+#~ msgstr "Erfolgreich Verbunden"
+
+#~ msgid "SIP not configured"
+#~ msgstr "SIP nicht konfiguriert"
+
+#~ msgid "VOIP-Settings Updated"
+#~ msgstr "VOIP-Einstellungen aktualisiert"
+
+#~ msgid "Callblocker update started"
+#~ msgstr "Anrufblocker Aktualisierung gestartet"
+
+#~ msgid "UPDATE SUCCESSFUL - Please Restart Device"
+#~ msgstr ""
+#~ "Aktualisierung erfolgreich - bitte das Gerät neu Starten (Netzstecker "
+#~ "ziehen und wieder einstecken)"
+
+#~ msgid "Callblocker is up to date - no update required"
+#~ msgstr ""
+#~ "tellows Anrufblocker ist auf dem aktuellsten Stand - kein Update "
+#~ "erforderlich"
+
+#~ msgid "Connection Failure - Wrong API-Key"
+#~ msgstr "Verbindungsfehler zu tellows API - falscher API-Key"
+
+#~ msgid "Process is already running"
+#~ msgstr "Dienst läuft bereits"
+
+#~ msgid "Trying to launch"
+#~ msgstr "Versucht zu starten"
+
+#~ msgid "successful with ID"
+#~ msgstr "Erfolgreich mit ID"
+
+#~ msgid "NOT successful"
+#~ msgstr "NICHT Erfolgreich"
+
+#~ msgid "Unable to stop process - it seems that it is not running"
+#~ msgstr "Dienst kann nicht gestoppt werden, da er nicht läuft"
+
+#~ msgid "Trying to stop"
+#~ msgstr "Versucht zu stoppen"
+
+#~ msgid "could NOT stop process - try kill instead"
+#~ msgstr "stoppen NICHT erfolgreich - bitte Kill versuchen"
+
+#~ msgid "Unable to kill process - it seems that it is not running"
+#~ msgstr "Dienst kann nicht gekillt werden, da er nicht läuft"
+
+#~ msgid "could not kill process"
+#~ msgstr "kill NICHT erfolgreich"
+
+#~ msgid "successfully removed from autostart"
+#~ msgstr "erfolgreich aus Autostart entfernt"
+
+#~ msgid "successfully added to autostart"
+#~ msgstr "erfolgreich zu Autostart hinzugefügt"
+
+#~ msgid "XBMC - Status, Start & Stop"
+#~ msgstr "XBMC - Status, Start & Stop"
+
+#~ msgid "XBMC INFO DESCRIPTION"
+#~ msgstr ""
+#~ "XBMC ist ein Media-Center für Videos, Musik und mehr.<br /><br /><sup>#1</"
+#~ "sup>Autostart XBMC: wenn aktiviert, wird XBMC automatisch beim Start von "
+#~ "Max2Play gestartet. Dies empfiehlt sich bei der Nutzung als Videoplayer. "
+#~ "Wenn Max2Play nur für Musik genutzt wird kann auf den Start von XBMC "
+#~ "verzichtet werden. Dadurch verbraucht Max2Play weniger Resourcen und "
+#~ "startet schneller.<br /><br /><b>Hinweise:</b><br />Wenn XBMC läuft wird "
+#~ "Squeezelite automatisch deaktiviert! Anders ist es derzeit nicht möglich "
+#~ "Sound in XBMC abzuspielen, da XBMC Pulseaudio nutzt und Squeezelite sowie "
+#~ "Shairplay Alsa nutzen um gleichzeitig auf das Soundinterface zuzugreifen. "
+#~ "Sobald XBMC beendet wird, startet Squeezelite automatisch wieder."
+
+#~ msgid "Advanced Max2Play Setup"
+#~ msgstr "Advanced Max2Play Setup"
+
+#~ msgid "Disable LED-Blink"
+#~ msgstr "Blaue LED Blink deaktivieren"
+
+#~ msgid ""
+#~ "Set LED Blink of ODROID to 10 secondes - Press Button again to set LED-"
+#~ "Blink back to original settings."
+#~ msgstr ""
+#~ "Setzt die Blinkfrequenz auf 10 Sekunden - Erneutes drücken des Buttons "
+#~ "setzt die Einstellung zurück"
+
+#~ msgid "Filesystem - mount network paths (e.g. NFS) "
+#~ msgstr "Dateisystem - Mounten von Netzwerkpfaden (z.B. NFS) "
+
+#~ msgid "Mountpoint"
+#~ msgstr "Mountpoint"
+
+#~ msgid "Path"
+#~ msgstr "Pfad"
+
+#~ msgid "Type"
+#~ msgstr "Typ"
+
+#~ msgid "Options"
+#~ msgstr "Optionen"
+
+#~ msgid "Action"
+#~ msgstr "Aktion"
+
+#~ msgid "Delete"
+#~ msgstr "Löschen"
+
+#~ msgid "Add new mountpoint"
+#~ msgstr "Neuen Mountpoint hinzufügen"
+
+#~ msgid "Save"
+#~ msgstr "Speichern"
+
+#~ msgid "Important Information"
+#~ msgstr "Bitte beachten"
+
+#~ msgid "Important Information Filesystem Description"
+#~ msgstr ""
+#~ "Normale Netzwerkfreigaben auf NFS (z.B. Synology Diskstation) erfolgen "
+#~ "wie im Beispiel:<br />\t<b>Mountpoint (IP oder Hostname und Pfad):</b> z."
+#~ "B. <i>//IP-ADRESSE/PFAD</i> <br />\t<b>Pfad auf Max2Play (für Verwendung "
+#~ "in Squeezeserver oder XBMC):</b> z.B. <i>/mnt/mountdir/</i> <br />"
+#~ "\t<b>Typ:</b> meist <i>cifs</i> <br />\t<b>Optionen (Benutzer, Passwort "
+#~ "und Optionen für Freigabe):</b> z.B. <i>user=name,password=pass,sec=ntlm,"
+#~ "iocharset=utf8</i><br />\tAchtung: Bei den Optionen bitte immer "
+#~ "<i>sec=ntlm</i> angeben! \t"
+
+#~ msgid "Sambashares on Max2Play - setup network share paths"
+#~ msgstr ""
+#~ "Sambafreigaben auf Max2Play konfigurieren - Netzwerkfreigaben für "
+#~ "externen Zugriff"
+
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#~ msgid "Comment"
+#~ msgstr "Kommentar"
+
+#~ msgid "Writeable"
+#~ msgstr "Beschreibbar"
+
+#~ msgid "Create Mode"
+#~ msgstr "Create Mode"
+
+#~ msgid "Add new Sambashare"
+#~ msgstr "Neue Sambafreigabe hinzufügen"
+
+#~ msgid "Sambashare Access"
+#~ msgstr "Sambashare Zugang"
+
+#~ msgid "User for Samba-Access"
+#~ msgstr "Benutzer für Samba-Zugriff"
+
+#~ msgid "Password for Samba-Access"
+#~ msgstr "Passwort für Samba-Zugriff"
+
+#~ msgid "Samba Important Information"
+#~ msgstr "Bitte beachten bei Samba Freigaben"
+
+#~ msgid "Important Information Samba Description"
+#~ msgstr ""
+#~ "Mit Samba können Verzeichnisse für das Netzwerk freigegeben werden. Wenn "
+#~ "z.B. eine Festplatte über USB angeschlossen ist, so kann diese für andere "
+#~ "im Netzwerk freigegeben werden.<br /><b>Beispiele #1 - USB-Festplatte "
+#~ "freigeben mit Lese und Schreibrechten:</b> <br />Name: max2play-usb<br /"
+#~ ">Pfad: /media/usb<br />Beschreibbar: yes<br />"
+
+#~ msgid "WiFi & Network configuration"
+#~ msgstr "WLAN & Netzwerk Konfiguration"
+
+#~ msgid "active"
+#~ msgstr "aktiv"
+
+#~ msgid "not active"
+#~ msgstr "nicht aktiv"
+
+#~ msgid "WiFi USB connection status is <b>$STATUS</b>"
+#~ msgstr "WLAN Verbindungsstatus ist <b>$STATUS</b>"
+
+#~ msgid "(Only WPA/WPA2-Encryption possible)"
+#~ msgstr "(Nur WPA/WPA2-Verschlüsselung möglich)"
+
+#~ msgid "Load WiFi Interface"
+#~ msgstr "WLAN Interface laden"
+
+#~ msgid "Network SSID"
+#~ msgstr "Netzwerkname"
+
+#~ msgid "Group Cipher"
+#~ msgstr "Group Cipher"
+
+#~ msgid "List of available networks"
+#~ msgstr "Liste verfügbarer Netzwerke"
+
+#~ msgid "Choose network..."
+#~ msgstr "Wähle Netzwerk"
+
+#~ msgid "start scan"
+#~ msgstr "Scan starten"
+
+#~ msgid ""
+#~ "Choose your network by clicking on it, enter your password and save the "
+#~ "settings"
+#~ msgstr ""
+#~ "Gewünschtes Netzwerk anklicken, Passwort eingeben und Einstellungen "
+#~ "speichern"
+
+#~ msgid "Configure LAN Mac-Address"
+#~ msgstr "LAN-Konfiguration MAC-Adresse"
+
+#~ msgid "(Change only if there are more Max2Play-Devices in one network)"
+#~ msgstr "(Nur ändern bei mehreren Playern im Netzwerk)"
+
+#~ msgid "WLAN INFO DESCRIPTION"
+#~ msgstr ""
+#~ "Info: bei Änderung der Netzwerkparameter bitte das Gerät Neustarten! Bei "
+#~ "Betrieb mehrerer Max2Play-Geräte muss die MAC-Adresse für das LAN auf den "
+#~ "Geräten jeweils unterschiedlich sein.\t<br />Bei dem Netzwerknamen Groß/"
+#~ "Kleinschreibung beachten."
+
+#~ msgid "FAQ - frequently asked questions"
+#~ msgstr "FAQ - Häufig gestellte Fragen"
+
+#~ msgid "Mediaplayer Squeezelite & Airplay - Status, Start / Stop"
+#~ msgstr "Mediaplayer Squeezelite & Airplay - Status, Start / Stop"
+
+#~ msgid "Graphic Equalizer"
+#~ msgstr "Grafischer Equalizer (NUR für Squeezeslave und Shairport)"
+
+#~ msgid "SQUEEZEPLAYER INFO DESCRIPTION"
+#~ msgstr ""
+#~ "Squeezelite ist ein Software Player für Squeezebox, der mit dem Logitech "
+#~ "Media Server (Squeezebox Server) arbeitet und ähnlich wie ein Squeezebox "
+#~ "Receiver \tüber den Server steuerbar ist.<br />\tShairport ist ein Dienst "
+#~ "der Apple Airplay ermöglicht.<br />\tBeide Dienste werden beim Starten "
+#~ "des ODROID etwas verzögert geladen (max. 1 Minute), um Konflikte mit den "
+#~ "Soundtreibern zu vermeiden."
+
+#~ msgid "Basic settings for Max2Play"
+#~ msgstr "Grundeinstellungen für Max2Play"
+
+#~ msgid "Playername"
+#~ msgstr "Playername"
+
+#~ msgid "URL for this Web-administration / name of Squeezelite player"
+#~ msgstr "URL für diese Web-Administration / Name Squeezelite Player"
+
+#~ msgid "Display Resolution"
+#~ msgstr "Auflösung"
+
+#~ msgid "With this resolution runs desktop and XBMC"
+#~ msgstr "Unter dieser Auflösung läuft XBMC und der Desktop"
+
+#~ msgid "Language"
+#~ msgstr "Sprache / Zeitzone"
+
+#~ msgid ""
+#~ "Change Keyboard Layout, Language and Timezone for Desktop (this web-"
+#~ "interface detects browser language)"
+#~ msgstr "Ändere Tastaturlayout, Sprache und Zeitzone für den Desktop"
+
+#~ msgid "Network Lookup"
+#~ msgstr "Netzwerk Suche"
+
+#~ msgid ""
+#~ "Search local Network for other Max2Play-Devices running Squeezelite and "
+#~ "display them in the header of this interface"
+#~ msgstr ""
+#~ "Suche nach Max2Play-Devices mit Squeezelite im Netzwerk und zeige diese "
+#~ "im Kopfbereich dieses Interfaces an. Nur sinnvoll bei mehreren Playern."
+
+#~ msgid "Save Settings"
+#~ msgstr "Einstellungen speichern"
+
+#~ msgid "Reboot Max2Play"
+#~ msgstr "Reboot Max2Play"
+
+#~ msgid "Update Max2Play"
+#~ msgstr "Update Max2Play"
+
+#~ msgid "Reset configs to Max2Play delivery configuration"
+#~ msgstr "Max2Play Ursprungskonfiguration Wiederherstellen"
+
+#~ msgid "Reset configs - WARNING: deletes all changes"
+#~ msgstr "Konfiguration Reset (löscht alle Änderungen!)"
+
+#~ msgid ""
+#~ "Settings for WiFi, autostart, playername, filesystem mounts will be "
+#~ "overwritten."
+#~ msgstr ""
+#~ "Einstellungen zu Wlan, Autostart, Playername und gemountete Verzeichnisse "
+#~ "werden durch die Standardbelegung überschrieben."
+
+#~ msgid "Squeezeserver - Status, Start & Stop"
+#~ msgstr "Squeezeserver - Status, Start & Stop"
+
+#~ msgid "Start Squeezeserver Webadministration"
+#~ msgstr "Start Squeezeserver Webadministration"
+
+#~ msgid ""
+#~ "The installation takes about 5 to 10 minutes depending on your internet "
+#~ "connection. At first it downloads the package from http://downloads."
+#~ "slimdevices.com/ and afterwards it installs the package. You may reload "
+#~ "this page by clicking the button again to see the status of the install "
+#~ "process."
+#~ msgstr ""
+#~ "Zuerst wird das Paket von http://downloads.slimdevices.com/ "
+#~ "heruntergeladen und anschließend installiert. Das ganze dauert je nach "
+#~ "Internetverbindung ungefähr 5 - 10 Minuten! Wenn diese Seite nach dem "
+#~ "Start der Installation neu geladen wird, zeigt sie den "
+#~ "Installationsfortschritt."
+
+#~ msgid "SQUEEZESERVER INFO DESCRIPTION"
+#~ msgstr ""
+#~ "Squeezeserver (Logitech Media Server) ist der Server für die Squeezebox "
+#~ "und ist für die Steuerung der Player zuständig. Im Netzwerk muss "
+#~ "mindestens ein solcher Server laufen. Der Server kann über das Starten "
+#~ "der Installation auf Max2Play aufgesetzt werden."
+
+#~ msgid "Max2Play Media Player - Info"
+#~ msgstr "Max2Play Media Player - Informationen"
+
+#~ msgid ""
+#~ "READ CAREFULLY: THIS INTERFACE IS STILL A BETA AND MIGHT HAVE BUGS OR "
+#~ "UNEXPECTED BEHAVIOR!"
+#~ msgstr ""
+#~ "ACHTUNG: DIESE KONFIGURATIONSMÖGLICHKEIT IST EINE BETA UND ENTHÄLT "
+#~ "MÖGLICHERWEISE FEHLER!"
+
+#~ msgid ""
+#~ "The Max2Play Interface is used to configurate the device without having "
+#~ "to set up montior, keyboard and mouse on the device itsself or login by "
+#~ "ssh.<br />All settings are directly written to the players config files."
+#~ msgstr ""
+#~ "Über diese Seiten kann der Player konfiguriert werden "
+#~ "(Netzwerkinterfaces, Netzwerkfreigaben, Autostartkonfiguration).<br />Die "
+#~ "Einstellungen werden direkt in Konfigurationsdateien geschrieben, die "
+#~ "sich auf dem Player befinden. Alternativ kann direkt per SSH eine "
+#~ "Verbindung aufgebaut werden oder per HDMI-Kabel und Tastatur/Maus am "
+#~ "Gerät die Konfiguration per Konsole erfolgen."
+
+#~ msgid ""
+#~ "Questions concerning this project? Please refer to <a href=\"http://shop."
+#~ "max2play.com\" target=\"_blank\">Shop.Max2Play</a>"
+#~ msgstr ""
+#~ "Fragen zum Projekt? Bitte auf <a href=\"http://shop.max2play.com\" target="
+#~ "\"_blank\">Shop.Max2Play</a> den Kontakt nutzen."
+
+#~ msgid "Audioplayer"
+#~ msgstr "Audioplayer"
+
+#, fuzzy
+#~ msgid "Advanced Setup"
+#~ msgstr "Advanced Max2Play Setup"
+
+#~ msgid "Set LED-Blink - Reboot to activate changes"
+#~ msgstr "LED-Blink Einstellungen geändert - Reboot benötigt"
+
+#~ msgid "Reset / Reboot"
+#~ msgstr "Reset & Reboot"
+
+#~ msgid "REBOOT gestartet"
+#~ msgstr "REBOOT started"
+
+#~ msgid "Changed display resolution - Reboot needed"
+#~ msgstr "Bildschirmauflösung angepasst - Reboot erforderlich"
+
+#~ msgid "no valid resolution choosen"
+#~ msgstr "keine gültige Auflösung"
+
+#~ msgid "Value for Timezone/Language not found."
+#~ msgstr "Wert für Zeitzone / Sprache nicht gefunden"
+
+#~ msgid "Changes successful - Reboot needed"
+#~ msgstr "Erfolgreich geändert - Reboot erforderlich"
+
+#~ msgid "Name not possible! Please do not use special characters."
+#~ msgstr "Ungültiger Name! Bitte keine Sonderzeichen verwenden."
+
+#~ msgid "Config Files restored for "
+#~ msgstr "Ursprungskonfiguration wiederhergestellt für"
+
+#~ msgid "Max2Play Network Player Lookup saved"
+#~ msgstr "Max2Play Netzwerk Suche gespeichert"
+
+#~ msgid "WiFi / LAN"
+#~ msgstr "WLAN & LAN"
+
+#~ msgid "Data saved"
+#~ msgstr "Daten gespeichert"
+
+#~ msgid "WLAN Device not responding - Reboot and try again."
+#~ msgstr "WLAN Device reagiert nicht - Gerät neu starten."
+
+#~ msgid "Networks found and added to dropdown list"
+#~ msgstr "Netzwerke gefunden und in Auswahlliste eingefügt"
+
+#~ msgid "No networks found"
+#~ msgstr "Keine Netzwerke gefunden"
+
+#~ msgid "MAC-Address changed - please reboot"
+#~ msgstr "MAC-Adresse geändert - bitte Neustarten"
+
+#~ msgid "WLAN activated - please reboot device"
+#~ msgstr "WLAN aktiviert - bitte Neustarten"
+
+#~ msgid "WLAN deactivated - no network choosen - please reboot"
+#~ msgstr "WLAN deaktiviert - kein Netzwerk gewählt - bitte Neustarten"
+
+#~ msgid "Filesystem Mount"
+#~ msgstr "Dateisystem Mount"
+
+#~ msgid "Mountpoint NOT added! Please refer to the description below!"
+#~ msgstr "Hinzufügen nicht möglich! Bitte Anleitung beachten!"
+
+#~ msgid "Entry deleted"
+#~ msgstr "Eintrag gelöscht"
+
+#~ msgid "Sambashare successfully added"
+#~ msgstr "Hinzufügen erfolgreich!"
+
+#~ msgid "Sambashare NOT added! Please refer to the description below!"
+#~ msgstr "Hinzufügen nicht möglich! Bitte Anleitung beachten!"
+
+#~ msgid "Password changed"
+#~ msgstr "Passwort geändert"
+
+#~ msgid "Samba Service restarted"
+#~ msgstr "Samba Dienst neu gestartet"
+
+#~ msgid "Squeezeserver"
+#~ msgstr "Squeezeserver"
+
+#~ msgid "Something went wrong in last Install Attempt - Deleting Progressfile"
+#~ msgstr ""
+#~ "Etwas lief schief beim letzten Installationsversuch - lösche "
+#~ "Installationsdatei und versuche es nochmal"
+
+#~ msgid ""
+#~ "Installation gestartet - Seite neu Laden oder Button erneut drücken, um "
+#~ "Status der Installation zu sehen."
+#~ msgstr ""
+#~ "Installation gestartet - Seite neu Laden oder Button erneut drücken, um "
+#~ "Status der Installation zu sehen."
+
+#~ msgid "XBMC (Mediacenter)"
+#~ msgstr "XBMC (Mediacenter)"
+
+#~ msgid "Choose active Player"
+#~ msgstr "Wähle Player"
+
+#~ msgid "Version"
+#~ msgstr "Version"
+
+#~ msgid "Topics"
+#~ msgstr "Themen"
+
+#~ msgid "Features"
+#~ msgstr "Übersicht Funktionen"
+
+#~ msgid "FAQ - Questions & Answers"
+#~ msgstr "FAQ - Fragen & Antworten"
+
+#~ msgid "Start"
+#~ msgstr "Start"
+
+#~ msgid "das ist ein test"
+#~ msgstr "blablubtrallala"
+
+#~ msgid " ... Erfolgreich gekillt"
+#~ msgstr " ... Erfolgreich gekillt"
+
+#~ msgid " ... kill NICHT erfolgreich"
+#~ msgstr " ... kill NICHT erfolgreich"
