@@ -99,6 +99,8 @@ class Basic extends Service {
 		preg_match_all("=boot-(.*?).scr=", $output, $matches);
 		if($matches[1])
 			$this->view->displayResolutions = $matches[1];
+		else
+			return false;
 		$output = shell_exec('cat /boot/boot.scr');
 		preg_match_all("=HDMI-A-1:([0-9xM@]*)=", $output, $matches);
 		
@@ -117,7 +119,8 @@ class Basic extends Service {
 	}
 	
 	public function updateDisplayResolution($newResolution = ''){
-		$this->getDisplayResolutions();
+		if(!$this->getDisplayResolutions())
+			return false;
 		if($this->view->currentResolution != $newResolution && in_array($newResolution,$this->view->displayResolutions)){			
 			$output = shell_exec('sudo cp /boot/boot-'.$newResolution.'.scr /boot/boot.scr');
 			$this->view->message[] = _('Changed display resolution - Reboot needed');

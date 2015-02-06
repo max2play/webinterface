@@ -50,13 +50,13 @@ else
 		usermod -a -G audio squeezeboxserver
 		
 		#Image::Scale FIX, if file not exists
-		if [ -e /opt/CPAN/arm-linux-gnueabihf-thread-multi-64int/auto/Image/Scale/Scale.so ]; then
-			echo "NO Image-Fix"
-		else	
+		#if [ -e /opt/CPAN/arm-linux-gnueabihf-thread-multi-64int/auto/Image/Scale/Scale.so ]; then
+	    #	echo "NO Image-Fix"
+		#else	
 			unzip -o /opt/max2play/cpan_fix_image.zip -d /opt/CPAN/arm-linux-gnueabihf-thread-multi-64int
 			chmod 777 /opt/CPAN/arm-linux-gnueabihf-thread-multi-64int/auto/Image/Scale/Scale.so
 			echo "Image Fix"
-		fi	
+		#fi	
 		
 		#Fix ubuntu 14 interpreter
 		ln /lib/arm-linux-gnueabihf/ld-linux.so.3 /lib/ld-linux.so.3

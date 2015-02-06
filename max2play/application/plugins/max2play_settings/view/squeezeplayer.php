@@ -118,7 +118,8 @@ $(function() {
 			<table>
 				<tr>
 					<td><?php echo _('Soundcard') ?></td>					
-					<td style="width: 25%;"><select id="squeezelite_soundcard" name="squeezelite_soundcard" style="width: 90%;" onChange="autosetCommandline(this);">
+					<td style="width: 25%;">
+						<?php /* <select id="squeezelite_soundcard" name="squeezelite_soundcard" style="width: 90%;" onChange="autosetCommandline(this);">
 						<option <?php if($sp->view->squeezelite_soundcard == 'plug:dmixer') echo 'selected'; ?> value='plug:dmixer'>Default dmixer (Alsa Mixer Device)</option>
 						<option <?php if($sp->view->squeezelite_soundcard == 'plug:plugequal') echo 'selected'; ?> value='plug:plugequal'>Equalizer</option>
 						<option <?php if($sp->view->squeezelite_soundcard == 'hw:CARD=Audio,DEV=0') echo 'selected'; ?> value='hw:CARD=Audio,DEV=0'>Direct HW No Conversions (DEV0)</option>
@@ -131,10 +132,17 @@ $(function() {
 						<option <?php if($sp->view->squeezelite_soundcard == 'hw:CARD=Device,DEV=0') echo 'selected'; ?> value='hw:CARD=Device,DEV=0'>Direct HW No Conversions (USB)</option>
 						<option <?php if($sp->view->squeezelite_soundcard == 'dmix:CARD=Device,DEV=0') echo 'selected'; ?> value='dmix:CARD=Device,DEV=0'>Direct Sample DMix (USB)</option>
 						<option <?php if($sp->view->squeezelite_soundcard == 'plughw:CARD=Device,DEV=0') echo 'selected'; ?> value='plughw:CARD=Device,DEV=0'>Direct HW Conversions (USB)</option>
+						</select> */ ?> 
+						
+						<select id="squeezelite_soundcard" name="squeezelite_soundcard" style="width: 90%;" onChange="autosetCommandline(this);">
+						<?php foreach($sp->view->soundDevices as $soundDeviceKey => $soundDevice){ ?>
+							<option <?php if($sp->view->squeezelite_soundcard == $soundDeviceKey) echo 'selected'; ?> value='<?php echo $soundDeviceKey ?>'><?php echo $soundDevice['name'].' - '.$soundDevice['description'].', '.$soundDevice['card']; ?></option>
+						<?php }?>
 						</select>
+						
 						<script>
-							function autosetCommandline(select){
-								if(select.options[select.selectedIndex].value == 'hw:CARD=Audio,DEV=0' && document.getElementById('squeezelite_commandline').value == ''){
+							function autosetCommandline(select){								
+								if(select.options[select.selectedIndex].value.indexOf("plug:") == -1 && document.getElementById('squeezelite_commandline').value == ''){
 									document.getElementById('squeezelite_commandline').value = '-a 120::16:';
 								}
 								if(select.options[select.selectedIndex].value == 'plughw:CARD=Audio,DEV=0' && document.getElementById('squeezelite_commandline').value == ''){
@@ -188,9 +196,15 @@ $(function() {
 				<tr>
 					<td><?php echo _('Soundcard') ?></td>
 					<td style="width: 25%;">
-					    <select name="shairport_soundcard" style="width: 90%;">
+					    <?php /*<select name="shairport_soundcard" style="width: 90%;">
 						<option <?php if($ap->view->shairport_soundcard == 'plug:plugequal') echo 'selected'; ?> value='plug:plugequal'>Use Equalizer</option>
 						<option <?php if($ap->view->shairport_soundcard == 'plug:dmixer') echo 'selected'; ?> value='plug:dmixer'>Default dmixer (Alsa Mixer Device)</option>
+						</select>*/?>
+						
+						<select id="shairport_soundcard" name="shairport_soundcard" style="width: 90%;">
+						<?php foreach($sp->view->soundDevices as $soundDeviceKey => $soundDevice){ ?>
+							<option <?php if($ap->view->shairport_soundcard == $soundDeviceKey) echo 'selected'; ?> value='<?php echo $soundDeviceKey ?>'><?php echo $soundDevice['name'].' - '.$soundDevice['description'].', '.$soundDevice['card']; ?></option>
+						<?php }?>
 						</select>
 					</td>
 					<td><?php echo _('Select Audio output') ?></td>
@@ -202,7 +216,7 @@ $(function() {
 		<input type="checkbox" <?php if($ap->view->autostart) echo "checked"; ?> value="1" name="autostartap" />
 		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
 		
-		<br /><br /><br />
+		<?php /*<br /><br /><br />
 		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
 			<span class="ui-icon ui-icon-volume-on" style="float:left; margin:-2px 5px 0 0;"></span>
 			<?php if ($ss->view->pid) { ?>
@@ -231,7 +245,7 @@ $(function() {
 		<br /><br /><b><?php echo str_replace('$SERVICENAME', $ss->viewname, _('Autostart $SERVICENAME')) ?>:</b><br />
 		<input type="checkbox" <?php if($ss->view->autostart) echo "checked"; ?> value="1" name="autostartss" />
 		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
-		
+		*/ ?>
 		<br />
 	
 		<?php foreach($sp->equalvalues as $key => $value) { ?>

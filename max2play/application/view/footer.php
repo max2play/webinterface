@@ -31,7 +31,7 @@
 					<h3 class="widget-title"><?php echo _('Topics') ?></h3>
 					<ul>
 						<li><a href="/" title="Info"><?php echo _('Features') ?></a></li>	
-						<li><a href="/plugins/max2play_settings/view/faq.php" title="FAQ"><?php echo _('FAQ - Questions & Answers') ?></a></li>					
+						<li><a href="<?php echo _('http://www.max2play.com/faq/') ?>" target="_blank" title="FAQ"><?php echo _('FAQ - Questions & Answers') ?></a></li>					
 					</ul>
 				</aside>		
 			</div>

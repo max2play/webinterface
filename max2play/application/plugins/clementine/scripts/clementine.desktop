@@ -1,0 +1,26 @@
+[Desktop Entry]
+Version=1.0
+Name=XBMC Media Center
+GenericName=Clementine
+Comment=Manage and view your media 
+Exec=clementine
+Icon=application-x-clementine
+Terminal=false
+Type=Application
+Categories=AudioVideo;Video;Player;TV;
+
+Actions=Fullscreen;Standalone;
+
+Comment[de_DE]=Clementine Audioplayer
+StartupNotify=true
+Name[de_DE]=Clementine
+
+[Desktop Action Fullscreen]
+Name=Open in fullscreen
+Exec=xbmc -fs
+OnlyShowIn=Unity;
+
+[Desktop Action Standalone]
+Name=Open in standalone mode
+Exec=xbmc --standalone
+OnlyShowIn=Unity;

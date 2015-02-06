@@ -29,7 +29,7 @@ class Shairport extends Service {
 	public $viewname = 'Shairport (Airplay)';
 	
 	public function __construct(){								
-		parent::__construct();		
+		parent::__construct();						
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'startap'){			
@@ -61,17 +61,27 @@ class Shairport extends Service {
 	 * shairport_soundcard	 
 	 */
 	public function saveShairportCommandline(){
-		$commandLine = array();
-		if(in_array($_GET['shairport_soundcard'], array('plug:plugequal', 'plug:dmixer')))
-			$commandLine[] = '-d '.$_GET['shairport_soundcard'];
-		else{
+		$commandLine = array();		
+		$setsoundcard = $_GET['shairport_soundcard'];		
+		//Sounddevices werden in Squeezeplayer geladen!
+		global $sp;
+		
+		if(in_array($setsoundcard, array_keys($sp->view->soundDevices))){
+			$commandLine[] = '-d '.$setsoundcard;
+		}else{
 			$commandLine[] = '-d plug:plugequal';
-		}		
+		}	
 	
 		$value = trim(implode(' ', $commandLine));
 		if($this->saveConfigFileParameter('/opt/max2play/audioplayer.conf', 'SHAIRPORT_PARAMETER', $value)){
 			$this->view->message[] = str_replace('$SERVICE', $this->viewname ,_('Updated $SERVICE Settings - Restart $SERVICE to apply changes!'));
-		}
+			
+			if($this->status($this->pname) !== FALSE){
+				//Restart Service
+				$this->view->message[] = $this->stop($this->pname);
+				$this->view->message[] = $this->start($this->pname);
+			}
+		}				
 	
 		return true;
 	}

@@ -1,0 +1,14 @@
+.logo {
+	background: url("/addons/callblocker/tellows_logo_callblocker.png") no-repeat scroll left top transparent;
+	width:520px;
+}
+@media only screen 
+and (min-device-width : 220px) 
+and (max-device-width : 800px) 
+{ 
+   .logo {
+       background: url("/addons/callblocker/tellows_logo_callblocker_k.png") no-repeat scroll left top transparent;
+       width: 264px;
+       height: 65px;
+   }
+}

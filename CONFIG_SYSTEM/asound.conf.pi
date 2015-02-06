@@ -15,4 +15,5 @@ pcm.plugequal {
    slave {
      pcm "plughw:0,0";
    }
+   hint {show on;description "Equalizer for plughw:0,0"}
 }

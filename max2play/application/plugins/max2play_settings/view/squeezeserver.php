@@ -85,5 +85,12 @@
 	
 	<br /><br />
 	<?php echo _('SQUEEZESERVER INFO DESCRIPTION') ?>
-	  
+	
+	<br /><br />
+	<a href="#javascript" onclick="document.getElementById('debug').style.display='';return false;">DEBUG Informationen</a>
+	<textarea id="debug" rows="30" cols="70" style="display:none;"><?php foreach ($sp->view->debug as $key => $debug) {
+			echo "#### ". $key. " ####\n"; 
+			 echo $debug." \n\n"; 
+		 }?>
+	</textarea>
 </div>	

@@ -31,23 +31,12 @@ class Squeezeplug_Setup extends Service {
 	
 	public function __construct(){		
 		parent::__construct();
-		$this->pluginname = _('Squeezeplug Setup');
+		$this->pluginname = _('Squeezeplug');
+		$this->registerLocale(dirname(__FILE__).'/../locale', 'squeezeplug');
 		
-		if(isset($_GET['action'])){
-			if($_GET['action'] == 'installMiniDLNA'){
-				$this->_installMiniDLNA();				
-			}
-							
-		}
+		$this->checkForUpdate();			
 			
-	}
-	
-	private function _installMiniDLNA(){
-		//Call Scripts
-		$this->view->message[] = _('MiniDLNA Installation started');
-		$output = shell_exec('sudo '.$scriptPath.'minidlna.sh');
-		$this->view->message[] = $output;
-	}
+	}	
 }
 
 $squeezeplug = new Squeezeplug_Setup();

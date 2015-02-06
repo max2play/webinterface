@@ -26,12 +26,16 @@
 class Squeezeplayer extends Service {
 	protected $pname = 'squeezelite';
 	public $viewname = 'Squeezelite';
+	public $soundDevices = array();
+	public $soundDeviceLog = '';
 	public $equal = array('01. 31 Hz', '02. 63 Hz', '03. 125 Hz', '04. 250 Hz', '05. 500 Hz', '06. 1 kHz', '07. 2 kHz', '08. 4 kHz', '09. 8 kHz', '10. 16 kHz');
 	public $equalvalues = array();	
 	
 	public function __construct(){								
 		parent::__construct();
 		$this->pluginname = _('Audioplayer');
+		
+		$this->getSoundDevices();
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'start'){			
@@ -103,10 +107,10 @@ class Squeezeplayer extends Service {
 	/**
 	 * get Alsaequal Settings
 	 */
-	public function getEqualizer(){		
-		$user = $this->getSystemUser();
+	public function getEqualizer(){				
 		$this->view->use_equalizer = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'USE_EQUALIZER');
-		if($this->view->use_equalizer){			
+		if($this->view->use_equalizer){
+			$user = $this->getSystemUser();
 			foreach($this->equal as $key){
 				$script = array('su - '.$user.' -c \'amixer -D equal sget "'.$key.'"\'');
 				$output = $this->writeDynamicScript($script);
@@ -118,15 +122,55 @@ class Squeezeplayer extends Service {
 	}
 	
 	/**
+	 * get Playable Sounddevices for Squeezelite / Shairport from Squeezelite
+	 * Style:
+	 * default:CARD=ALSA              - bcm2835 ALSA, bcm2835 ALSA - Default Audio Device
+	 */
+	public function getSoundDevices(){
+		$this->soundDeviceLog = $this->writeDynamicScript(array('/opt/squeezelite/squeezelite -l'));
+		//Regex zerlegung: 
+		// $matches[1][x] = Name
+		// $matches[2][x] = Karte/Device
+		// $matches[3][x] = Beschreibung
+		// $matches[4][x] = Name ist PCM Software Device
+		// $matches[5][x] = Beschreibung von PCM Software Device
+		// $matches[6][x] = PCM Software Device ohne Beschreibung
+		preg_match_all('=^[ ]*([^:\n]+)[ ]*:[ ]*([^-\n ]+)[ ]*-[ ]*(.*)[ ]*|^[ ]*([^\n- ]+)[ ]*-[ ]*(.*)[ ]*|^[ ]*([^\n-:]+)[ ]*$=im', $this->soundDeviceLog, $matches);
+		$count = count($matches[1]);
+		for($i = 0; $i < $count; $i++){
+			$dev = array();
+			//Fallunterscheidung je nach Devices (Software / Hardware / mit und ohne Hinweistext)
+			if($matches[1][$i] !== ''){
+				$dev['name'] = $matches[1][$i];
+				$dev['card'] = $matches[2][$i];			
+				$dev['description'] = $matches[3][$i];
+				$this->view->soundDevices[$matches[1][$i].':'.$matches[2][$i]] = $dev;
+			}elseif($matches[4][$i] !== ''){
+				$dev['name'] = $matches[4][$i]; 
+				$dev['card'] = '';
+				$dev['description'] = $matches[5][$i];
+				$this->view->soundDevices['plug:'.$matches[4][$i]] = $dev;
+			}elseif($matches[6][$i] !== ''){
+				$dev['name'] = $matches[6][$i];
+				$dev['card'] = '';
+				$dev['description'] = $matches[6][$i];
+				$this->view->soundDevices['plug:'.$matches[6][$i]] = $dev;
+			}
+		}
+		return true;
+	}
+	
+	/**
 	 * Save Command-Line Options from
 	 * squeezelite_soundcard
 	 * squeezelite_commandline
 	 */
 	public function saveSqueezeliteCommandline(){
 		$commandLine = array();
-		if(in_array($_GET['squeezelite_soundcard'], array('plug:dmixer', 'plug:plugequal', 'hw:CARD=Audio,DEV=0', 'plughw:CARD=Audio,DEV=0', 'dmix:CARD=Audio,DEV=0', 'hw:CARD=Audio,DEV=1', 'plughw:CARD=Audio,DEV=1', 'dmix:CARD=Audio,DEV=1', 'iec958:CARD=Device,DEV=0', 'hw:CARD=Device,DEV=0', 'dmix:CARD=Device,DEV=0', 'plughw:CARD=Device,DEV=0')))
-			$commandLine[] = '-o '.$_GET['squeezelite_soundcard'];
-		else{
+		$setsoundcard = $_GET['squeezelite_soundcard'];
+		if(in_array($setsoundcard, array_keys($this->view->soundDevices))){//array('plug:dmixer', 'plug:plugequal', 'hw:CARD=Audio,DEV=0', 'plughw:CARD=Audio,DEV=0', 'dmix:CARD=Audio,DEV=0', 'hw:CARD=Audio,DEV=1', 'plughw:CARD=Audio,DEV=1', 'dmix:CARD=Audio,DEV=1', 'iec958:CARD=Device,DEV=0', 'hw:CARD=Device,DEV=0', 'dmix:CARD=Device,DEV=0', 'plughw:CARD=Device,DEV=0'))){			
+			$commandLine[] = '-o '.$setsoundcard;
+		}else{
 			$commandLine[] = '-o plug:dmixer';
 		}
 		//TODO: Regex für korrekte Erkennung der Commandlineeingabe der Parameter
@@ -135,7 +179,13 @@ class Squeezeplayer extends Service {
 		$value = trim(implode(' ', $commandLine));
 		if($this->saveConfigFileParameter('/opt/max2play/audioplayer.conf', 'SQUEEZELITE_PARAMETER', $value)){
 			$this->view->message[] = str_replace('$SERVICE', $this->viewname ,_('Updated $SERVICE Settings - Restart $SERVICE to apply changes!'));
-		}
+			
+			if($this->status($this->pname) !== FALSE){
+				//Restart Service
+				$this->view->message[] = $this->stop($this->pname);
+				$this->view->message[] = $this->start($this->pname);
+			}
+		}				
 		
 		return true;
 	}
@@ -208,10 +258,10 @@ class Squeezeplayer extends Service {
 	}
 	
 	private function getAllLogs(){
-		$out['SQUEEZELITE VERSION'] = shell_exec('/opt/squeezelite/squeezelite --help | grep ^Squeezelite');
+		$out['SQUEEZELITE VERSION'] = shell_exec('/opt/squeezelite/squeezelite -t | grep ^Squeezelite');
 		//$out['SQUEEZESLAVE VERSION'] = shell_exec('/opt/squeezeslave/squeezeslave -V | grep ^squeezeslave');
 		$out['AUDIOPLAYER CONFIG'] = shell_exec('cat /opt/max2play/audioplayer.conf');		
-		$out['SQUEEZELITE -l'] = $this->writeDynamicScript(array('/opt/squeezelite/squeezelite -l'));
+		$out['SQUEEZELITE -l'] = $this->soundDeviceLog;
 		$this->view->debug = $out;
 		return true;
 	}
@@ -225,28 +275,7 @@ class Squeezeplayer extends Service {
 	private function updateSqueezelite(){
 		$outfile = '/opt/max2play/cache/update_squeezelite.txt';
 		ignore_user_abort(true);
-		set_time_limit(3000);
-		
-// 		if($ajax == 0){
-// 			ignore_user_abort(true);
-// 			set_time_limit(3000);			
-// 				$this->view->message[] = _('Update started');				
-// 				if($this->getProgressWithAjax($outfile, 1, 0)){
-// 					$shellanswer = $this->writeDynamicScript(array("/opt/max2play/update_callblocker.sh >> ".$outfile." &"));
-// 				}			
-// 		}else{
-// 			$status = $this->getProgressWithAjax($outfile);
-// 			$this->view->message[] = nl2br($status);
-// 			if(strpos($status, 'Finished') !== FALSE){
-// 				//Finished Progress - did not delete progressfile
-// 				if(strpos($status, '-lpthread -lm -lrt -ldl -o squeezelite') !== FALSE){
-// 					$this->view->message[] = _('UPDATE SUCCESSFUL');
-// 					shell_exec('rm '.$outfile);
-// 				}
-// 				else
-// 					$this->view->message[] = _('UPDATE NOT SUCCESSFUL');
-// 			}
-// 		}				
+		set_time_limit(3000);	
 		
 		$autostart = $this->checkAutostart($this->pname, true);
 		if($autostart){
@@ -264,7 +293,18 @@ class Squeezeplayer extends Service {
 			$this->selectAutostart(1);
 		}
 		return true;
-	}		
+	}
+	
+	/**
+	 * To Trim all values of an array
+	 * @param string $value reference
+	 * @return boolean
+	 */
+	private function trim_value(&$value)
+	{
+		$value = trim($value);
+		return true;
+	}
 		
 }
 
@@ -272,6 +312,6 @@ $sp = new Squeezeplayer();
 
 //zusätzlich die Shairport konfig laden
 include_once(dirname(__FILE__).'/Shairport.php');
-include_once(dirname(__FILE__).'/Squeezeslave.php');
+//include_once(dirname(__FILE__).'/Squeezeslave.php');
 	  
 include_once(dirname(__FILE__).'/../view/squeezeplayer.php');

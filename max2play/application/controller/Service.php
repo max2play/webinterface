@@ -65,7 +65,7 @@ class Service {
 		
 		$shellanswer = shell_exec("ps -Al | grep ".$name);		
 		if($shellanswer != ''){
-			preg_match('=([ ]?)([0-9]*)=', substr($shellanswer, 10,5), $match);
+			preg_match('=([ ]*)([0-9]*)=', substr($shellanswer, 10,5), $match);
 			if($match[2]){
 				$process_id = $match[2];
 				return $process_id;

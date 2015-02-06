@@ -78,6 +78,18 @@ class Filesystem extends Service {
 		$test2 = $m->setPath($_GET['path']);
 		$test3 = $m->setType($_GET['type']);
 		$test4 = $m->setOptions($_GET['options']);
+
+		if(strpos($m->getPath(), '/mnt/') === 0){			
+			//richtiges Verzeichnis
+			//Check ob Unterverzeichnis existiert
+			if(!file_exists($m->getPath())){
+				$this->writeDynamicScript(array('mkdir "'.$m->getPath().'"; chmod 777 "'.$m->getPath().'"'));
+				$this->view->message[] = _("Directory created: ".$m->getPath());
+			}
+		}else{
+			$test2 = false;
+			$this->view->message[] = _("Wrong Path: ".$m->getPath());
+		}
 		
 		//Hinzufügen in FSTAB hinter ##USERMOUNT (Trennlinie für Usereigene Mounts)
 		if($test1 && $test2 && $test3 && $test4){			

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <plugin>
+    <name>Squeezeplug</name>
+    <navigation>
+      <translate>Squeezeplug</translate>
+    </navigation>
+    <path>/plugins/squeezeplug/controller/Setup.php</path>
+    <active>1</active>
+    <default>1</default>
+  </plugin>
+  <plugin>
+    <name>Callbot Setup</name>
+    <navigation>
+      <translate>Callbot Setup</translate>
+    </navigation>
+    <path>/plugins/callbot/controller/Setup.php</path>
+    <active>0</active>
+  </plugin>
+  <plugin>
+    <name>Homematic Setup</name>
+    <navigation>
+      <translate>Homematic Setup</translate>
+    </navigation>
+    <path>/plugins/homematic/controller/Setup.php</path>
+    <active>0</active>
+  </plugin>
+  <plugin>
+    <name>Audioplayer</name>
+    <navigation>
+      <translate>Audioplayer</translate>
+    </navigation>
+    <path>/plugins/max2play_settings/controller/Squeezeplayer.php</path>
+    <active>1</active>
+  </plugin>
+  <plugin>
+    <name>XBMC (Mediacenter)</name>
+    <navigation>
+      <translate>XBMC (Mediacenter)</translate>
+    </navigation>
+    <path>/plugins/max2play_settings/controller/Xbmc.php</path>
+    <active>0</active>
+  </plugin>
+  <plugin>
+    <name>Settings / Reboot</name>
+    <navigation>
+      <translate>Settings / Reboot</translate>
+    </navigation>
+    <path>/plugins/max2play_settings/controller/Basic.php</path>
+    <active>1</active>
+  </plugin>
+  <plugin>
+    <name>Advanced Setup</name>
+    <navigation>
+      <translate>Advanced Setup</translate>
+    </navigation>
+    <path>/plugins/max2play_settings/controller/AdvancedSetup.php</path>
+    <active>0</active>
+  </plugin>
+  <plugin>
+    <name>Squeezeserver</name>
+    <navigation>
+      <translate>Squeezeserver</translate>
+    </navigation>
+    <path>/plugins/max2play_settings/controller/Squeezeserver.php</path>
+    <active>1</active>
+  </plugin>
+  <plugin>
+    <name>Filesystem Mount</name>
+    <navigation>
+      <translate>Filesystem Mount</translate>
+    </navigation>
+    <path>/plugins/max2play_settings/controller/Filesystem.php</path>
+    <active>1</active>
+  </plugin>
+  <plugin>
+    <name>Start</name>
+    <navigation>
+      <translate>Start</translate>
+    </navigation>
+    <path>/plugins/max2play_settings/controller/Index.php</path>
+    <active>0</active>
+  </plugin>
+  <plugin>
+    <name>WiFi / LAN</name>
+    <navigation>
+      <translate>WiFi / LAN</translate>
+    </navigation>
+    <path>/plugins/max2play_settings/controller/Wlan.php</path>
+    <active>1</active>
+  </plugin>
+  <plugin>
+    <name>Jivelite</name>
+    <navigation>
+      <translate>Jivelite</translate>
+    </navigation>
+    <path>/plugins/jivelite/controller/Setup.php</path>
+    <active>0</active>
+  </plugin>
+  <plugin>
+    <name>tellows Callblocker Blacklist</name>
+    <navigation>
+      <translate>tellows Callblocker Blacklist</translate>
+    </navigation>
+    <path>/plugins/callblocker/controller/Blacklist.php</path>
+    <active>0</active>
+  </plugin>
+  <plugin>
+    <name>tellows Callblocker Setup</name>
+    <navigation>
+      <translate>tellows Callblocker Setup</translate>
+    </navigation>
+    <path>/plugins/callblocker/controller/Setup.php</path>
+    <active>0</active>
+  </plugin>
+  <plugin>
+    <name>Exampleclass Setup</name>
+    <navigation>
+      <translate>Exampleclass Setup</translate>
+    </navigation>
+    <path>/plugins/example/controller/Setup.php</path>
+    <active>0</active>
+  </plugin>
+</config>

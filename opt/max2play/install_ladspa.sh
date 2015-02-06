@@ -33,7 +33,12 @@ pcm.headphones {
   rate 44100
  }
 }
-" >> /etc/asound.conf
+" >> /etc/asound.conf	
+	HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i BCM2708 | wc -l)
+	if [ "$HW_RASPBERRY" -gt "0" ]; then
+  		echo "Hardware is Raspberry - Replace Options in asound.conf"
+  		sed -i 's/slave.pcm "dmix:CARD=0,RATE=44100"/slave { pcm "hw:0,0";rate 44100;}/' /etc/asound.conf
+	fi	
 	alsa force-reload
 	echo "Install Finished - Use advanced Squeezelite-Config with \"-o headphones\" to use headphone-output with Squeezelite"
 else

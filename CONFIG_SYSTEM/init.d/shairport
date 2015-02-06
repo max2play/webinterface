@@ -9,9 +9,12 @@
 # Description:       Service script for shairport, command line airplay device
 ### END INIT INFO
 
-USER=odroid
+USER=$(grep -a "SYSTEM_USER" /opt/max2play/audioplayer.conf | sed -n -e 's/^[A-Z_]*\=//p')
+if [ "$USER" = "" ]; then
+    USER=odroid
+fi 
 NAME=$(cat /opt/max2play/playername.txt)
-SHAIRPORT_PARAMETER=$(grep -a "SHAIRPORT_PARAMETER" /opt/max2play/audioplayer.conf | sed -n -e 's/^.*\=//p')
+SHAIRPORT_PARAMETER=$(grep -a "SHAIRPORT_PARAMETER" /opt/max2play/audioplayer.conf | sed -n -e 's/^[A-Z_]*\=//p')
 
 case "$1" in
   start)

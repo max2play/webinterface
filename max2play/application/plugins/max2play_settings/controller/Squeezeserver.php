@@ -71,6 +71,7 @@ class Squeezeserver extends Service {
 		$this->view->installed = $this->checkInstall();
 		$this->view->autostart = $this->checkAutostart($this->pname);
 		$this->view->pid = $this->status($this->prozessname);
+		$this->getAllLogs();
 	}
 	
 	/**
@@ -117,7 +118,7 @@ class Squeezeserver extends Service {
 	 * @return boolean
 	 */
 	public function checkInstall(){
-		$shellanswer = shell_exec("sudo /opt/max2play/install_lms.sh check");
+		$shellanswer = shell_exec("sudo /opt/max2play/install_lms.sh check 2>/dev/null");
 		if(strpos($shellanswer, 'installed=1') !== FALSE){
 			return true;
 		}else 
@@ -132,7 +133,7 @@ class Squeezeserver extends Service {
 		$html = file_get_contents($slimdevices_download);
 		
 		//get Regular Builds
-		$count = preg_match_all('/<td><a href="(LogitechMediaServer[^"]+)">([^<]*)<\/a><\/td>/i', $html, $files);		
+		$count = preg_match_all('/<td><a href="(LogitechMediaServer_v7.8[^"]+)">([^<]*)<\/a><\/td>/i', $html, $files);		
 		for ($i = 0; $i < $count; ++$i) {
 			$name = str_replace('_v','_',substr($files[1][$i], 0, strlen($files[1][$i]) -1));
 			$this->lmsversions[substr($files[2][$i], 0, strlen($files[2][$i]) -1)] = $slimdevices_download.$files[1][$i].strtolower($name).'_all.deb';
@@ -140,7 +141,7 @@ class Squeezeserver extends Service {
 		
 		//get Nightly Builds
 		$html = file_get_contents($slimdevices_download.'nightly/');
-		$count = preg_match_all('/<a href=([^>]+)>([^<]*)<\/a><br>/i', $html, $versions);
+		$count = preg_match_all('/<a href=([^>]+(7\.8|7\.9))>([^<]*)<\/a><br>/i', $html, $versions);
 		for ($i = 0; $i < $count; ++$i) {			
 			$html_version = file_get_contents($slimdevices_download.'nightly/'.$versions[1][$i]);			
 			$found = preg_match_all('/<a href="(.*_all\.deb)">[^<]*<\/a>/i', $html_version, $html_link);
@@ -148,6 +149,12 @@ class Squeezeserver extends Service {
 				$this->lmsversions['Nightly '.$versions[2][$i]] = $slimdevices_download.'nightly/'.$html_link[1][0];
 			}
 		}
+		return true;
+	}
+	
+	private function getAllLogs(){
+		$out['SQUEEZESERVER LOG'] = shell_exec('cat /var/log/squeezeboxserver/server.log 2>/dev/null');		
+		$this->view->debug = $out;
 		return true;
 	}
 		

@@ -38,6 +38,7 @@
 	<?php if(file_exists(APPLICATION_PATH.'/../public/custom.css')) { ?>
 		<link rel='stylesheet' id=''  href='/custom.css' type='text/css' media='all' />
 	<?php } ?>
+	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 	<script>$(document).on("click", "input[type=button]", function() { $("body").addClass("loading");});</script>
 </head>
 

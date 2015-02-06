@@ -44,8 +44,8 @@
 		
 		<table>
 			<tr>
-				<td><?php echo _('Mountpoint') ?></td>
 				<td><?php echo _('Path') ?></td>
+				<td><?php echo _('Mountpoint') ?></td>
 				<td><?php echo _('Type') ?></td>
 				<td><?php echo _('Options') ?></td>
 				<td><?php echo _('Action') ?></td>

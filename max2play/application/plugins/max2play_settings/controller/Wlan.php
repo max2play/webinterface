@@ -80,7 +80,7 @@ class Wlan extends Service {
 			$shellanswer = str_replace('psk="'.$this->view->psk.'"', 'psk="'.$psk.'"', $shellanswer);
 		}
 		
-		$shellanswer_eth = shell_exec("cat ".$this->networkinterfaces);	
+		$shellanswer_eth = $this->writeDynamicScript(array("cat ".$this->networkinterfaces));
 		if($_GET['lanmac'] != '' && $this->view->lanmac != $_GET['lanmac'] && preg_match("=([0-9abcdefABCDEF]{2}:){5}[0-9abcdefABCDEF]{2}=", $_GET['lanmac'], $matches) == true){			
 			//Set rights to update Mac-Address-File
 			shell_exec("sudo /opt/max2play/change_mac_address.sh");
@@ -107,14 +107,14 @@ class Wlan extends Service {
 					array('#pre-up wpa_supplicant','#allow-hotplug wlan0','#auto wlan0','#iface wlan0 inet dhcp','#post-down killall'), 
 					array('pre-up wpa_supplicant','allow-hotplug wlan0','auto wlan0','iface wlan0 inet dhcp','post-down killall'), 
 					$shellanswer_eth);
-			shell_exec("echo '".$shellanswer_eth."' > ".$this->networkinterfaces);
+			$this->writeDynamicScript(array("echo '".$shellanswer_eth."' > ".$this->networkinterfaces));			
 		}elseif(($ssid == '' || $_GET['wlan_configured'] == false) && $wlanstatus == true){
 			$this->view->message[] = _('WLAN deactivated - no network choosen - please reboot');
 			$shellanswer_eth = str_replace(
 					array('pre-up wpa_supplicant','allow-hotplug wlan0','auto wlan0','iface wlan0 inet dhcp','post-down killall'),  
 					array('#pre-up wpa_supplicant','#allow-hotplug wlan0','#auto wlan0','#iface wlan0 inet dhcp','#post-down killall'),
 					$shellanswer_eth);
-			shell_exec("echo '".$shellanswer_eth."' > ".$this->networkinterfaces);
+			$this->writeDynamicScript(array("echo '".$shellanswer_eth."' > ".$this->networkinterfaces));
 		}
 		return true;
 	}
@@ -123,14 +123,11 @@ class Wlan extends Service {
 		
 		//Allgemeine Interface Config
 		$shellanswer_if = shell_exec("/sbin/ifconfig");
-		preg_match('=wlan0=', $shellanswer_if, $match);
-		if($match[0]){
-			$this->view->wlan_configured = true;
-		}
+		preg_match('=wlan0=', $shellanswer_if, $match);		
 		$this->view->ifconfig_txt = $shellanswer_if;
 		
 		
-		$shellanswer_eth = shell_exec("cat ".$this->networkinterfaces);
+		$shellanswer_eth = $this->writeDynamicScript(array("cat ".$this->networkinterfaces));
 		//Wenn Netzwerk gesetzt muss dieses in der etc/network/interfaces geladen werden
 		if(strpos($shellanswer_eth, '#pre-up wpa_supplicant') !== FALSE){
 			//WLAN ist deaktiviert
@@ -173,8 +170,8 @@ class Wlan extends Service {
 			$this->view->psk = '';			
 		}
 		
-		//Netzwerk Konfiguration ETH0 / /etc/smsc95xx_mac_addr löschen -> wird neu zugewiesen		
-		$shellanswer = shell_exec("cat /etc/smsc95xx_mac_addr");
+		//Netzwerk Konfiguration ODROID ETH0 / /etc/smsc95xx_mac_addr löschen -> wird neu zugewiesen		
+		$shellanswer = shell_exec("cat /etc/smsc95xx_mac_addr 2>/dev/null");
 		preg_match('=([0-9a-zA-Z:]*)=', $shellanswer, $match);		
 		//preg_match('=hwaddress ether ([0-9a-zA-Z:]*)=', $shellanswer_eth, $match);
 		if($match[1]){
