@@ -507,13 +507,13 @@ class Service {
 	
 	public function getHardwareInfo(){
 		$output = shell_exec("cat /proc/cpuinfo | grep Hardware");
-		if(strpos($output, 'BCM2708'))
+		if(strpos($output, 'BCM2708') || strpos($output, 'BCM2709'))
 			$this->info->hardware = 'Raspberry PI';
 		else{
 			preg_match('=Hardware.*: ([^ ]*)=', $output, $matches);
 			$this->info->hardware = $matches[1];
 		}
-		return true;
+		return $this->info->hardware;
 	}
 	
 	public function getSystemUser(){

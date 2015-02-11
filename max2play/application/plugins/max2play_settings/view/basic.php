@@ -41,7 +41,7 @@
 		</div>
 	<?php } ?>	
 	
-	<form action="" method="get">
+	<form id="settings" action="" method="get">
 	<input type="hidden" id="action" name="action" value="" />
 		
 	<table class="settings">
@@ -93,8 +93,7 @@
 		<b><?php echo _("Reboot / Update / Filesystem Settings") ?></b></p>
 	<input type="button" value="<?php echo _("Reboot") ?>" name="reboot" onclick="document.getElementById('action').value='reboot';submit();" />&nbsp;&nbsp;
 	<input type="button" value="<?php echo _("Shutdown") ?>" name="shutdown" onclick="document.getElementById('action').value='shutdown';submit();" />&nbsp;&nbsp;
-	<input type="button" value="<?php echo _("Expand Filesystem") ?>" name="expandfs" onclick="document.getElementById('action').value='expandfs';submit();" />&nbsp;&nbsp;
-	<input type="button" value="<?php echo _("Fix USB-Mount") ?>" name="fixusbmount" onclick="document.getElementById('action').value='fixusbmount';submit();" />&nbsp;&nbsp;
+	<input type="button" value="<?php echo _("Expand Filesystem") ?>" name="expandfs" onclick="document.getElementById('action').value='expandfs';submit();" />&nbsp;&nbsp;	
 	<input type="button" value="<?php echo _("Update Max2Play") ?>" name=checkMax2PlayUpdate onclick="document.getElementById('action').value='checkMax2PlayUpdate';submit();" />&nbsp;&nbsp;	
 	<br /><br />
 	
@@ -115,25 +114,90 @@
 	<br /><br />
 	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
 		<span class="ui-icon ui-icon-gear" style="float:left; margin:-2px 5px 0 0;"></span>
-		<b><?php echo _("Plugin Configuration - Multiselect") ?></b></p>		
-	<?php echo _('Activate Plugins by selecting them. Do multiple Selects by holding &quot;Strg&quot; or &quot;Shift&quot; and Mouseclick') ?>
-	<br />
-	<select name="plugins[]" multiple size="10">
-	<?php foreach($basic->view->pluginselect as $ps) {?>
-		<option value="<?php echo $ps['name'] ?>" <?php if($ps['active']) echo 'selected'; ?>><?php echo _($ps['name']); ?></option>
-	<?php }?>
-	</select>
-	<br /><br />
+		<b><?php echo _("Plugin Configuration - Activate / Deactivate") ?></b></p>		
+	<?php echo _('Activate Plugins by selecting and moving them to the "Active Plugins". You may change the order of the active Plugins in the navigation bar by selecting them and move up or down. Plugins that are not active will not show up in the navigation bar!') ?>
+	<br style="margin-bottom:10px;" />
+	<div style="float:left;"><b><?php echo _("Available Plugins"); ?></b><br />
+		<select name="plugins" id="plugins" multiple size="10" style="float:left;">
+		<?php foreach($basic->view->pluginselect as $ps) {
+			if(!isset($ps['active']) || $ps['active'] == false) { ?>
+				<option value="<?php echo $ps['name'] ?>"><?php echo _($ps['name']); ?></option>
+		<?php }}?>
+		</select>
+	</div>
 	
-	<?php echo _('Default Plugin that should be the first in the navigation') ?>
+	<div style="float:left;">
+		<input id="pluginadd" type="button" value=">" style="width:40px;margin:10px;margin-top:50px;" /><br />	
+		<input id="pluginremove" type="button" value="<" style="width:40px;margin:10px;" /><br />
+	</div>
+	
+	<div style="float:left;"><b><?php echo _("Active Plugins"); ?></b><br />
+		<select name="activeplugin[]" id="activeplugin" multiple size="10" style="float:left;">
+		<?php foreach($basic->view->pluginselect as $ps) { 
+			if(isset($ps['active']) && $ps['active'] == true) { ?>
+				<option value="<?php echo $ps['name'] ?>"><?php echo _($ps['name']); ?></option>
+		<?php }}?>
+		</select>
+	</div>
+	<div style="float:left;">
+		<input id="btn-up" type="button" value="<?php echo _("Move Up"); ?>" style="margin:10px;margin-top:50px;" /><br />
+	    <input id="btn-down" type="button" value="<?php echo _("Move Down");?>" style="margin:10px;" />
+	</div>
+	
+	<br style="clear:both;" />
+	<br />
+	
+	<?php echo _('Default Plugin that should be opened on start of Max2Play-Webinterface') ?>
 	<br />
 	<select name="defaultplugin">
 	<?php foreach($basic->view->pluginselect as $ps) { ?>		
 		<option value="<?php echo $ps['name'] ?>" <?php if(isset($ps['default']) && $ps['default'] == 1) echo 'selected'; ?>><?php echo _($ps['name']); ?></option>
 	<?php }?>
 	</select>
+	
+	
+	<script type="text/javascript">
+	function moveSelectedItems(source, destination){
+	    var selected = $(source+' option:selected').remove();
+	    var sorted = $.makeArray($(destination+' option').add(selected));//.sort(function(a,b){return $(a).text() > $(b).text() ? 1:-1;})
+	    $(destination).empty().append(sorted);	    
+	}
+	</script>
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+	    $('#pluginadd').click(function(){
+	        moveSelectedItems('#plugins', '#activeplugin');return false;
+	    });	    
+	    $('#pluginremove').click(function(){
+	        moveSelectedItems('#activeplugin', '#plugins');return false;
+	    });
+
+	    $('#btn-up').bind('click', function() {
+	        $('#activeplugin option:selected').each( function() {
+	            var newPos = $('#activeplugin option').index(this) - 1;
+	            if (newPos > -1) {
+	                $('#activeplugin option').eq(newPos).before("<option value='"+$(this).val()+"' selected='selected'>"+$(this).text()+"</option>");
+	                $(this).remove();
+	            }
+	        });return false;
+	    });
+	    $('#btn-down').bind('click', function() {
+	        var countOptions = $('#activeplugin option').size();
+	        $('#activeplugin option:selected').each( function() {
+	            var newPos = $('#activeplugin option').index(this) + 1;
+	            if (newPos < countOptions) {
+	                $('#activeplugin option').eq(newPos).after("<option value='"+$(this).val()+"' selected='selected'>"+$(this).text()+"</option>");
+	                $(this).remove();
+	            }
+	        });return false;
+	    });  
+	});
+	</script>
+	
 	<br /><br />
-	<input type="button" value="<?php echo _("Save Plugin Config - WARNING: removes Navigation for all NOT Selected") ?>" name="pluginconfig" onclick="document.getElementById('action').value='pluginconfig';submit();" /><br />	
+	<input type="button" value="<?php echo _("Save Plugin Config - WARNING: removes Navigation for all NOT Selected") ?>" name="pluginconfig" id="pluginconfig" 
+		   onclick="document.getElementById('action').value='pluginconfig';$('#activeplugin option').prop('selected', 'true');submit();" /><br />	
 	<br /><br />
 	<?php echo _('You may install new Plugins by entering the http-link to the Pluginfile (zip/tar/tar.gz). <a href="http://www.max2play.com/features/plugins/" target="_blank"> A list of Max2Play-Plugins can be found here</a>.') ?>
 	<input type="text" id="installplugin" name="installplugin" value="" />	
@@ -146,5 +210,5 @@
 			echo "#### ". $key. " ####\n"; 
 			 echo $debug." \n\n"; 
 		 }?></textarea>
-</div>	
+</div>
 															

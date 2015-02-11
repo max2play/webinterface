@@ -33,9 +33,10 @@ class Xbmc extends Service {
 	
 	public function __construct(){								
 		parent::__construct();
-		$this->pluginname = _('XBMC (Mediacenter)');
-		if (file_exists('/usr/local/bin/kodi'))
-			$this->pname = 'kodi';
+		$this->pluginname = _('XBMC / Kodi');
+		
+		if (file_exists('/usr/local/bin/kodi') || file_exists('/usr/bin/kodi'))
+			$this->pname = 'kodi';		
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'start'){			
@@ -47,15 +48,20 @@ class Xbmc extends Service {
 					sleep(5);
 					$this->view->message[] = _('Restart Desktop-Manager completed (initialized Display)');
 				}				
-				//dafür muss unter www-data mittels ssh-keygen ein Key erzeugt und zu odroid exportiert werden!
-				//$this->view->message[] = $this->start($this->pname, '/usr/bin/ssh odroid@localhost "export DISPLAY=\':0\'; /opt/max2play/start_xbmc.sh > /dev/null 2>&1 &"');
 				
-				//Alternative Methode:
-				$this->view->message[] = $this->start($this->pname, 'export DISPLAY=\':0\';sudo --user=odroid -H -s /opt/max2play/start_xbmc.sh > /dev/null 2>&1 &', '',true);					
+				if($this->getSystemUser() == 'pi'){
+					//auf Rasbperry PI 1/2
+					$this->view->message[] = $this->start($this->pname, 'export DISPLAY=\':0\';sudo -u pi -H -s /opt/max2play/start_xbmc.sh > /dev/null 2>&1 &', '',true);
+					sleep(3);
+				}else{
+					//Methode odroid
+					$this->view->message[] = $this->start($this->pname, 'export DISPLAY=\':0\';sudo --user=odroid -H -s /opt/max2play/start_xbmc.sh > /dev/null 2>&1 &', '',true);
+				}
 			}
 			
-			if($_GET['action'] == 'stop'){			
-				$this->view->message[] = $this->stop($this->pname.'.bin', 'sudo kill -9 $PID');
+			if($_GET['action'] == 'stop'){											
+				$this->stop('kodi-standalone', 'sudo kill -9 $PID');
+				$this->view->message[] = $this->stop($this->pname.'.bin', 'sudo kill -9 $PID');				
 			}
 			
 			if($_GET['action'] == 'save'){							
@@ -66,7 +72,7 @@ class Xbmc extends Service {
 			}
 		}
 		$this->view->autostart = $this->checkAutostart($this->pname, true);
-		$this->view->pid = $this->status($this->pname);
+		$this->view->pid = $this->status($this->pname.'.bin');
 		$this->getXbmcVersion();
 	}
 

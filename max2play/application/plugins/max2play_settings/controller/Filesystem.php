@@ -78,8 +78,8 @@ class Filesystem extends Service {
 		$test2 = $m->setPath($_GET['path']);
 		$test3 = $m->setType($_GET['type']);
 		$test4 = $m->setOptions($_GET['options']);
-
-		if(strpos($m->getPath(), '/mnt/') === 0){			
+		//only allowed in mnt and media to mount directories
+		if(strpos($m->getPath(), '/mnt/') === 0 || strpos($m->getPath(), '/media/') === 0){			
 			//richtiges Verzeichnis
 			//Check ob Unterverzeichnis existiert
 			if(!file_exists($m->getPath())){

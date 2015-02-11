@@ -68,14 +68,19 @@ class Squeezeplayer extends Service {
 			}
 			if($_GET['update_squeezelite'] == 1){
 				$this->updateSqueezelite();
-			}						
+			}
+			if($_GET['action'] == 'setAudioOutputPI'){
+				$this->setAudioOutputPI($_GET['AudioOutputPI']);
+			}
 			
 		}
 		$this->getEqualizer();
 		
+		$this->getAudioOutputPI();
+		
 		$this->configLADSPA();
 		
-		$this->getAllLogs();
+		$this->getAllLogs();		
 		
 		$this->getSqueezeliteCommandline();
 		
@@ -293,6 +298,30 @@ class Squeezeplayer extends Service {
 			$this->selectAutostart(1);
 		}
 		return true;
+	}
+	
+	/**
+	 * Function for Raspberry PI to switch Output between Default, Jack and HDMI
+	 * Default: if hdmi is connected it will be choosen	
+	 */
+	private function setAudioOutputPI($value = 0){
+		if($this->getHardwareInfo() == 'Raspberry PI'){
+			$this->view->audioOutputPI = $this->writeDynamicScript(array('sudo -u pi amixer cset numid=3 '.$value));
+			$this->view->message[] = str_replace('$VALUE',$value, _('Raspberry PI Audio Output set to $VALUE'));
+		}
+		return true;
+	}
+	
+	/**
+	 * Function for Raspberry PI to get Audio-Output 
+	 * can be Default=0, Headphone-Jack=1 or HDMI=2
+	 */
+	private function getAudioOutputPI(){
+		if($this->getHardwareInfo() == 'Raspberry PI'){
+			$this->view->audioOutputPI = trim($this->writeDynamicScript(array('sudo -u pi amixer cget numid=3 | grep ": values=" | sed "s/.*values=//"')), "\n");
+			return $this->view->audioOutputPI;
+		}else
+			return false;
 	}
 	
 	/**

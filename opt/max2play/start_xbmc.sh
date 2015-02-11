@@ -17,7 +17,9 @@ if [ "1" -gt "$xbmcrunning" ]; then
 		
 	if [ -e /usr/local/bin/kodi ]; then
 		/usr/local/bin/kodi
-	else 	
+	elif [ -e /usr/bin/kodi-standalone ]; then
+        /usr/bin/kodi-standalone
+    else 	
 		/usr/local/bin/xbmc
 	fi
 else

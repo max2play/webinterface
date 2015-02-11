@@ -58,10 +58,10 @@
 		<td><?php echo _("Password") ?>:</td>
 		<td><input type="text" id="psk" name="psk" value="<?php echo $wlan->view->webpsk ?>" /></td>
 	</tr>
-	<tr>
+	<?php /*<tr>
 		<td><?php echo _("Group Cipher") ?>:</td>
 		<td><input type="text" id="groupcipher" name="groupcipher" value="<?php echo $wlan->view->groupcipher ?>" /></td>
-	</tr>	
+	</tr>*/	?>
 	</table>
 
 	<br /><br />

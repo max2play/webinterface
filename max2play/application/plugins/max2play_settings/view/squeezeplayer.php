@@ -214,40 +214,26 @@ $(function() {
 		</div>
 		<br /><br /><b><?php echo str_replace('$SERVICENAME', $ap->viewname, _('Autostart $SERVICENAME')) ?>:</b><br />
 		<input type="checkbox" <?php if($ap->view->autostart) echo "checked"; ?> value="1" name="autostartap" />
-		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
-		
-		<?php /*<br /><br /><br />
-		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
-			<span class="ui-icon ui-icon-volume-on" style="float:left; margin:-2px 5px 0 0;"></span>
-			<?php if ($ss->view->pid) { ?>
-				<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $ss->viewname, _('$SERVICENAME is running with processID')) ?> <b><?php echo $ss->view->pid ?></b></p>
-				<input type="button" value="<?php echo str_replace('$SERVICENAME', $ss->viewname, _('stop $SERVICENAME')) ?>" name="stop" onclick="document.getElementById('action').value='stopss';submit();" />
-				<input type="button" value="<?php echo str_replace('$SERVICENAME', $ss->viewname, _('kill $SERVICENAME')) ?>" name="kill" onclick="document.getElementById('action').value='killss';submit();" />
-			<?php }else { ?>
-				<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $ss->viewname, _('$SERVICENAME not running')) ?></p>
-				<input type="button" value="<?php echo str_replace('$SERVICENAME', $ss->viewname, _('start $SERVICENAME')) ?>" name="start" onclick="document.getElementById('action').value='startss';submit();" />	
-			<?php } ?>
-		<input type="submit" onclick="document.getElementById('squeezeslavedetails').style.display='';return false;" value="<?php echo _('Edit Advanced Options') ?>" />
-		<div id="squeezeslavedetails" class="optiondetails" style="display:none;">
-			<table>
-				<tr>
-					<td><?php echo _('Soundcard') ?></td>
-					<td><select name="soundcard">
-						<option value='-n dmixer'>Default dmixer (Alsa Mixer Device)</option>
-						<option value='-n plugequal'>Use Equalizer</option>
-						</select>
-					</td>
-					<td><?php echo _('Select Audio output') ?></td>
-				</tr>
-			</table>
-			<input type="button" name="save" value="<?php echo _('save') ?>" onclick="document.getElementById('action').value='save';submit();" />
-		</div>
-		<br /><br /><b><?php echo str_replace('$SERVICENAME', $ss->viewname, _('Autostart $SERVICENAME')) ?>:</b><br />
-		<input type="checkbox" <?php if($ss->view->autostart) echo "checked"; ?> value="1" name="autostartss" />
-		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
-		*/ ?>
+		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />				
 		<br />
-	
+		
+		<?php if(isset($sp->view->audioOutputPI)) { ?>
+			<p class="ui-state-default ui-corner-all" style="padding:4px;margin-top:3em;">
+				<span class="ui-icon ui-icon-gear" style="float:left; margin:-2px 5px 0 0;"></span>
+				<?php echo _('Set Audio Output on Raspberry PI') ?>				
+			</p>
+			<br />
+			<?php echo _("Use this to change the audio output of your Raspberry PI - if you have HDMI connected and you want to output sound through the headphone jack.")?>
+			<br />
+			<select name="AudioOutputPI">
+					<option <?php if($sp->view->audioOutputPI == '0') echo 'selected'; ?> value='0'><?php echo _("Default (use HDMI if plugged)") ?></option>
+					<option <?php if($sp->view->audioOutputPI == '1') echo 'selected'; ?> value='1'><?php echo _("force Headphone Jack") ?></option>
+					<option <?php if($sp->view->audioOutputPI == '2') echo 'selected'; ?> value='2'><?php echo _("force HDMI") ?></option>					
+			</select>
+			&nbsp;&nbsp;
+			<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='setAudioOutputPI';submit();" />
+		<?php } ?>
+		
 		<?php foreach($sp->equalvalues as $key => $value) { ?>
 			<input type="hidden" id="<?php echo $key ?>" name="settingsEqualizer[<?php echo $key ?>]" value="<?php echo $value; ?>">
 		<?php } ?>
@@ -256,6 +242,7 @@ $(function() {
 			<span class="ui-icon ui-icon-signal" style="float:left; margin:-2px 5px 0 0;"></span>
 			<?php echo _('Graphic Equalizer') ?>
 		</p>
+		<br />
 		<?php echo _('Use Equalizer (activate settings in this webinterface)') ?> <input type="checkbox" name="use_equalizer" <?php if ($sp->view->use_equalizer == 1) echo "checked" ?> value="1" />
 		<?php if($sp->view->use_equalizer == 1) { ?>
 			<div id="eq">
@@ -308,5 +295,4 @@ $(function() {
 			 echo $debug." \n\n"; 
 		 }?>
 	</textarea>
-</div>	
-															
+</div>

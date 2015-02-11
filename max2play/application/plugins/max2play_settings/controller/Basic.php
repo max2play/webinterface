@@ -62,7 +62,7 @@ class Basic extends Service {
 			}
 			
 			if($_GET['action'] == 'pluginconfig'){
-				$this->view->message[] = $this->pluginConfig($_GET['plugins'], $_GET['defaultplugin']);
+				$this->view->message[] = $this->pluginConfig($_GET['activeplugin'], $_GET['defaultplugin']);
 				$this->loadViewHeader(true);
 			}
 			if($_GET['action'] == 'installplugin'){				
@@ -352,19 +352,26 @@ class Basic extends Service {
 		$plugins['configuration'] = $pluginConf['plugin'];
 		$plugins['available'] = $plugins_avail;
 		//Prepare Output for Choosing plugins in Multi SELECT
+		$pos = 100;
+		$position = 0;
 		foreach($plugins['available'] as $pa){
-			$active = $default = false;
-			foreach($plugins['configuration'] as $pc){
+			$active = $default = $position = false;
+			foreach($plugins['configuration'] as $key => $pc){
 				if($pa['name'] == $pc['name'] && isset($pc['active']) && $pc['active'] == 1){
 					$active = true;
+					$position = $key;
 					if(isset($pc['default']) && $pc['default'] == 1){
 						$default = 1;
 					}
 				}
 			}
-			$pluginselect[$pa['name']] = array('name' => $pa['name'], 'active' => $active, 'default' => $default);
+			//$pluginselect[$pa['name']] = array('name' => $pa['name'], 'active' => $active, 'default' => $default);
+			if($active)
+				$pluginselect[$position] = array('name' => $pa['name'], 'active' => $active, 'default' => $default);
+			else
+				$pluginselect[$pos++] = array('name' => $pa['name'], 'active' => $active, 'default' => $default);
 		}
-		
+		ksort($pluginselect);
 		$this->view->pluginselect = $pluginselect;
 		return $plugins;
 	}
@@ -379,19 +386,20 @@ class Basic extends Service {
 		
 		//Check active Plugins
 		$plugins = $this->parsePlugins();
-		$pos = 1;
+		$pos = 100;
 		foreach($plugins['available'] as $pa){
 			$pa['active'] = 0;
-			foreach($pluginchoose as $pc){
-				if($pc == $pa['name'])
+			$pa['pos'] = $pos++;
+			foreach($pluginchoose as $key => $pc){
+				if($pc == $pa['name']){
 					$pa['active'] = 1;
+					$pa['pos'] = $key;
+				}
 			}
 			if($defaultplugin == $pa['name']){
-				$pa['default'] = 1;
-				$newconfig['plugin'][0] = $pa;
-			}else{
-				$newconfig['plugin'][$pos++] = $pa;
+				$pa['default'] = 1;				
 			}
+			$newconfig['plugin'][$pa['pos']] = $pa;			
 		}
 		ksort($newconfig['plugin']);
 		
@@ -404,7 +412,7 @@ class Basic extends Service {
 		global $service;
 		$service->plugins = $this->getActivePlugins();
 		
-		return _('Plugin configuration updated - Reload Page to see changes');				
+		return _('Plugin configuration updated');				
 		
 	}
 	

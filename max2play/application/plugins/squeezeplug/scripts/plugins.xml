@@ -7,23 +7,8 @@
     </navigation>
     <path>/plugins/squeezeplug/controller/Setup.php</path>
     <active>1</active>
+    <pos>0</pos>
     <default>1</default>
-  </plugin>
-  <plugin>
-    <name>Callbot Setup</name>
-    <navigation>
-      <translate>Callbot Setup</translate>
-    </navigation>
-    <path>/plugins/callbot/controller/Setup.php</path>
-    <active>0</active>
-  </plugin>
-  <plugin>
-    <name>Homematic Setup</name>
-    <navigation>
-      <translate>Homematic Setup</translate>
-    </navigation>
-    <path>/plugins/homematic/controller/Setup.php</path>
-    <active>0</active>
   </plugin>
   <plugin>
     <name>Audioplayer</name>
@@ -32,30 +17,7 @@
     </navigation>
     <path>/plugins/max2play_settings/controller/Squeezeplayer.php</path>
     <active>1</active>
-  </plugin>
-  <plugin>
-    <name>XBMC (Mediacenter)</name>
-    <navigation>
-      <translate>XBMC (Mediacenter)</translate>
-    </navigation>
-    <path>/plugins/max2play_settings/controller/Xbmc.php</path>
-    <active>0</active>
-  </plugin>
-  <plugin>
-    <name>Settings / Reboot</name>
-    <navigation>
-      <translate>Settings / Reboot</translate>
-    </navigation>
-    <path>/plugins/max2play_settings/controller/Basic.php</path>
-    <active>1</active>
-  </plugin>
-  <plugin>
-    <name>Advanced Setup</name>
-    <navigation>
-      <translate>Advanced Setup</translate>
-    </navigation>
-    <path>/plugins/max2play_settings/controller/AdvancedSetup.php</path>
-    <active>0</active>
+    <pos>1</pos>
   </plugin>
   <plugin>
     <name>Squeezeserver</name>
@@ -64,6 +26,16 @@
     </navigation>
     <path>/plugins/max2play_settings/controller/Squeezeserver.php</path>
     <active>1</active>
+    <pos>2</pos>
+  </plugin>
+  <plugin>
+    <name>Settings / Reboot</name>
+    <navigation>
+      <translate>Settings / Reboot</translate>
+    </navigation>
+    <path>/plugins/max2play_settings/controller/Basic.php</path>
+    <active>1</active>
+    <pos>3</pos>
   </plugin>
   <plugin>
     <name>Filesystem Mount</name>
@@ -72,14 +44,7 @@
     </navigation>
     <path>/plugins/max2play_settings/controller/Filesystem.php</path>
     <active>1</active>
-  </plugin>
-  <plugin>
-    <name>Start</name>
-    <navigation>
-      <translate>Start</translate>
-    </navigation>
-    <path>/plugins/max2play_settings/controller/Index.php</path>
-    <active>0</active>
+    <pos>4</pos>
   </plugin>
   <plugin>
     <name>WiFi / LAN</name>
@@ -88,30 +53,16 @@
     </navigation>
     <path>/plugins/max2play_settings/controller/Wlan.php</path>
     <active>1</active>
+    <pos>5</pos>
   </plugin>
   <plugin>
-    <name>Jivelite</name>
+    <name>XBMC / Kodi</name>
     <navigation>
-      <translate>Jivelite</translate>
+      <translate>XBMC / Kodi</translate>
     </navigation>
-    <path>/plugins/jivelite/controller/Setup.php</path>
-    <active>0</active>
-  </plugin>
-  <plugin>
-    <name>tellows Callblocker Blacklist</name>
-    <navigation>
-      <translate>tellows Callblocker Blacklist</translate>
-    </navigation>
-    <path>/plugins/callblocker/controller/Blacklist.php</path>
-    <active>0</active>
-  </plugin>
-  <plugin>
-    <name>tellows Callblocker Setup</name>
-    <navigation>
-      <translate>tellows Callblocker Setup</translate>
-    </navigation>
-    <path>/plugins/callblocker/controller/Setup.php</path>
-    <active>0</active>
+    <path>/plugins/max2play_settings/controller/Xbmc.php</path>
+    <active>1</active>
+    <pos>6</pos>
   </plugin>
   <plugin>
     <name>Exampleclass Setup</name>
@@ -120,5 +71,42 @@
     </navigation>
     <path>/plugins/example/controller/Setup.php</path>
     <active>0</active>
+    <pos>100</pos>
+  </plugin>
+  <plugin>
+    <name>Advanced Setup</name>
+    <navigation>
+      <translate>Advanced Setup</translate>
+    </navigation>
+    <path>/plugins/max2play_settings/controller/AdvancedSetup.php</path>
+    <active>0</active>
+    <pos>101</pos>
+  </plugin>
+  <plugin>
+    <name>Start</name>
+    <navigation>
+      <translate>Start</translate>
+    </navigation>
+    <path>/plugins/max2play_settings/controller/Index.php</path>
+    <active>0</active>
+    <pos>102</pos>
+  </plugin>
+  <plugin>
+    <name>tellows Callblocker Blacklist</name>
+    <navigation>
+      <translate>tellows Callblocker Blacklist</translate>
+    </navigation>
+    <path>/plugins/callblocker/controller/Blacklist.php</path>
+    <active>0</active>
+    <pos>109</pos>
+  </plugin>
+  <plugin>
+    <name>tellows Callblocker Setup</name>
+    <navigation>
+      <translate>tellows Callblocker Setup</translate>
+    </navigation>
+    <path>/plugins/callblocker/controller/Setup.php</path>
+    <active>0</active>
+    <pos>110</pos>
   </plugin>
 </config>

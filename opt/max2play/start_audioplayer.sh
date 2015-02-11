@@ -2,7 +2,7 @@
 echo "Squeezelite und Shairport starten, falls XBMC nicht läuft entsprechend autostart.conf"
 echo "Check auf laufenden XBMC - Pulseaudio VS Alsa bringt Probleme - Alternativ Check auf USB-DAC (Nur Squeezelite)"
 
-xbmcrunning=$(ps -Al | grep xbmc | wc -l)
+xbmcrunning=$(ps -Al | grep "xbmc.bin\|kodi.bin" | wc -l)
 
 useusbdac=$(grep -a USE_USB_DAC=1 /opt/max2play/audioplayer.conf | wc -l)
 

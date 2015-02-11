@@ -1,7 +1,15 @@
 #!/bin/bash
 # Preparations for different Systems: ODROID U3/C1/Raspberry PI
-# start with "sudo install_max2play.sh firststart"
-# after reboot just start install_max2play.sh
+echo "#### Max2Play-Installer for ODROID U3/C1/Raspberry PI ####"
+echo "This script installs Max2Play-Scripts to /opt/max2play and the webinterface to /var/www/max2play"
+echo " - On first start it will do an update/upgrade and expand filesystem and get Max2Play files - then it automatically rebootes"
+echo " - On second start it installs all the fancy stuff and brings the webinterface to life"
+echo "Depending on the system (ODROID/PI) it installs or compiles differents packages and its dependencies like squeezelite, Kodi, shairport, samba, etc." 
+echo "Parameters to change the default behavior of this script:"
+echo ""
+echo "Add Execute rights with 'chmod 777 install_max2play.sh'"
+echo "RUN with 'sudo install_max2play.sh 2>&1 | tee install_max2play.log' to save Install-Logfile and see output on console!"
+echo ""
 
 CWD=$(pwd)
 
@@ -18,7 +26,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
   echo "Hardware is Raspberry"
 fi
 
-if [ "$1" = "firststart" ]; then
+if [ ! -e /opt/max2play/ ]; then
 	sudo apt-get update
 	echo "Y" | sudo apt-get upgrade
 	#get it FROM BETA!!!
@@ -31,13 +39,6 @@ if [ "$1" = "firststart" ]; then
 	sudo /opt/max2play/expandfs.sh
 	echo "Expand Filesystem finished"
 	reboot
-	exit 0
-elif [ "$1" != "install" ]; then
-	echo "Start with Parameter 'install_max2play.sh firststart' or 'install_max2play.sh install'"
-	echo "firststart: update/upgrade and expand filesystem and get Max2Play files - automatically rebootes"
-	echo "install: do all the fancy stuff and bring the webinterface to life"
-	echo "This Script should be placed in /root"
-	echo "Add Execute rights with 'chmod 777 install_max2play.sh'"
 	exit 0
 fi
 
@@ -57,7 +58,7 @@ cp max2play/CONFIG_SYSTEM/apache2/sites-enabled/max2play.conf /etc/apache2/sites
 sed -i 's/LogLevel warn/LogLevel error/' /etc/apache2/apache2.conf
 cp -r max2play/max2play/ /var/www/max2play 
 sudo /etc/init.d/apache2 restart
-sudo echo "Y" | apt-get install samba samba-common mc
+sudo echo "Y" | apt-get install samba samba-common samba-common-bin mc
 #NOT neccesary anymore: allow www-data access ssh
 
 sudo apt-get install debconf-utils
@@ -80,7 +81,7 @@ sudo apt-get install ifplugd
 sudo echo "Y" | apt-get install nmap
 sudo echo "Y" | apt-get remove xscreensaver
 
-#HDidle
+# HD-idle
 dpkg -i max2play/hd-idle_1.05_armhf.deb
 #Config kopieren nach /etc/default
 
@@ -145,7 +146,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	echo "SYSTEM_USER=pi" >> /opt/max2play/audioplayer.conf	
 	echo -e "Y\ny\n" | apt-get install libavformat-dev ffmpeg libmpg123-dev libfaad-dev libvorbis-dev libmad0-dev libflac-dev libasound2-dev
 	pushd /tmp
-	wget -O soxr.tar.gz "http://downloads.sourceforge.net/project/soxr/soxr-0.1.1-Source.tar.xz"
+	wget -O soxr.tar.gz --max-redirect=3 "http://downloads.sourceforge.net/project/soxr/soxr-0.1.1-Source.tar.xz"
 	tar -xf soxr.tar.gz
 	cd soxr*
 	./go
@@ -168,7 +169,26 @@ chmod 777 /opt/squeezelite/log
 cp /tmp/squeezelite/squeezelite /opt/squeezelite/
 pushd $CWD
 
-#Squeezeboxserver unter Ubuntu 14.04
+#### Install DLNA CLIENT ####
+pushd /tmp
+git clone https://github.com/hzeller/gmrender-resurrect.git
+cd gmrender-resurrect
+echo "Y" | sudo apt-get install autoconf automake libtool
+echo "Y" | sudo apt-get install libupnp-dev libgstreamer0.10-dev \
+    gstreamer0.10-plugins-base gstreamer0.10-plugins-good \
+    gstreamer0.10-plugins-bad gstreamer0.10-plugins-ugly \
+    gstreamer0.10-ffmpeg \
+    gstreamer0.10-pulseaudio gstreamer0.10-alsa
+sudo ./autogen.sh
+sudo ./configure
+sudo make
+sudo make install
+sudo cp scripts/init.d/gmediarenderer /etc/init.d/
+# UPNP_DEVICE_NAME auf hostname setzen
+sudo sed -i 's/UPNP_DEVICE_NAME=.*/UPNP_DEVICE_NAME=$(cat \/etc\/hostname)/' /etc/init.d/gmediarenderer
+pushd $CWD
+
+#### Squeezeboxserver unter Ubuntu 14.04 (Perl 5.18) ####
 echo "Y" | apt-get install libungif-bin
 #symlinks von /usr/lib/libungif.so auf /usr/lib/arm-linux.../libgif.so
 #cd /tmp
@@ -216,9 +236,23 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	sudo amixer -q set "PCM" 100
 	sudo alsactl store 0
 	
+	#Kodi - http://michael.gorven.za.net/
+	echo "deb http://archive.mene.za.net/raspbian wheezy contrib" >> /etc/apt/sources.list.d/mene.list
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key 5243CDED
+	sudo sudo apt-get update
+	echo "Y" | apt-get install kodi
+	sudo echo "KERNEL==\"tty[0-9]*\", GROUP=\"tty\", MODE=\"0660\"" >> /etc/udev/rules.d/99-input.rules 
+	sudo usermod -a -G tty pi
+	sudo echo "gpu_mem=128" >> /boot/config.txt
+	#Add Autostart Option	
+	sudo sed -i 's/^exit 0/#Max2Play\nsudo -u pi -H -s \/opt\/max2play\/autostart_xbmc.sh > \/dev\/null 2>\&1 \&\n\nexit 0/' /etc/rc.local
+	
 	echo "TODO: Update to latest Beta - nur möglich nach eMail-Adresseingabe in Max2Play-Webinterface"
 	echo "TODO: Reboot!"	
 fi
+
+#Add Net-Availability Check for Mountpoints to /etc/rc.local
+sudo sed -i "s/^exit 0/#Network Check for Mountpoints\nCOUNTER=0;while \[ -z \"\$\(\/sbin\/ifconfig eth0 \| grep -i 'inet ad'\)\" -a -z \"\$\(\/sbin\/ifconfig wlan0 \| grep -i 'inet ad'\)\" -a \"\$COUNTER\" -lt \"5\" \]; do echo \"Waiting for network\";let \"COUNTER\+\+\";sleep 3;done;mount -a\n\nexit 0/" /etc/rc.local
 
 #Change Password to default
 echo -e "max2play\nmax2play\n" | passwd
