@@ -200,9 +200,20 @@ input[type="submit"], input[type="button"], input[type="reset"] {
 }
 
 .description {
-    list-style: outside none circle;
+    list-style: outside circle;
     padding-left: 20px;
 }
+
+.boldorderedlist {
+	font-weight: bold;
+    list-style: inside decimal;
+}
+.boldorderedlist li {margin-bottom:10px;}
+.boldorderedlist li span { font-weight: normal; }
+
+.small {font-size:0.8em;}
+
+.ui-state-highlight {word-wrap:break-word;}
 
 @media only screen 
 and (min-device-width : 220px) 

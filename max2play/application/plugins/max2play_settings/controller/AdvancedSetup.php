@@ -26,12 +26,11 @@
  */
 
 class Advanced_Max2play_Setup extends Service {
-	public $powerbutton = array();
-	public $minidlna = array();
+	public $powerbutton = array();	
 	
 	public function __construct(){		
 		parent::__construct();
-		$this->pluginname = _('Advanced Setup');
+		$this->pluginname = _('Advanced Setup Odroid U3');
 		
 		if($_GET['ajax'] == 1 && $_GET['action'] == 'upgradeSystem'){
 			//Function to get Progress of Installation			
@@ -45,16 +44,7 @@ class Advanced_Max2play_Setup extends Service {
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'disableLEDBlink'){
 				$this->_setLEDBlink();				
-			}
-			if($_GET['action'] == 'installMiniDLNA'){
-				$this->_installMiniDLNA();
-			}
-			if($_GET['action'] == 'uninstallMiniDLNA'){
-				$this->_installMiniDLNA(true);
-			}
-			if($_GET['action'] == 'reloadMiniDLNA'){
-				$this->_reloadMiniDLNA();
-			}
+			}			
 			if($_GET['action'] == 'configurePowerButton'){
 				$this->_configurePowerButton();
 			}	
@@ -68,7 +58,6 @@ class Advanced_Max2play_Setup extends Service {
 				$this->_installFlash();
 			}	
 		}
-		$this->_getMiniDLNASetup();
 		$this->_getPowerButton();
 		$this->_getDebug();
 	}		
@@ -88,51 +77,7 @@ class Advanced_Max2play_Setup extends Service {
 			$script[] = "sed '/#Deactivate.*/ {N; s/#Deactivate.*//g}' /etc/init.d/rc.local > /etc/init.d/rc.local.tmp && mv /etc/init.d/rc.local.tmp /etc/init.d/rc.local && chmod +777 /etc/init.d/rc.local";
 			$this->view->message[] = $this->writeDynamicScript($script);
 		}
-	}
-	
-	private function _reloadMiniDLNA(){
-		$script[] = '/etc/init.d/minidlna force-reload';
-		$this->view->message[] = $this->writeDynamicScript($script);
-		return true;
-	}
-	
-	/**
-	 * Install MiniDLNA Service
-	 * @return boolean
-	 */
-	private function _installMiniDLNA($uninstall = false){
-		ignore_user_abort(true);
-		set_time_limit(3000);
-		if($uninstall){
-			$script[] = '/opt/max2play/install_minidlna.sh';
-			$this->writeDynamicScript($script);
-			$this->view->message[] = _('MiniDLNA Installation removed');
-		}else{				
-			$script[] = '/opt/max2play/install_minidlna.sh install';
-			$this->writeDynamicScript($script);
-			$this->view->message[] = _('MiniDLNA Installation completed - you may now edit detailed settings');
-		}
-		return true;
-	}
-	
-	private function _getMiniDLNASetup(){
-		if(!file_exists('/etc/minidlna.conf')){
-			$this->minidlna['installed'] = false;
-		}else{
-			$this->minidlna['installed'] = true;
-			if($_GET['action'] == 'saveMiniDLNA'){
-				$this->view->message[] = _('MiniDLNA Settings saved');				
-				$script[] = 'sed -i \'s/^media_dir=.*/media_dir='.str_replace('/','\\/', $_GET['minidlnaMediapath']).'/\' /etc/minidlna.conf';
-				$this->writeDynamicScript($script);
-			}
-			$output = shell_exec('cat /etc/minidlna.conf');
-			//Grep Path
-			if(preg_match_all("=^media_dir\=([^\n]*)=m", $output, $matches)){
-				$this->minidlna['mediapath'] = $matches[1][0];
-			}
-		}
-		return true;
-	}
+	}		
 	
 	/**
 	 * get Functions of Powerbutton
@@ -235,8 +180,7 @@ class Advanced_Max2play_Setup extends Service {
 	 * get Debuginformation
 	 */
 	private function _getDebug(){
-		$out = array();
-		$out['MiniDLNA'] = shell_exec('tail -20 /opt/max2play/cache/minidlna/minidlna.log');			
+		$out = array();				
 		$this->view->debug = $out;
 	}
 	

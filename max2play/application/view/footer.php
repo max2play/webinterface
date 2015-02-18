@@ -40,7 +40,7 @@
 		<footer>
 			<div class="site-info">
 				<br /><br />
-				Max2Play - <a href="http://www.netzberater.de/" title="Powered by Netzberater">powered by Netzberater</a>
+				<?php echo _('Max2Play - <a href="http://www.max2play.com/en/features-2/" title="Powered by Max2Play">the <i>easy to use</i> webinterface and framework for mini-computers</a>!'); ?>
 				<br /><br />
 			</div>
 		</footer>

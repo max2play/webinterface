@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Squeezeplug Übersetzungen\n"
+"Project-Id-Version: Example Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-16 12:21+0100\n"
-"PO-Revision-Date: 2015-02-18 14:18+0100\n"
+"POT-Creation-Date: 2014-09-24 13:49+0100\n"
+"PO-Revision-Date: 2014-09-24 13:49+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -15,348 +15,97 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: y:\\projects\\max2play\\max2play\\application\\plugins"
-"\\squeezeplug\n"
+"\\example\n"
 
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/header_custom.php:52
-msgid "Choose active Player"
-msgstr "Choose active Player"
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/header_custom.php:61
-msgid "DONATE-BUTTON-SQUEEZEPLUG"
+#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:28
+#: y:\projects\max2play\max2play\application\plugins\example/controller/Setup.php:37
+msgid "Example Setup"
 msgstr ""
-"<form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\" "
-"target=\"_top\"><input type=\"hidden\" name=\"cmd\" value=\"_s-xclick"
-"\"><input type=\"hidden\" name=\"hosted_button_id\" value=\"FCG8BS6B6J8XW"
-"\"><input type=\"image\" src=\"https://www.paypalobjects.com/en_US/GB/i/btn/"
-"btn_donateCC_LG.gif\" border=\"0\" name=\"submit\" alt=\"PayPal – The safer, "
-"easier way to pay online.\"><img alt=\"\" border=\"0\" src=\"https://www."
-"paypalobjects.com/de_DE/i/scr/pixel.gif\" width=\"1\" height=\"1\"></form>"
 
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/header_custom.php:62
-msgid "Version"
-msgstr "Version"
+#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:35
+msgid "This is the Example Setup Page. Configure and Test your own Plugin :)"
+msgstr ""
 
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:2
+#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:40
+msgid "Example Variable: "
+msgstr ""
+
+#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:47
+msgid "Example Table"
+msgstr ""
+
+#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:48
+msgid "Do Something"
+msgstr ""
+
+#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:49
+msgid "Do something to get things done ..."
+msgstr ""
+
+#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:56
 #, fuzzy
-msgid "SqueezePlug & Max2Play - Info"
-msgstr "Squeezeplug & Max2Play - Info"
+msgid "DEBUG Informations"
+msgstr "DEBUG Info"
 
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:16
-#, fuzzy
-msgid ""
-"Welcome to SqueezePlug & Max2Play - Your easy to use Multiroom-Audio "
-"Solution!"
-msgstr ""
-"Welcome to Squeezeplug with Max2Play - Your easy to use interface for "
-"Multiroom-Audio!"
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:18
-msgid ""
-"SqueezePlug & Max2Play is the new combination of <b>SqueezePlug</b>, the "
-"famous Multiroom Audio Solution and <b>Max2Play</b>, the web based framework "
-"for controlling Linux based Mini-Computer like e.g. Raspberry Pi, Odroid and "
-"others by an simple webinterface without any Linux Know-How.<br />\n"
-"\t<br />\n"
-"\t<b>SqueezePlug</b> is now a plug-in in <b>Max2Play</b> to make the "
-"configuration as easy as possible. There is no need for connecting a "
-"monitor, a keyboard or a mouse on the device itself. It all runs headless "
-"and no special tools like Putty are needed. The configuration is as simple "
-"as configuring a router from an webinterface!"
+#: y:\projects\max2play\max2play\application\plugins\example/controller/Setup.php:62
+msgid "Do Something started"
 msgstr ""
 
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:23
-msgid "Requirements"
-msgstr ""
+#~ msgid "Jivelite Squeezebox Desktop Visualisation"
+#~ msgstr "Jivelite Squeezebox Desktop Visualisierung"
 
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:25
-msgid "Hardware"
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:26
-msgid ""
-"<ul class='description'><li>Raspberry Pi (all types, best: Raspberry Pi 2 "
-"Model B), or Odroid U3, or Odroid C1</li>\n"
-"\t<li>other devices will be supported in future</li>\n"
-"\t<li>SD-Card minimum 4GB (Class 10 is recommended)</li>\n"
-"\t<li>optional: Raspberry Pi I2S Soundcard</li>\n"
-"\t<li>optional: USB Soundcard</li>\n"
-"\t<li>optional: WiFi-Adaptor, Keyboard, Mouse, and other peripheral devices</"
-"li></ul>"
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:32
-msgid ""
-"Please always use an appropriate power supply to power your Mini-Computer! "
-"Insufficient power supplies can be the reason for many problems!"
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:34
-msgid "Software"
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:35
-msgid ""
-"<ul class='description'><li>Tool for writing SD-Cards</li>\n"
-"\t<li>Webbrowser</li>\n"
-"\t<li>No other software is needed!!!</li></ul>"
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:38
-msgid ""
-"Please remember, that you will need a working Internet-Connection for your "
-"Mini-Computer!"
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:41
-#, fuzzy
-msgid "How to get it working"
-msgstr "Einrichtung"
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:43
-msgid ""
-"There are only a few steps necessary to get your Mini-Computer working as an "
-"easy to use Multiroom Audio Solution. Follow the next steps and you will be "
-"ready to go in a few minutes."
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:47
-msgid ""
-"<b>Download the latest SqueezePlug & Max2Play SD-Card Image</b><br /> \n"
-"    Go to <a href=\"http://www.squeezeplug.de/?page_id=52\" target=\"_blank"
-"\">SqueezePlug Downloads</a> or <a href=\"http://shop.max2play.com\" target="
-"\"_blank\">Shop.Max2Play</a> to get the latest version of SqueezePlug & "
-"Max2Play. Download and save it to your PC."
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:51
-msgid ""
-"<b>Burn the image to the SD-Card</b><br /> \n"
-"\tUse a tool like <a href=\"http://www.alexpage.de/usb-image-tool/download/"
-"\" target=\"_blank\">USB Image Tool</a> to burn the downloaded image to the "
-"SD-Card."
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:55
-msgid ""
-"<b>Start your Mini-Computer</b><br /> \n"
-"\tPut in the SD-Card (or eMMC on Odriod),connect the LAN-Cable and the power "
-"supply to your Mini-Computer and boot it up."
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:59
-msgid ""
-"<b>Connect to your Mini-Computer by an webbrowser</b><br /> \n"
-"\tType \"max2play\" in the address bar of your webbrowser. If the "
-"SqueezePlug & Max2Play site does not start up, try to connect via the IP-"
-"Address. For that you will need to know this address. Look it up in your "
-"router or use a tool like <a href=\"http://www.advanced-ip-scanner.com\" "
-"target=\"_blank\">Advanced IP Scanner</a>. If you are not able to connect "
-"either ways, connect a monitor and a keyboard to the Mini-Computer, log in "
-"and type \"ifconfig\". The login is different for the different Mini-"
-"Computers (e.g. use user \"Pi\" and password \"raspberry\" on the Raspberry "
-"Pi, user \"odroid\" and password \"odroid\" on the Odroid devices.)"
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:63
-msgid ""
-"<b>Expand the SD-Card</b><br /> \n"
-"\tTo get use of the full space of the SD-Card you have to expand it. "
-"Remember that the minimum size is 4 GB. Even if your card is a 4GB card, "
-"please expand the card, before doing something else. Otherwise you will run "
-"out of space immediately. To expand the card choose the \"SETTINGS / REBOOT"
-"\" menu, go to the section \"Reboot / Update / Filesystem Settings\" and "
-"click on \"Expand Filesystem\". Afterwards please reboot to take effect! "
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:67
-msgid ""
-"<b>Do some basic configuration</b><br /> \n"
-"\tAfter rebooting has finished, go back to the \"SETTINGS / REBOOT\" menu. "
-"From here you should be able to configure the basic settings. Everything you "
-"need is explained here. It is always a good idea to update the system from "
-"here. The necessary plug-ins for SqueezePlug are already installed, choose "
-"others if you like."
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:71
-msgid ""
-"<b>Configure the network settings</b><br /> \n"
-"\tChoose the \"WiFi / LAN\" menu to configure your network settings. "
-"SqueezePlug & Max2Play uses the wired connection with DHCP by default. This "
-"means that you will get an IP-Address from your router while booting, if "
-"DHCP on the router is enabled. A LAN-Connection is always necessary on the "
-"first boot. If you like, you can configure a additional WLAN(WiFi)-"
-"Connection. If the WLAN-Connection is working, you can simply cut the LAN-"
-"Connection. Please remember, the IP-Address will change if you connect by "
-"WiFi instead of LAN."
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:75
-msgid ""
-"<b>Configure the path to your files</b><br /> \n"
-"\tChoose the \"Filesystem Mount\" menu to configure the path to your Media-"
-"Files like music, movies, pictures etc. Your Media-Files can be saved at "
-"different locations: On the SD-Card of the Mini-Computer itself, on an "
-"attached USB-drive, or on an Samba or NFS Network-Share. If the Media-Files "
-"are stored on the SD-Card you booted from, there is no need to do anything "
-"here. If it is stored on a USB-drive this will be mounted automatically to /"
-"media/usb and /media/usb0. If you attach more the one USB-drive, they will "
-"be mounted to /media/usb1 to /media/usb7. If your Media-Files are stored on "
-"an network location you have to configure it from this site. Everything you "
-"will need to do that is explained here. If you like to enable the Mini-"
-"Computer to work as a Samba-Server, go to the section \"Sambashares on "
-"Max2Play - setup network share paths\". If configured correctly you are now "
-"able to see your Mini-Computer as a network-share form the PC in your home "
-"LAN. You can now easily transfer files to your Mini-Computer from other "
-"computers in your Home-LAN."
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:79
-msgid ""
-"<b>Install SqueezeBoxServer</b><br /> \n"
-"\tIf you like, you can install SqueezeBoxServer (Logitech Mediaserver). "
-"SqueezeBoxServer is one of the best Media-Servers you can get. Choose the "
-"Menu \" Squeezeserver\n"
-"\t\" and you will find all you need to get SqueezeBoxServer installed. "
-"Please remember, that it will take a while, till the SqueezeBoxServer "
-"webinterface is reachable after the installation. After the installation has "
-"finished, you can access the SqueezeBoxServer webinterface by choosing "
-"\"Start Squeezeserver Webadministration\". One of the first things you have "
-"to configure here is the path to your media files. Please choose the path "
-"depending on the settings in the earlier steps."
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:84
-msgid ""
-"<b>Configure AudioPlayer</b><br /> \n"
-"\tTo configure you Mini-Computer as an AudioPlayer choose the menu "
-"\"Audioplayer\". From here you can configure three different players. For "
-"the SqueezeBox environment you need the SqueezeLite player. To play from "
-"your Apple-Devices you nee ShairPort. The gmediarender is a DLNA-Client for "
-"audio running with all DLNA compatible media-servers. All the players can "
-"run simultaneously. Please configure the appropriate soundcard for your "
-"system. "
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:88
-msgid ""
-"<b>Additional Settings</b><br /> \n"
-"\tThere are a lot of other setting or tweaks you can choose from the menus. "
-"E.g. if you like install Kodi (f.k.a. XBMC). It can easily coexist with "
-"SqueezeBoxServer and all other components of SqueezePlug & Max2Play."
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:96
-msgid "Video Tutorial"
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:104
-msgid "//www.youtube.com/embed/GjYnHZF2Oek"
-msgstr ""
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:106
-msgid ""
-"Questions concerning this project? Please refer to <a href=\"http://shop."
-"max2play.com\" target=\"_blank\">Shop.Max2Play</a>"
-msgstr ""
-"Questions concerning this project? Please refer to <a href=\"http://www."
-"max2play.com\" target=\"_blank\">www.Max2Play.com</a>"
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/view/setup.php:108
-msgid ""
-"READ CAREFULLY: THIS INTERFACE IS STILL A BETA AND MIGHT HAVE BUGS OR "
-"UNEXPECTED BEHAVIOR!"
-msgstr ""
-"READ CAREFULLY: THIS INTERFACE IS STILL A BETA AND MIGHT HAVE BUGS OR "
-"UNEXPECTED BEHAVIOR!"
-
-#: y:\projects\max2play\max2play\application\plugins\squeezeplug/controller/Setup.php:34
-msgid "Squeezeplug"
-msgstr ""
-
-#, fuzzy
-#~ msgid ""
-#~ "The Max2Play Interface is used to configure the device without having to "
-#~ "set up monitor, keyboard and mouse on the device itsself or login by ssh."
-#~ "<br />All settings are directly written to the players config files."
+#~ msgid "This is the Jivelite Setup Page."
 #~ msgstr ""
-#~ "Über diese Seiten kann der Player konfiguriert werden "
-#~ "(Netzwerkinterfaces, Netzwerkfreigaben, Autostartkonfiguration).<br />Die "
-#~ "Einstellungen werden direkt in Konfigurationsdateien geschrieben, die "
-#~ "sich auf dem Player befinden. Alternativ kann direkt per SSH eine "
-#~ "Verbindung aufgebaut werden oder per HDMI-Kabel und Tastatur/Maus am "
-#~ "Gerät die Konfiguration per Konsole erfolgen."
+#~ "Das ist die Jivelite Setup Seite. Hier kann der Dienst installiert, "
+#~ "gestartet und beendet werden. Jivelite dient zur Steuerung der "
+#~ "Audioplayer Squeezelite oder Squeezeslave und besitzt eine grafische "
+#~ "Ausgabe über den HDMI-Anschluss von Max2Play. Für die Anzeige von "
+#~ "Jivelite im Vollbild kann die Anzeige der Taskleiste minimiert werden. "
+#~ "Nach dem Start von Jivelite wird nach ein paar Sekunden automatisch der "
+#~ "laufende Titel auf dem Bildschirm angezeigt."
 
-#, fuzzy
-#~ msgid "What is Max2Play?"
-#~ msgstr "Update Max2Play"
+#~ msgid "Status"
+#~ msgstr "Status"
 
-#~ msgid "Callblocker Blacklist & Whitelist"
-#~ msgstr "Anrufblocker Sperrliste & Weiße Liste"
+#~ msgid "$SERVICENAME is running with processID"
+#~ msgstr "$SERVICENAME läuft aktuell unter der ProzessID"
 
-#~ msgid ""
-#~ "On this page you may edit a local blacklist and whitelist. This is used "
-#~ "additionally to the tellows blacklist. Use one column per number."
-#~ msgstr ""
-#~ "Auf dieser Seite kannst du die Sperrliste und die Weiße Liste editieren. "
-#~ "Diese Listen werden zusätzlich zur tellows Sperrliste verwendet. Bitte "
-#~ "trage pro Zeile immer eine Nummer ein."
+#~ msgid "stop $SERVICENAME"
+#~ msgstr "$SERVICENAME stoppen"
 
-#~ msgid "Callerlog for the last incoming Calls"
-#~ msgstr "Anruferliste für die letzten Anrufe"
+#~ msgid "$SERVICENAME not running"
+#~ msgstr "$SERVICENAME läuft nicht"
 
-#~ msgid "DATE"
-#~ msgstr "DATUM"
+#~ msgid "start $SERVICENAME"
+#~ msgstr "$SERVICENAME starten"
 
-#~ msgid "LINE"
-#~ msgstr "LINE"
-
-#~ msgid "NUMBER"
-#~ msgstr "NUMMER"
-
-#~ msgid "NAME"
-#~ msgstr "NAME"
-
-#~ msgid "BLOCKED"
-#~ msgstr "GEBLOCKT"
-
-#~ msgid "ACTION"
-#~ msgstr "AKTION"
-
-#~ msgid "Blocked by Blacklist"
-#~ msgstr "blockiert durch Sperrliste"
-
-#~ msgid "Number is on Blacklist"
-#~ msgstr "Nummer ist auf Sperrliste"
-
-#~ msgid "Number is on Whitelist"
-#~ msgstr "Nummer ist auf Weißer Liste"
-
-#~ msgid "Name is on Blacklist"
-#~ msgstr "Nummer ist auf Sperrliste"
-
-#~ msgid "whitelist"
-#~ msgstr "weiße Liste"
-
-#~ msgid "blacklist"
-#~ msgstr "Sperrliste"
-
-#~ msgid "Modify Blacklist"
-#~ msgstr "Sperrliste bearbeiten"
-
-#~ msgid ""
-#~ "To block Callers that do not transfer their Caller ID enter \"PRIVATE\" "
-#~ "in a separate row."
-#~ msgstr ""
-#~ "Um Anrufer zu blockieren, die nicht ihre Nummer übermitteln muss \"PRIVATE"
-#~ "\" in eine separate Zeile eingetragen werden."
+#~ msgid "Autostart $SERVICENAME"
+#~ msgstr "Autostart $SERVICENAME"
 
 #~ msgid "save"
 #~ msgstr "speichern"
 
-#~ msgid "Modify Whitelist (numbers that will definitly NOT be blocked)"
+#~ msgid "$NAME start installation"
+#~ msgstr "Starte Installation von $NAME"
+
+#~ msgid "Autohide Panel (Taskbar) for Fullscreen"
+#~ msgstr "Verstecke Taskleiste für Vollbildansicht"
+
+#~ msgid ""
+#~ "Jivelite is not installed - start installation by clicking on INSTALL "
+#~ "button at the end of the page!"
 #~ msgstr ""
-#~ "Weiße Liste Bearbeiten (diese Nummern werden definitiv nicht geblockt)"
+#~ "Jivelite ist nicht installiert - Zum Starten der Installation auf den "
+#~ "Installations-Button am Ende der Seite klicken!"
+
+#~ msgid "INSTALL SUCCESSFUL"
+#~ msgstr "INSTALLATION ERFOLGREICH"
+
+#~ msgid "Updated Autohide Panel Setting to"
+#~ msgstr "Taskleiste verstecken gesetzt auf"
+
+#~ msgid "kill $SERVICENAME"
+#~ msgstr "$SERVICENAME killen"
 
 #~ msgid "tellows Callblocker Setup"
 #~ msgstr "tellows Anruferschutz Setup"
@@ -436,12 +185,6 @@ msgstr ""
 #~ msgid "Audio File for Blacklist"
 #~ msgstr "Audio-Datei für Blacklist (nur VOIP)"
 
-#~ msgid "Hang up without Sound"
-#~ msgstr "Auflegen ohne Ansage"
-
-#~ msgid "Play: You are blocked"
-#~ msgstr "\"Du wurdest geblockt\""
-
 #~ msgid ""
 #~ "Choose which audio file should be played when the incoming caller is on "
 #~ "the blacklist."
@@ -452,23 +195,8 @@ msgstr ""
 #~ msgid "Modem for PSTN (analog) Connected: "
 #~ msgstr "Modem für analoge Telefonleitung angeschlossen: "
 
-#~ msgid "Hangup Type"
-#~ msgstr "Art des Blockierens"
-
-#~ msgid "Do Nothing (not recommended)"
-#~ msgstr "Mache nichts (nicht empfohlen)"
-
-#~ msgid "Hangup (block call)"
-#~ msgstr "Auflegen (Besetzt-Zeichen)"
-
-#~ msgid "Answer as Fax-Machine"
-#~ msgstr "Antworte als Faxgerät"
-
-#~ msgid ""
-#~ "Choose how the callblocker will react on a blacklisted Caller (number on "
-#~ "blacklist)"
-#~ msgstr ""
-#~ "Wie soll der Anrufblocker eingehende Anrufe von der Sperrliste abweisen."
+#~ msgid "How it works"
+#~ msgstr "Einrichtung"
 
 #~ msgid "SETUP_DESCRIPTION"
 #~ msgstr ""
@@ -514,6 +242,76 @@ msgstr ""
 #~ msgid "Update tellows Callblocker"
 #~ msgstr "Aktualisiere tellows Anrufblocker"
 
+#~ msgid "Callblocker Blacklist & Whitelist"
+#~ msgstr "Anrufblocker Sperrliste & Weiße Liste"
+
+#~ msgid ""
+#~ "On this page you may edit a local blacklist and whitelist. This is used "
+#~ "additionally to the tellows blacklist. Use one column per number."
+#~ msgstr ""
+#~ "Auf dieser Seite kannst du die Sperrliste und die Weiße Liste editieren. "
+#~ "Diese Listen werden zusätzlich zur tellows Sperrliste verwendet. Bitte "
+#~ "trage pro Zeile immer eine Nummer ein."
+
+#~ msgid "Callerlog for the last incoming Calls"
+#~ msgstr "Anruferliste für die letzten Anrufe"
+
+#~ msgid "DATE"
+#~ msgstr "DATUM"
+
+#~ msgid "LINE"
+#~ msgstr "LINE"
+
+#~ msgid "NUMBER"
+#~ msgstr "NUMMER"
+
+#~ msgid "NAME"
+#~ msgstr "NAME"
+
+#~ msgid "BLOCKED"
+#~ msgstr "GEBLOCKT"
+
+#~ msgid "ACTION"
+#~ msgstr "AKTION"
+
+#~ msgid "Blocked by Blacklist"
+#~ msgstr "blockiert durch Sperrliste"
+
+#~ msgid "Number is on Blacklist"
+#~ msgstr "Nummer ist auf Sperrliste"
+
+#~ msgid "Number is on Whitelist"
+#~ msgstr "Nummer ist auf Weißer Liste"
+
+#~ msgid "whitelist"
+#~ msgstr "weiße Liste"
+
+#~ msgid "blacklist"
+#~ msgstr "Sperrliste"
+
+#~ msgid "Modify Blacklist"
+#~ msgstr "Sperrliste bearbeiten"
+
+#~ msgid ""
+#~ "To block Callers that do not transfer their Caller ID enter \"PRIVATE\" "
+#~ "in a separate row."
+#~ msgstr ""
+#~ "Um Anrufer zu blockieren, die nicht ihre Nummer übermitteln muss \"PRIVATE"
+#~ "\" in eine separate Zeile eingetragen werden."
+
+#~ msgid "Modify Whitelist (numbers that will definitly NOT be blocked)"
+#~ msgstr ""
+#~ "Weiße Liste Bearbeiten (diese Nummern werden definitiv nicht geblockt)"
+
+#~ msgid "tellows Callblocker Blacklist"
+#~ msgstr "tellows Anruferschutz Sperrliste"
+
+#~ msgid "local"
+#~ msgstr "lokal"
+
+#~ msgid "Updated local Blacklist / Whitlist for Callblocker"
+#~ msgstr "Lokale Sperrliste / Weiße Liste wurden aktualisiert"
+
 #~ msgid "Save tellows Settings"
 #~ msgstr "Alle tellows Einstellungen speichern"
 
@@ -523,7 +321,7 @@ msgstr ""
 #~ "sein!"
 
 #~ msgid "API-Key successfully registered!"
-#~ msgstr "Lizenzschlüssel erfolgreich registriert"
+#~ msgstr "Lizentschlüssel erfolgreich registriert"
 
 #~ msgid "Connection Successful"
 #~ msgstr "Verbindung erfolgreich!"
@@ -560,37 +358,15 @@ msgstr ""
 #~ msgid "Callblocker update started"
 #~ msgstr "Anrufblocker Aktualisierung gestartet"
 
-#~ msgid "Callblocker is up to date - no update required"
-#~ msgstr ""
-#~ "tellows Anrufblocker ist auf dem aktuellsten Stand - kein Update "
-#~ "erforderlich"
-
 #~ msgid "UPDATE SUCCESSFUL - Please Restart Device"
 #~ msgstr ""
 #~ "Aktualisierung erfolgreich - bitte das Gerät neu Starten (Netzstecker "
 #~ "ziehen und wieder einstecken)"
 
-#~ msgid "UPDATE NOT SUCCESSFUL"
-#~ msgstr "Update NICHT erfolgreich!"
-
-#~ msgid ""
-#~ "Callblocker is not installed - start installation by clicking on UPDATE "
-#~ "button at the end of the page!"
+#~ msgid "Callblocker is up to date - no update required"
 #~ msgstr ""
-#~ "Anrufblocker ist nicht installiert - Zum Starten der Installation auf den "
-#~ "UPDATE Button am Ende der Seite klicken!"
-
-#~ msgid "Modem Settings saved"
-#~ msgstr "Modem Einstellungen gespeichert"
-
-#~ msgid "tellows Callblocker Blacklist"
-#~ msgstr "tellows Anruferschutz Sperrliste"
-
-#~ msgid "local"
-#~ msgstr "lokal"
-
-#~ msgid "Updated local Blacklist / Whitlist for Callblocker"
-#~ msgstr "Lokale Sperrliste / Weiße Liste wurden aktualisiert"
+#~ "tellows Anrufblocker ist auf dem aktuellsten Stand - kein Update "
+#~ "erforderlich"
 
 #~ msgid "Connection Failure - Wrong API-Key"
 #~ msgstr "Verbindungsfehler zu tellows API - falscher API-Key"
@@ -631,24 +407,6 @@ msgstr ""
 #~ msgid "XBMC - Status, Start & Stop"
 #~ msgstr "XBMC - Status, Start & Stop"
 
-#~ msgid "Status"
-#~ msgstr "Status"
-
-#~ msgid "$SERVICENAME is running with processID"
-#~ msgstr "$SERVICENAME läuft aktuell unter der ProzessID"
-
-#~ msgid "stop $SERVICENAME"
-#~ msgstr "$SERVICENAME stoppen"
-
-#~ msgid "$SERVICENAME not running"
-#~ msgstr "$SERVICENAME läuft nicht"
-
-#~ msgid "start $SERVICENAME"
-#~ msgstr "$SERVICENAME starten"
-
-#~ msgid "Autostart $SERVICENAME"
-#~ msgstr "Autostart $SERVICENAME"
-
 #~ msgid "XBMC INFO DESCRIPTION"
 #~ msgstr ""
 #~ "XBMC ist ein Media-Center für Videos, Musik und mehr.<br /><br /><sup>#1</"
@@ -665,11 +423,6 @@ msgstr ""
 #~ msgid "Advanced Max2Play Setup"
 #~ msgstr "Advanced Max2Play Setup"
 
-#~ msgid ""
-#~ "This is the Advanced Setup Page. You may configure additional settings on "
-#~ "this page."
-#~ msgstr "Diese Seite dient der Administration erweiterter Einstellungen."
-
 #~ msgid "Disable LED-Blink"
 #~ msgstr "Blaue LED Blink deaktivieren"
 
@@ -679,9 +432,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Setzt die Blinkfrequenz auf 10 Sekunden - Erneutes drücken des Buttons "
 #~ "setzt die Einstellung zurück"
-
-#~ msgid "DEBUG Info"
-#~ msgstr "DEBUG Info"
 
 #~ msgid "Filesystem - mount network paths (e.g. NFS) "
 #~ msgstr "Dateisystem - Mounten von Netzwerkpfaden (z.B. NFS) "
@@ -823,9 +573,6 @@ msgstr ""
 #~ msgid "Mediaplayer Squeezelite & Airplay - Status, Start / Stop"
 #~ msgstr "Mediaplayer Squeezelite & Airplay - Status, Start / Stop"
 
-#~ msgid "kill $SERVICENAME"
-#~ msgstr "$SERVICENAME killen"
-
 #~ msgid "Graphic Equalizer"
 #~ msgstr "Grafischer Equalizer (NUR für Squeezeslave und Shairport)"
 
@@ -871,8 +618,14 @@ msgstr ""
 #~ "Suche nach Max2Play-Devices mit Squeezelite im Netzwerk und zeige diese "
 #~ "im Kopfbereich dieses Interfaces an. Nur sinnvoll bei mehreren Playern."
 
+#~ msgid "Save Settings"
+#~ msgstr "Einstellungen speichern"
+
 #~ msgid "Reboot Max2Play"
 #~ msgstr "Reboot Max2Play"
+
+#~ msgid "Update Max2Play"
+#~ msgstr "Update Max2Play"
 
 #~ msgid "Reset configs to Max2Play delivery configuration"
 #~ msgstr "Max2Play Ursprungskonfiguration Wiederherstellen"
@@ -892,9 +645,6 @@ msgstr ""
 
 #~ msgid "Start Squeezeserver Webadministration"
 #~ msgstr "Start Squeezeserver Webadministration"
-
-#~ msgid "$NAME start installation"
-#~ msgstr "Starte Installation von $NAME"
 
 #~ msgid ""
 #~ "The installation takes about 5 to 10 minutes depending on your internet "
@@ -919,11 +669,34 @@ msgstr ""
 #~ msgid "Max2Play Media Player - Info"
 #~ msgstr "Max2Play Media Player - Informationen"
 
+#~ msgid ""
+#~ "READ CAREFULLY: THIS INTERFACE IS STILL A BETA AND MIGHT HAVE BUGS OR "
+#~ "UNEXPECTED BEHAVIOR!"
+#~ msgstr ""
+#~ "ACHTUNG: DIESE KONFIGURATIONSMÖGLICHKEIT IST EINE BETA UND ENTHÄLT "
+#~ "MÖGLICHERWEISE FEHLER!"
+
+#~ msgid ""
+#~ "The Max2Play Interface is used to configurate the device without having "
+#~ "to set up montior, keyboard and mouse on the device itsself or login by "
+#~ "ssh.<br />All settings are directly written to the players config files."
+#~ msgstr ""
+#~ "Über diese Seiten kann der Player konfiguriert werden "
+#~ "(Netzwerkinterfaces, Netzwerkfreigaben, Autostartkonfiguration).<br />Die "
+#~ "Einstellungen werden direkt in Konfigurationsdateien geschrieben, die "
+#~ "sich auf dem Player befinden. Alternativ kann direkt per SSH eine "
+#~ "Verbindung aufgebaut werden oder per HDMI-Kabel und Tastatur/Maus am "
+#~ "Gerät die Konfiguration per Konsole erfolgen."
+
+#~ msgid ""
+#~ "Questions concerning this project? Please refer to <a href=\"http://shop."
+#~ "max2play.com\" target=\"_blank\">Shop.Max2Play</a>"
+#~ msgstr ""
+#~ "Fragen zum Projekt? Bitte auf <a href=\"http://shop.max2play.com\" target="
+#~ "\"_blank\">Shop.Max2Play</a> den Kontakt nutzen."
+
 #~ msgid "Audioplayer"
 #~ msgstr "Audioplayer"
-
-#~ msgid "Updated Equalizer Settings"
-#~ msgstr "Equalizer Optionen gespeichert"
 
 #, fuzzy
 #~ msgid "Advanced Setup"
@@ -1021,6 +794,12 @@ msgstr ""
 
 #~ msgid "XBMC (Mediacenter)"
 #~ msgstr "XBMC (Mediacenter)"
+
+#~ msgid "Choose active Player"
+#~ msgstr "Wähle Player"
+
+#~ msgid "Version"
+#~ msgstr "Version"
 
 #~ msgid "Topics"
 #~ msgstr "Themen"

@@ -170,23 +170,26 @@ cp /tmp/squeezelite/squeezelite /opt/squeezelite/
 pushd $CWD
 
 #### Install DLNA CLIENT ####
-pushd /tmp
-git clone https://github.com/hzeller/gmrender-resurrect.git
-cd gmrender-resurrect
-echo "Y" | sudo apt-get install autoconf automake libtool
-echo "Y" | sudo apt-get install libupnp-dev libgstreamer0.10-dev \
-    gstreamer0.10-plugins-base gstreamer0.10-plugins-good \
-    gstreamer0.10-plugins-bad gstreamer0.10-plugins-ugly \
-    gstreamer0.10-ffmpeg \
-    gstreamer0.10-pulseaudio gstreamer0.10-alsa
-sudo ./autogen.sh
-sudo ./configure
-sudo make
-sudo make install
-sudo cp scripts/init.d/gmediarenderer /etc/init.d/
-# UPNP_DEVICE_NAME auf hostname setzen
-sudo sed -i 's/UPNP_DEVICE_NAME=.*/UPNP_DEVICE_NAME=$(cat \/etc\/hostname)/' /etc/init.d/gmediarenderer
-pushd $CWD
+if [ "$HW_RASPBERRY" -gt "0" ]; then
+	#Doesnt work on Ubuntu 14.04
+	pushd /tmp
+	git clone https://github.com/hzeller/gmrender-resurrect.git
+	cd gmrender-resurrect
+	echo "Y" | sudo apt-get install autoconf automake libtool
+	echo "Y" | sudo apt-get install libupnp-dev libgstreamer0.10-dev \
+	    gstreamer0.10-plugins-base gstreamer0.10-plugins-good \
+	    gstreamer0.10-plugins-bad gstreamer0.10-plugins-ugly \
+	    gstreamer0.10-ffmpeg \
+	    gstreamer0.10-pulseaudio gstreamer0.10-alsa
+	sudo ./autogen.sh
+	sudo ./configure
+	sudo make
+	sudo make install
+	sudo cp scripts/init.d/gmediarenderer /etc/init.d/
+	# UPNP_DEVICE_NAME auf hostname setzen
+	sudo sed -i 's/UPNP_DEVICE_NAME=.*/UPNP_DEVICE_NAME=$(cat \/etc\/hostname)-dlna/' /etc/init.d/gmediarenderer
+	pushd $CWD
+fi
 
 #### Squeezeboxserver unter Ubuntu 14.04 (Perl 5.18) ####
 echo "Y" | apt-get install libungif-bin
@@ -211,6 +214,9 @@ echo "1.0" > /var/www/max2play/application/config/version.txt
 if [ "$HW_RASPBERRY" -gt "0" ]; then
 	rm -R /opt/CPAN
 	rm -R /opt/squeezeslave
+	
+	#Usbmount Fix
+	sudo sed -i 's/odroid/pi/' /etc/usbmount/usbmount.conf
 	
 	#Squeezeplug Header & CSS & Plugin-Auswahl
 	cp -f /var/www/max2play/application/plugins/squeezeplug/view/header_custom.php /var/www/max2play/application/view/
@@ -256,8 +262,6 @@ sudo sed -i "s/^exit 0/#Network Check for Mountpoints\nCOUNTER=0;while \[ -z \"\
 
 #Change Password to default
 echo -e "max2play\nmax2play\n" | passwd
-mkdir /mnt/mountdir
-chmod -R 777 /mnt/mountdir
 chmod 666 /etc/hostname
 echo "max2play" > /etc/hostname
 

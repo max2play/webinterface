@@ -24,12 +24,13 @@
  */
 
 class Basic extends Service {		
+	public $timezonesfile = '/opt/max2play/timezones.txt';
 	
 	public function __construct(){										
 		parent::__construct();
 		$this->pluginname = _('Settings / Reboot');
 		
-		$this->view->locales = array('Europe/Berlin' => 'de_DE.UTF-8', 'Europe/Zurich' => 'de_CH.UTF-8', 'Europe/London' => 'en_GB.UTF-8','Europe/Rome' => 'it_IT.UTF-8', 'Europe/Paris' => 'fr_FR.UTF-8', 'Europe/Istanbul' => 'tr_TR.UTF-8', 'Europe/Amsterdam' => 'nl_NL.UTF-8');
+		$this->view->locales = array('deutsch / Deutschland' => 'de_DE.UTF-8', 'deutsch / Schweiz' => 'de_CH.UTF-8', 'english' => 'en_GB.UTF-8', 'italiano' => 'it_IT.UTF-8','français' => 'fr_FR.UTF-8', 'türkçe' => 'tr_TR.UTF-8', 'nederlands' => 'nl_NL.UTF-8', 'español' => 'es_ES.UTF-8','português' => 'pt_PT.UTF-8');
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'reboot'){
@@ -73,7 +74,7 @@ class Basic extends Service {
 				if(isset($_GET['playername']))
 					$this->updatePlayername($_GET['playername']);
 				if(isset($_GET['locale']))
-					$this->updateLocale($_GET['locale']);
+					$this->updateLocale($_GET['timezone'], $_GET['locale']);
 				
 				$this->setDonateButton((isset($_GET['removedonate']) ? 1 : 0));
 				$this->updateEmail($_GET['email']);
@@ -138,47 +139,64 @@ class Basic extends Service {
 		return $output;
 	}
 	
+	/**
+	 * get settings for timezone
+	 */
 	public function getLocale(){
-		$this->view->currentLocale = trim(shell_exec('cat /etc/timezone'), "\n");
-		return $this->view->currentLocale;
+		$this->view->currentTimezone = trim(shell_exec('cat /etc/timezone'), "\n");
+		if(!file_exists($this->timezonesfile)){
+			$script[] = "find /usr/share/zoneinfo/right/ -type f | sed 's/\/usr\/share\/zoneinfo\/right\///' > /opt/max2play/timezones.txt";
+			$this->writeDynamicScript($script);
+			$this->view->message[] = _('Timezone file created');
+		}
+		$this->view->timezones = explode("\n", shell_exec('cat '.$this->timezonesfile));
+		
+		$output = shell_exec('cat /etc/default/keyboard');
+		preg_match('=XKBLAYOUT\="([a-z]{2})"=', $output, $match);
+		$this->view->currentKeyboard = $match[1];
+		
+		//Sprache setzen
+		$output = shell_exec('cat /etc/default/locale');
+		preg_match('=LANG\=["]?([a-zA-Z0-9\.\-\_]*)=', $output, $match);
+		$this->view->currentLocale = $match[1];
+		
+		return true;
 	}
 	
-	public function updateLocale($locale = ''){		
-		if(isset($this->view->locales[$locale])) {
-			$this->getLocale();						
+	public function updateLocale($timezone = '', $locale = ''){		
+		$this->getLocale();
+		$script = array();
+		if(in_array($timezone, $this->view->timezones)) {
+			if($this->view->currentTimezone == $timezone){
+				//No changes!				
+			}else{			
+				//Timezone setzen			
+				$script[] = 'echo "'.$timezone.'" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata';			
+			}
+			
 			if($this->view->currentLocale == $locale){
 				//No changes!
-				return false;
+			}else{								
+				//Keyboard Layout setzen
+				$script[] = "sed -i 's/XKBLAYOUT=.*/XKBLAYOUT=\"".substr($locale,0,2)."\"/' /etc/default/keyboard";			
+				
+				//Ist die neue Sprache verfügbar?
+				if(trim(shell_exec('locale -a | grep '.str_replace('UTF-8','utf8',$locale)),"\n") == ''){
+					//Unterscheidung PI / ODROID
+					if($this->getSystemUser() == 'pi'){
+						//Datei anpassen
+						$script[] = "sed -i 's/# ".$locale." UTF-8/".$locale." UTF-8/' /etc/locale.gen";
+						$script[] = "locale-gen";
+					}else{
+						$script[] = 'locale-gen '.$locale;
+					}				
+				}
+				$script[] = "update-locale LANG=".$locale;							
 			}
-			
-			//Timezone setzen			
-			$script[] = 'echo "'.$locale.'" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata';			
-			
-			//Keyboard Layout setzen
-			$output = shell_exec('cat /etc/default/keyboard');
-			preg_match('=XKBLAYOUT\="([a-z]{2})"=', $output, $match);
-			$current_keyboard_layout = $match[1];
-			
-			$script[] = 'echo \''.str_replace(array($match[0],"'"), array('XKBLAYOUT="'.substr($this->view->locales[$locale], 0,2).'"', ""), trim($output, "\n")).'\' > /etc/default/keyboard';			
-			
-			//Ist die neue Sprache verfügbar?
-			if(trim(shell_exec('locale -a | grep '.str_replace('UTF-8','utf8',$this->view->locales[$locale])),"\n") == ''){
-				$script[] = 'locale-gen '.$this->view->locales[$locale];
+			if(isset($script[0])){
+				$output = $this->writeDynamicScript($script);			
+				$this->view->message[] = _("Changes successful - Reboot needed");
 			}
-			
-			//Sprache setzen
-			$output = shell_exec('cat /etc/default/locale');
-			preg_match('=LANG\=["]?([a-zA-Z0-9\.\-\_]*)=', $output, $match);
-			$current_locale = $match[1];
-			
-			preg_match('=LANGUAGE\=["]?([a-zA-Z0-9\.\-\_:]*)=', $output, $match);
-			$current_language = $match[1];
-			
-			$script[] = 'echo \''.str_replace(array($current_locale, $current_language), $this->view->locales[$locale], trim($output, "\n")).'\' > /etc/default/locale';			
-			
-			$output = $this->writeDynamicScript($script);
-			
-			$this->view->message[] = _("Changes successful - Reboot needed");
 			return true;
 		}else{
 			$this->view->message[] = _("Value for Timezone/Language not found.");
@@ -290,7 +308,7 @@ class Basic extends Service {
 			$this->view->message[] = _('Max2Play update started');
 			//Start Script -> Download Files for Webserver and /opt/max2play
 			$shellanswer = shell_exec('sudo /opt/max2play/update_max2play.sh '.$version);			
-			$this->view->message[] = nl2br($shellanswer);
+			$this->view->message[] = $this->formatMessageOutput($shellanswer);
 			if(strpos($shellanswer, 'inflating: /opt/max2play/list_devices.sh') !== FALSE && strpos($shellanswer, 'extracting: /var/www/max2play/application/config/version.txt') !== FALSE){
 				$this->view->message[] = _('UPDATE SUCCESSFUL');
 				$this->view->message[] = _('Max2Play-Webinterface Restarted - Reload Page to see Changes');

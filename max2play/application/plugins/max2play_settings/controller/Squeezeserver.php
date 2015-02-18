@@ -27,12 +27,12 @@
 class Squeezeserver extends Service {
 	protected $pname = 'logitechmediaserver';
 	protected $prozessname = 'squeezeboxserve';
-	public $viewname = 'Logitechmediaserver / Squeezeboxserver';
+	public $viewname = 'Squeezebox Server';
 	public $lmsversions = array();
 	
 	public function __construct(){						
 		parent::__construct();
-		$this->pluginname = _('Squeezeserver');
+		$this->pluginname = _('Squeezebox Server');
 		
 		if($_GET['ajax'] == 1 && $_GET['action'] == 'install'){
 			//Function to get Progress of Installation

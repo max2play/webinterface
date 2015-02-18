@@ -25,7 +25,7 @@
 
 
 <h1 class="entry-header">
-	<?php echo _("Advanced Max2Play Setup") ?>
+	<?php echo _("Advanced Max2Play Setup for Odroid U3") ?>
 </h1>
 <div class="entry-content">
 	<?php if(isset($as->view->message[0])){ ?>
@@ -94,24 +94,7 @@
 				</table>
 				<input type="button" name="save" value="<?php echo _('save') ?>" onclick="document.getElementById('action').value='configurePowerButton';submit();" />
 			</div>
-		
-		
-		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-top:3em;">
-				<span class="ui-icon ui-icon-video" style="float:left; margin:-2px 5px 0 0;"></span>
-				<?php echo _("MiniDLNA Service (easy media access for other network devices)") ?>
-		</p>
-		<?php echo _("MiniDLNA is a Service for sharing media-data from Max2Play with other devices in your network.") ?><br />
-		<?php if ($as->minidlna['installed'] == false) { ?>
-			<input type="button" id="installMiniDLNA" name="installMiniDLNA" onclick="document.getElementById('action').value='installMiniDLNA';submit();" value="<?php echo _("Install MiniDLNA") ?>" /><br />
-		<?php } else { ?>
-			<input type="button" id="uninstallMiniDLNA" name="uninstallMiniDLNA" onclick="document.getElementById('action').value='uninstallMiniDLNA';submit();" value="<?php echo _("Uninstall MiniDLNA") ?>" /><br />
-			<?php echo _("Media Path") ?> <input style="width: 90%;" type="text" name="minidlnaMediapath" value="<?php echo $as->minidlna['mediapath'] ?>" /><br />		
-			<input type="button" id="saveMiniDLNA" name="saveMiniDLNA" onclick="document.getElementById('action').value='saveMiniDLNA';submit();" value="<?php echo _("Save") ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="button" id="reloadMiniDLNA" name="reloadMiniDLNA" onclick="document.getElementById('action').value='reloadMiniDLNA';submit();" value="<?php echo _("Force Reload (reindex Folder)") ?>" />
-			<br />
-		<?php } ?>
 	
-		
 		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-top:3em;">
 				<span class="ui-icon ui-icon-gear" style="float:left; margin:-2px 5px 0 0;"></span>
 				<?php echo _("Update APT-GET Sources and APT-GET UPGRADE") ?>

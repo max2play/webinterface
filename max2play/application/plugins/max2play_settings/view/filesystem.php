@@ -66,11 +66,11 @@
 			</td>
 		</tr>
 		<tr>
-			<td><input type="text" name="mountpoint" value="" /></td>
-			<td><input type="text" name="path" value="" /></td>
-			<td><input type="text" name="type" value="" /></td>
-			<td><input type="text" name="options" value="" /></td>
-			<td><input type="button" value="<?php echo _('Save'); ?>" name="add" onclick="document.getElementById('action').value='add';submit();" /></td>
+			<td><input type="text" name="mountpoint" value="" size="20" /><br /><span class="small">//192.168.1.100/share</span></td>
+			<td><input type="text" name="path" value="" size="8" /><br /><span class="small">/mnt/share</span></td>
+			<td><input type="text" name="type" value="" size="4" /><br /><span class="small">cifs</span></td>
+			<td><input type="text" name="options" value="" size="40" /><br /><span class="small">user=name,password=pass,sec=ntlm,iocharset=utf8</span></td>
+			<td valign=top><input type="button" value="<?php echo _('Save'); ?>" name="add" onclick="document.getElementById('action').value='add';submit();" /></td>
 		</tr>
 		</table>	
 	</form>
@@ -78,9 +78,22 @@
 	<b><?php echo _('Important Information') ?>:</b><br />
 	<?php echo _('Important Information Filesystem Description') ?>	
 	
-	<br /><br />
-	DEBUGINFO
-	<textarea rows="5" cols="80" readonly><?php echo $fs->view->mount_txt ?></textarea>
+	<br /><br />	
+	<a href="#javascript" onclick="document.getElementById('debug').style.display='';return false;"><?php echo _("DEBUG Info") ?></a>
+	<textarea id="debug" rows="5" cols="80" style="display:none;"><?php echo $fs->view->mount_txt ?></textarea>	
+	
+	<br /><br /><br />
+	<h1 class="entry-header">
+		<?php echo _("External Drives on Max2Play - mountpoints for USB-Storage") ?>
+	</h1>
+	<p><?php echo _("This list shows all external storages and their mountpoints. You may access the devices by their path in Squeezeboxserver or XBMC/Kodi.") ?></p>
+	<?php if ($fs->view->mountpointsSDA){?>
+		<ul class="description">
+	<?php foreach ($fs->view->mountpointsSDA as $mnt){ ?>
+	 		<li><b><?php echo $mnt ?></b></li>
+	<?php } ?>
+		</ul>
+	<?php }else echo "<b>"._("No external devices found.")."</b>" ?>
 	
 	<br /><br />
 	<h1 class="entry-header">
@@ -116,12 +129,12 @@
 			</td>
 		</tr>
 		<tr>
-			<td><input type="text" name="name" value="" /></td>
-			<td><input type="text" name="path" value="" /></td>
-			<td><input type="text" name="comment" value="" /></td>
-			<td><input type="text" size=8 name="writeable" value="" /></td>
-			<td><input type="text" size=8 name="create mode" value="" /></td>
-			<td><input type="button" value="<?php echo _('Save'); ?>" name="add" onclick="document.getElementById('sambaaction').value='add';submit();" /></td>
+			<td><input type="text" name="name" value="" /><br /><span class="small">share</span></td>
+			<td><input type="text" name="path" value="" /><br /><span class="small">/media/usb</span></td>
+			<td><input type="text" name="comment" value="" /><br /><span class="small">Max2Play USB</span></td>
+			<td><input type="text" size=4 name="writeable" value="" /><br /><span class="small">yes</span></td>
+			<td><input type="text" size=4 name="create mode" value="" /><br /><span class="small">664</span></td>
+			<td valign="top"><input type="button" value="<?php echo _('Save'); ?>" name="add" onclick="document.getElementById('sambaaction').value='add';submit();" /></td>
 		</tr>
 		</table>
 		<br /><br />

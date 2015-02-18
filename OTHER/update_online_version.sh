@@ -33,19 +33,30 @@ do
 	echo $DESTHOST
 	pushd $SOURCEPATH
 	EXCLUDE="\*svn\* \*screens\* CPAN_ARM_ODROID\* Anleitung_Install.txt $PLUGINSTRING" #hd-idle_1.05\*
+	
+	if [ "$VERSION" = "beta" ]; then
+		cp -f max2play/application/config/version.txt max2play/application/config/mainversion.txt
+		echo "Beta-"$(date +"%y%m%d") > max2play/application/config/version.txt
+	fi
+	
 	eval "zip -r max2play_complete.zip . -x  $EXCLUDE"	
 	eval "zip -r webinterface.zip ./max2play -x $EXCLUDE"
-		
+	
+	if [ "$VERSION" = "beta" ]; then
+		cp -f max2play/application/config/mainversion.txt max2play/application/config/version.txt
+		rm max2play/application/config/mainversion.txt
+	fi
+	
 	#include files from /etc and put them to right place before zipping
 	mkdir etc	
 	cp -R CONFIG_SYSTEM/init.d etc/init.d
-	cp -R CONFIG_SYSTEM/sudoers.d etc/sudoers.d	
+	cp -R CONFIG_SYSTEM/sudoers.d etc/sudoers.d		
 	cp -R CONFIG_SYSTEM/usbmount etc/usbmount
 	#include config files from /home/odroid - panel erstmal rausgenommen - genügt in Grundkonfiguration
 	#mkdir -p home/odroid/.config
 	#cp -R CONFIG_USER/lxpanel home/odroid/.config	
 	
-	zip -r scripts.zip ./opt/max2play ./etc/usbmount/usbmount.conf ./etc/init.d/squeezelite ./etc/init.d/shairport ./etc/sudoers.d/max2play ./home/odroid/.config/lxpanel -x /opt/max2play/playername.txt /opt/max2play/samba.conf /opt/max2play/wpa_supplicant.conf /opt/max2play/audioplayer.conf /opt/max2play/autostart.conf
+	zip -r scripts.zip ./opt/max2play ./etc/usbmount/usbmount.conf ./etc/init.d/squeezelite ./etc/init.d/gmediarender ./etc/init.d/shairport ./etc/sudoers.d/max2play ./home/odroid/.config/lxpanel -x /opt/max2play/playername.txt /opt/max2play/samba.conf /opt/max2play/wpa_supplicant.conf /opt/max2play/audioplayer.conf /opt/max2play/autostart.conf
 	rm -R etc
 	rm -R home		
 	scp $SOURCEPATH/webinterface.zip root@$DESTHOST:$DESTPATH

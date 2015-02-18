@@ -24,7 +24,7 @@
 ?>
 
 <h1 class="entry-header">
-	<?php echo _('Squeezeserver - Status, Start & Stop') ?>
+	<?php echo $sp->viewname.' - '._('Status, Start & Stop') ?>
 </h1>
 	
 <div class="entry-content">

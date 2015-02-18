@@ -86,14 +86,14 @@ $(function() {
 	
 <div class="entry-content">
 	
-	<?php if(isset($sp->view->message[0]) || isset($ap->view->message[0]) || isset($ss->view->message[0])){ ?>
+	<?php if(isset($sp->view->message[0]) || isset($ap->view->message[0]) || isset($gm->view->message[0])){ ?>
 		<div class="ui-widget">
 			<div class="ui-state-highlight ui-corner-all" style="margin-bottom: 10px; padding: 0.4em .7em;">
 				<p>
 					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
 					<?php if(isset($sp->view->message[0])) echo implode('<br />', $sp->view->message); ?>
 					<?php if(isset($ap->view->message[0])) echo implode('<br />', $ap->view->message); ?>
-					<?php if(isset($ss->view->message[0])) echo implode('<br />', $ss->view->message); ?>
+					<?php if(isset($gm->view->message[0])) echo implode('<br />', $gm->view->message); ?>
 				</p>
 			</div>
 		</div>
@@ -118,22 +118,7 @@ $(function() {
 			<table>
 				<tr>
 					<td><?php echo _('Soundcard') ?></td>					
-					<td style="width: 25%;">
-						<?php /* <select id="squeezelite_soundcard" name="squeezelite_soundcard" style="width: 90%;" onChange="autosetCommandline(this);">
-						<option <?php if($sp->view->squeezelite_soundcard == 'plug:dmixer') echo 'selected'; ?> value='plug:dmixer'>Default dmixer (Alsa Mixer Device)</option>
-						<option <?php if($sp->view->squeezelite_soundcard == 'plug:plugequal') echo 'selected'; ?> value='plug:plugequal'>Equalizer</option>
-						<option <?php if($sp->view->squeezelite_soundcard == 'hw:CARD=Audio,DEV=0') echo 'selected'; ?> value='hw:CARD=Audio,DEV=0'>Direct HW No Conversions (DEV0)</option>
-						<option <?php if($sp->view->squeezelite_soundcard == 'plughw:CARD=Audio,DEV=0') echo 'selected'; ?> value='plughw:CARD=Audio,DEV=0'>Direct HW Conversions (DEV0)</option>
-						<option <?php if($sp->view->squeezelite_soundcard == 'dmix:CARD=Audio,DEV=0') echo 'selected'; ?> value='dmix:CARD=Audio,DEV=0'>Direct Sample DMix(DEV0)</option>
-						<option <?php if($sp->view->squeezelite_soundcard == 'hw:CARD=Audio,DEV=1') echo 'selected'; ?> value='hw:CARD=Audio,DEV=1'>Direct HW No Conversions (DEV1)</option>
-						<option <?php if($sp->view->squeezelite_soundcard == 'plughw:CARD=Audio,DEV=1') echo 'selected'; ?> value='plughw:CARD=Audio,DEV=1'>Direct HW Conversions (DEV1)</option>
-						<option <?php if($sp->view->squeezelite_soundcard == 'dmix:CARD=Audio,DEV=1') echo 'selected'; ?> value='dmix:CARD=Audio,DEV=1'>Direct Sample DMix(DEV1)</option>
-						<option <?php if($sp->view->squeezelite_soundcard == 'iec958:CARD=Device,DEV=0') echo 'selected'; ?> value='iec958:CARD=Device,DEV=0'>USB SPDIF</option>
-						<option <?php if($sp->view->squeezelite_soundcard == 'hw:CARD=Device,DEV=0') echo 'selected'; ?> value='hw:CARD=Device,DEV=0'>Direct HW No Conversions (USB)</option>
-						<option <?php if($sp->view->squeezelite_soundcard == 'dmix:CARD=Device,DEV=0') echo 'selected'; ?> value='dmix:CARD=Device,DEV=0'>Direct Sample DMix (USB)</option>
-						<option <?php if($sp->view->squeezelite_soundcard == 'plughw:CARD=Device,DEV=0') echo 'selected'; ?> value='plughw:CARD=Device,DEV=0'>Direct HW Conversions (USB)</option>
-						</select> */ ?> 
-						
+					<td style="width: 25%;">						
 						<select id="squeezelite_soundcard" name="squeezelite_soundcard" style="width: 90%;" onChange="autosetCommandline(this);">
 						<?php foreach($sp->view->soundDevices as $soundDeviceKey => $soundDevice){ ?>
 							<option <?php if($sp->view->squeezelite_soundcard == $soundDeviceKey) echo 'selected'; ?> value='<?php echo $soundDeviceKey ?>'><?php echo $soundDevice['name'].' - '.$soundDevice['description'].', '.$soundDevice['card']; ?></option>
@@ -195,12 +180,7 @@ $(function() {
 			<table>
 				<tr>
 					<td><?php echo _('Soundcard') ?></td>
-					<td style="width: 25%;">
-					    <?php /*<select name="shairport_soundcard" style="width: 90%;">
-						<option <?php if($ap->view->shairport_soundcard == 'plug:plugequal') echo 'selected'; ?> value='plug:plugequal'>Use Equalizer</option>
-						<option <?php if($ap->view->shairport_soundcard == 'plug:dmixer') echo 'selected'; ?> value='plug:dmixer'>Default dmixer (Alsa Mixer Device)</option>
-						</select>*/?>
-						
+					<td style="width: 25%;">						
 						<select id="shairport_soundcard" name="shairport_soundcard" style="width: 90%;">
 						<?php foreach($sp->view->soundDevices as $soundDeviceKey => $soundDevice){ ?>
 							<option <?php if($ap->view->shairport_soundcard == $soundDeviceKey) echo 'selected'; ?> value='<?php echo $soundDeviceKey ?>'><?php echo $soundDevice['name'].' - '.$soundDevice['description'].', '.$soundDevice['card']; ?></option>
@@ -217,6 +197,49 @@ $(function() {
 		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />				
 		<br />
 		
+		<?php /* GEMEDIARENDERER */
+		if ($gm->view->installed){ ?>
+			<br /><br /><br />
+			<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+				<span class="ui-icon ui-icon-volume-on" style="float:left; margin:-2px 5px 0 0;"></span>
+				<?php if ($gm->view->pid) { ?>
+					<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $gm->viewname, _('$SERVICENAME is running with processID')) ?> <b><?php echo $gm->view->pid ?></b></p>
+					<input type="button" value="<?php echo str_replace('$SERVICENAME', $gm->viewname, _('stop $SERVICENAME')) ?>" name="stopgm" onclick="document.getElementById('action').value='stopgm';submit();" />
+					<input type="button" value="<?php echo str_replace('$SERVICENAME', $gm->viewname, _('kill $SERVICENAME')) ?>" name="killgm" onclick="document.getElementById('action').value='killgm';submit();" />
+				<?php }else { ?>
+					<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $gm->viewname, _('$SERVICENAME not running')) ?></p>
+					<input type="button" value="<?php echo str_replace('$SERVICENAME', $gm->viewname, _('start $SERVICENAME')) ?>" name="startgm" onclick="document.getElementById('action').value='startgm';submit();" />			
+				<?php } ?>
+			<input type="submit" onclick="document.getElementById('gemediarenderdetails').style.display='';return false;" value="<?php echo _('Edit Advanced Options') ?>" />
+			<div id="gemediarenderdetails" class="optiondetails" style="display:none;">
+				<table>
+					<tr>
+						<td><?php echo _('Soundcard') ?></td>
+						<td style="width: 25%;">						
+							<select id="gmediarender_soundcard" name="gmediarender_soundcard" style="width: 90%;">
+							<?php foreach($sp->view->soundDevices as $soundDeviceKey => $soundDevice){ ?>
+								<option <?php if($gm->view->gmediarender_soundcard == $soundDevice['name']) echo 'selected'; ?> value='<?php echo $soundDevice['name'] ?>'><?php echo $soundDevice['name'].' - '.$soundDevice['description'].', '.$soundDevice['card']; ?></option>
+							<?php }?>
+							</select>
+						</td>
+						<td><?php echo _('Select Audio output') ?></td>
+					</tr>
+				</table>
+				<input type="button" name="save" value="<?php echo _('save') ?>" onclick="document.getElementById('action').value='save';submit();" />
+			</div>
+			<br /><br /><b><?php echo str_replace('$SERVICENAME', $gm->viewname, _('Autostart $SERVICENAME')) ?>:</b><br />
+			<input type="checkbox" <?php if($gm->view->autostart) echo "checked"; ?> value="1" name="autostartgm" />
+			<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />				
+			<br />
+		<?php  }elseif($gm->view->isAvailable !== FALSE) { ?>
+			<br /><br /><br />
+			<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+				<span class="ui-icon ui-icon-volume-on" style="float:left; margin:-2px 5px 0 0;"></span>				
+				<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $gm->viewname, _('$SERVICENAME not installed')) ?></p>
+				<input type="button" value="<?php echo str_replace('$SERVICENAME', $gm->viewname, _('install $SERVICENAME')) ?>" name="installgm" onclick="document.getElementById('action').value='installgm';submit();" />			
+		<?php } ?>
+		
+		<?php /* Raspberry PI Audio Switch */?>
 		<?php if(isset($sp->view->audioOutputPI)) { ?>
 			<p class="ui-state-default ui-corner-all" style="padding:4px;margin-top:3em;">
 				<span class="ui-icon ui-icon-gear" style="float:left; margin:-2px 5px 0 0;"></span>

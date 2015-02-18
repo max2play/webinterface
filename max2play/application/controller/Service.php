@@ -334,7 +334,9 @@ class Service {
 		$this->getVersion();
 		//Check auf Update
 		$file = file_get_contents('http://shop.max2play.com/media/downloadable/currentversion/version.txt');
-		if((float)$this->info->version < (float)$file){
+		if(strpos($this->info->version, 'Beta') !== FALSE){
+			$this->view->message[] = _('You are running a Beta-Version of Max2Play!');
+		}elseif((float)$this->info->version < (float)$file){
 			$this->view->message[] = _('Max2Play update is available - start update on tab Settings / Reboot');
 		}
 		return true;
@@ -472,6 +474,22 @@ class Service {
 			//!file_exists($progressfile) && $create == 0 --> Finished
 			$this->view->message[] = '<!-- finished -->';
 			return true;
+		}
+	}
+	
+	/**
+	 * Format Message-Output for view
+	 * @param string $string content
+	 * @param boolean $hide generate link to display content
+	 */
+	public function formatMessageOutput($string, $hide = false){
+		if($hide)
+			return nl2br($string);
+		else{
+			$id = rand();
+			$out = '<a style="color: #21759b;" href="#javascript" onclick="document.getElementById(\''.$id.'\').style.display=\'\';return false;">'._("Click here to show detailed information").'</a>';
+			$out .= '<span style="display:none;" id="'.$id.'"><br />'.nl2br($string).'</span>';
+			return $out;
 		}
 	}
 	

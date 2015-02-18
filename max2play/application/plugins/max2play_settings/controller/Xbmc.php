@@ -27,13 +27,13 @@
 class Xbmc extends Service {
 	
 	protected $pname = 'xbmc';
-	public $viewname = 'Xbmc';
+	public $viewname = 'Kodi / XBMC';
 	private $_autostartfile = '/home/odroid/.config/lxsession/Lubuntu/autostart';
 	//private $_autostartfile = '/home/odroid/.config/autostart_off/XBMC.desktop'; DEBIAN-Version
 	
 	public function __construct(){								
 		parent::__construct();
-		$this->pluginname = _('XBMC / Kodi');
+		$this->pluginname = _('Kodi / XBMC');
 		
 		if (file_exists('/usr/local/bin/kodi') || file_exists('/usr/bin/kodi'))
 			$this->pname = 'kodi';		

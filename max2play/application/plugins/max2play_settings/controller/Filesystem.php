@@ -68,6 +68,7 @@ class Filesystem extends Service {
 		
 		$this->getMountsFstab();
 		$this->getSambaConfig();
+		$this->getMountpointsSDA();
 	}
 	
 	public function addMount(){
@@ -259,6 +260,22 @@ class Filesystem extends Service {
 		shell_exec("sudo /etc/init.d/samba restart");
 		$this->view->message[] = _('Samba Service restarted');
 	}
+	
+	public function getMountpointsSDA(){
+		 $output = explode("\n", shell_exec("mount | grep /dev/sd"));
+		 if(isset($output[0])){
+		 	$this->view->mountpointsSDA = array();
+		 	foreach($output as $value){	 		
+		 		if($pos = strpos($value, 'type')){
+		 			$first = strpos($value, ' on ') + 4;
+		 			$this->view->mountpointsSDA[] = substr($value, $first, $pos - $first);
+		 		}
+		 	}
+		 }else
+		 	$this->view->mountpointsSDA = false;
+		 return true;		 
+	}
+	
 }
 
 $fs = new Filesystem();

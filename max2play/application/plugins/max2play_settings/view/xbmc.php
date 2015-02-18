@@ -25,7 +25,7 @@
 
 
 <h1 class="entry-header">
-	<?php echo _("XBMC - Status, Start & Stop") ?>
+	<?php echo _("Kodi / XBMC - Status, Start & Stop") ?>
 </h1>
 	
 <div class="entry-content">

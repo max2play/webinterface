@@ -1,6 +1,6 @@
 #!/bin/sh
 #Upsampling Squeezelite
-(echo "y") | apt-get install libsoxr0
+#(echo "y") | apt-get install libsoxr0
 
 #Remove error logging to ubuntu
 rm /etc/init/whoopsie.conf
@@ -20,10 +20,25 @@ else
 	echo "Added Factory Settings"
 fi
 
-#Add Max2Play Powerbutton to StartUp
-powerbutton=$(cat /etc/rc.local | grep pwrbutton | wc -l)
-if [ "$powerbutton" -lt "1" ]; then 
-	sed -i 's/^exit 0/\/opt\/max2play\/pwrbutton 2>\&1 > \/dev\/null \&\n\nexit 0/' /etc/rc.local
+#Add Max2Play Powerbutton to StartUp Only on ODROID U3!
+HW_U3=$(cat /proc/cpuinfo | grep Hardware | grep -i "ODROID-U2/U3" | wc -l)
+if [ "$HW_U3" -gt "0" ]; then
+	powerbutton=$(cat /etc/rc.local | grep pwrbutton | wc -l)
+	if [ "$powerbutton" -lt "1" ]; then 
+		sed -i 's/^exit 0/\/opt\/max2play\/pwrbutton 2>\&1 > \/dev\/null \&\n\nexit 0/' /etc/rc.local
+	fi
+	
+	#Update Bootoptions for setting resolution from http://forum.odroid.com/viewtopic.php?f=52&t=2947
+	if [ -e /media/boot/boot-auto_edid.scr ]; then
+		echo "Boot Options for HDMI existing"
+	else	
+		wget http://builder.mdrjr.net/tools/boot.scr_ubuntu.tar -O /opt/max2play/cache/boot_scr.tar
+		tar -xf /opt/max2play/cache/boot_scr.tar -C /opt/max2play/cache
+		rm -Rf /opt/max2play/cache/x
+		cp /opt/max2play/cache/x2u2/boot-* /media/boot
+		rm -Rf /opt/max2play/cache/x2u2
+		cp -f /media/boot/boot.scr /media/boot/boot-auto_edid.scr
+	fi
 fi
 
 #Disable IPv6 - not working correct yet
@@ -47,14 +62,8 @@ else
 	unzip -o /opt/max2play/cache/scripts.zip -d /
 fi
 
-#Update Bootoptions for setting resolution from http://forum.odroid.com/viewtopic.php?f=52&t=2947
-if [ -e /media/boot/boot-auto_edid.scr ]; then
-	echo "Boot Options for HDMI existing"
-else	
-	wget http://builder.mdrjr.net/tools/boot.scr_ubuntu.tar -O /opt/max2play/cache/boot_scr.tar
-	tar -xf /opt/max2play/cache/boot_scr.tar -C /opt/max2play/cache
-	rm -Rf /opt/max2play/cache/x
-	cp /opt/max2play/cache/x2u2/boot-* /media/boot
-	rm -Rf /opt/max2play/cache/x2u2
-	cp -f /media/boot/boot.scr /media/boot/boot-auto_edid.scr
+
+HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709" | wc -l)
+if [ "$HW_RASPBERRY" -gt "0" ]; then
+	sudo sed -i 's/odroid/pi/' /etc/usbmount/usbmount.conf
 fi

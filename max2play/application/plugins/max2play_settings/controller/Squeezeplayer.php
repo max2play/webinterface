@@ -162,6 +162,8 @@ class Squeezeplayer extends Service {
 				$this->view->soundDevices['plug:'.$matches[6][$i]] = $dev;
 			}
 		}
+		unset($this->view->soundDevices['plug:null']);
+		
 		return true;
 	}
 	
@@ -339,8 +341,8 @@ class Squeezeplayer extends Service {
 
 $sp = new Squeezeplayer();
 
-//zusätzlich die Shairport konfig laden
+//zusätzlich die Konfig für Shairport und DLNA client laden
 include_once(dirname(__FILE__).'/Shairport.php');
-//include_once(dirname(__FILE__).'/Squeezeslave.php');
-	  
+include_once(dirname(__FILE__).'/Gmediarender.php');
+  
 include_once(dirname(__FILE__).'/../view/squeezeplayer.php');

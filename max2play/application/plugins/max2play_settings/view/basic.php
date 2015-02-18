@@ -68,7 +68,10 @@
 	  <tr>
 		<td><?php echo _("Language") ?></td> 
 		<td><select name="locale" style="width:95%;">
-			<?php foreach($basic->view->locales as $key => $res) { ?><option value="<?php echo $key?>" <?php if($basic->view->currentLocale == $key) echo 'selected'; ?>><?php echo $key.' - '.$res?></option><?php } ?>
+			<?php foreach($basic->view->locales as $key => $res) { ?><option value="<?php echo $res?>" <?php if($basic->view->currentLocale == $res) echo 'selected'; ?>><?php echo $key?></option><?php } ?>
+			</select><br />
+			<select name="timezone" style="width:95%;">
+			<?php foreach($basic->view->timezones as $res) { ?><option value="<?php echo $res?>" <?php if($basic->view->currentTimezone == $res) echo 'selected'; ?>><?php echo $res?></option><?php } ?>
 			</select>
 		</td>
 		<td><?php echo _("Change Keyboard Layout, Language and Timezone for Desktop (this web-interface detects browser language)") ?></td>
@@ -101,6 +104,7 @@
 		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
 			<span class="ui-icon ui-icon-refresh" style="float:left; margin:-2px 5px 0 0;"></span>
 			<b><?php echo _("Force Update to latest Beta for Max2Play (Development)") ?></b></p>
+		<p><?php echo _("READ CAREFULLY: This function is for developers and users that want to test the latest available Max2Play before it is released. This might have some bugs and will not be supported in forums and questions by mails!") ?><br />
 		<input type="button" value="<?php echo _("Update2Beta Max2Play") ?>" name=checkMax2PlayBetaUpdate onclick="document.getElementById('action').value='checkMax2PlayBetaUpdate';submit();" />&nbsp;&nbsp;
 		<br /><br />
 	<?php } ?>	

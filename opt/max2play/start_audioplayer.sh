@@ -29,6 +29,15 @@ if [ "1" -gt "$xbmcrunning" ]; then
         fi
     fi        
     
+    autostart_gmediarender=$(cat /opt/max2play/autostart.conf | grep gmediarender=1 | wc -l)    
+    if [ "0" -lt "$autostart_gmediarender" ]
+        then
+        running_gmediarender=$(ps -Al | grep gmediarender | wc -l)
+        if [ "1" -gt "$running_gmediarender" ]; then
+        	sudo /etc/init.d/gmediarender start
+        fi
+    fi        
+    
     autostart_squeezeslave=$(cat /opt/max2play/autostart.conf | grep squeezeslave=1 | wc -l)
     if [ "0" -lt "$autostart_squeezeslave" ]
         then
