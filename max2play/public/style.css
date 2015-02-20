@@ -211,6 +211,8 @@ input[type="submit"], input[type="button"], input[type="reset"] {
 .boldorderedlist li {margin-bottom:10px;}
 .boldorderedlist li span { font-weight: normal; }
 
+.chooseplayer {max-width:160px;}
+
 .small {font-size:0.8em;}
 
 .ui-state-highlight {word-wrap:break-word;}

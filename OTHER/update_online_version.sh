@@ -32,7 +32,7 @@ do
 	echo $'\n'
 	echo $DESTHOST
 	pushd $SOURCEPATH
-	EXCLUDE="\*svn\* \*screens\* CPAN_ARM_ODROID\* Anleitung_Install.txt $PLUGINSTRING" #hd-idle_1.05\*
+	EXCLUDE="\*svn\* .settings\* \*screens\* Anleitung_Install.txt $PLUGINSTRING" #hd-idle_1.05\* CPAN_ARM_ODROID\*
 	
 	if [ "$VERSION" = "beta" ]; then
 		cp -f max2play/application/config/version.txt max2play/application/config/mainversion.txt

@@ -20,9 +20,9 @@
     <pos>1</pos>
   </plugin>
   <plugin>
-    <name>Squeezeserver</name>
+    <name>Squeezebox Server</name>
     <navigation>
-      <translate>Squeezeserver</translate>
+      <translate>Squeezebox Server</translate>
     </navigation>
     <path>/plugins/max2play_settings/controller/Squeezeserver.php</path>
     <active>1</active>
@@ -56,9 +56,9 @@
     <pos>5</pos>
   </plugin>
   <plugin>
-    <name>XBMC / Kodi</name>
+    <name>Kodi / XBMC</name>
     <navigation>
-      <translate>XBMC / Kodi</translate>
+      <translate>Kodi / XBMC</translate>
     </navigation>
     <path>/plugins/max2play_settings/controller/Xbmc.php</path>
     <active>1</active>
@@ -74,9 +74,9 @@
     <pos>100</pos>
   </plugin>
   <plugin>
-    <name>Advanced Setup</name>
+    <name>Advanced Setup Odroid U3</name>
     <navigation>
-      <translate>Advanced Setup</translate>
+      <translate>Advanced Setup Odroid U3</translate>
     </navigation>
     <path>/plugins/max2play_settings/controller/AdvancedSetup.php</path>
     <active>0</active>
@@ -108,5 +108,14 @@
     <path>/plugins/callblocker/controller/Setup.php</path>
     <active>0</active>
     <pos>110</pos>
+  </plugin>
+  <plugin>
+    <name>DLNA-Server</name>
+    <navigation>
+      <translate>DLNA-Server</translate>
+    </navigation>
+    <path>/plugins/dlnaserver/controller/Setup.php</path>
+    <active>0</active>
+    <pos>112</pos>
   </plugin>
 </config>

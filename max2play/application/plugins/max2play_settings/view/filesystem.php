@@ -53,10 +53,10 @@
 		<?php $i=0;
 			 foreach ($fs->view->mounts as $mount){ ?>
 			<tr>
-				<td><input type="text" name="" value="<?php echo $mount->getMountpoint(); ?>" /></td>
-				<td><input type="text" name="" value="<?php echo $mount->getPath(); ?>" /></td>
-				<td><input type="text" name="" value="<?php echo $mount->getType(); ?>" /></td>
-				<td><input type="text" name="" value="<?php echo $mount->getOptions(); ?>" /></td>
+				<td><input type="text" name="" size="20" value="<?php echo $mount->getMountpoint(); ?>" /></td>
+				<td><input type="text" name="" size="8" value="<?php echo $mount->getPath(); ?>" /></td>
+				<td><input type="text" name="" size="4" value="<?php echo $mount->getType(); ?>" /></td>
+				<td><input type="text" name="" size="40" value="<?php echo $mount->getOptions(); ?>" /></td>
 				<td><input type="button" value="<?php echo _('Delete'); ?>" name="delete" onclick="document.getElementById('action').value='delete_<?php echo $i; ?>';submit();" /></td>
 			</tr>
 		<?php $i++; } ?>
@@ -109,6 +109,7 @@
 				<td><?php echo _('Comment') ?></td>
 				<td><?php echo _('Writeable') ?></td>
 				<td><?php echo _('Create Mode') ?></td>
+				<td><?php echo _('Action') ?></td>
 			</tr>
 		<?php $i=0;
 			foreach ($fs->view->sambashares as $samba){ ?>
@@ -117,19 +118,19 @@
 				
 				<td><input type="text" name="" value="<?php echo $samba->getOptions('path'); ?>" /></td>
 				<td><input type="text" name="" value="<?php echo $samba->getOptions('comment'); ?>" /></td>
-				<td><input type="text" name="" size=8 value="<?php echo $samba->getOptions('writeable'); ?>" /></td>
-				<td><input type="text" name="" size=8 value="<?php echo $samba->getOptions('create mode'); ?>" /></td>
+				<td><input type="text" name="" size=4 value="<?php echo $samba->getOptions('writeable'); ?>" /></td>
+				<td><input type="text" name="" size=4 value="<?php echo $samba->getOptions('create mode'); ?>" /></td>
 
 				<td><input type="button" value="<?php echo _('Delete'); ?>" name="delete" onclick="document.getElementById('sambaaction').value='delete_<?php echo $i; ?>';submit();" /></td>
 			</tr>
 		<?php $i++; } ?>
 		<tr>
-			<td colspan = 5><br /><hr><br />
+			<td colspan = 6><br /><hr><br />
 				<?php echo _('Add new Sambashare') ?>:
 			</td>
 		</tr>
 		<tr>
-			<td><input type="text" name="name" value="" /><br /><span class="small">share</span></td>
+			<td><input type="text" name="name" value="" /><br /><span class="small"><?php echo _('usbshare'); ?></span></td>
 			<td><input type="text" name="path" value="" /><br /><span class="small">/media/usb</span></td>
 			<td><input type="text" name="comment" value="" /><br /><span class="small">Max2Play USB</span></td>
 			<td><input type="text" size=4 name="writeable" value="" /><br /><span class="small">yes</span></td>

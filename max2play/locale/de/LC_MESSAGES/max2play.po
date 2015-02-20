@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-18 15:12+0100\n"
-"PO-Revision-Date: 2015-02-18 15:13+0100\n"
+"POT-Creation-Date: 2015-02-19 13:28+0100\n"
+"PO-Revision-Date: 2015-02-20 12:02+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -183,14 +183,16 @@ msgid "Options"
 msgstr "Optionen"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:51
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:112
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:51
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:112
 msgid "Action"
 msgstr "Aktion"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:60
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:123
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:124
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:60
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:123
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:124
 msgid "Delete"
 msgstr "Löschen"
 
@@ -200,12 +202,12 @@ msgid "Add new mountpoint"
 msgstr "Neuen Mountpoint hinzufügen"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:73
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:137
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:151
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:138
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:152
 #: y:\projects\max2play\max2play\application/plugins/dlnaserver/view/setup.php:54
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:73
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:137
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:151
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:138
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:152
 msgid "Save"
 msgstr "Speichern"
 
@@ -289,33 +291,38 @@ msgstr "Schreib-Rechte"
 msgid "Create Mode"
 msgstr "Datei-Rechte"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:128
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:128
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:129
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:129
 msgid "Add new Sambashare"
 msgstr "Neue Sambafreigabe hinzufügen"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:141
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:141
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:133
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:133
+msgid "usbshare"
+msgstr "usbfreigabe"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:142
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:142
 msgid "Sambashare Access"
 msgstr "Sambashare Zugang"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:144
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:144
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:145
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:145
 msgid "User for Samba-Access"
 msgstr "Benutzer für Samba-Zugriff"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:147
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:147
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:148
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:148
 msgid "Password for Samba-Access"
 msgstr "Passwort für Samba-Zugriff"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:155
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:155
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:156
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:156
 msgid "Samba Important Information"
 msgstr "Bitte beachten bei Samba Freigaben"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:156
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:156
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:157
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:157
 msgid "Important Information Samba Description"
 msgstr ""
 "Mit Samba können Verzeichnisse für das Netzwerk freigegeben werden. Wenn z."
@@ -852,8 +859,8 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:28
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:28
-msgid "XBMC - Status, Start & Stop"
-msgstr "XBMC - Status, Start & Stop"
+msgid "Kodi / XBMC - Status, Start & Stop"
+msgstr "Kodi / XBMC - Status, Start & Stop"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:51
 #: y:\projects\max2play\max2play\application/plugins/jivelite/view/setup.php:50
@@ -921,8 +928,8 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:27
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:27
-msgid "Squeezeserver - Status, Start & Stop"
-msgstr "Squeezeserver - Status, Start & Stop"
+msgid "Status, Start & Stop"
+msgstr "Status, Start & Stop"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:48
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:48
@@ -1311,7 +1318,6 @@ msgid "What is Max2Play?"
 msgstr "Was ist Max2Play und wobei hilft es mir?"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:22
-#: y:\projects\max2play\max2play\application/plugins/squeezeplug/view/setup.php:104
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/index.php:22
 msgid "//www.youtube.com/embed/GjYnHZF2Oek"
 msgstr ""
@@ -1378,8 +1384,8 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:36
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:36
-msgid "XBMC / Kodi"
-msgstr "XBMC / Kodi"
+msgid "Kodi / XBMC"
+msgstr ""
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:49
 #: y:\projects\max2play\max2play\application/plugins/jivelite/controller/Setup.php:38
@@ -1446,8 +1452,8 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:35
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:35
-msgid "Squeezeserver"
-msgstr "Squeezeserver"
+msgid "Squeezebox Server"
+msgstr "Squeezebox Server"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:95
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:95
@@ -2027,11 +2033,12 @@ msgid "DONATE-BUTTON-SQUEEZEPLUG"
 msgstr ""
 "<form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\" "
 "target=\"_top\"><input type=\"hidden\" name=\"cmd\" value=\"_s-xclick"
-"\"><input type=\"hidden\" name=\"hosted_button_id\" value=\"FCG8BS6B6J8XW"
-"\"><input type=\"image\" src=\"https://www.paypalobjects.com/en_US/GB/i/btn/"
-"btn_donateCC_LG.gif\" border=\"0\" name=\"submit\" alt=\"PayPal – The safer, "
-"easier way to pay online.\"><img alt=\"\" border=\"0\" src=\"https://www."
-"paypalobjects.com/de_DE/i/scr/pixel.gif\" width=\"1\" height=\"1\"></form>"
+"\"><input type=\"hidden\" name=\"hosted_button_id\" value=\"K5H4GBLPNCKNJ"
+"\"><input type=\"image\" src=\"https://www.paypalobjects.com/de_DE/DE/i/btn/"
+"btn_donateCC_LG.gif\" border=\"0\" name=\"submit\" alt=\"Jetzt einfach, "
+"schnell und sicher online bezahlen – mit PayPal.\"><img alt=\"\" border="
+"\"0\" src=\"https://www.paypalobjects.com/de_DE/i/scr/pixel.gif\" width="
+"\"1\" height=\"1\"></form>"
 
 #: y:\projects\max2play\max2play\application/plugins/squeezeplug/controller/Setup.php:34
 msgid "Squeezeplug"
@@ -2158,6 +2165,12 @@ msgstr ""
 #: y:\projects\max2play\max2play\application/plugins/kernelmodules_odroid_u3/controller/Setup.php:111
 msgid "Removed HiFace USB-Driver"
 msgstr ""
+
+#~ msgid "Squeezeserver - Status, Start & Stop"
+#~ msgstr "Squeezeserver - Status, Start & Stop"
+
+#~ msgid "XBMC / Kodi"
+#~ msgstr "XBMC / Kodi"
 
 #~ msgid "Group Cipher"
 #~ msgstr "Group Cipher"

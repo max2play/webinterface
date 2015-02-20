@@ -40,7 +40,7 @@
 <h1 class="entry-header">
 	<?php echo _t("How to get it working") ?></h1>
 
-	<?php echo _t("There are only a few steps necessary to get your Mini-Computer working as an easy to use Multiroom Audio Solution. Follow the next steps and you will be ready to go in a few minutes.") ?>
+	<?php echo _t("There are only a few steps necessary to get your Mini-Computer working as an easy to use Multiroom Audio Solution. Follow the next steps and you will be ready to go in a few minutes. If your Mini-Computer is already running, you can start with step 5. \"Expand the SD-Card\". ") ?>
 	
 	<ol class="boldorderedlist">
 	<li><span>
@@ -49,7 +49,7 @@
 	</span></li>
 	<li><span>
 	<?php echo _t('<b>Burn the image to the SD-Card</b><br /> 
-	Use a tool like <a href="http://www.alexpage.de/usb-image-tool/download/" target="_blank">USB Image Tool</a> to burn the downloaded image to the SD-Card. It is also possible to get a ready to start image from our shop: shop.max2play.com.') ?>
+	Use a tool like <a href="http://www.alexpage.de/usb-image-tool/download/" target="_blank">USB Image Tool</a> to burn the downloaded image to the SD-Card. It is also possible to get a ready to start image from our shop: <a href="shop.max2play.com/" target="_blank">Max2Play Shop</a>.') ?>
 	</span></li>
 	<li><span>
 	<?php echo _t('<b>Start your Mini-Computer</b><br /> 
@@ -57,7 +57,7 @@
 	</span></li>
 	<li><span>
 	<?php echo _t('<b>Connect to your Mini-Computer by an webbrowser</b><br /> 
-	Type "max2play" in the address bar of your webbrowser. If the SqueezePlug & Max2Play site does not start up, try to connect via the IP-Address. For that you will need to know this address. Look it up in your router or use a tool like <a href="http://www.advanced-ip-scanner.com" target="_blank">Advanced IP Scanner</a>. If you are not able to connect either ways, connect a monitor and a keyboard to the Mini-Computer, log in and type "ifconfig". The login is different for the different Mini-Computers (e.g. use user "pi" and password "raspberry" on the Raspberry Pi, user "odroid" and password "odroid" on the Odroid devices.)') ?>
+	Type "http://max2play" in the address bar of your webbrowser. If the SqueezePlug & Max2Play site does not start up, try to connect via the IP-Address. For that you will need to know this address. Look it up in your router or use a tool like <a href="http://www.advanced-ip-scanner.com" target="_blank">Advanced IP Scanner</a>. If you are not able to connect either ways, connect a monitor and a keyboard to the Mini-Computer, log in and type "ifconfig". The login is different for the different Mini-Computers (e.g. use user "pi" and password "raspberry" on the Raspberry Pi, user "odroid" and password "odroid" on the Odroid devices.)') ?>
 	</span></li>
 	<li><span>
 	<?php echo _t('<b>Expand the SD-Card</b><br /> 
@@ -69,24 +69,24 @@
 	</span></li>
 	<li><span>
 	<?php echo _t('<b>Configure the network settings</b><br /> 
-	Choose the "WiFi / LAN" menu to configure your network settings. SqueezePlug & Max2Play uses the wired connection with DHCP by default. This means that you will get an IP-Address from your router while booting, if DHCP on the router is enabled. A LAN-Connection is always necessary on the first boot. If you like, you can configure a additional WLAN(WiFi)-Connection. If the WLAN-Connection is working, you can simply cut the LAN-Connection. Please remember, the IP-Address will change if you connect by WiFi instead of LAN.') ?>
+	Choose the "WIFI / LAN" menu to configure your network settings. SqueezePlug & Max2Play uses the wired connection with DHCP by default. This means that you will get an IP-Address from your router while booting, if DHCP on the router is enabled. A LAN-Connection is always necessary on the first boot. If you like, you can configure a additional WLAN(WiFi)-Connection. If the WLAN-Connection is working, you can simply cut the LAN-Connection. Please remember, the IP-Address will change if you connect by WiFi instead of LAN.') ?>
 	</span></li>
 	<li><span>
 	<?php echo _t('<b>Configure the path to your files</b><br /> 
-	Choose the "Filesystem Mount" menu to configure the path to your Media-Files like music, movies, pictures etc. Your Media-Files can be saved at different locations: On the SD-Card of the Mini-Computer itself, on an attached USB-drive, or on an Samba or NFS Network-Share. If the Media-Files are stored on the SD-Card you booted from, there is no need to do anything here. If it is stored on a USB-drive this will be mounted automatically to /media/usb and /media/usb0. If you attach more than one USB-drive, they will be mounted to /media/usb1 to /media/usb7. If your Media-Files are stored on an network location you have to configure it from this site. Everything you will need to do is explained here. If you like to enable the Mini-Computer to work as a Samba-Server, go to the section "Sambashares on Max2Play - setup network share paths". If configured correctly, you are now able to see your Mini-Computer as a network-share form the PCs in your home LAN. You can now easily transfer files to your Mini-Computer from other computers in your Home-LAN.') ?>
+	Choose the "FILESYSTEM MOUNT" menu to configure the path to your Media-Files like music, movies, pictures etc. Your Media-Files can be saved at different locations: On the SD-Card of the Mini-Computer itself, on an attached USB-drive, or on an Samba or NFS Network-Share. If the Media-Files are stored on the SD-Card you booted from, there is no need to do anything here. If it is stored on a USB-drive this will be mounted automatically to /media/usb and /media/usb0. If you attach more than one USB-drive, they will be mounted to /media/usb1 to /media/usb7. If your Media-Files are stored on an network location you have to configure it from this site. Everything you will need to do is explained here. If you like to enable the Mini-Computer to work as a Samba-Server, go to the section "Sambashares on Max2Play - setup network share paths". If configured correctly, you are now able to see your Mini-Computer as a network-share form the PCs in your home LAN. You can now easily transfer files to your Mini-Computer from other computers in your Home-LAN.') ?>
 	</span></li>
 	<li><span>
-	<?php echo _t('<b>Install SqueezeBoxServer</b><br /> 
-	If you like, you can install SqueezeBoxServer (Logitech Mediaserver). SqueezeBoxServer is one of the best Media-Servers you can get. Choose the Menu " Squeezeserver
-	" and you will find all you need to get SqueezeBoxServer installed. Please remember, that it will take a while, till the SqueezeBoxServer webinterface is reachable after the installation. After the installation has finished, you can access the SqueezeBoxServer webinterface by choosing "Start Squeezeserver Webadministration". One of the first things you have to configure here is the path to your media files. Please choose the path depending on the settings in the earlier steps.') ?>
+	<?php echo _t('<b>Install Squeezebox Server</b><br /> 
+	If you like, you can install Squeezebox Server. Squeezebox Server is one of the best Media-Servers you can get. Choose the Menu " SQUEEZEBOX SERVER
+	" and you will find all you need to get Squeezebox Server installed. Please remember, that it will take a while, till the Squeezebox Server webinterface is reachable after the installation. After the installation has finished, you can access the Squeezebox Server webinterface by choosing "Start Squeezebox Sserver Webadministration". One of the first things you have to configure here is the path to your media files. Please choose the path depending on the settings in the earlier steps.') ?>
 	</span></li>
 	<li><span>
 	<?php echo _t('<b>Configure AudioPlayer</b><br /> 
-	To configure you Mini-Computer as an AudioPlayer choose the menu "Audioplayer". From here you can configure three different players. For the SqueezeBox environment you need the SqueezeLite player. To play from your Apple-Devices you need ShairPort. The gmediarender is a DLNA-Client for audio running with all DLNA compatible media-servers. All the players can run simultaneously. Please configure the appropriate soundcard for your system. ') ?>
+	To configure you Mini-Computer as an AudioPlayer choose the menu "AUDIOPLAYER". From here you can configure three different players. For the Squeezebox Server environment you need the SqueezeLite player. To play from your Apple-Devices you need ShairPort. The gmediarender is a DLNA-Client for audio running with all DLNA compatible media-servers. All the players can run simultaneously. Please configure the appropriate soundcard for your system. To change the name of your player choose the menu "SETTINGS / REBOOT" and you will find an option to change it. Please remember, that you will not only change the player name, you will also change the hostname of your Mini-Computer. So the URL for your Mini-Computer will also change. ') ?>
 	</span></li>
 	<li><span>
 	<?php echo _t('<b>Additional Settings</b><br /> 
-	There are a lot of other setting or tweaks you can choose from the menus. E.g. if you like install Kodi (f.k.a. XBMC). It can easily coexist with SqueezeBoxServer and all other components of SqueezePlug & Max2Play.') ?>
+	There are a lot of other setting or tweaks you can choose from the menus. E.g. if you like install Kodi (f.k.a. XBMC). It can easily coexist with Squeezebox Server and all other components of SqueezePlug & Max2Play.') ?>
 	</span></li>
 	</ol>	
 	
@@ -95,15 +95,13 @@
 <h1 class="entry-header">
 	<?php echo _t("Video Tutorial") ?>
 </h1>
+	<?php echo _t("A Video Tutorial will follow soon, be patient for some days, thank you!"); ?><br />
 	
 <br />
-	
-	
-	
-	
-	<iframe width="560" height="315" src="<?php echo _("//www.youtube.com/embed/GjYnHZF2Oek")?>" frameborder="0" allowfullscreen></iframe>
-	<br /><br />
-	<?php echo _t('Questions concerning this project? Please refer to <a href="http://shop.max2play.com" target="_blank">Shop.Max2Play</a>') ?><br />
-	<br /><br />
-	<b><?php echo _t("READ CAREFULLY: THIS INTERFACE IS STILL A BETA AND MIGHT HAVE BUGS OR UNEXPECTED BEHAVIOR!") ?></b>
-</div>	
+<br />
+	<?php echo _t('Questions concerning this project? Please refer to <a href="http://shop.max2play.com" target="_blank">Shop.Max2Play</a> or <a href="http://www.squeezeplug.de" target="_blank">SqueezePlug</a>.') ?><br />
+<br />
+<br />
+<?php echo _t('<b>Please remember that you use free software. If you like SqueezePlug & MAX2Play we are happy to receive a Donation. Go to: <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FCG8BS6B6J8XW" target="_blank">SqueezePlug Donation</a>. Thanks a lot.</b><br />') ?>
+<br />	
+</div>

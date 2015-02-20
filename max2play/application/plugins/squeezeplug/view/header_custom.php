@@ -50,7 +50,7 @@
 			<div class="chooseplayer">
 				<?php if($service->info->devices) { ?>
 					<?php echo _('Choose active Player')?>
-					<select name="chooseplayer">
+					<select name="chooseplayer" class="chooseplayer">
 						<?php foreach($service->info->devices as $device) { ?>
 							<option <?php if($device['current'] == 1) echo 'selected'; ?> onclick="window.open('http://<?php echo $device['ip'] ?>');" value="<?php echo $device['ip'] ?>"><?php echo $device['name'] ?> (<?php echo $device['ip'] ?>)</option>
 						<?php }?>		

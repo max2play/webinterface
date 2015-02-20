@@ -11,25 +11,45 @@ echo "Add Execute rights with 'chmod 777 install_max2play.sh'"
 echo "RUN with 'sudo install_max2play.sh 2>&1 | tee install_max2play.log' to save Install-Logfile and see output on console!"
 echo ""
 
+SHAIRPORT="SHAIRPORT_SYNC"
 CWD=$(pwd)
+
+if [ "$(whoami)" != "root" ]; then
+	echo "Run this script with sudo OR as root! Otherwise it won't install correctly!"
+	exit 1
+fi
 
 HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709" | wc -l)
 HW_ODROID=$(cat /proc/cpuinfo | grep Hardware | grep -i Odroid | wc -l)
 if [ "$HW_ODROID" -gt "0" ]; then
   USER=odroid
   echo "Hardware is odroid"
+  FREESPACE=$(df -km /dev/mmcblk0p2 | tail -1 | awk '{print $4}')
+  if [ "$FREESPACE" -lt "500" ]; then
+  	echo "Only $FREESPACE MB memory available - Run sudo odroid-utility.sh first to expand filesystem manually and Reboot!"
+  	exit 1
+  fi  
 fi
 
 if [ "$HW_RASPBERRY" -gt "0" ]; then
-  USER=pi
-  sudo mount -o remount,rw /
+  USER=pi  
   echo "Hardware is Raspberry"
+  # TODO: Remove further not wanted packages?
+  sudo apt-get remove wolfram-engine
+  
+  FREESPACE=$(df -km /dev/root | tail -1 | awk '{print $4}')
+  if [ "$FREESPACE" -lt "500" ]; then
+  	echo "Only $FREESPACE MB memory available - Run sudo raspbi-config.sh first to expand filesystem manually and Reboot!"
+  	exit 1
+  fi  
 fi
 
 if [ ! -e /opt/max2play/ ]; then
 	sudo apt-get update
 	echo "Y" | sudo apt-get upgrade
-	#get it FROM BETA!!!
+	#get it FROM BETA!!! 
+	# TODO: Change to Live Version!
+	pushd $CWD
 	wget shop.max2play.com/media/downloadable/beta/max2play_complete.zip
 	unzip max2play_complete.zip -d max2play
 	sudo cp -r max2play/opt/* /opt
@@ -81,9 +101,9 @@ sudo apt-get install ifplugd
 sudo echo "Y" | apt-get install nmap
 sudo echo "Y" | apt-get remove xscreensaver
 
-# HD-idle
+# HD-Idle aktivieren
 dpkg -i max2play/hd-idle_1.05_armhf.deb
-#Config kopieren nach /etc/default
+sudo sed -i 's/START_HD_IDLE=.*/START_HD_IDLE=true/' /etc/default/hd-idle
 
 # Build hdidle:
 #cvs -d:pserver:anonymous@hd-idle.cvs.sourceforge.net:/cvsroot/hd-idle login
@@ -115,16 +135,6 @@ cp -f max2play/CONFIG_SYSTEM/usbmount/usbmount.conf /etc/usbmount/usbmount.conf
 #chmod 777 /opt/shairplay/log
 #cp scr/shairplay /opt/shairplay
 
-#shairport install
-echo "Y" | apt-get install libssl-dev libavahi-client-dev libasound2-dev
-pushd /tmp
-git clone https://github.com/abrasive/shairport.git
-cd shairport
-./configure
-make
-mkdir -p /opt/shairport/log
-chmod 777 /opt/shairport/log
-cp shairport /opt/shairport
 
 echo "Y" | apt-get install nettle-dev caps libasound2-dev
 pushd /tmp
@@ -169,6 +179,35 @@ chmod 777 /opt/squeezelite/log
 cp /tmp/squeezelite/squeezelite /opt/squeezelite/
 pushd $CWD
 
+
+#### Shairport install
+echo "Y" | apt-get install libssl-dev libavahi-client-dev libasound2-dev autoconf libtool libdaemon-dev libpopt-dev
+pushd /tmp
+# Switch between Shairport AND Shairport-Sync!
+if [ "$SHAIRPORT" = "SHAIRPORT_SYNC" ]; then
+	# install Shairport-Sync
+	echo "Y" | apt-get install avahi-daemon
+	git clone https://github.com/mikebrady/shairport-sync.git
+	cd shairport*
+	autoreconf -i -f
+	./configure --with-alsa --with-avahi --with-ssl=openssl --with-soxr
+	make
+	mkdir -p /opt/shairport/log
+	chmod 777 /opt/shairport/log
+	cp -f shairport-sync /opt/shairport/shairport
+else
+	# install Normal Shairport	
+	git clone https://github.com/abrasive/shairport.git
+	cd shairport
+	./configure
+	make
+	mkdir -p /opt/shairport/log
+	chmod 777 /opt/shairport/log
+	cp shairport /opt/shairport
+fi
+pushd $CWD
+
+
 #### Install DLNA CLIENT ####
 if [ "$HW_RASPBERRY" -gt "0" ]; then
 	#Doesnt work on Ubuntu 14.04
@@ -191,19 +230,9 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	pushd $CWD
 fi
 
-#### Squeezeboxserver unter Ubuntu 14.04 (Perl 5.18) ####
+#### Squeezeboxserver Basic ####
 echo "Y" | apt-get install libungif-bin
-#symlinks von /usr/lib/libungif.so auf /usr/lib/arm-linux.../libgif.so
-#cd /tmp
-#mkdir lms
-#cd lms 
-#git clone -b public/7.8 https://github.com/Logitech/slimserver-vendor.git
-#buildme.sh -> tests raus
-#tar -pczf Image-Scale-0.08.tar.gz Image-Scale-0.08 adc -> add in fixes header
-#symlinks auf libgif.* in build/lib/libungif.la,a,so
 
-#CPAN-Fixes auf Image kopieren für Perl 5.18
-mkdir -p /opt/CPAN/7.8
 
 #fix exzessives Logging in syslog & co (cron)
 cp -f max2play/CONFIG_SYSTEM/rsyslog.conf /etc/rsyslog.conf
@@ -212,8 +241,7 @@ cp -f max2play/CONFIG_SYSTEM/rsyslog.conf /etc/rsyslog.conf
 echo "1.0" > /var/www/max2play/application/config/version.txt
 
 if [ "$HW_RASPBERRY" -gt "0" ]; then
-	rm -R /opt/CPAN
-	rm -R /opt/squeezeslave
+	pushd $CWD					
 	
 	#Usbmount Fix
 	sudo sed -i 's/odroid/pi/' /etc/usbmount/usbmount.conf
@@ -225,22 +253,6 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	
 	#Raspberry: asound.conf.pi (Equalizer Options)
 	cp -f max2play/CONFIG_SYSTEM/asound.conf.pi /etc/asound.conf
-	#Sudoers
-	cp -f max2play/CONFIG_SYSTEM/sudoers.d/max2play /etc/sudoers.d/
-	#Network
-	cp -f max2play/CONFIG_SYSTEM/network/* /etc/network/
-	chmod 666 /etc/network/*
-	#Samba
-	cp -f max2play/CONFIG_SYSTEM/samba/smb.conf /etc/samba/
-	#Udev Rules
-	cp -f max2play/CONFIG_SYSTEM/udev/rules.d/* /etc/udev/rules.d/
-	
-	sudo sed -i 's/SQUEEZELITE_PARAMETER.*/SQUEEZELITE_PARAMETER=-o plug:plugequal/' /opt/max2play/audioplayer.conf	
-	
-	echo "Gesamtlautstärke auf 100% setzen: alsamixer"
-	su - $USER -c 'amixer -q set "PCM" 100'
-	sudo amixer -q set "PCM" 100
-	sudo alsactl store 0
 	
 	#Kodi - http://michael.gorven.za.net/
 	echo "deb http://archive.mene.za.net/raspbian wheezy contrib" >> /etc/apt/sources.list.d/mene.list
@@ -250,12 +262,37 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	sudo echo "KERNEL==\"tty[0-9]*\", GROUP=\"tty\", MODE=\"0660\"" >> /etc/udev/rules.d/99-input.rules 
 	sudo usermod -a -G tty pi
 	sudo echo "gpu_mem=128" >> /boot/config.txt
-	#Add Autostart Option	
-	sudo sed -i 's/^exit 0/#Max2Play\nsudo -u pi -H -s \/opt\/max2play\/autostart_xbmc.sh > \/dev\/null 2>\&1 \&\n\nexit 0/' /etc/rc.local
 	
-	echo "TODO: Update to latest Beta - nur möglich nach eMail-Adresseingabe in Max2Play-Webinterface"
-	echo "TODO: Reboot!"	
+	#iqaudio fix
+	sudo echo "dtoverlay=iqaudio-dacplus" >> /boot/config.txt
+	
+	#Default Soundoutput
+	sudo sed -i 's/SQUEEZELITE_PARAMETER.*/SQUEEZELITE_PARAMETER=-o plug:plugequal/' /opt/max2play/audioplayer.conf	
+	sudo sed -i 's/SHAIRPORT_PARAMETER.*/SHAIRPORT_PARAMETER=-d plug:plugequal/' /opt/max2play/audioplayer.conf	
+	
+	echo "TODO: Update to latest Version in Webinterface"
+	echo "TODO: Run raspbi-config at least one time AND Reboot!"	
 fi
+
+#Add Autostart Kodi / XBMC	
+sudo sed -i 's/^exit 0/#Max2Play\nsudo -u pi -H -s \/opt\/max2play\/autostart_xbmc.sh > \/dev\/null 2>\&1 \&\n\nexit 0/' /etc/rc.local
+
+#Sudoers
+cp -f max2play/CONFIG_SYSTEM/sudoers.d/max2play /etc/sudoers.d/
+#Network
+cp -f max2play/CONFIG_SYSTEM/network/* /etc/network/
+chmod 666 /etc/network/*
+#Samba
+cp -f max2play/CONFIG_SYSTEM/samba/smb.conf /etc/samba/
+#Udev Rules
+cp -f max2play/CONFIG_SYSTEM/udev/rules.d/* /etc/udev/rules.d/
+
+#Sound Volume to 100%
+echo "Gesamtlautstärke auf 100% setzen: alsamixer"
+sudo su - $USER -c 'amixer -q set "PCM" 100'
+sudo amixer -q set "PCM" 100
+sudo alsactl store 0
+
 
 #Add Net-Availability Check for Mountpoints to /etc/rc.local
 sudo sed -i "s/^exit 0/#Network Check for Mountpoints\nCOUNTER=0;while \[ -z \"\$\(\/sbin\/ifconfig eth0 \| grep -i 'inet ad'\)\" -a -z \"\$\(\/sbin\/ifconfig wlan0 \| grep -i 'inet ad'\)\" -a \"\$COUNTER\" -lt \"5\" \]; do echo \"Waiting for network\";let \"COUNTER\+\+\";sleep 3;done;mount -a\n\nexit 0/" /etc/rc.local
@@ -266,7 +303,7 @@ chmod 666 /etc/hostname
 echo "max2play" > /etc/hostname
 
 #ODROID C1:
-#edit /etc/passwd allow login www-data /bin/bash for XBMC/Kodi start
+#??edit /etc/passwd allow login www-data /bin/bash for XBMC/Kodi start
 #edit Desktop for Max2Play Picture AND Desktop Start Kodi
 #Add Autostart xbmc for session lxpanel 
 #Wlan zum laufen bringen
@@ -275,8 +312,46 @@ echo "max2play" > /etc/hostname
 #echo "Y" | apt-get install iw
 #nano /etc/default/autogetty # remove enabled for 100%CPU usage bash
 
+#ODROID U3:
+if [ "$HW_ODROID" -gt "0" ]; then
+	pushd $CWD
+	
+	#### Squeezeboxserver unter Ubuntu 14.04 (Perl 5.18) ####			
+	ln -sf /usr/lib/arm-linux*/libgif.a /usr/lib/libungif.a
+	ln -sf /usr/lib/arm-linux*/libgif.so /usr/lib/libungif.so
+	#symlinks auf libgif.* in build/lib/libungif.la,a,so
+	#cd /tmp
+	#mkdir lms
+	#cd lms 
+	#git clone -b public/7.8 https://github.com/Logitech/slimserver-vendor.git
+	#buildme.sh -> tests raus
+	#tar -pczf Image-Scale-0.08.tar.gz Image-Scale-0.08 adc -> add in fixes header	
+	
+	pushd $CWD
+	echo "CPAN-Fixes auf Image kopieren für Perl 5.18"
+	tar xfvz max2play/CPAN-7.9_7.8_Perl5.18.tar.gz -C /opt
+	
+	# ODROID: asound.conf (Equalizer Options)
+	cp -f max2play/CONFIG_SYSTEM/asound.conf /etc/asound.conf
+	
+	#Desktopbackground kopieren und einrichten
+	cp -f max2play/OTHER/m2p_odroid_desktop.jpg /home/odroid/Pictures/
+	cp -rf max2play/CONFIG_USER/pcmanfm/ /home/odroid/.config
+	
+	# Shortcut XBMC
+	cp -rf max2play/CONFIG_USER/Desktop/ /home/odroid/Desktop	
+	
+	# eth0 Start by ifplugd 
+	cp -rf max2play/CONFIG_SYSTEM/default/ifplugd /etc/default/ifplugd
+	
+	#Default Soundoutput
+	sudo sed -i 's/SQUEEZELITE_PARAMETER.*/SQUEEZELITE_PARAMETER=-o plug:dmixer/' /opt/max2play/audioplayer.conf	
+	sudo sed -i 's/SHAIRPORT_PARAMETER.*/SHAIRPORT_PARAMETER=-d plug:dmixer/' /opt/max2play/audioplayer.conf	
+	
+	echo "TODO: Remove LAN-Address before saving Image (generates new one on first start): rm /etc/smsc95xx_mac_addr"
+fi
+
 #Remove Install Files in local directory
 rm -R max2play
 rm -R max2play_complete.zip
-rm -R shairport
 rm install_max2play.sh

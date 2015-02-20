@@ -269,6 +269,7 @@ class Squeezeplayer extends Service {
 		//$out['SQUEEZESLAVE VERSION'] = shell_exec('/opt/squeezeslave/squeezeslave -V | grep ^squeezeslave');
 		$out['AUDIOPLAYER CONFIG'] = shell_exec('cat /opt/max2play/audioplayer.conf');		
 		$out['SQUEEZELITE -l'] = $this->soundDeviceLog;
+		$out['SHAIRPORT VERSION'] = shell_exec('/opt/shairport/shairport -V');
 		$this->view->debug = $out;
 		return true;
 	}
