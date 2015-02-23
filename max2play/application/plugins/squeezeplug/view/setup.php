@@ -26,7 +26,7 @@
 	<?php echo _t("<ul class='description'><li>Raspberry Pi (all types, best: Raspberry Pi 2 Model B), or Odroid U3, or Odroid C1</li>
 	<li>other devices will be supported in future</li>
 	<li>SD-Card minimum 4GB (Class 10 is recommended)</li>
-	<li>optional: Raspberry Pi I2S Soundcard</li>
+	<li>optional: Raspberry Pi I2S Soundcard. We recommend the IQaudIO Card Pi-DAC+. This card is the best available soundcard for the Raspberry Pi. The Pi-DAC+ Card runs with SqueezePlug & MAX2Play out of the box. There are no changes necessary. The sound will inspire you! For more information see:</li>
 	<li>optional: USB Soundcard</li>
 	<li>optional: WiFi-Adaptor, Keyboard, Mouse, and other peripheral devices</li></ul>"); ?>
 	<b><?php echo _t("Please always use an appropriate power supply to power your Mini-Computer! Insufficient power supplies can be the reason for many problems!") ?></b> <br />
@@ -78,7 +78,7 @@
 	<li><span>
 	<?php echo _t('<b>Install Squeezebox Server</b><br /> 
 	If you like, you can install Squeezebox Server. Squeezebox Server is one of the best Media-Servers you can get. Choose the Menu " SQUEEZEBOX SERVER
-	" and you will find all you need to get Squeezebox Server installed. Please remember, that it will take a while, till the Squeezebox Server webinterface is reachable after the installation. After the installation has finished, you can access the Squeezebox Server webinterface by choosing "Start Squeezebox Sserver Webadministration". One of the first things you have to configure here is the path to your media files. Please choose the path depending on the settings in the earlier steps.') ?>
+	" and you will find all you need to get Squeezebox Server installed. Please remember, that it will take a while, till the Squeezebox Server webinterface is reachable after the installation. After the installation has finished, you can access the Squeezebox Server webinterface by choosing "Start Squeezebox Sserver Webadministration". One of the first things you have to configure here is the path to your media files. Please choose the path depending on the settings in the earlier steps. Squeezebox Server stands for: Logitech Media Server, SlimServer, SqueezeCenter and Squeezebox Server.') ?>
 	</span></li>
 	<li><span>
 	<?php echo _t('<b>Configure AudioPlayer</b><br /> 

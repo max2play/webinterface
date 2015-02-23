@@ -452,11 +452,22 @@ class Basic extends Service {
 	/**
 	 * Expandiere Root-FS auf ODROID auf Max. Größe
 	 */
-	private function resizeFS(){
-		$script = array('/opt/max2play/expandfs.sh > /opt/max2play/cache/resize-max2play-log.txt');
-		$this->view->message[] = _('Resize Filesystem');
-		$this->view->message[] = $this->writeDynamicScript($script);
-		$this->view->message[] = shell_exec('cat /opt/max2play/cache/resize-max2play-log.txt');
+	private function resizeFS(){		
+		//Get root Partition for Resize
+		$script = array('blkid');
+		$output = $this->writeDynamicScript($script);
+		$partitions = explode("\n", trim($output, "\n"));
+		$resizePart = substr($partitions[count($partitions) -1], 5, strpos($partitions[count($partitions) -1], ':') - 5);
+		$this->view->message[] = _('Resize Filesystem').': '.$resizePart;
+		
+		//Do the Resize for typical odroid / raspberry Partitioning (normal image) | problem with noobs image!
+		if(in_array($resizePart, array('mmcblk0p2'))){ // ,'mmcblk0p6'
+			$script = array('/opt/max2play/expandfs.sh '.$resizePart.' > /opt/max2play/cache/resize-max2play-log.txt');		
+			$this->view->message[] = nl2br($this->writeDynamicScript($script));
+			$this->view->message[] = shell_exec('cat /opt/max2play/cache/resize-max2play-log.txt');
+		}else {
+			$this->view->message[] = _('No Resize possible - no valid partition found to expand. Contact Max2Play-Support to add support for further file-systems.');
+		}
 		return true;
 	}
 	

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-19 13:28+0100\n"
-"PO-Revision-Date: 2015-02-20 12:02+0100\n"
+"POT-Creation-Date: 2015-02-23 10:13+0100\n"
+"PO-Revision-Date: 2015-02-23 11:06+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -223,15 +223,16 @@ msgstr ""
 "Normale Netzwerkfreigaben auf NFS (z.B. Synology Diskstation) erfolgen wie "
 "im Beispiel:<br />\t<b>Pfad (IP oder Hostname im Netzwerk und Pfad):</b> z."
 "B. <i>//IP-ADRESSE/PFAD</i> <br />\t<b>Mountpoint (Verzeichnis) auf Max2Play "
-"(für Verwendung in Squeezeserver oder XBMC):</b> z.B. <i>/mnt/mountdir/</i>. "
-"Das Verzeichnis zum Mountpoint muss unter <i>/mnt/</i> ODER <i>/media/</i> "
-"liegen und wird automatisch erstellt, falls es noch nicht existiert. <br />"
-"\t<b>Typ:</b> meist <i>cifs</i> <br />\t<b>Optionen (Benutzer, Passwort und "
-"Optionen für Freigabe):</b> z.B. <i>user=name,password=pass,sec=ntlm,"
-"iocharset=utf8</i><br />\tAchtung: Bei den Optionen bitte immer <i>sec=ntlm</"
-"i> angeben! <br /><br />Bei Problemen und falschen Eingaben können die "
-"Einstellungen dieser Seite unter \"Ursprungskonfiguration Wiederherstellen\" "
-"im Reiter Einstellungen zurückgesetzt werden."
+"(für Verwendung in Squeezebox Server oder Kodi/XBMC):</b> z.B. <i>/mnt/"
+"mountdir/</i>. Das Verzeichnis zum Mountpoint muss unter <i>/mnt/</i> ODER "
+"<i>/media/</i> liegen und wird automatisch erstellt, falls es noch nicht "
+"existiert. <br />\t<b>Typ:</b> meist <i>cifs</i> <br />\t<b>Optionen "
+"(Benutzer, Passwort und Optionen für Freigabe):</b> z.B. <i>user=name,"
+"password=pass,sec=ntlm,iocharset=utf8</i><br />\tAchtung: Bei den Optionen "
+"bitte immer <i>sec=ntlm</i> angeben! <br /><br />Bei Problemen und falschen "
+"Eingaben können die Einstellungen dieser Seite unter "
+"\"Ursprungskonfiguration Wiederherstellen\" im Reiter Einstellungen "
+"zurückgesetzt werden."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:82
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/advancedsetup.php:116
@@ -257,7 +258,7 @@ msgid ""
 msgstr ""
 "Diese Liste zeigt die Verzeichnisse für alle externen Speichersticks und "
 "Laufwerke. Diese Geräte können über das jeweilige Verzeichnis z.B. im "
-"Squeezeboxserver oder in XBMC/Kodi verwendet werden."
+"Squeezeboxserver oder in Kodi/XBMC verwendet werden."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:96
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:96
@@ -396,7 +397,7 @@ msgstr "Ausschalten von Max2Play"
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/advancedsetup.php:68
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/advancedsetup.php:68
 msgid "Toggle XBMC / Squeezelite"
-msgstr "Umschalten zwischen XBMC und Squeezelite"
+msgstr "Umschalten zwischen Kodi/XBMC und Squeezelite"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/advancedsetup.php:69
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/advancedsetup.php:83
@@ -412,10 +413,11 @@ msgid ""
 "the Power Button to stop XBMC and start Squeezelite and vice versa. You may "
 "even set your own script that should start on pressed Power Button."
 msgstr ""
-"Standard: Max2Play Ausschalten. Wenn XBMC und Squeezelite über das gleiche "
-"Audiogerät genutzt werden, kann z.B. der Power Button genutzt werden, um "
-"zwischen den beiden Diensten umzuschalten. Es ist auch möglich eigene "
-"Scripte zu erstellen, die beim Drücken des Buttons ausgeführt werden sollen."
+"Standard: Max2Play Ausschalten. Wenn Kodi/XBMC und Squeezelite über das "
+"gleiche Audiogerät genutzt werden, kann z.B. der Power Button genutzt "
+"werden, um zwischen den beiden Diensten umzuschalten. Es ist auch möglich "
+"eigene Scripte zu erstellen, die beim Drücken des Buttons ausgeführt werden "
+"sollen."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/advancedsetup.php:75
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/advancedsetup.php:75
@@ -711,13 +713,14 @@ msgid ""
 "stutter or play no sound at all. When checked, sound-volume of USB-DAC will "
 "be set to 100%."
 msgstr ""
-"Aktiviere \"Nutze USB-Soundkarte\" für gleichzeitigen Betrieb von XBMC UND "
-"Squeezelite - nur möglich, wenn XBMC ODER Squeezelite zur Audioausgabe eine "
-"externe USB-Soundkarte (z.B. Logi-Link 7.1 oder Creative X-Fi) verwenden. "
-"Für Squeezelite muss der Kommandozeilenparameter dafür auf <br />\"-o "
-"hw:1,0\" gesetzt werden und für XBMC gibt es die Anleitung zur Nutzung von "
-"Passthrough und externer Soundkarte unter dem Reiter XBMC. Wenn aktiviert, "
-"wird die Lautstärke der USB-Soundkarte initial auf 100% gesetzt."
+"Aktiviere \"Nutze USB-Soundkarte\" für gleichzeitigen Betrieb von Kodi/XBMC "
+"UND Squeezelite - nur möglich, wenn Kodi/XBMC ODER Squeezelite zur "
+"Audioausgabe eine externe USB-Soundkarte (z.B. Logi-Link 7.1 oder Creative X-"
+"Fi) verwenden. Für Squeezelite muss der Kommandozeilenparameter dafür auf "
+"<br />\"-o hw:1,0\" gesetzt werden und für Kodi/XBMC gibt es die Anleitung "
+"zur Nutzung von Passthrough und externer Soundkarte unter dem Reiter Kodi/"
+"XBMC. Wenn aktiviert, wird die Lautstärke der USB-Soundkarte initial auf "
+"100% gesetzt."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:155
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:155
@@ -853,9 +856,9 @@ msgstr ""
 "Squeezelite ist ein Software Player für Squeezebox, der mit dem Logitech "
 "Media Server (Squeezebox Server) arbeitet und ähnlich wie ein Squeezebox "
 "Receiver \tüber den Server steuerbar ist.<br />\tShairport ist ein Dienst "
-"der Apple Airplay ermöglicht.<br />\tBeide Dienste werden beim Starten des "
-"ODROID etwas verzögert geladen (max. 1 Minute), um Konflikte mit den "
-"Soundtreibern zu vermeiden."
+"der Airplay ermöglicht.<br />\tBeide Dienste werden beim Starten des ODROID "
+"etwas verzögert geladen (max. 1 Minute), um Konflikte mit den Soundtreibern "
+"zu vermeiden."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:28
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:28
@@ -892,8 +895,8 @@ msgstr "Ersetzt aktuelle $VERSION"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:65
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:65
-msgid "Choose XBMC-Package by http-link (package must be .deb) for Update"
-msgstr "Wähle HTTP-Link für XBMC-Update (muss ein .deb Paket sein) "
+msgid "Choose Kodi/XBMC-Package by http-link (package must be .deb) for Update"
+msgstr "Wähle HTTP-Link für Kodi/XBMC-Update (muss ein .deb Paket sein) "
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:68
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:68
@@ -910,21 +913,22 @@ msgstr ""
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:73
 msgid "XBMC INFO DESCRIPTION"
 msgstr ""
-"XBMC ist ein Media-Center für Videos, Musik und mehr.<br /><br /><sup>#1</"
-"sup>Autostart XBMC: wenn aktiviert, wird XBMC automatisch beim Start von "
-"Max2Play gestartet. Dies empfiehlt sich bei der Nutzung als Videoplayer. "
-"Wenn Max2Play nur für Musik genutzt wird kann auf den Start von XBMC "
-"verzichtet werden. Dadurch verbraucht Max2Play weniger Ressourcen und "
-"startet schneller.<br /><br /><b>Hinweise:</b><br />Falls Kodi auf dem "
-"System installiert ist, wird dieses statt XBMC verwendet. Wenn XBMC läuft "
-"wird Squeezelite automatisch deaktiviert (Ausnahme bei aktivierter USB-"
-"Soundkarte unter Squeezelite Einstellungen)! Anders ist es derzeit nicht "
-"möglich Sound in XBMC abzuspielen, da XBMC Pulseaudio nutzt und Squeezelite "
-"sowie Shairplay Alsa nutzen, um gleichzeitig auf das Soundinterface "
-"zuzugreifen. Sobald XBMC beendet wird, startet Squeezelite automatisch "
-"wieder. Für die Integration externer USB-Soundkarten und 5.1 Sound gibt es "
-"im XBMC-Wiki eine sehr gute Anleitung: <a href=\"http://wiki.xbmc.org/index."
-"php?title=PulseAudio\" target=\"_blank\">XBMC Wiki Anleitung Pulseaudio</a>."
+"Kodi/XBMC ist ein Media-Center für Videos, Musik und mehr.<br /><br /"
+"><sup>#1</sup>Autostart Kodi/XBMC: wenn aktiviert, wird Kodi/XBMC "
+"automatisch beim Start von Max2Play gestartet. Dies empfiehlt sich bei der "
+"Nutzung als Videoplayer. Wenn Max2Play nur für Musik genutzt wird kann auf "
+"den Start von Kodi/XBMC verzichtet werden. Dadurch verbraucht Max2Play "
+"weniger Ressourcen und startet schneller.<br /><br /><b>Hinweise:</b><br /"
+">Falls Kodi auf dem System installiert ist, wird dieses statt Kodi/XBMC "
+"verwendet. Wenn Kodi/XBMC läuft wird Squeezelite automatisch deaktiviert "
+"(Ausnahme bei aktivierter USB-Soundkarte unter Squeezelite Einstellungen)! "
+"Anders ist es derzeit nicht möglich Sound in Kodi/XBMC abzuspielen, da Kodi/"
+"XBMC Pulseaudio nutzt und Squeezelite sowie Shairplay Alsa nutzen, um "
+"gleichzeitig auf das Soundinterface zuzugreifen. Sobald Kodi/XBMC beendet "
+"wird, startet Squeezelite automatisch wieder. Für die Integration externer "
+"USB-Soundkarten und 5.1 Sound gibt es im Kodi/XBMC-Wiki eine sehr gute "
+"Anleitung: <a href=\"http://wiki.xbmc.org/index.php?title=PulseAudio\" "
+"target=\"_blank\">Kodi/XBMC Wiki Anleitung Pulseaudio</a>."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:27
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:27
@@ -933,8 +937,8 @@ msgstr "Status, Start & Stop"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:48
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:48
-msgid "Start Squeezeserver Webadministration"
-msgstr "Start Squeezeserver Webadministration"
+msgid "Open Squeezebox Server Webadministration"
+msgstr "Öffne Squeezebox Server Webadministration"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:76
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:76
@@ -969,10 +973,10 @@ msgstr ""
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:87
 msgid "SQUEEZESERVER INFO DESCRIPTION"
 msgstr ""
-"Squeezeserver (Logitech Media Server) ist der Server für die Squeezebox und "
-"ist für die Steuerung der Player zuständig. Im Netzwerk muss mindestens ein "
-"solcher Server laufen. Der Server kann über das Starten der Installation auf "
-"Max2Play aufgesetzt werden."
+"Squeezebox Server (Logitech Media Server) ist der Server für die Squeezebox "
+"und ist für die Steuerung der Player zuständig. Im Netzwerk muss mindestens "
+"ein solcher Server laufen. Der Server kann über das Starten der Installation "
+"auf Max2Play aufgesetzt werden."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:28
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/basic.php:28
@@ -997,7 +1001,7 @@ msgstr "Auflösung"
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:60
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/basic.php:60
 msgid "With this resolution runs desktop and XBMC"
-msgstr "Unter dieser Auflösung läuft XBMC und der Desktop"
+msgstr "Unter dieser Auflösung läuft Kodi/XBMC und der Desktop"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:64
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/basic.php:64
@@ -1445,8 +1449,8 @@ msgstr ""
 "Einstellungen von Squeezelite den headphones-Output wählen mit \"-o "
 "headphones\" und anschließend Squeezelite neustarten."
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:312
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:312
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:313
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:313
 msgid "Raspberry PI Audio Output set to $VALUE"
 msgstr ""
 

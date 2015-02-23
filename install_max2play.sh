@@ -11,6 +11,8 @@ echo "Add Execute rights with 'chmod 777 install_max2play.sh'"
 echo "RUN with 'sudo install_max2play.sh 2>&1 | tee install_max2play.log' to save Install-Logfile and see output on console!"
 echo ""
 
+CHANGE_PASSWORD="Y" # set to Y if you want default password max2play
+CHANGE_HOSTNAME="max2play" #leave empty to keep current hostname
 SHAIRPORT="SHAIRPORT_SYNC"
 CWD=$(pwd)
 
@@ -47,9 +49,9 @@ fi
 if [ ! -e /opt/max2play/ ]; then
 	sudo apt-get update
 	echo "Y" | sudo apt-get upgrade
-	#get it FROM BETA!!! 
-	# TODO: Change to Live Version!
+	#get it FROM BETA!!! 	
 	pushd $CWD
+	# TODO: Change to Live Version!
 	wget shop.max2play.com/media/downloadable/beta/max2play_complete.zip
 	unzip max2play_complete.zip -d max2play
 	sudo cp -r max2play/opt/* /opt
@@ -268,14 +270,14 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	
 	#Default Soundoutput
 	sudo sed -i 's/SQUEEZELITE_PARAMETER.*/SQUEEZELITE_PARAMETER=-o plug:plugequal/' /opt/max2play/audioplayer.conf	
-	sudo sed -i 's/SHAIRPORT_PARAMETER.*/SHAIRPORT_PARAMETER=-d plug:plugequal/' /opt/max2play/audioplayer.conf	
+	sudo sed -i 's/SHAIRPORT_PARAMETER.*/SHAIRPORT_PARAMETER=-d plug:plugequal/' /opt/max2play/audioplayer.conf			
+	
+	#Add Autostart Kodi / XBMC	
+	sudo sed -i 's/^exit 0/#Max2Play\nsudo -u pi -H -s \/opt\/max2play\/autostart_xbmc.sh > \/dev\/null 2>\&1 \&\n\nexit 0/' /etc/rc.local
 	
 	echo "TODO: Update to latest Version in Webinterface"
 	echo "TODO: Run raspbi-config at least one time AND Reboot!"	
 fi
-
-#Add Autostart Kodi / XBMC	
-sudo sed -i 's/^exit 0/#Max2Play\nsudo -u pi -H -s \/opt\/max2play\/autostart_xbmc.sh > \/dev\/null 2>\&1 \&\n\nexit 0/' /etc/rc.local
 
 #Sudoers
 cp -f max2play/CONFIG_SYSTEM/sudoers.d/max2play /etc/sudoers.d/
@@ -298,19 +300,17 @@ sudo alsactl store 0
 sudo sed -i "s/^exit 0/#Network Check for Mountpoints\nCOUNTER=0;while \[ -z \"\$\(\/sbin\/ifconfig eth0 \| grep -i 'inet ad'\)\" -a -z \"\$\(\/sbin\/ifconfig wlan0 \| grep -i 'inet ad'\)\" -a \"\$COUNTER\" -lt \"5\" \]; do echo \"Waiting for network\";let \"COUNTER\+\+\";sleep 3;done;mount -a\n\nexit 0/" /etc/rc.local
 
 #Change Password to default
-echo -e "max2play\nmax2play\n" | passwd
+if [ "$CHANGE_PASSWORD" = "Y" ]; then 
+	echo -e "max2play\nmax2play\n" | passwd
+fi
+if [ "$CHANGE_HOSTNAME" = "" ]; then
+	/etc/hostname > /opt/max2play/playername.txt
+	/etc/hostname > /opt/max2play/playername.txt.sav
+else
+	echo "$CHANGE_HOSTNAME" > /etc/hostname
+fi
 chmod 666 /etc/hostname
-echo "max2play" > /etc/hostname
 
-#ODROID C1:
-#??edit /etc/passwd allow login www-data /bin/bash for XBMC/Kodi start
-#edit Desktop for Max2Play Picture AND Desktop Start Kodi
-#Add Autostart xbmc for session lxpanel 
-#Wlan zum laufen bringen
-#feste Mac löschen: rm /etc/smsc95xx_mac_addr
-#udev persistent net rules Mac-Adresse von eth0 ist falsch
-#echo "Y" | apt-get install iw
-#nano /etc/default/autogetty # remove enabled for 100%CPU usage bash
 
 #ODROID U3:
 if [ "$HW_ODROID" -gt "0" ]; then
@@ -339,7 +339,10 @@ if [ "$HW_ODROID" -gt "0" ]; then
 	cp -rf max2play/CONFIG_USER/pcmanfm/ /home/odroid/.config
 	
 	# Shortcut XBMC
-	cp -rf max2play/CONFIG_USER/Desktop/ /home/odroid/Desktop	
+	cp -rf max2play/CONFIG_USER/Desktop/* /home/odroid/Desktop	
+	
+	# Autostart XBMC
+	cp -rf max2play/CONFIG_USER/lxsession/Lubuntu/* /home/odroid/.config/lxsession/Lubuntu
 	
 	# eth0 Start by ifplugd 
 	cp -rf max2play/CONFIG_SYSTEM/default/ifplugd /etc/default/ifplugd
@@ -348,7 +351,13 @@ if [ "$HW_ODROID" -gt "0" ]; then
 	sudo sed -i 's/SQUEEZELITE_PARAMETER.*/SQUEEZELITE_PARAMETER=-o plug:dmixer/' /opt/max2play/audioplayer.conf	
 	sudo sed -i 's/SHAIRPORT_PARAMETER.*/SHAIRPORT_PARAMETER=-d plug:dmixer/' /opt/max2play/audioplayer.conf	
 	
+	#ODROID C1:
+	#udev persistent net rules Mac-Adresse von eth0 ist falsch
+	#echo "Y" | apt-get install iw
+	#nano /etc/default/autogetty # remove enabled for 100%CPU usage bash
+	
 	echo "TODO: Remove LAN-Address before saving Image (generates new one on first start): rm /etc/smsc95xx_mac_addr"
+	echo "TODO: ODROID C1: use asound.conf.c1, udev persistant net rules eth0, install iw, nano /etc/default/autogetty -> remove "
 fi
 
 #Remove Install Files in local directory
