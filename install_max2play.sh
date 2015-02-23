@@ -37,7 +37,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
   USER=pi  
   echo "Hardware is Raspberry"
   # TODO: Remove further not wanted packages?
-  sudo apt-get remove wolfram-engine
+  echo "Y" | sudo apt-get remove wolfram-engine
   
   FREESPACE=$(df -km /dev/root | tail -1 | awk '{print $4}')
   if [ "$FREESPACE" -lt "500" ]; then
@@ -51,7 +51,7 @@ if [ ! -e /opt/max2play/ ]; then
 	echo "Y" | sudo apt-get upgrade	
 	pushd $CWD
 	# get Live Version!
-	wget shop.max2play.com/media/downloadable/live/max2play_complete.zip
+	wget shop.max2play.com/media/downloadable/currentversion/max2play_complete.zip
 	unzip max2play_complete.zip -d max2play
 	sudo cp -r max2play/opt/* /opt
 	chmod -R 777 /opt/max2play/
@@ -274,10 +274,19 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	#Add Autostart Kodi / XBMC	
 	sudo sed -i 's/^exit 0/#Max2Play\nsudo -u pi -H -s \/opt\/max2play\/autostart_xbmc.sh > \/dev\/null 2>\&1 \&\n\nexit 0/' /etc/rc.local
 	
+	#Remove Bash history & Clean up the system
+	apt-get --yes autoremove
+	apt-get --yes autoclean
+	apt-get --yes clean
+	rm /root/.bash_history
+	cd /
+	history -c
+	
 	echo "TODO: Update to latest Version in Webinterface"
 	echo "TODO: Run raspbi-config at least one time AND Reboot!"	
 fi
 
+pushd $CWD
 #Sudoers
 cp -f max2play/CONFIG_SYSTEM/sudoers.d/max2play /etc/sudoers.d/
 #Network
