@@ -48,11 +48,10 @@ fi
 
 if [ ! -e /opt/max2play/ ]; then
 	sudo apt-get update
-	echo "Y" | sudo apt-get upgrade
-	#get it FROM BETA!!! 	
+	echo "Y" | sudo apt-get upgrade	
 	pushd $CWD
-	# TODO: Change to Live Version!
-	wget shop.max2play.com/media/downloadable/beta/max2play_complete.zip
+	# get Live Version!
+	wget shop.max2play.com/media/downloadable/live/max2play_complete.zip
 	unzip max2play_complete.zip -d max2play
 	sudo cp -r max2play/opt/* /opt
 	chmod -R 777 /opt/max2play/
