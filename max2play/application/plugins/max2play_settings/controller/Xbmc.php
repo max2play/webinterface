@@ -55,7 +55,7 @@ class Xbmc extends Service {
 					sleep(3);
 				}else{
 					//Methode odroid
-					$this->view->message[] = $this->start($this->pname, 'export DISPLAY=\':0\';sudo --user=odroid -H -s /opt/max2play/start_xbmc.sh > /dev/null 2>&1 &', '',true);
+					$this->view->message[] = $this->start($this->pname, 'export DISPLAY=\':0\';sudo -u odroid -H -s /opt/max2play/start_xbmc.sh > /dev/null 2>&1 &', '',true);
 				}
 			}
 			

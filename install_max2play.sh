@@ -4,16 +4,23 @@ echo "#### Max2Play-Installer for ODROID U3/C1/Raspberry PI ####"
 echo "This script installs Max2Play-Scripts to /opt/max2play and the webinterface to /var/www/max2play"
 echo " - On first start it will do an update/upgrade and expand filesystem and get Max2Play files - then it automatically rebootes"
 echo " - On second start it installs all the fancy stuff and brings the webinterface to life"
-echo "Depending on the system (ODROID/PI) it installs or compiles differents packages and its dependencies like squeezelite, Kodi, shairport, samba, etc." 
-echo "Parameters to change the default behavior of this script:"
+echo "Depending on the system (ODROID/PI) and Linux Version (Debian/Ubuntu) it installs or compiles differents packages and its dependencies like squeezelite, Kodi, shairport, samba, etc." 
+echo "Edit Parameters on top of script to change the default behavior of this script!"
 echo ""
 echo "Add Execute rights with 'chmod 777 install_max2play.sh'"
 echo "RUN with 'sudo install_max2play.sh 2>&1 | tee install_max2play.log' to save Install-Logfile and see output on console!"
 echo ""
 
-CHANGE_PASSWORD="Y" # set to Y if you want default password max2play
-CHANGE_HOSTNAME="max2play" #leave empty to keep current hostname
+# expand Filesystem during install
+EXPAND_FILESYSTEM="Y"
+
+# set to Y if you want default password "max2play"
+CHANGE_PASSWORD="Y" 
+
+# leave empty to keep current hostname
+CHANGE_HOSTNAME="max2play" 
 SHAIRPORT="SHAIRPORT_SYNC"
+
 CWD=$(pwd)
 
 if [ "$(whoami)" != "root" ]; then
@@ -23,11 +30,18 @@ fi
 
 HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709" | wc -l)
 HW_ODROID=$(cat /proc/cpuinfo | grep Hardware | grep -i Odroid | wc -l)
+
+LINUX=$(lsb_release -a 2>/dev/null | grep Distributor | sed "s/Distributor ID:\t//")
+RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")
+
+echo "Linux is $LINUX"
+echo "Release is $RELEASE"
+
 if [ "$HW_ODROID" -gt "0" ]; then
   USER=odroid
   echo "Hardware is odroid"
   FREESPACE=$(df -km /dev/mmcblk0p2 | tail -1 | awk '{print $4}')
-  if [ "$FREESPACE" -lt "500" ]; then
+  if [ "$FREESPACE" -lt "500" ] && [ "$LINUX" == "Ubuntu" ]; then
   	echo "Only $FREESPACE MB memory available - Run sudo odroid-utility.sh first to expand filesystem manually and Reboot!"
   	exit 1
   fi  
@@ -35,8 +49,8 @@ fi
 
 if [ "$HW_RASPBERRY" -gt "0" ]; then
   USER=pi  
-  echo "Hardware is Raspberry"
-  # TODO: Remove further not wanted packages?
+  echo "Hardware is Raspberry"  
+  # Remove further not wanted packages?
   echo "Y" | sudo apt-get remove wolfram-engine
   
   FREESPACE=$(df -km /dev/root | tail -1 | awk '{print $4}')
@@ -57,10 +71,12 @@ if [ ! -e /opt/max2play/ ]; then
 	chmod -R 777 /opt/max2play/
 	
 	#Expand FS!
-	sudo /opt/max2play/expandfs.sh
-	echo "Expand Filesystem finished"
-	reboot
-	exit 0
+	if [ "$EXPAND_FILESYSTEM" == "Y" ]; then
+		sudo /opt/max2play/expandfs.sh
+		echo "Expand Filesystem finished"
+		reboot
+		exit 0
+	fi
 fi
 
 chmod 666 /etc/fstab
@@ -80,13 +96,12 @@ sed -i 's/LogLevel warn/LogLevel error/' /etc/apache2/apache2.conf
 cp -r max2play/max2play/ /var/www/max2play 
 sudo /etc/init.d/apache2 restart
 sudo echo "Y" | apt-get install samba samba-common samba-common-bin mc
-#NOT neccesary anymore: allow www-data access ssh
 
 sudo apt-get install debconf-utils
-if [ "$HW_RASPBERRY" -gt "0" ]; then
+if [ "$HW_RASPBERRY" -gt "0" ] || [ "$LINUX" == "Debian" ]; then  	
   	sed -i 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/;s/# it_IT.UTF-8 UTF-8/it_IT.UTF-8 UTF-8/;s/# fr_FR.UFT-8 UTF-8/fr_FR.UFT-8 UTF-8/;s/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/;s/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/' /etc/locale.gen
   	locale-gen
-else
+else	
 	locale-gen ru_RU.UTF-8 
 	locale-gen it_IT.UTF-8
 	locale-gen fr_FR.UFT-8
@@ -106,35 +121,8 @@ sudo echo "Y" | apt-get remove xscreensaver
 dpkg -i max2play/hd-idle_1.05_armhf.deb
 sudo sed -i 's/START_HD_IDLE=.*/START_HD_IDLE=true/' /etc/default/hd-idle
 
-# Build hdidle:
-#cvs -d:pserver:anonymous@hd-idle.cvs.sourceforge.net:/cvsroot/hd-idle login
-#apt-get install cvs
-#dpkg-reconfigure locales
-#cvs -d:pserver:anonymous@hd-idle.cvs.sourceforge.net:/cvsroot/hd-idle login
-#cvs -z3 -d:pserver:anonymous@hd-idle.cvs.sourceforge.net:/cvsroot/hd-idle co -P hd-idle
-#apt-get install libc6-dev
-#dpkg-buildpackage -rfakeroot
-#cd hd-idle/
-#dpkg-buildpackage -rfakeroot
-#dpkg -i ../hd-idle_*.deb
-#cd ..
-
 sudo echo "Y" | apt-get install usbmount
 cp -f max2play/CONFIG_SYSTEM/usbmount/usbmount.conf /etc/usbmount/usbmount.conf
- 
-#shairplay install 
-#echo "Y" | apt-get install autoconf automake libtool libltdl-dev libao-dev libavahi-compat-libdnssd-dev avahi-daemon
-#cd /tmp
-#git clone git://github.com/juhovh/shairplay.git
-#cd shairplay/
-#./autogen.sh
-#./configure
-#make
-#make install
-#mkdir /opt/shairplay
-#mkdir /opt/shairplay/log
-#chmod 777 /opt/shairplay/log
-#cp scr/shairplay /opt/shairplay
 
 
 echo "Y" | apt-get install nettle-dev caps libasound2-dev
@@ -151,10 +139,8 @@ cp -R /usr/lib/alsa-lib/* /usr/lib/arm-linux-gnueabihf/alsa-lib/
 
 #Squeezelite
 echo -e "Y\ny\n" | apt-get install libav-tools cmake
-# Raspberry PI Wheezy soxr:
-if [ "$HW_RASPBERRY" -gt "0" ]; then
-	#Raspberry PI: User PI nutzen!
-	echo "SYSTEM_USER=pi" >> /opt/max2play/audioplayer.conf	
+# Debian Wheezy soxr
+if [ "$HW_RASPBERRY" -gt "0" ] || [ "$LINUX" == "Debian" ]; then	
 	echo -e "Y\ny\n" | apt-get install libavformat-dev ffmpeg libmpg123-dev libfaad-dev libvorbis-dev libmad0-dev libflac-dev libasound2-dev
 	pushd /tmp
 	wget -O soxr.tar.gz --max-redirect=3 "http://downloads.sourceforge.net/project/soxr/soxr-0.1.1-Source.tar.xz"
@@ -164,11 +150,8 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	cd Release
 	make install
 else
-   	echo -e "Y\ny\n" | apt-get install libsoxr-dev
-   	echo "SYSTEM_USER=odroid" >> /opt/max2play/audioplayer.conf   	
+   	echo -e "Y\ny\n" | apt-get install libsoxr-dev   	
 fi
-
-cp /opt/max2play/audioplayer.conf /opt/max2play/audioplayer.conf.sav
 
 pushd /tmp
 git clone https://code.google.com/p/squeezelite/
@@ -190,8 +173,15 @@ if [ "$SHAIRPORT" = "SHAIRPORT_SYNC" ]; then
 	echo "Y" | apt-get install avahi-daemon
 	git clone https://github.com/mikebrady/shairport-sync.git
 	cd shairport*
-	autoreconf -i -f
-	./configure --with-alsa --with-avahi --with-ssl=openssl --with-soxr
+	autoreconf -i -f		
+	
+	if [ "$LINUX" == "Debian" ] && [ "$HW_ODROID" -gt "0" ]; then
+		# add ac_cv_func_malloc_0_nonnull=yes to configure odroid wheezy
+		ac_cv_func_malloc_0_nonnull=yes ac_cv_func_realloc_0_nonnull=yes ./configure --with-alsa --with-avahi --with-ssl=openssl --with-soxr
+	else
+		./configure --with-alsa --with-avahi --with-ssl=openssl --with-soxr
+	fi
+			
 	make
 	mkdir -p /opt/shairport/log
 	chmod 777 /opt/shairport/log
@@ -210,7 +200,7 @@ pushd $CWD
 
 
 #### Install DLNA CLIENT ####
-if [ "$HW_RASPBERRY" -gt "0" ]; then
+if [ "$LINUX" == "Debian" ]; then
 	#Doesnt work on Ubuntu 14.04
 	pushd /tmp
 	git clone https://github.com/hzeller/gmrender-resurrect.git
@@ -225,9 +215,10 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	sudo ./configure
 	sudo make
 	sudo make install
-	sudo cp scripts/init.d/gmediarenderer /etc/init.d/
-	# UPNP_DEVICE_NAME auf hostname setzen
+	sudo cp scripts/init.d/gmediarenderer /etc/init.d/	
+	# UPNP_DEVICE_NAME auf hostname setzen und User anpassen
 	sudo sed -i 's/UPNP_DEVICE_NAME=.*/UPNP_DEVICE_NAME=$(cat \/etc\/hostname)-dlna/' /etc/init.d/gmediarenderer
+	sudo sed -i "s/DAEMON_USER=.*/DAEMON_USER=\"$USER:audio\"/" /etc/init.d/gmediarenderer
 	pushd $CWD
 fi
 
@@ -241,8 +232,14 @@ cp -f max2play/CONFIG_SYSTEM/rsyslog.conf /etc/rsyslog.conf
 #Copy Config Files / Update Max2Play einmalig nötig
 echo "1.0" > /var/www/max2play/application/config/version.txt
 
+#Save default audioplayer config
+cp /opt/max2play/audioplayer.conf /opt/max2play/audioplayer.conf.sav
+
 if [ "$HW_RASPBERRY" -gt "0" ]; then
 	pushd $CWD					
+	
+	#Raspberry PI: User PI nutzen!
+	echo "SYSTEM_USER=pi" >> /opt/max2play/audioplayer.conf	
 	
 	#Usbmount Fix
 	sudo sed -i 's/odroid/pi/' /etc/usbmount/usbmount.conf
@@ -303,7 +300,6 @@ sudo su - $USER -c 'amixer -q set "PCM" 100'
 sudo amixer -q set "PCM" 100
 sudo alsactl store 0
 
-
 #Add Net-Availability Check for Mountpoints to /etc/rc.local
 sudo sed -i "s/^exit 0/#Network Check for Mountpoints\nCOUNTER=0;while \[ -z \"\$\(\/sbin\/ifconfig eth0 \| grep -i 'inet ad'\)\" -a -z \"\$\(\/sbin\/ifconfig wlan0 \| grep -i 'inet ad'\)\" -a \"\$COUNTER\" -lt \"5\" \]; do echo \"Waiting for network\";let \"COUNTER\+\+\";sleep 3;done;mount -a\n\nexit 0/" /etc/rc.local
 
@@ -312,8 +308,8 @@ if [ "$CHANGE_PASSWORD" = "Y" ]; then
 	echo -e "max2play\nmax2play\n" | passwd
 fi
 if [ "$CHANGE_HOSTNAME" = "" ]; then
-	/etc/hostname > /opt/max2play/playername.txt
-	/etc/hostname > /opt/max2play/playername.txt.sav
+	cat /etc/hostname > /opt/max2play/playername.txt
+	cat /etc/hostname > /opt/max2play/playername.txt.sav
 else
 	echo "$CHANGE_HOSTNAME" > /etc/hostname
 fi
@@ -324,16 +320,11 @@ chmod 666 /etc/hostname
 if [ "$HW_ODROID" -gt "0" ]; then
 	pushd $CWD
 	
+	echo "SYSTEM_USER=odroid" >> /opt/max2play/audioplayer.conf   	
+	
 	#### Squeezeboxserver unter Ubuntu 14.04 (Perl 5.18) ####			
 	ln -sf /usr/lib/arm-linux*/libgif.a /usr/lib/libungif.a
-	ln -sf /usr/lib/arm-linux*/libgif.so /usr/lib/libungif.so
-	#symlinks auf libgif.* in build/lib/libungif.la,a,so
-	#cd /tmp
-	#mkdir lms
-	#cd lms 
-	#git clone -b public/7.8 https://github.com/Logitech/slimserver-vendor.git
-	#buildme.sh -> tests raus
-	#tar -pczf Image-Scale-0.08.tar.gz Image-Scale-0.08 adc -> add in fixes header	
+	ln -sf /usr/lib/arm-linux*/libgif.so /usr/lib/libungif.so	
 	
 	pushd $CWD
 	echo "CPAN-Fixes auf Image kopieren für Perl 5.18"
@@ -364,8 +355,23 @@ if [ "$HW_ODROID" -gt "0" ]; then
 	#echo "Y" | apt-get install iw
 	#nano /etc/default/autogetty # remove enabled for 100%CPU usage bash
 	
+	# Odroid Wheezy Debian	
+	if [ "$LINUX" == "Debian" ]; then
+		sudo usermod -a -G audio odroid
+		sudo usermod -a -G video odroid
+		echo "Y" | sudo apt-get install cifs-utils
+		echo "/usr/local/lib" >> /etc/ld.so.conf.d/arm-linux-gnueabihf.conf
+		ldconfig
+		# solve Problem with new Modulename in Equalizer
+		sed -i 's/module "Eq10";//' /etc/asound.conf
+		# TODO: XBMC anders installieren?!?
+		echo "TODO: Autostart /etc/rc.local startet pwrbutton script nicht"
+		echo "TODO: set autologin for user odroid - if no user is logged in, XBMC will not start from webinterface"
+	fi
+	
 	echo "TODO: Remove LAN-Address before saving Image (generates new one on first start): rm /etc/smsc95xx_mac_addr"
 	echo "TODO: ODROID C1: use asound.conf.c1, udev persistant net rules eth0, install iw, nano /etc/default/autogetty -> remove "
+	echo "TODO: REBOOT !!!"
 fi
 
 #Remove Install Files in local directory

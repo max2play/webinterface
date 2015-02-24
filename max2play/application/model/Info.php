@@ -30,6 +30,7 @@ class Info {
 	public $version;
 	public $hardware;
 	public $system_user;
+	public $linux;
 	
 	public function __construct(){		
 	}

@@ -86,7 +86,9 @@ class Squeezeserver extends Service {
 		if($shellanswer != ''){
 			preg_match('=[0-9\: -]*=', $shellanswer, $started);
 			//Use WGET Timestamp - install should never take more than 2 hours			
-			if((time() - 2*60*60) > strtotime(trim($started[0], '- '))){
+			//Check install_lms.txt for running installation!
+			$lastmodified_seconds = trim(shell_exec("expr $(date +%s) - $(date +%s -r /opt/max2play/cache/install_lms.txt)"), "\n");
+			if($lastmodified_seconds > 600 || (time() - 2*60*60) > strtotime(trim($started[0], '- '))){
 				$this->view->message[] = _('Something went wrong in last Install Attempt - Deleting Progressfile');
 				shell_exec("rm /opt/max2play/cache/install_lms.txt");
 			}

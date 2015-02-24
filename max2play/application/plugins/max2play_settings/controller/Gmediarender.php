@@ -31,8 +31,9 @@ class Gmediarender extends Service {
 	
 	public function __construct(){								
 		parent::__construct();						
-		//Only Available for Raspberry - Ubuntu 14.04 has no gmediarenderer
-		if($this->getHardwareInfo() != 'Raspberry PI'){
+		//Only Available for Debian - Ubuntu 14.04 has no gmediarenderer
+		$version = $this->getLinuxVersion();
+		if($version[0] != 'Debian'){
 			$this->view->isAvailable = false;
 		}else{
 			$this->view->isAvailable = true;

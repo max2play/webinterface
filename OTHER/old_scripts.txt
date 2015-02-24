@@ -1,0 +1,35 @@
+# Build hdidle:
+#cvs -d:pserver:anonymous@hd-idle.cvs.sourceforge.net:/cvsroot/hd-idle login
+#apt-get install cvs
+#dpkg-reconfigure locales
+#cvs -d:pserver:anonymous@hd-idle.cvs.sourceforge.net:/cvsroot/hd-idle login
+#cvs -z3 -d:pserver:anonymous@hd-idle.cvs.sourceforge.net:/cvsroot/hd-idle co -P hd-idle
+#apt-get install libc6-dev
+#dpkg-buildpackage -rfakeroot
+#cd hd-idle/
+#dpkg-buildpackage -rfakeroot
+#dpkg -i ../hd-idle_*.deb
+#cd ..
+
+#shairplay install 
+#echo "Y" | apt-get install autoconf automake libtool libltdl-dev libao-dev libavahi-compat-libdnssd-dev avahi-daemon
+#cd /tmp
+#git clone git://github.com/juhovh/shairplay.git
+#cd shairplay/
+#./autogen.sh
+#./configure
+#make
+#make install
+#mkdir /opt/shairplay
+#mkdir /opt/shairplay/log
+#chmod 777 /opt/shairplay/log
+#cp scr/shairplay /opt/shairplay
+
+# Build Squeezeboxserver
+#symlinks auf libgif.* in build/lib/libungif.la,a,so
+#cd /tmp
+#mkdir lms
+#cd lms 
+#git clone -b public/7.8 https://github.com/Logitech/slimserver-vendor.git
+#buildme.sh -> tests raus
+#tar -pczf Image-Scale-0.08.tar.gz Image-Scale-0.08 adc -> add in fixes header	

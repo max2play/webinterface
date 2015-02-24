@@ -25,7 +25,7 @@
 	<h2><?php echo _t("Hardware")?></h2>
 	<?php echo _t("<ul class='description'><li>Raspberry Pi (all types, best: Raspberry Pi 2 Model B), or Odroid U3, or Odroid C1</li>
 	<li>other devices will be supported in future</li>
-	<li>SD-Card minimum 4GB (Class 10 is recommended)</li>
+	<li>SD-Card minimum 8 GB (Class 10 is recommended)</li>
 	<li>optional: Raspberry Pi I2S Soundcard. We recommend the IQaudIO Card Pi-DAC+. This card is the best available soundcard for the Raspberry Pi. The Pi-DAC+ Card runs with SqueezePlug & MAX2Play out of the box. There are no changes necessary. The sound will inspire you! For more information see:</li>
 	<li>optional: USB Soundcard</li>
 	<li>optional: WiFi-Adaptor, Keyboard, Mouse, and other peripheral devices</li></ul>"); ?>
@@ -60,8 +60,8 @@
 	Type "http://max2play" in the address bar of your webbrowser. If the SqueezePlug & Max2Play site does not start up, try to connect via the IP-Address. For that you will need to know this address. Look it up in your router or use a tool like <a href="http://www.advanced-ip-scanner.com" target="_blank">Advanced IP Scanner</a>. If you are not able to connect either ways, connect a monitor and a keyboard to the Mini-Computer, log in and type "ifconfig". The login is different for the different Mini-Computers (e.g. use user "pi" and password "raspberry" on the Raspberry Pi, user "odroid" and password "odroid" on the Odroid devices.)') ?>
 	</span></li>
 	<li><span>
-	<?php echo _t('<b>Expand the SD-Card</b><br /> 
-	To get use of the full space of the SD-Card you have to expand it. Remember that the minimum size is 4 GB. Even if your card is a 4GB card, please expand the card, before doing something else. Otherwise you will run out of space immediately. To expand the card choose the "SETTINGS / REBOOT" menu, go to the section "Reboot / Update / Filesystem Settings" and click on "Expand Filesystem". Afterwards please reboot to take effect! ') ?>
+	<?php echo _t('<b>Expand the SD-Card (not needed for NOOBS-Raspberry PI Image)</b><br /> 
+	To get use of the full space of the SD-Card you have to expand it. Remember that the minimum size is 8 GB. Even if your card is a 8 GB card, please expand the card, before doing something else. Otherwise you will run out of space immediately. To expand the card choose the "SETTINGS / REBOOT" menu, go to the section "Reboot / Update / Filesystem Settings" and click on "Expand Filesystem". Afterwards please reboot to take effect! ') ?>
 	</span></li>
 	<li><span>
 	<?php echo _t('<b>Do some basic configuration</b><br /> 

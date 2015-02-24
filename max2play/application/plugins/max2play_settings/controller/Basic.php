@@ -478,6 +478,7 @@ class Basic extends Service {
 		$out['FILESYSTEM'] = shell_exec('df');
 		$out['LOAD AVERAGE'] = shell_exec('cat /proc/loadavg');	
 		$out['KERNEL'] = shell_exec('uname -a');
+		$out['LINUX-VERSION'] = shell_exec('lsb_release -a');
 		
 		$this->view->debug = $out;
 	}

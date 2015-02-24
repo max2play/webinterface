@@ -10,9 +10,12 @@
 # Description: Start GMediaRender at boot time.
 ### END INIT INFO
 
-# User and group the daemon will be running as. On the Raspberry Pi, let's use
-# the default user.
-DAEMON_USER="pi:audio"
+# User and group the daemon will be running as.
+USER=$(grep -a "SYSTEM_USER" /opt/max2play/audioplayer.conf | sed -n -e 's/^[A-Z_]*\=//p')
+if [ "$USER" = "" ]; then
+    USER=pi
+fi 
+DAEMON_USER="$USER:audio"
 
 # Device name as it will be advertised to and shown in the UPnP controller UI.
 # Some string that helps you recognize the player, e.g. "Livingroom Player"

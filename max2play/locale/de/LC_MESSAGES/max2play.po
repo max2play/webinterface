@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-23 10:13+0100\n"
-"PO-Revision-Date: 2015-02-23 11:06+0100\n"
+"POT-Creation-Date: 2015-02-23 18:02+0100\n"
+"PO-Revision-Date: 2015-02-23 18:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -116,9 +116,9 @@ msgid "Update Configfile - new Configfile created"
 msgstr "Konfiguration aktualisiert - neue Konfigurationsdatei wurde angelegt"
 
 #: y:\projects\max2play\max2play\application\controller/Service.php:454
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:109
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:110
 #: y:\projects\max2play\max2play\application/controller/Service.php:454
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:109
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:110
 msgid ""
 "Installation startet - This Messages refreshes every 3 seconds to show "
 "current status of installation. If finished this message disappears."
@@ -129,10 +129,10 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application\controller/Service.php:470
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:87
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:90
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:91
 #: y:\projects\max2play\max2play\application/controller/Service.php:470
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:87
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:90
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:91
 msgid "Something went wrong in last Install Attempt - Deleting Progressfile"
 msgstr ""
 "Etwas lief schief beim letzten Installationsversuch - lösche "
@@ -1459,18 +1459,18 @@ msgstr ""
 msgid "Squeezebox Server"
 msgstr "Squeezebox Server"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:95
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:95
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:96
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:96
 msgid "Installation Progress: "
 msgstr "Installationsfortschritt:"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:99
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:99
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:100
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:100
 msgid "LMS-Version not existing"
 msgstr "LMS-Version existiert nicht"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:110
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:110
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:111
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:111
 msgid "Installation Package: "
 msgstr "Installationspaket:"
 
@@ -1690,13 +1690,22 @@ msgstr "Pluginkonfiguration geändert"
 msgid "Invalid Plugin-URL"
 msgstr "Ungültige Plugin URL"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:457
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:457
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:461
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:461
 msgid "Resize Filesystem"
 msgstr "Expandiere Dateisystem"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:482
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:482
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:469
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:469
+msgid ""
+"No Resize possible - no valid partition found to expand. Contact Max2Play-"
+"Support to add support for further file-systems."
+msgstr ""
+"Kein Vergrößern des Dateisystems möglich. Keine gültige Partition zum "
+"expandieren gefunden."
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:493
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:493
 msgid "udev-Rules added and reloaded... Completed"
 msgstr ""
 

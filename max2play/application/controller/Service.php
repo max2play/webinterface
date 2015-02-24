@@ -541,7 +541,25 @@ class Service {
 		else
 			$this->info->system_user = 'odroid';
 		return $this->info->system_user;
-	}		
+	}
+	
+	/**
+	 * get Linux Version of System
+	 * e.g. Ubuntu
+	 * @return array 0=> Ubuntu 1=> trusty
+	 */
+	public function getLinuxVersion(){
+		if($this->info->linux)
+			return $this->info->linux;
+		$output = trim(shell_exec('lsb_release -a 2>/dev/null | grep "Distributor\|Codename" | sed "s/Distributor ID:\t//;s/Codename:\t//"'), "\n");
+		if($output){
+			$this->info->linux = explode("\n", $output);			 
+		}
+		if(!isset($this->info->linux[0]) || $this->info->linux[0] == ''){
+			$this->info->linux[0] = 'Unknown';
+		}			
+		return $this->info->linux;
+	}
 	
 	/**
 	 * 
