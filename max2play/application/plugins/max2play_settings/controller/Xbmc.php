@@ -70,10 +70,13 @@ class Xbmc extends Service {
 			if($_GET['action'] == 'install'){
 				$this->installXBMC();
 			}
+			if($_GET['action'] == 'getaddon'){
+				$this->getAddon($_GET['addonurl']);
+			}
 		}
 		$this->view->autostart = $this->checkAutostart($this->pname, true);
 		$this->view->pid = $this->status($this->pname.'.bin');
-		$this->getXbmcVersion();
+		$this->getXbmcVersion();		
 	}
 
 	public function installXBMC(){
@@ -110,6 +113,18 @@ class Xbmc extends Service {
 		 return true;
 	}
 	
+	/**
+	 * function to save Addon to /opt/max2play/cache
+	 * Example: https://addonscriptorde-beta-repo.googlecode.com/files/repository.addonscriptorde-beta.zip
+	 */
+	public function getAddon($url){
+		if($url != '' && $this->checkLicense(true) == true){
+			shell_exec('wget -P /opt/max2play/cache "'.$url.'" -o /opt/max2play/cache/download.txt');
+			$this->view->message[] = nl2br(shell_exec('cat /opt/max2play/cache/download.txt'));
+		}
+			
+		return true;
+	}
 }
 
 $sp = new Xbmc();

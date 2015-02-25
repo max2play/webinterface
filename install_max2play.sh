@@ -15,10 +15,11 @@ echo ""
 EXPAND_FILESYSTEM="Y"
 
 # set to Y if you want default password "max2play"
-CHANGE_PASSWORD="Y" 
+CHANGE_PASSWORD="N" 
 
 # leave empty to keep current hostname
-CHANGE_HOSTNAME="max2play" 
+# CHANGE_HOSTNAME="max2play"
+CHANGE_HOSTNAME="" 
 SHAIRPORT="SHAIRPORT_SYNC"
 
 CWD=$(pwd)
@@ -215,10 +216,10 @@ if [ "$LINUX" == "Debian" ]; then
 	sudo ./configure
 	sudo make
 	sudo make install
-	sudo cp scripts/init.d/gmediarenderer /etc/init.d/	
-	# UPNP_DEVICE_NAME auf hostname setzen und User anpassen
-	sudo sed -i 's/UPNP_DEVICE_NAME=.*/UPNP_DEVICE_NAME=$(cat \/etc\/hostname)-dlna/' /etc/init.d/gmediarenderer
-	sudo sed -i "s/DAEMON_USER=.*/DAEMON_USER=\"$USER:audio\"/" /etc/init.d/gmediarenderer
+	# NEW: take init-script from max2play sources
+	# sudo cp scripts/init.d/gmediarenderer /etc/init.d/		
+	# sudo sed -i 's/UPNP_DEVICE_NAME=.*/UPNP_DEVICE_NAME=$(cat \/etc\/hostname)-dlna/' /etc/init.d/gmediarenderer
+	# sudo sed -i "s/DAEMON_USER=.*/DAEMON_USER=\"$USER:audio\"/" /etc/init.d/gmediarenderer
 	pushd $CWD
 fi
 
@@ -301,7 +302,7 @@ sudo amixer -q set "PCM" 100
 sudo alsactl store 0
 
 #Add Net-Availability Check for Mountpoints to /etc/rc.local
-sudo sed -i "s/^exit 0/#Network Check for Mountpoints\nCOUNTER=0;while \[ -z \"\$\(\/sbin\/ifconfig eth0 \| grep -i 'inet ad'\)\" -a -z \"\$\(\/sbin\/ifconfig wlan0 \| grep -i 'inet ad'\)\" -a \"\$COUNTER\" -lt \"5\" \]; do echo \"Waiting for network\";let \"COUNTER\+\+\";sleep 3;done;mount -a\n\nexit 0/" /etc/rc.local
+sudo sed -i "s/^exit 0/#Network Check for Mountpoints\nCOUNTER=0;while \[ -z \"\$\(\/sbin\/ifconfig eth0 \| grep -i 'inet ad'\)\" -a -z \"\$\(\/sbin\/ifconfig wlan0 \| grep -i 'inet ad'\)\" -a \"\$COUNTER\" -lt \"5\" \]; do echo \"Waiting for network\";COUNTER=\$\(\(COUNTER+1\)\);sleep 3;done;\/bin\/mount -a\n\nexit 0/" /etc/rc.local
 
 #Change Password to default
 if [ "$CHANGE_PASSWORD" = "Y" ]; then 
@@ -364,13 +365,17 @@ if [ "$HW_ODROID" -gt "0" ]; then
 		ldconfig
 		# solve Problem with new Modulename in Equalizer
 		sed -i 's/module "Eq10";//' /etc/asound.conf
-		# TODO: XBMC anders installieren?!?
-		echo "TODO: Autostart /etc/rc.local startet pwrbutton script nicht"
+		
+		# TODO: Kodi/XBMC install by webinterface not working
+		#Add Autostart Kodi / XBMC - Only works if user is auto logged in
+		sudo sed -i 's/^exit 0/#Max2Play\nsudo -u odroid -H -s \/opt\/max2play\/autostart_xbmc.sh > \/dev\/null 2>\&1 \&\n\nexit 0/' /etc/rc.local
+				
 		echo "TODO: set autologin for user odroid - if no user is logged in, XBMC will not start from webinterface"
 	fi
 	
 	echo "TODO: Remove LAN-Address before saving Image (generates new one on first start): rm /etc/smsc95xx_mac_addr"
 	echo "TODO: ODROID C1: use asound.conf.c1, udev persistant net rules eth0, install iw, nano /etc/default/autogetty -> remove "
+	echo "TODO: Update to latest Version in Webinterface! IMPORTANT - otherwise some Scripts are missing!"
 	echo "TODO: REBOOT !!!"
 fi
 

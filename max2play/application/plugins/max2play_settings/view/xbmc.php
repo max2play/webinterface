@@ -66,6 +66,25 @@
 		<input id="downloadurl" type="text" value="" name="downloadurl" style="width:200px;" /><br /><br /> 	
 		<input type="button" value="<?php echo str_replace('$NAME', $sp->viewname, _('$NAME start installation')) ?>" name="install" onclick="document.getElementById('action').value='install';submit();" />
 		<br /><br /> <?php echo _('The installation may take some time depending on your internet connection. At first it downloads the package from given source and afterwards it installs the package.')?>			
+		<br /><br />
+		
+		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+		<span class="ui-icon ui-icon-gear" style="float:left; margin:-2px 5px 0 0;"></span>
+		<?php echo _('Get Kodi / XBMC Addon-Repository from HTTP-URL or by choosing from Select-Box')?></p>			
+		<?php echo _('You can enable repositories for further addons in settings menu of Kodi / XBMC: <i>System &gt; Addons</i>. After downloading the Addon-Repository Zip-File with the following button, you can find it with Kodi/XBMC (choose <i>add from zipfile</i>) in folder <i>/opt/max2play/cache</i> (choose root-folder and navigate there) and enable the Addons-Repository. After this, you will see the new addons available in the addons-list.') ?> 
+		<br />
+		<input id="addonurl" type="text" value="" name="addonurl" style="width:200px;" /><br />
+		<select name="addonbox" onclick="copytodownloadurl(this);">
+			<option value=""><?php echo _('Choose Addon')?></option>
+			<option value="https://addonscriptorde-beta-repo.googlecode.com/files/repository.addonscriptorde-beta.zip">Amazon Instant Video</option>
+		</select>
+		<script type="text/javascript">
+			function copytodownloadurl(item){
+				document.getElementById("addonurl").value = item.options[item.selectedIndex].value;
+				document.getElementById("addonurl").style.width = "500px";
+			}
+		</script>
+		<input type="button" value="<?php echo _('Get Addon-Repository for Kodi / XBMC') ?>" name="getaddon" onclick="document.getElementById('action').value='getaddon';submit();" />
 		
 	</form>
 	

@@ -66,4 +66,6 @@ fi
 HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709" | wc -l)
 if [ "$HW_RASPBERRY" -gt "0" ]; then
 	sudo sed -i 's/odroid/pi/' /etc/usbmount/usbmount.conf
+	#Fix for rc.local file
+	sed -i 's/let \"COUNTER++\"/COUNTER=\$\(\(COUNTER+1\)\)/;s/\;mount/\;\/bin\/mount/' /etc/rc.local
 fi

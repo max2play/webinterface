@@ -209,7 +209,7 @@ class Basic extends Service {
 	 * Change Player Name
 	 */
 	public function updatePlayername($name = ''){
-		$name = preg_replace('=[^a-zA-Z0-9\.]=i', '', $name);
+		$name = preg_replace('=[^a-zA-Z0-9\.\-]=i', '', $name);
 		if($name != ''){
 			$this->getPlayername();		
 			if($name != $this->view->playername){				
@@ -464,7 +464,7 @@ class Basic extends Service {
 		if(in_array($resizePart, array('mmcblk0p2'))){ // ,'mmcblk0p6'
 			$script = array('/opt/max2play/expandfs.sh '.$resizePart.' > /opt/max2play/cache/resize-max2play-log.txt');		
 			$this->view->message[] = nl2br($this->writeDynamicScript($script));
-			$this->view->message[] = shell_exec('cat /opt/max2play/cache/resize-max2play-log.txt');
+			$this->view->message[] = nl2br(shell_exec('cat /opt/max2play/cache/resize-max2play-log.txt'));
 		}else {
 			$this->view->message[] = _('No Resize possible - no valid partition found to expand. Contact Max2Play-Support to add support for further file-systems.');
 		}

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-23 18:02+0100\n"
-"PO-Revision-Date: 2015-02-23 18:03+0100\n"
+"POT-Creation-Date: 2015-02-25 15:00+0100\n"
+"PO-Revision-Date: 2015-02-25 15:06+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -116,9 +116,9 @@ msgid "Update Configfile - new Configfile created"
 msgstr "Konfiguration aktualisiert - neue Konfigurationsdatei wurde angelegt"
 
 #: y:\projects\max2play\max2play\application\controller/Service.php:454
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:110
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:111
 #: y:\projects\max2play\max2play\application/controller/Service.php:454
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:110
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:111
 msgid ""
 "Installation startet - This Messages refreshes every 3 seconds to show "
 "current status of installation. If finished this message disappears."
@@ -128,11 +128,11 @@ msgstr ""
 "die Meldung und der Server läuft."
 
 #: y:\projects\max2play\max2play\application\controller/Service.php:470
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:87
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:91
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:90
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:92
 #: y:\projects\max2play\max2play\application/controller/Service.php:470
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:87
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:91
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:90
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:92
 msgid "Something went wrong in last Install Attempt - Deleting Progressfile"
 msgstr ""
 "Etwas lief schief beim letzten Installationsversuch - lösche "
@@ -143,8 +143,8 @@ msgstr ""
 msgid "Click here to show detailed information"
 msgstr "Hier klicken für weitere Informationen"
 
-#: y:\projects\max2play\max2play\application\controller/Service.php:558
-#: y:\projects\max2play\max2play\application/controller/Service.php:558
+#: y:\projects\max2play\max2play\application\controller/Service.php:576
+#: y:\projects\max2play\max2play\application/controller/Service.php:576
 msgid ""
 "No valid Max2Play-License for additional plugins and features found. Please "
 "enter a valid eMail-address on the Settings-page to verify that you are a "
@@ -911,6 +911,42 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:73
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:73
+msgid ""
+"Get Kodi / XBMC Addon-Repository from HTTP-URL or by choosing from Select-Box"
+msgstr ""
+"Download Kodi / XBMC Addon-Quelle von HTTP-URL oder Auswahl in Select-Box"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:74
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:74
+msgid ""
+"You can enable repositories for further addons in settings menu of Kodi / "
+"XBMC: <i>System &gt; Addons</i>. After downloading the Addon-Repository Zip-"
+"File with the following button, you can find it with Kodi/XBMC (choose "
+"<i>add from zipfile</i>) in folder <i>/opt/max2play/cache</i> (choose root-"
+"folder and navigate there) and enable the Addons-Repository. After this, you "
+"will see the new addons available in the addons-list."
+msgstr ""
+"Quellen für weitere Addons können in den Einstellungen von Kodi / XBMC unter "
+"<i>System &gt; Addons</i> von einem Zipfile installiert werden. Nach dem "
+"Download der Zip-Datei der Addon-Quellen über den folgenden Button, kann die "
+"Zip-Datei im Verzeichnis <i>/opt/max2play/cache</i> gefunden werden. Beim "
+"Auswählen der Zip-Datei wählt man im Kodi / XBMC das Root-Verzeichnis und "
+"navigiert dann in den Ordner <i>/opt/max2play/cache</i>. Nach Aktivierung "
+"der Addon-Quelle, stehen die neuen Addons zum Installieren über das normale "
+"Addon-Menü bereit."
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:78
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:78
+msgid "Choose Addon"
+msgstr "Wähle Addon"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:87
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:87
+msgid "Get Addon-Repository for Kodi / XBMC"
+msgstr "Lade Addon-Quelle für Kodi / XBMC"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:92
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:92
 msgid "XBMC INFO DESCRIPTION"
 msgstr ""
 "Kodi/XBMC ist ein Media-Center für Videos, Musik und mehr.<br /><br /"
@@ -1397,13 +1433,13 @@ msgstr ""
 msgid "Restart Desktop-Manager completed (initialized Display)"
 msgstr "Neustart des Desktop-Managers abgeschlossen"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:95
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:95
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:98
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:98
 msgid "No Link for download given"
 msgstr "Kein Link zum Download angegeben"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:102
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:102
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:105
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:105
 msgid ""
 "Installation gestartet - Seite neu Laden oder Button erneut drücken, um "
 "Status der Installation zu sehen."
@@ -1411,19 +1447,19 @@ msgstr ""
 "Installation gestartet - Seite neu Laden oder Button erneut drücken, um "
 "Status der Installation zu sehen."
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:103
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:103
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:106
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:106
 msgid "Installationspaket: "
 msgstr "Installationspaket: "
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Shairport.php:77
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:188
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:262
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Gmediarender.php:92
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Gmediarender.php:93
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Shairport.php:77
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:188
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:262
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Gmediarender.php:92
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Gmediarender.php:93
 msgid "Updated $SERVICE Settings - Restart $SERVICE to apply changes!"
 msgstr ""
 "$SERVICE Einstellungen aktualisiert - Neustart von $SERVICE nötig um "
@@ -1459,18 +1495,18 @@ msgstr ""
 msgid "Squeezebox Server"
 msgstr "Squeezebox Server"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:96
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:96
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:97
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:97
 msgid "Installation Progress: "
 msgstr "Installationsfortschritt:"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:100
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:100
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:101
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:101
 msgid "LMS-Version not existing"
 msgstr "LMS-Version existiert nicht"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:111
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:111
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:112
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:112
 msgid "Installation Package: "
 msgstr "Installationspaket:"
 
@@ -1704,8 +1740,8 @@ msgstr ""
 "Kein Vergrößern des Dateisystems möglich. Keine gültige Partition zum "
 "expandieren gefunden."
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:493
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:493
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:494
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:494
 msgid "udev-Rules added and reloaded... Completed"
 msgstr ""
 
