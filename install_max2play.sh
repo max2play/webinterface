@@ -96,7 +96,7 @@ cp max2play/CONFIG_SYSTEM/apache2/sites-enabled/max2play.conf /etc/apache2/sites
 sed -i 's/LogLevel warn/LogLevel error/' /etc/apache2/apache2.conf
 cp -r max2play/max2play/ /var/www/max2play 
 sudo /etc/init.d/apache2 restart
-sudo echo "Y" | apt-get install samba samba-common samba-common-bin mc
+sudo echo "Y" | apt-get install samba samba-common samba-common-bin mc ntfs-3g
 
 sudo apt-get install debconf-utils
 if [ "$HW_RASPBERRY" -gt "0" ] || [ "$LINUX" == "Debian" ]; then  	
