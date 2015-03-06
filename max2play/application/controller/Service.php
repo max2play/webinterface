@@ -405,7 +405,7 @@ class Service {
 				return false;
 			}
 			//Check for empty entry
-			$param_exists = shell_exec('grep -a "'.$parameter.'" '.$configfile.' | wc -l');
+			$param_exists = shell_exec('grep -a "^'.$parameter.'" '.$configfile.' | wc -l');
 			if($old_parameter != '' || $param_exists > 0){
 				$this->writeDynamicScript(array('sed -i "s/^'.$parameter.'.*$/'.$parameter.'='.$value.'/g" '.$configfile));
 				$this->view->message[] = _("Update Configfile - existing Entry changed");
@@ -427,13 +427,28 @@ class Service {
 	}
 	
 	/**
+	 * Function to delete specific Parameter from specified Configfile
+	 * @param string $configfile
+	 * @param string $parameter
+	 */
+	public function deleteConfigFileParameter($configfile = '', $parameter = ''){
+		if(!file_exists($configfile))
+			return false;
+		$param_exists = shell_exec('grep -a "^'.$parameter.'" '.$configfile.' | wc -l');
+		if($param_exists > 0){
+			$this->writeDynamicScript(array('sed -i "s/^'.$parameter.'.*$//g" '.$configfile));
+		}
+		return true;
+	}
+	
+	/**
 	 * Function to get specific Parameter from specified Configfile
 	 * @return boolean
 	 */
 	public function getConfigFileParameter($configfile = '', $parameter = ''){
 		if(!file_exists($configfile))
 			return false;
-		$output = trim(shell_exec('grep -a "'.$parameter.'" '.$configfile.' | sed -n -e "s/^[A-Za-z_0-9]*\=//p"'));
+		$output = trim(shell_exec('grep -a "^'.$parameter.'" '.$configfile.' | sed -n -e "s/^[A-Za-z_0-9]*\=//p"'));
 		return $output;
 	}
 	

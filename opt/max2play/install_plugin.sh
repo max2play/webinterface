@@ -16,14 +16,17 @@ if [ "$ISZIP" -gt "0" ]; then
 	echo "Load Plugin from zip" 
 	wget -O /opt/max2play/cache/plugin.zip $1
 	unzip -o /opt/max2play/cache/plugin.zip -d /opt/max2play/cache/newplugin
+	FILETIME=$(date -Is -d @`stat -c %Y /opt/max2play/cache/plugin.zip`)
 elif [ "$ISTARGZ" -gt "0" ]; then
     echo "Load Plugin from tar.gz"
     wget -O /opt/max2play/cache/plugin.tar.gz $1
     tar -xfz /opt/max2play/cache/plugin.tar.gz -C /opt/max2play/cache/newplugin
+    FILETIME=$(date -Is -d @`stat -c %Y /opt/max2play/cache/plugin.tar.gz`)
 elif [ "$ISTAR" -gt "0" ]; then
     echo "Load Plugin from tar"
     wget -O /opt/max2play/cache/plugin.tar $1
-    tar -xf /opt/max2play/cache/plugin.tar -C /opt/max2play/cache/newplugin   
+    tar -xf /opt/max2play/cache/plugin.tar -C /opt/max2play/cache/newplugin
+    FILETIME=$(date -Is -d @`stat -c %Y /opt/max2play/cache/plugin.tar`)
 else
 	echo "Wrong file type for Plugin! Must be one of these: .zip/.tar.gz/.tar/.rar"
 	exit 0
@@ -36,6 +39,10 @@ if [ ! -e "/opt/max2play/cache/newplugin/$PLUGINNAME/controller" ] || [ ! -e "/o
 	echo "Controller OR View Files are missing in the Plugin - Install canceled"
 	exit 0
 fi
+
+#Save Plugin-Update-Path and timestamp to File
+echo "UPDATEURL=$1" > "/opt/max2play/cache/newplugin/$PLUGINNAME/config.txt"
+echo "LASTUPDATE=$FILETIME" >> "/opt/max2play/cache/newplugin/$PLUGINNAME/config.txt"
 
 #Install
 cp -R /opt/max2play/cache/newplugin/* /var/www/max2play/application/plugins/

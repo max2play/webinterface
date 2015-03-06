@@ -42,6 +42,9 @@ class Clementine_Setup extends Service {
 		
 		$this->pluginname = _('Clementine Setup');
 		
+		if($this->checkLicense(true) == false)
+			return true;
+		
 		if($_GET['ajax'] == 1 && $_GET['action'] == 'install'){
 			//Function to get Progress of Installation
 			$this->_install(1);

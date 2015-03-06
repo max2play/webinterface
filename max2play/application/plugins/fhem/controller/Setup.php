@@ -1,7 +1,7 @@
 <?php 
 
 /**
- Example Setup Controller
+ FHEM Setup Controller
  
  @Copyright 2014 Stefan Rick
  @author Stefan Rick
@@ -26,31 +26,42 @@
 /**
  * 
  * @author Stefan Rick
- * Have a close look at the Service Class with all its functions!
  *
  */
 class Fhem_Setup extends Service {
-	
-	/**
-	 * To add your scripts in your own folder change the scriptPath to /opt/myscripts/
-	 */
-	public $scriptPath = '/opt/max2play/';
-	
-	/**
-	 * Add further global variables like this one to get access from view
-	 */
-	public $inputtext = 'My text';
+		
+	public $fhemconfig = '/opt/fhem/fhem.cfg';
+	public $scriptPath = '';
 	
 	public function __construct(){
 		parent::__construct();
-		
+		$this->scriptPath = dirname(__FILE__).'/../scripts/';		
 		//Set your Pluginname
 		$this->pluginname = _('Fhem Setup');
+		$this->registerLocale(dirname(__FILE__).'/../locale', 'fhem');
 		
-		//If Button clicked or Form sent do Something
+		if($this->checkLicense(true) == false)
+			return true;
+		
+		if($_GET['ajax'] == 1 && $_GET['action'] == 'install'){
+			//Function to get Progress of Installation
+			$this->_install(1);
+			ob_end_clean();
+			echo implode('<br />', $this->view->message);
+			ob_flush();
+			die();
+		}
+		
+		$this->_getFhem();
+		
+		//TODO: autostart settings
 		if(isset($_GET['action'])){
-			if($_GET['action'] == 'doSomething'){
-				$this->_doSomething();
+			if($_GET['action'] == 'install'){
+				$this->_install();
+			}
+			
+			if($_GET['action'] == 'uninstall'){
+				$this->_uninstall();
 			}
 			
 			if($_GET['action'] == 'save'){
@@ -58,52 +69,82 @@ class Fhem_Setup extends Service {
 			}
 		}
 		
-		//Functions to call everytime
-		$this->_getSomething();
-		
 		//Get Debug Info
 		$this->_getAllLogs();
 	}
 	
-	/**
-	 * Demo function to save some data for view
-	 */
-	private function _getSomething(){
-		$this->view->example = 'This is an example';
+	private function _getFhem(){
+		if($this->view->fhemversion = shell_exec('dpkg -s fhem | grep Version')){
+			if(preg_match('=[0-9]+=', shell_exec('cat '.$this->fhemconfig.' | grep "WEB FHEMWEB"'), $matches)){
+				$this->config->port = $matches[0];
+			}			
+		}
+		return true;
 	}
 	
-	/**
-	 * Demo function to do Something
-	 * e.g. Call Scripts and return Output to view
-	 */
-	private function _doSomething(){		
-		$this->view->message[] = _('Do Something started');
-		
-		//#1 You can call scripts that do not need root-rights with:
-		$output = nl2br(shell_exec('ls /opt/max2play/'));
-		
-		//Send Output to View-Script
-		$this->view->message[] = 'Normalscript Output: '.$output;
-		
-		
-		//#2 If you want to run scripts with root rights do this:		
-		$output2 = nl2br($this->writeDynamicScript(array('ls /opt/max2play/')));
-		
-		$this->view->message[] = 'Rootscript Output: '.$output2;
+	private function _install($ajax = 0){
+		if($ajax == 0){
+			ignore_user_abort(true);
+			set_time_limit(3600);
+			$this->view->message[] = _t('FHEM install started');	
+			if($this->getProgressWithAjax('/opt/max2play/cache/install_fhem.txt', 1, 1)){
+				$shellanswer = $this->writeDynamicScript(array($this->scriptPath."install.sh >> /opt/max2play/cache/install_fhem.txt &"));
+			}
+		}else{
+			//Get only last 20 Lines
+			$status = $this->getProgressWithAjax('/opt/max2play/cache/install_fhem.txt',0, 0, 20);
+			$this->view->message[] = nl2br($status);
+			if(strpos($status, 'Finished') !== FALSE){
+				shell_exec('rm /opt/max2play/cache/install_fhem.txt');
+			}
+		}
+		return true;
+	}
+	
+	private function _uninstall(){
+		$this->view->message[] = _('FHEM uninstall started');		
+		$script[] = 'dpkg -P fhem';
+		$this->view->message[] = $this->formatMessageOutput($this->writeDynamicScript($script));
+		$this->_getFhem();
+		return true;
 	}
 	
 	/**
 	 * get some Debug Output and save it for view
 	 */
 	private function _getAllLogs(){		
-		
-		$out['EXAMPLE'] = shell_exec('ps -Al | grep apache');
-	
+		$out = array();
+		if($this->view->fhemversion){
+			$out['FHEM Installation'] = shell_exec('dpkg -s fhem');
+			
+			$handle = opendir('/opt/fhem/log');
+			$files = array();
+			
+			while (false !== ($file = readdir($handle))) {
+				if ($file != "." && $file != ".." && $file != "empty_file.txt") {
+					try {						
+						$files[filemtime($file)] = $file;						
+					} catch(Exception $e){
+						
+					}
+				}
+			}
+			closedir($handle);
+			
+			ksort($files);
+			
+			$i=0;
+			foreach($files as $file) {
+				$out['Logfile '.$file] = shell_exec('cat /opt/fhem/log/'.$file);
+				if($i++ > 1)
+					break;
+			}						
+					
+		}
 		$this->view->debug = $out;
 	}
 }
 
-//Create an instance of your Class
 $fhem = new Fhem_Setup();
 
 //This Line includes the View-Script -> it should have the same name as your class

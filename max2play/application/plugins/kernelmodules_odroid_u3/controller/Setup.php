@@ -39,6 +39,9 @@ class Kernelmodules_odroid_u3_Setup extends Service {
 
 		$this->pluginname = _('Kernelmodules U3');
 		
+		if($this->checkLicense(true) == false)
+			return true;
+		
 		if($_GET['ajax'] == 1 && $_GET['action'] == 'buildHifaceWithKernel'){
 			//Function to get Progress of Installation
 			$this->_buildHifaceWithKernel(1);

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Example Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-24 13:49+0100\n"
-"PO-Revision-Date: 2014-09-24 13:49+0100\n"
+"POT-Creation-Date: 2015-03-05 12:32+0100\n"
+"PO-Revision-Date: 2015-03-05 12:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -15,41 +15,82 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: y:\\projects\\max2play\\max2play\\application\\plugins"
-"\\example\n"
+"\\fhem\n"
 
-#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:28
-#: y:\projects\max2play\max2play\application\plugins\example/controller/Setup.php:37
-msgid "Example Setup"
+#: y:\projects\max2play\max2play\application\plugins\fhem/view/setup.php:28
+msgid "FHEM Setup Page"
+msgstr "FHEM Einrichtung"
+
+#: y:\projects\max2play\max2play\application\plugins\fhem/view/setup.php:42
+msgid ""
+"Fhem is a GPL'd perl server for house automation. It is used to automate "
+"some common tasks in the household like switching lamps / shutters / "
+"heating / etc. and to log events like temperature / humidity / power "
+"consumption. More information on <a href=http://fhem.de "
+"target='_blank'>http://fhem.de</a>"
 msgstr ""
+"Fhem ist ein Perl Server unter GPL Lizenz für die Hausautomatisierung. Er "
+"wird für die Automatisierung allgemeiner Aufgaben wie Lampenschaltung, "
+"Heizung und vieles mehr in Haushalten verwendet. Ausserdem können Ereignisse "
+"und Messpunkte wie Temperatur / Luftfeuchtigkeit und Leistungsaufnahme von "
+"Geräten gemessen werden. Mehr Informationen dazu auf <a href=http://fhem.de "
+"target='_blank'>http://fhem.de</a>."
 
-#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:35
-msgid "This is the Example Setup Page. Configure and Test your own Plugin :)"
-msgstr ""
+#: y:\projects\max2play\max2play\application\plugins\fhem/view/setup.php:50
+msgid "Install FHEM Server on this device"
+msgstr "Installiere FHEM-Server auf diesem Gerät"
 
-#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:40
-msgid "Example Variable: "
-msgstr ""
+#: y:\projects\max2play\max2play\application\plugins\fhem/view/setup.php:51
+msgid "install FHEM"
+msgstr "installiere FHEM"
 
-#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:47
-msgid "Example Table"
-msgstr ""
+#: y:\projects\max2play\max2play\application\plugins\fhem/view/setup.php:56
+msgid "FHEM is installed"
+msgstr "FHEM ist installiert"
 
-#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:48
-msgid "Do Something"
-msgstr ""
+#: y:\projects\max2play\max2play\application\plugins\fhem/view/setup.php:56
+msgid "Open FHEM Webinterface"
+msgstr "Öffne FHEM Webinterface"
 
-#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:49
-msgid "Do something to get things done ..."
-msgstr ""
+#: y:\projects\max2play\max2play\application\plugins\fhem/view/setup.php:57
+msgid "uninstall FHEM"
+msgstr "deinstalliere FHEM"
 
-#: y:\projects\max2play\max2play\application\plugins\example/view/setup.php:56
-#, fuzzy
+#: y:\projects\max2play\max2play\application\plugins\fhem/view/setup.php:61
+msgid "FHEM settings"
+msgstr "FHEM Einstellungen"
+
+#: y:\projects\max2play\max2play\application\plugins\fhem/view/setup.php:66
+msgid "Webservice"
+msgstr "Webservice"
+
+#: y:\projects\max2play\max2play\application\plugins\fhem/view/setup.php:70
+msgid "Set up port for FHEM"
+msgstr "Setze Port für FHEM"
+
+#: y:\projects\max2play\max2play\application\plugins\fhem/view/setup.php:74
+msgid "save"
+msgstr "speichern"
+
+#: y:\projects\max2play\max2play\application\plugins\fhem/view/setup.php:81
 msgid "DEBUG Informations"
 msgstr "DEBUG Info"
 
-#: y:\projects\max2play\max2play\application\plugins\example/controller/Setup.php:62
-msgid "Do Something started"
-msgstr ""
+#: y:\projects\max2play\max2play\application\plugins\fhem/controller/Setup.php:40
+msgid "Fhem Setup"
+msgstr "Fhem Setup"
+
+#: y:\projects\max2play\max2play\application\plugins\fhem/controller/Setup.php:65
+msgid "Saved"
+msgstr "Gespeichert"
+
+#: y:\projects\max2play\max2play\application\plugins\fhem/controller/Setup.php:86
+msgid "FHEM install started"
+msgstr "FHEM Installation gestarted"
+
+#: y:\projects\max2play\max2play\application\plugins\fhem/controller/Setup.php:102
+msgid "FHEM uninstall started"
+msgstr "FHEM Deinstallation gestarted"
 
 #~ msgid "Jivelite Squeezebox Desktop Visualisation"
 #~ msgstr "Jivelite Squeezebox Desktop Visualisierung"
@@ -81,9 +122,6 @@ msgstr ""
 
 #~ msgid "Autostart $SERVICENAME"
 #~ msgstr "Autostart $SERVICENAME"
-
-#~ msgid "save"
-#~ msgstr "speichern"
 
 #~ msgid "$NAME start installation"
 #~ msgstr "Starte Installation von $NAME"
@@ -457,9 +495,6 @@ msgstr ""
 #~ msgid "Add new mountpoint"
 #~ msgstr "Neuen Mountpoint hinzufügen"
 
-#~ msgid "Save"
-#~ msgstr "Speichern"
-
 #~ msgid "Important Information"
 #~ msgstr "Bitte beachten"
 
@@ -617,9 +652,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Suche nach Max2Play-Devices mit Squeezelite im Netzwerk und zeige diese "
 #~ "im Kopfbereich dieses Interfaces an. Nur sinnvoll bei mehreren Playern."
-
-#~ msgid "Save Settings"
-#~ msgstr "Einstellungen speichern"
 
 #~ msgid "Reboot Max2Play"
 #~ msgstr "Reboot Max2Play"

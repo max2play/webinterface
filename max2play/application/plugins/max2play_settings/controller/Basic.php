@@ -297,6 +297,7 @@ class Basic extends Service {
 	 * check for available Updates and do it
 	 */
 	public function checkMax2PlayUpdate($version = ''){		
+		ignore_user_abort(true);		
 		$this->getVersion();
 		if($version == 'beta'){
 			$this->info->version = 0; // Reset
@@ -324,6 +325,57 @@ class Basic extends Service {
 		}else{
 			$this->view->message[] = _('Max2Play is up to date - no update required');			
 		}
+		
+		//Always Check for Plugin Updates
+		$this->_checkPluginUpdates();
+		
+		return true;
+	}
+	
+	/**
+	 * Function to parse all installed Plugins and check for Updates
+	 */
+	private function _checkPluginUpdates(){
+		$this->view->message[] = _('Check for Plugin Updates');
+		$plugins = $this->getActivePlugins();
+		$updatePlugins = false;
+		for($i = 0; $i < count($plugins['plugin']); $i++){
+			$plugin = &$plugins['plugin'][$i];
+			//check for updates
+			if(isset($plugin['updateurl']) && $plugin['updateurl'] != '' && !is_array($plugin['updateurl'])){
+				$lastupdate = new DateTime();
+				try {
+					if(isset($plugin['lastupdate']) && $plugin['lastupdate'] != ''){
+						$lastupdate = new DateTime($plugin['lastupdate']);
+					}
+			
+					$h = get_headers($plugin['updateurl'], 1);
+			
+					if (strpos($h[0], '200') !== FALSE) {
+						$filetime = new DateTime($h['Last-Modified']);//php 5.3						
+                        $diff=$lastupdate->diff($filetime);
+                        
+                        if($diff->m != 0 || $diff->d != 0 || $diff->h != 0 || $diff->i != 0){                        	
+                        	$output = $this->writeDynamicScript(array('/opt/max2play/install_plugin.sh '.$plugin['updateurl']));
+                        	$this->view->message[] = _('Update').' '.$plugin['name'].' ('.$plugin['updateurl'].'): '.
+                        							 $this->formatMessageOutput('Serverversion: '.$filetime->format(DateTime::ISO8601).
+                        							 '<br />lokale Version:'. $lastupdate->format(DateTime::ISO8601).'<br />'.$output);
+                        	$plugin['lastupdate'] = $filetime->format(DateTime::ISO8601);
+                        	$updatePlugins = true;
+                        }                        			
+                    }
+                }catch(Exception $e){
+                     $this->view->message[] = _('Plugin update time could not be validated:').' '.$plugin['name'];
+				}
+			}
+		}
+		//Zeitstempel speichern
+		if(true === $updatePlugins){
+			include_once(APPLICATION_PATH.'/library/array2xml.php');
+			$xml = Array2XML::createXML('config', $plugins);
+		
+			$xml->save(APPLICATION_PATH.'/config/plugins.xml');
+		}
 		return true;
 	}
 	
@@ -348,9 +400,17 @@ class Basic extends Service {
 								
 								if(preg_match('=\$this-\>pluginname \= \_\(\'(.*)\'=', $output, $match)){					
 									//only activate plugin if name is set (class of plugin may just be part of another class)
+									//add version / timestamp to plugin to get later updates from config.txt if existing
+									$updateURL = $lastUpdate = '';
+									if(file_exists(APPLICATION_PATH.'/plugins/'.$file.'/config.txt')){
+										$updateURL = $this->getConfigFileParameter(APPLICATION_PATH.'/plugins/'.$file.'/config.txt', 'UPDATEURL');
+										$lastUpdate = $this->getConfigFileParameter(APPLICATION_PATH.'/plugins/'.$file.'/config.txt', 'LASTUPDATE');
+									}
 									$plugins_avail[$match[1]] = array('name' => $match[1], 
 														     'navigation' => array('translate' => $match[1]), 
-														     'path' => $path
+														     'path' => $path,
+															 'updateurl' => $updateURL,
+															 'lastupdate' => $lastUpdate,
 													  );
 								}							
 							}
@@ -439,12 +499,13 @@ class Basic extends Service {
 	 * @param string $pathToPlugin
 	 */
 	private function installPlugin($pathToPlugin = ''){		
-		if($this->checkLicense(true) == false)
-			return true;
+		$this->getEmail();
+		//if($this->checkLicense(true) == false)
+		//	return true;
 		if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$pathToPlugin)) {
   			$this->view->message[] = _("Invalid Plugin-URL");
 		}else{
-			$this->view->message[] = nl2br($this->writeDynamicScript(array('/opt/max2play/install_plugin.sh '.$pathToPlugin)));
+			$this->view->message[] = nl2br($this->writeDynamicScript(array('/opt/max2play/install_plugin.sh '.$pathToPlugin.'?email='.$this->view->email)));
 		}
 		return true;
 	}

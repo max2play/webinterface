@@ -19,6 +19,9 @@ class Jivelite_Setup extends Service {
 		$this->registerLocale(dirname(__FILE__).'/../locale', 'jivelite');
 		$this->pluginname = _('Jivelite');				
 		
+		if($this->checkLicense(true) == false)
+			return true;
+		
 		if($_GET['ajax'] == 1 && $_GET['action'] == 'install'){
 			//Function to get Progress of Installation
 			$this->_install(1);

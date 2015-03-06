@@ -47,10 +47,9 @@
 			<span class="ui-icon ui-icon-wrench" style="float:left; margin:-2px 5px 0 0;"></span>
 			<b><?php echo _("Choose USB-Soundcard to load on boot (device tree overlay)") ?></b></p>
 		<?php echo _("The following USB-DACs are supported. Just choose the one that should be enabled and click save.");?><br />
-		<select name="dtoverlay">
-			<option value=""><?php echo _("none") ?></option>
+		<select name="dtoverlay">			
 		<?php foreach ($rs->usbSoundCards as $card => $name) { ?>
-			<option value="<?php echo $card ?>"><?php echo $name ?></option>
+			<option value="<?php echo $card ?>" <?php if ($rs->view->dtoverlay == $card) echo 'selected'; ?>><?php echo $name ?></option>
 		<?php } ?>			
 		</select><br />
 		<input type="button" id="save" name="<?php echo _("save") ?>" onclick="document.getElementById('action').value='save_dtoverlay';submit();" value="<?php echo _("save") ?>" />
@@ -66,18 +65,18 @@
 			  <tr>
 				<td><?php echo _("CPU Frequency") ?></td>
 				<td>
-					<select name="frequency">
-						<option value="default">...</option>
-						<option value="700">700 MHZ</option>
-						<option value="800">800 MHZ</option>
+					<select name="arm_freq">
+					<?php foreach ($rs->armFrequency as $value) { ?>
+						<option value="<?php echo $value ?>" <?php if ($rs->view->arm_freq == $value) echo 'selected'; ?>><?php echo $value ?></option>
+					<?php } ?>	
 					</select>
 				</td>
-				<td><?php echo _("More CPU-Power") ?></td> 
+				<td><?php echo _("More CPU-Power results in more heat. <a href='http://www.raspberrypi.org/documentation/configuration/config-txt.md' target='_blank'>More Information</a>") ?></td> 
 			  </tr>	 
 			  <tr>
 				<td><?php echo _("GPU-Memory") ?></td>
-				<td><input type="text" id="gpumemory" name="gpumemory" value="<?php echo $rs->gpumemory ?>" /></td>
-				<td><?php echo _("Default should be 128 MB. If you do not need any graphics, set it to 10 MB") ?></td> 
+				<td><input type="text" id="gpu_mem" name="gpu_mem" value="<?php echo $rs->view->gpu_mem ?>" /></td>
+				<td><?php echo _("Default for Kodi/XBMC should be 128 MB. If you do not need any graphics, set it to 16 MB, which is the minimum. <a href='http://www.raspberrypi.org/documentation/configuration/config-txt.md' target='_blank'>More Information</a>"); ?></td> 
 			  </tr>	 
 			</table>
 			<br />

@@ -31,7 +31,8 @@
 class Raspberrysettings_Setup extends Service {
 		
 	public $scriptPath = '';
-	public $usbSoundCards = array('hifiberry-dacplus' => 'Hifi Berry Card', 'iqaudio-dacplus' => 'IQaudio Card');
+	public $usbSoundCards = array('' => 'none', 'hifiberry-dacplus' => 'Hifi Berry Card', 'iqaudio-dacplus' => 'IQaudio Card');
+	public $armFrequency = array('default','700', '800');
 	
 	public function __construct(){
 		parent::__construct();
@@ -39,7 +40,10 @@ class Raspberrysettings_Setup extends Service {
 		
 		//Set your Pluginname
 		$this->pluginname = _('Raspberry Settings');
-				 
+
+		if($this->checkLicense(true) == false)
+			return true;
+		
 		if($this->getHardwareInfo() != 'Raspberry PI'){			
 			$this->view->message[] = _('This function is for Raspberry PI ONLY! It seems, that you do not have a Raspberry PI.');
 			return false;
@@ -55,7 +59,7 @@ class Raspberrysettings_Setup extends Service {
 				$this->_saveDtoverlay();
 			}
 			if($_GET['action'] == 'save_performance'){
-				$this->_savePerformanc();
+				$this->_saveCPUGPUConfig();
 			}
 		}		
 		
@@ -64,27 +68,43 @@ class Raspberrysettings_Setup extends Service {
 	}
 	
 	private function _getDTOverlayConfig(){
-		$output = shell_exec('cat /boot/config | grep dtoverlay');
-		if($output != '')
-			$this->view->dtoverlay = str_replace('dtoverlay=', '', $output);
-		else{
-			$this->view->dtoverlay = false;
-		}
+		$this->view->dtoverlay = $this->getConfigFileParameter('/boot/config.txt', 'dtoverlay');
+		return true;
 	}
 	
 	private function _getCPUGPUConfig(){
-		$output = shell_exec('cat /boot/config | grep gpu_mem');
-		if($output != '')
-			$this->view->gpu_mem = str_replace('gpu_mem=', '', $output);
-		else{
-			$this->view->gpu_mem = false;
+		$this->view->gpu_mem = $this->getConfigFileParameter('/boot/config.txt', 'gpu_mem');
+		$this->view->arm_freq = $this->getConfigFileParameter('/boot/config.txt', 'arm_freq');
+	}
+	
+	private function _saveCPUGPUConfig(){
+		if(isset($_GET['gpu_mem']) && $_GET['gpu_mem'] < 512 && $_GET['gpu_mem'] > 16 && $_GET['gpu_mem'] != $this->view->gpu_mem){
+			$this->saveConfigFileParameter('/boot/config.txt', 'gpu_mem', $_GET['gpu_mem']);			
+			$this->view->message[] = _("GPU memory parameter changed");
+		}elseif($_GET['gpu_mem'] == ''){
+			$this->deleteConfigFileParameter('/boot/config.txt', 'gpu_mem');
+			$this->view->message[] = _("GPU memory parameter removed");
 		}
+
+		if(isset($_GET['arm_freq']) && in_array($_GET['arm_freq'], $this->armFrequency)){
+			if($_GET['arm_freq'] == 'default')
+				$this->deleteConfigFileParameter('/boot/config.txt', 'arm_freq');
+			else
+				$this->saveConfigFileParameter('/boot/config.txt', 'arm_freq', $_GET['arm_freq']);
+			$this->view->message[] = _("ARM-Frequency parameter changed");
+		}
+		$this->view->message[] = _('Reboot needed');
+		$this->_getCPUGPUConfig();
+		return true;
 	}
 	
 	private function _saveDtoverlay(){
-		if(isset($_GET['dtoverlay']) && in_array(array_keys($this->usbSoundCards), $_GET['dtoverlay'])){
-			$this->view->message[] = t("Boot config parameters changed");
-		}		
+		if(isset($_GET['dtoverlay']) && in_array($_GET['dtoverlay'], array_keys($this->usbSoundCards))){
+			$this->saveConfigFileParameter('/boot/config.txt', 'dtoverlay', $_GET['dtoverlay']);
+			$this->view->message[] = _("Boot config parameters changed");
+			$this->view->message[] = _('Reboot needed');
+		}
+		$this->_getDTOverlayConfig();
 		return true;
 	}
 		

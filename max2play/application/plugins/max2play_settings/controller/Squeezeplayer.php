@@ -254,9 +254,12 @@ class Squeezeplayer extends Service {
 			$value = 1;
 			//Set Soundoutput to 100% for Card 1 all Speakers - should be done on FIRST usage
 			$user = $this->getSystemUser();
-			$this->writeDynamicScript(array('sudo --user '.$user.' amixer -c 1 sset Speaker 100%'));
-		}else 
+			$this->writeDynamicScript(array('sudo --user '.$user.' amixer -c 1 sset Speaker 100%',
+											'sudo cp /opt/max2play/alsa_max2play_usb.conf /usr/share/alsa/alsa.conf.d'));
+		}else {
 			$value = 0;
+			$this->writeDynamicScript(array('sudo rm /usr/share/alsa/alsa.conf.d/alsa_max2play_usb.conf'));
+		}
 		
 		if($this->saveConfigFileParameter('/opt/max2play/audioplayer.conf', 'USE_USB_DAC', $value)){
 			$this->view->message[] = str_replace('$SERVICE', 'USB DAC' ,_('Updated $SERVICE Settings - Restart $SERVICE to apply changes!'));

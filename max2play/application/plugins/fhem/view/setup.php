@@ -1,6 +1,6 @@
 <?php
 /**
-	 Example Setup View File
+	 FHEM Setup View File
 	
 	 @Copyright 2014 Stefan Rick
 	 @author Stefan Rick
@@ -25,7 +25,7 @@
 
 
 <h1 class="entry-header">
-	<?php echo _("Exampleclass Setup") ?>
+	<?php echo _t("FHEM Setup Page") ?>
 </h1>
 <div class="entry-content">
 	<?php if(isset($fhem->view->message[0])){ ?>
@@ -37,41 +37,44 @@
 				</p>
 			</div>
 		</div>
-	<?php } ?>
+	<?php } ?>		
 	
-	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
-			<span class="ui-icon ui-icon-wrench" style="float:left; margin:-2px 5px 0 0;"></span>
-			<b><?php echo _("This is the Example Setup Page. Configure and Test your own Plugin :)") ?></b></p>
-		
+	<?php echo _t("Fhem is a GPL'd perl server for house automation. It is used to automate some common tasks in the household like switching lamps / shutters / heating / etc. and to log events like temperature / humidity / power consumption. More information on <a href=http://fhem.de target='_blank'>http://fhem.de</a>");?><br />
 	<br />
-	<br />
-	
-	<?php echo _("Example Variable: ") ?><?php echo $fhem->view->example ?>
-	
 	<form action="" method="get">
-		<input type="hidden" id="action" name="action" value="" />
+		<input type="hidden" id="action" name="action" value="" />		
 		
-		<?php /*
-			Put everything that should be sent inside this form - you may have a look at the other files of max2play and copy / paste their content		
-			*/?>
-		
+	<?php if(!$fhem->view->fhemversion) { ?>
+		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+				<span class="ui-icon ui-icon-wrench" style="float:left; margin:-2px 5px 0 0;"></span>
+				<b><?php echo _t("Install FHEM Server on this device") ?></b></p>
+		<input type="button" id="install" name="install" onclick="document.getElementById('action').value='install';submit();" value="<?php echo _t("install FHEM") ?>" />
+		<br /><br />				
+	<?php }else{ ?>
+		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+				<span class="ui-icon ui-icon-wrench" style="float:left; margin:-2px 5px 0 0;"></span>
+				<b><?php echo _t("FHEM is installed").': '.$fhem->view->fhemversion.' - '; ?><a href="http://<?php echo preg_replace('=:.*=','', $_SERVER['HTTP_HOST']).':'.$fhem->config->port;?>" target="_blank" style="text-decoration:underline;"><?php echo _t('Open FHEM Webinterface')?></a></b></p>
+		<input type="button" id="uninstall" name="uninstall" onclick="document.getElementById('action').value='uninstall';submit();" value="<?php echo _t("uninstall FHEM") ?>" />		
+		<br /><br />
+		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+			<span class="ui-icon ui-icon-wrench" style="float:left; margin:-2px 5px 0 0;"></span>
+			<b><?php echo _t("FHEM settings") ?></b></p>
+				
 		<div class="optiondetails"> 
 			<table class="settings">
 			  <tr>
-				<td><?php echo _("Example Button") ?></td>
-				<td><input type="button" id="doSomething" name="doSomething" onclick="document.getElementById('action').value='doSomething';submit();" value="<?php echo _("Do Something") ?>" /></td>
-				<td><?php echo _("Do something to get things done ...") ?></td> 
-			  </tr>	 
-			  <tr>
-				<td><?php echo _("Example Input") ?></td>
-				<td><input type="text" id="inputtext" name="inputtext" value="<?php echo $fhem->inputtext ?>" /></td>
-				<td><?php echo _("Well - explain what this should do...") ?></td> 
-			  </tr>	 
+				<td><?php echo _t("Webservice") ?></td>
+				<td>
+					<input type="text" id="port" name="port" value="<?php echo $fhem->config->port ?>" />					
+				</td>
+				<td><?php echo _t("Set up port for FHEM") ?></td> 
+			  </tr>	 			  
 			</table>
-			
-			<input type="button" id="save" name="<?php echo _("save") ?>" onclick="document.getElementById('action').value='save';submit();" value="<?php echo _("save") ?>" /></td>		
+			<br />
+			<input type="button" id="save" name="<?php echo _("save") ?>" onclick="document.getElementById('action').value='save';submit();" value="<?php echo _("save") ?>" />
 		</div>
 		
+	<?php }?>
 	</form>
 	
 	<br /><br />

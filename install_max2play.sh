@@ -260,10 +260,14 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	echo "Y" | apt-get install kodi
 	sudo echo "KERNEL==\"tty[0-9]*\", GROUP=\"tty\", MODE=\"0660\"" >> /etc/udev/rules.d/99-input.rules 
 	sudo usermod -a -G tty pi
-	sudo echo "gpu_mem=128" >> /boot/config.txt
+	#sudo sh -c "echo \"gpu_mem=128\" >> /boot/config.txt"
+	
+	#Hifi Berry - TODO: add to webinterface
+	# sudo sh -c "echo \"dtoverlay=hifiberry-dac\" >> /boot/config.txt"
 	
 	#iqaudio fix
-	sudo echo "dtoverlay=iqaudio-dacplus" >> /boot/config.txt
+	sudo sh -c "echo \"dtoverlay=iqaudio-dacplus\" >> /boot/config.txt"
+	sudo sh -c "echo \"options snd-rpi-iqaudio-dac index=-2\" >> /etc/modprobe.d/alsa-base.conf"	
 	
 	#Default Soundoutput
 	sudo sed -i 's/SQUEEZELITE_PARAMETER.*/SQUEEZELITE_PARAMETER=-o plug:plugequal/' /opt/max2play/audioplayer.conf	
