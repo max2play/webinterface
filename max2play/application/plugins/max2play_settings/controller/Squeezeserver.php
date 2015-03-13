@@ -55,6 +55,11 @@ class Squeezeserver extends Service {
 				sleep(10); //Timeout to get process off processlist
 			}
 			
+			if($_GET['action'] == 'restart'){
+				$this->view->message[] = $this->restart($this->pname, '', $this->prozessname);
+				sleep(10); //Timeout to get process off processlist
+			}
+			
 			if($_GET['action'] == 'save'){
 				$this->selectAutostart(isset($_GET['autostart']) ? 1 : 0, false);
 			}

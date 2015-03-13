@@ -63,9 +63,9 @@ class Accesspoint_Setup extends Service {
 		$this->_getAllLogs();
 	}
 	
-	private function _install(){				
-							
-		$this->view->message[] = nl2br($this->writeDynamicScript(array($this->scriptPath.'install_accesspoint.sh '.$this->scriptPath)));		
+	private function _install(){						
+		$this->view->message[] = nl2br($this->writeDynamicScript(array($this->scriptPath.'install_accesspoint.sh '.$this->scriptPath)));
+		$this->view->message[] = _t('Reboot is needed to work properly!');
 		return true;
 	}
 	
@@ -77,7 +77,7 @@ class Accesspoint_Setup extends Service {
 	private function _getSettings(){		
 		$this->config->passphrase = $this->getConfigFileParameter('/etc/hostapd/hostapd.conf', 'wpa_passphrase');
 		$this->config->ssid = $this->getConfigFileParameter('/etc/hostapd/hostapd.conf', 'ssid');
-		$this->config->standalone = trim(shell_exec('cat /etc/dnsmasq.conf | grep ^address=/#/192.168.0.1 | wc -l'));
+		$this->config->standalone = trim(shell_exec('cat /etc/dnsmasq.conf | grep ^address=/#/192.168.189.1 | wc -l'));
 		
 		return true;
 	}
@@ -101,13 +101,21 @@ class Accesspoint_Setup extends Service {
 			$this->view->message[] = nl2br($this->writeDynamicScript(array('/etc/init.d/hostapd reload')));
 		}
 		
+		$script = array();
 		if(isset($_GET['standalone']) && $this->config->standalone == 0){
-			// Add Rule
-			$this->view->message[] = nl2br($this->writeDynamicScript(array('echo "address=/#/192.168.0.1" >> /etc/dnsmasq.conf', '/etc/init.d/dnsmasq restart')));
+			// Add Rule for Redirect to self			
+			$script[] = 'echo "address=/#/192.168.189.1" >> /etc/dnsmasq.conf';
+			// Activate Default Gateway to self
+			$script[] = 'sed -i \'s/#gateway 192.168.189.1/gateway 192.168.189.1/\' /etc/network/interfaces';
+			$script[] = '/etc/init.d/dnsmasq restart';
+			$this->view->message[] = nl2br($this->writeDynamicScript($script));
 		}
 		if(!isset($_GET['standalone']) && $this->config->standalone == 1){
-			// Remove Rule
-			$this->view->message[] = nl2br($this->writeDynamicScript(array('sed -i "s/address=\/#\/192\.168\.0\.1//" /etc/dnsmasq.conf', '/etc/init.d/dnsmasq restart')));
+			// Remove Rules and Gateway
+			$script[] = 'sed -i "s/address=\/#\/192\.168\.189\.1//" /etc/dnsmasq.conf';
+			$script[] = 'sed -i \'s/gateway 192.168.189.1/#gateway 192.168.189.1/\' /etc/network/interfaces';
+			$script[] = '/etc/init.d/dnsmasq restart';
+			$this->view->message[] = nl2br($this->writeDynamicScript($script));
 		}		
 		return true;
 	}

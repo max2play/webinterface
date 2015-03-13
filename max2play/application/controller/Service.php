@@ -182,6 +182,30 @@ class Service {
 	}
 	
 	/**
+	 * Use init.d Script to restart daemon
+	 * @param Script $name
+	 */
+	public function restart($name = '', $command = '', $statusname = ''){
+		if($name == '')
+			return false;
+	
+		if($statusname != '')
+			$pid = $this->status($statusname);
+		else
+			$pid = $this->status($name);
+	
+		if($pid === FALSE){
+			$shellanswer = _('Unable to stop process - it seems that it is not running');
+			return $shellanswer;
+		}
+			
+		$startcom = 'sudo /etc/init.d/'.$name.' restart';		
+			
+		$this->writeDynamicScript(array($startcom));
+		return _('restarted');
+	}
+	
+	/**
 	 * 
 	 * @param string $name Servicename - i.e. Scriptname in /etc/init.d
 	 * @param string $autostartconf Use /opt/max2play/autostart.conf for Autostart

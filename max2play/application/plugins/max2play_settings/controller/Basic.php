@@ -499,13 +499,13 @@ class Basic extends Service {
 	 * @param string $pathToPlugin
 	 */
 	private function installPlugin($pathToPlugin = ''){		
-		$this->getEmail();
-		//if($this->checkLicense(true) == false)
-		//	return true;
+		$this->getEmail();		
 		if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$pathToPlugin)) {
   			$this->view->message[] = _("Invalid Plugin-URL");
 		}else{
-			$this->view->message[] = nl2br($this->writeDynamicScript(array('/opt/max2play/install_plugin.sh '.$pathToPlugin.'?email='.$this->view->email)));
+			$linux = $this->getLinuxVersion();
+			$add_params = '"?email='.$this->view->email.'&premium='.$this->checkLicense(true, true).'&hardware='.urlencode($this->getHardwareInfo()).'&linux='.urlencode($linux[0]).'"';
+			$this->view->message[] = nl2br($this->writeDynamicScript(array('/opt/max2play/install_plugin.sh '.$pathToPlugin.' '.$add_params)));
 		}
 		return true;
 	}

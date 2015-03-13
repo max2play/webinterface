@@ -56,7 +56,7 @@
 		<input type="hidden" id="action" name="action" value="" />
 		<?php if(!$accesspoint->view->installed){ ?>
 			<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
-				<span class="ui-icon ui-icon-diag" style="float:left; margin:-2px 5px 0 0;"></span>
+				<span class="ui-icon ui-icon-wrench" style="float:left; margin:-2px 5px 0 0;"></span>
 				<b><?php echo _t("Setup an accesspoint on this device") ?></b></p>
 				<input type="button" id="install" name="<?php echo _("install") ?>" onclick="document.getElementById('action').value='install';submit();" value="<?php echo _("install") ?>" />		
 		<?php } else { ?>
@@ -91,7 +91,7 @@
 					<td>
 						<input type="checkbox" id="standalone" name="standalone" value="1" <?php if ($accesspoint->config->standalone) echo "checked"; ?> />
 					</td>
-					<td><?php echo _t("The accesspoint redirects all external requests to itsself") ?></td> 
+					<td><?php echo _t("The accesspoint redirects all external requests to itsself. Always activate this, if the device is not connected to the internet.") ?></td> 
 				  </tr>
 				</table>
 				<br />

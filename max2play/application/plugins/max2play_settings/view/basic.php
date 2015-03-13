@@ -203,8 +203,9 @@
 	<input type="button" value="<?php echo _("Save Plugin Config - WARNING: removes Navigation for all NOT Selected") ?>" name="pluginconfig" id="pluginconfig" 
 		   onclick="document.getElementById('action').value='pluginconfig';$('#activeplugin option').prop('selected', 'true');submit();" /><br />	
 	<br /><br />
-	<?php echo _('You may install new Plugins by entering the http-link to the Pluginfile (zip/tar/tar.gz). <a href="http://www.max2play.com/features/plugins/" target="_blank"> A list of Max2Play-Plugins can be found here</a>.') ?>
-	<input type="text" id="installplugin" name="installplugin" value="" />	
+	<?php echo _('You may install new Plugins by entering the http-link to the Pluginfile (zip/tar/tar.gz).<br /><a class="download-button" href="http://www.max2play.com/features/plugins/" target="_blank"> A list of Max2Play-Extensions can be found here</a>') ?>
+	<br />
+	<?php echo _('Enter http-URL')?> <input type="text" id="installplugin" name="installplugin" value="" />	
 	<input type="button" value="<?php echo _("Install new Plugin") ?>" name="installplugin" onclick="document.getElementById('action').value='installplugin';submit();" /><br />	
 	<br /><br />
 	</form>

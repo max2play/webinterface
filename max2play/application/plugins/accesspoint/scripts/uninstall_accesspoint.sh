@@ -7,7 +7,7 @@ echo "Y" | apt-get remove hostapd dnsmasq
 sed -i 's/^net.ipv4.ip_forward=1/#net.ipv4.ip_forward=1/' /etc/sysctl.conf
 
 # Remove Hostname from Hosts
-sed -i 's/192\.168\.0\.1.*//' /etc/hosts
+sed -i 's/192\.168\.189\.1.*//' /etc/hosts
 
 # Remove static WLAN from interface Config
 awk -v NEWTEXT="" 'BEGIN{n=0} /#Accesspoint start/ {n=1} {if (n==0) {print $0}} /#Accesspoint end/ {print NEWTEXT; n=0}' < /etc/network/interfaces > /etc/network/interfaces.new

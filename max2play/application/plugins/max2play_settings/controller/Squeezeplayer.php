@@ -54,6 +54,7 @@ class Squeezeplayer extends Service {
 				$this->selectAutostart(isset($_GET['autostartsqueeze']) ? 1 : 0);
 				$this->saveSqueezeliteCommandline();
 				$this->setUseUSB_DAC();
+				$this->getSoundDevices();
 			}
 			
 			if($_GET['action'] == 'resetEqualizer'){

@@ -14,17 +14,17 @@ ISTAR=$(echo $1 | grep -i ".tar" | wc -l)
 
 if [ "$ISZIP" -gt "0" ]; then
 	echo "Load Plugin from zip" 
-	wget -O /opt/max2play/cache/plugin.zip $1
+	wget -O /opt/max2play/cache/plugin.zip "$1$2"
 	unzip -o /opt/max2play/cache/plugin.zip -d /opt/max2play/cache/newplugin
 	FILETIME=$(date -Is -d @`stat -c %Y /opt/max2play/cache/plugin.zip`)
 elif [ "$ISTARGZ" -gt "0" ]; then
     echo "Load Plugin from tar.gz"
-    wget -O /opt/max2play/cache/plugin.tar.gz $1
+    wget -O /opt/max2play/cache/plugin.tar.gz "$1$2"
     tar -xfz /opt/max2play/cache/plugin.tar.gz -C /opt/max2play/cache/newplugin
     FILETIME=$(date -Is -d @`stat -c %Y /opt/max2play/cache/plugin.tar.gz`)
 elif [ "$ISTAR" -gt "0" ]; then
     echo "Load Plugin from tar"
-    wget -O /opt/max2play/cache/plugin.tar $1
+    wget -O /opt/max2play/cache/plugin.tar "$1$2"
     tar -xf /opt/max2play/cache/plugin.tar -C /opt/max2play/cache/newplugin
     FILETIME=$(date -Is -d @`stat -c %Y /opt/max2play/cache/plugin.tar`)
 else

@@ -68,5 +68,5 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	sudo sed -i 's/odroid/pi/' /etc/usbmount/usbmount.conf
 	#Fix for rc.local file
 	sed -i 's/let \"COUNTER++\"/COUNTER=\$\(\(COUNTER+1\)\)/;s/\;mount/\;\/bin\/mount/' /etc/rc.local
-	echo "Y" | apt-get install ntfs-3g 
+	echo "Y" | apt-get install ntfs-3g lsb-release
 fi
