@@ -17,6 +17,14 @@ fi
 
 NAME=$(cat /opt/max2play/playername.txt)
 SQUEEZELITE_PARAMETER=$(grep -a "SQUEEZELITE_PARAMETER" /opt/max2play/audioplayer.conf | sed -n -e 's/^[A-Z_]*\=//p')
+ETH0=$(cat /sys/class/net/eth0/operstate)
+if [ "$ETH0" = "up" ]; then
+    INTERFACE=eth0
+else
+    INTERFACE=wlan0
+fi
+MAC="-m $(cat /sys/class/net/$INTERFACE/address)"
+echo "Use Interface $INTERFACE with $MAC"
 
 case "$1" in
   start)
@@ -26,7 +34,7 @@ case "$1" in
     useusbdac=$(grep -a USE_USB_DAC=1 /opt/max2play/audioplayer.conf | wc -l)
     if [ "1" -gt "$xbmcrunning" -o "0" -lt "$useusbdac" ]
     then
-        /sbin/start-stop-daemon --start --quiet -b -m -p /opt/squeezelite/log/squeezelite.pid --chuid $USER --exec /opt/squeezelite/squeezelite -- -n $NAME $LMS $SQUEEZELITE_PARAMETER
+        /sbin/start-stop-daemon --start --quiet -b -m -p /opt/squeezelite/log/squeezelite.pid --chuid $USER --exec /opt/squeezelite/squeezelite -- -n $NAME $LMS $MAC $SQUEEZELITE_PARAMETER
  		echo "Erfolgreich gestartet"
     fi
   ;;

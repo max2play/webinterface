@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-12 16:10+0100\n"
-"PO-Revision-Date: 2015-03-12 16:11+0100\n"
+"POT-Creation-Date: 2015-03-16 13:29+0100\n"
+"PO-Revision-Date: 2015-03-16 13:30+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_GB\n"
@@ -776,7 +776,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/filesystem.php:82
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/advancedsetup.php:116
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/basic.php:212
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/basic.php:213
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/wlan.php:116
 msgid "DEBUG Info"
 msgstr ""
@@ -1357,11 +1357,20 @@ msgstr ""
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/basic.php:206
 msgid ""
 "You may install new Plugins by entering the http-link to the Pluginfile (zip/"
-"tar/tar.gz). <a href=\"http://www.max2play.com/features/plugins/\" target="
-"\"_blank\"> A list of Max2Play-Plugins can be found here</a>."
+"tar/tar.gz).<br /><a class=\"download-button\" href=\"http://www.max2play."
+"com/features/plugins/\" target=\"_blank\"> A list of Max2Play-Extensions can "
+"be found here</a>"
 msgstr ""
+"You may install new Plugins by entering the http-link to the Pluginfile (zip/"
+"tar/tar.gz).<br /><a class=\"download-button\" href=\"http://www.max2play."
+"com/en/addons/\" target=\"_blank\"> A list of Max2Play-Extensions can be "
+"found here</a>"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/basic.php:208
+msgid "Enter http-URL"
+msgstr ""
+
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/basic.php:209
 msgid "Install new Plugin"
 msgstr ""
 
@@ -1516,8 +1525,8 @@ msgid "Installationspaket: "
 msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Shairport.php:77
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeplayer.php:188
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeplayer.php:265
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeplayer.php:189
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeplayer.php:266
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Gmediarender.php:93
 msgid "Updated $SERVICE Settings - Restart $SERVICE to apply changes!"
 msgstr ""
@@ -1526,17 +1535,17 @@ msgstr ""
 msgid "Audioplayer"
 msgstr ""
 
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeplayer.php:109
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeplayer.php:110
 msgid "Updated Equalizer Settings"
 msgstr ""
 
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeplayer.php:245
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeplayer.php:246
 msgid ""
 "Settings saved! Set Squeezelite options (advanced-button) to use headphones "
 "output with \"-o headphones\""
 msgstr ""
 
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeplayer.php:316
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeplayer.php:317
 msgid "Raspberry PI Audio Output set to $VALUE"
 msgstr ""
 
@@ -1731,7 +1740,7 @@ msgstr ""
 msgid "Plugin configuration updated"
 msgstr ""
 
-#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:506
+#: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:504
 msgid "Invalid Plugin-URL"
 msgstr ""
 

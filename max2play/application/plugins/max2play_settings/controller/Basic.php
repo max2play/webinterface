@@ -347,6 +347,8 @@ class Basic extends Service {
 				try {
 					if(isset($plugin['lastupdate']) && $plugin['lastupdate'] != ''){
 						$lastupdate = new DateTime($plugin['lastupdate']);
+					}else{
+						$lastupdate = new DateTime('2000-01-01T00:00:00');
 					}
 			
 					$h = get_headers($plugin['updateurl'], 1);

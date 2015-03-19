@@ -14,6 +14,7 @@ if [ "$1" = "install" ]; then
 	sed -i 's/#db_dir=\/var\/cache\/minidlna/db_dir=\/opt\/max2play\/cache\/minidlna/' /etc/minidlna.conf
 	sed -i 's/#inotify=yes/inotify=yes/' /etc/minidlna.conf
 	sed -i 's/^media_dir=.*/media_dir=\/media\/usb/' /etc/minidlna.conf
+	sed -i 's/^#network_interface=.*/network_interface=eth0,wlan0/' /etc/minidlna.conf
 	
 	#Sonderfall? Root Rechte für Daemon
 	#sed -i 's/#USER=.*/USER="root"/;s/#GROUP=.*/GROUP="root"/' /etc/default/minidlna

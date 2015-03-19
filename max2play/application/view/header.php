@@ -50,14 +50,14 @@
 			<div class="chooseplayer">
 				<?php if($service->info->devices) { ?>
 					<?php echo _('Choose active Player')?>
-					<select name="chooseplayer" class="chooseplayer">
+					<select name="chooseplayer" class="chooseplayer" style="margin-bottom:5px;">
 						<?php foreach($service->info->devices as $device) { ?>
 							<option <?php if($device['current'] == 1) echo 'selected'; ?> onclick="window.open('http://<?php echo $device['ip'] ?>');" value="<?php echo $device['ip'] ?>"><?php echo $device['name'] ?> (<?php echo $device['ip'] ?>)</option>
 						<?php }?>		
 					</select>
-				<?php }?>
-				<br />
-				<span style="float:right;margin-top:5px;">
+					<br />
+				<?php }?>				
+				<span class="headerinfo">
 					<?php if ($service->info->removedonate != 1) echo _('DONATE-BUTTON'); ?>		
 					<br /><?php echo _('Version').' '.$service->info->version ?>
 					<br /><?php echo $service->info->hardware ?>

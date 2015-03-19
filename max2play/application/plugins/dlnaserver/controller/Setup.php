@@ -45,6 +45,9 @@ class Dlnaserver_Setup extends Service {
 			if($_GET['action'] == 'uninstallMiniDLNA'){
 				$this->_installMiniDLNA(true);
 			}
+			if($_GET['action'] == 'reloadMiniDLNA'){
+				$this->_reloadMiniDLNA();
+			}
 		}
 		$this->_getMiniDLNASetup();
 		$this->_getDebug();
@@ -99,7 +102,11 @@ class Dlnaserver_Setup extends Service {
 	 */
 	private function _getDebug(){
 		$out = array();
-		$out['MiniDLNA'] = shell_exec('tail -20 /opt/max2play/cache/minidlna/minidlna.log');
+		$out['MiniDLNA RUNNING'] = shell_exec('ps -Al | grep minidlna');
+		if(file_exists('/opt/max2play/cache/minidlna/minidlna.log'))
+			$out['MiniDLNA LOG'] = shell_exec('tail -20 /opt/max2play/cache/minidlna/minidlna.log');
+		else
+			$out['MiniDLNA LOG'] = shell_exec('tail -20 /var/log/minidlna.log');
 		$this->view->debug = $out;
 	}
 	

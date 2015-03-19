@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Example Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-06 11:03+0100\n"
-"PO-Revision-Date: 2015-03-06 11:03+0100\n"
+"POT-Creation-Date: 2015-03-16 16:16+0100\n"
+"PO-Revision-Date: 2015-03-16 16:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:28
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/controller/Setup.php:40
 msgid "Accesspoint Setup"
-msgstr ""
+msgstr "Accesspoint Setup"
 
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:42
 msgid ""
@@ -29,6 +29,11 @@ msgid ""
 "devices to access its features and services. It also shares the internet "
 "connection if available and forwards all traffic to the LAN-network."
 msgstr ""
+"Sie können mühelos ihr Gerät zu einem Accesspoint für andere WiFi-kompatible "
+"Geräte machen. Wenn sie das neue WiFi-Netzwerk dieses Geräts installiert "
+"haben, können sie dessen Funktionen und Dienste auf anderen Geräten nutzen. "
+"Zudem gibt es die Internetverbindung, wenn verfügbar, frei und leitet "
+"sämtlichen Traffic auf das LAN-Netzwerk weiter."
 
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:45
 msgid ""
@@ -42,68 +47,102 @@ msgid ""
 "other WiFi-networks with this device</li>\n"
 "\t\t\t</ul>"
 msgstr ""
+"Das passiert bei der Installation: \n"
+"\t\t\t<ul class=\"description\">\n"
+"\t\t\t\t<li>ein DHCP-Server (dnsmasq) und Hostapd werden installiert</li>\n"
+"\t\t\t\t<li>ein statischer WiFi-Eintrag wird in den Netzwerk-Interfaces "
+"hinzugefügt</li>\n"
+"\t\t\t\t<li>über das WLAN-Netz dieses Geräts können sich anschließend andere "
+"Geräte einloggen</li>\n"
+"\t\t\t\t<li>so lange dieses Gerät als Accesspoint läuft, kann das WLAN nicht "
+"für das Verbinden in andere Netzwerke genutzt werden</li>\n"
+"\t\t\t</ul>"
 
-#: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:62
-msgid "Setup an accesspoint on this device"
-msgstr ""
+#: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:60
+msgid "Set up an accesspoint on this device"
+msgstr "Einrichten eines Accesspoint auf ihrem Gerät"
+
+#: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:61
+msgid "install"
+msgstr "Installieren"
 
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:63
-msgid "install"
+msgid ""
+"Accesspoint is installed and active! On your WiFi-devices that are connected "
+"to this accesspoint open a browser with <a href=\"$URL\">$URL</a> to get to "
+"this webinterface."
 msgstr ""
+"Der Accesspoint ist installiert und aktiv! Mit ihren WiFi-kompatiblen "
+"Geräten, die mit dem Accesspoint verbunden sind, können sie nun in das "
+"Webinterface gelangen indem sie ihren Browser mit <a href=\"$URL\">$URL</a> "
+"öffnen."
 
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:67
 msgid "Remove accesspoint from this device"
-msgstr ""
+msgstr "Entfernen des Accesspoint von ihrem Gerät."
 
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:68
 msgid ""
 "The accesspoint feature is currently installed and active. You have to "
-"uninstall it to get back to the normal usage of your WiFi."
+"uninstall the accesspoint-modus to get back to the normal usage of your WiFi."
 msgstr ""
+"Die Accesspointfunktion ist installiert und aktiv. Um zurück zum normalen "
+"Gebrauch ihres WiFi zu gelangen müssen sie den Accesspointmodus "
+"deinstallieren."
 
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:69
 msgid "uninstall"
-msgstr ""
+msgstr "deinstallieren"
 
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:74
 msgid "Edit basic accesspoint settings"
-msgstr ""
+msgstr "Bearbeiten der Accesspoint Grundeinstellungen"
 
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:78
 msgid "SSID"
-msgstr ""
+msgstr "SSID"
 
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:82
 msgid "The name of this WiFi network"
-msgstr ""
+msgstr "Der Name des WiFi-Netzwerks"
 
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:85
 msgid "Passphrase"
-msgstr ""
+msgstr "Passwort"
 
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:87
 msgid "The WiFi passphrase for this network"
-msgstr ""
+msgstr "Das WiFi Passwort für dieses Netzwerk"
 
-#: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:91
+#: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:90
+msgid "Standalone"
+msgstr "Standalone"
+
+#: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:94
+msgid ""
+"The accesspoint redirects all external requests to itself. Always activate "
+"this, if the device is not connected to the internet."
+msgstr ""
+"Der Accesspoint leitet alle externen Anfragen auf sich um. Achten sie darauf "
+"diese Einstellung immer aktiv zu haben, wenn das Gerät nicht mit dem "
+"Internet verbunden ist."
+
+#: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:98
 msgid "save"
 msgstr "speichern"
 
-#: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:98
+#: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:105
 #, fuzzy
 msgid "DEBUG Informations"
 msgstr "DEBUG Info"
 
-#: y:\projects\max2play\max2play\application\plugins\accesspoint/controller/Setup.php:66
-#: y:\projects\max2play\max2play\application\plugins\accesspoint/controller/Setup.php:72
-#: y:\projects\max2play\max2play\application\plugins\accesspoint/controller/Setup.php:85
-#: y:\projects\max2play\max2play\application\plugins\accesspoint/controller/Setup.php:91
-msgid "Reboot needed"
-msgstr ""
+#: y:\projects\max2play\max2play\application\plugins\accesspoint/controller/Setup.php:68
+msgid "Reboot is needed to work properly!"
+msgstr "Neustarten ist erforderlich um fehlerfrei zu funktionieren!"
 
-#: y:\projects\max2play\max2play\application\plugins\accesspoint/controller/Setup.php:87
-msgid "Wrong passphrase"
-msgstr ""
+#: y:\projects\max2play\max2play\application\plugins\accesspoint/controller/Setup.php:93
+msgid "Wrong passphrase (must be 8 to 64 characters)"
+msgstr "Falsches Passwort (mindestens 8 bis 64 Zeichen)"
 
 #~ msgid "Jivelite Squeezebox Desktop Visualisation"
 #~ msgstr "Jivelite Squeezebox Desktop Visualisierung"

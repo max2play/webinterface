@@ -21,6 +21,7 @@ CHANGE_PASSWORD="N"
 # CHANGE_HOSTNAME="max2play"
 CHANGE_HOSTNAME="" 
 SHAIRPORT="SHAIRPORT_SYNC"
+PROJECT="max2play" #squeezeplug, max2play, etc.
 
 CWD=$(pwd)
 
@@ -215,11 +216,7 @@ if [ "$LINUX" == "Debian" ]; then
 	sudo ./autogen.sh
 	sudo ./configure
 	sudo make
-	sudo make install
-	# NEW: take init-script from max2play sources
-	# sudo cp scripts/init.d/gmediarenderer /etc/init.d/		
-	# sudo sed -i 's/UPNP_DEVICE_NAME=.*/UPNP_DEVICE_NAME=$(cat \/etc\/hostname)-dlna/' /etc/init.d/gmediarenderer
-	# sudo sed -i "s/DAEMON_USER=.*/DAEMON_USER=\"$USER:audio\"/" /etc/init.d/gmediarenderer
+	sudo make install	
 	pushd $CWD
 fi
 
@@ -246,9 +243,13 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	sudo sed -i 's/odroid/pi/' /etc/usbmount/usbmount.conf
 	
 	#Squeezeplug Header & CSS & Plugin-Auswahl
-	cp -f /var/www/max2play/application/plugins/squeezeplug/view/header_custom.php /var/www/max2play/application/view/
-	cp -f /var/www/max2play/public/addons/squeezeplug/custom.css /var/www/max2play/public/
-	cp -f /var/www/max2play/application/plugins/squeezeplug/scripts/plugins.xml /var/www/max2play/application/config/plugins.xml
+	if [ "$PROJECT" == "squeezeplug" ]; then
+		# Install Plugin squeezeplug
+		/opt/max2play/install_plugin.sh http://shop.max2play.com/media/downloadable/beta/squeezeplug.tar
+		cp -f /var/www/max2play/application/plugins/squeezeplug/view/header_custom.php /var/www/max2play/application/view/
+		cp -f /var/www/max2play/application/plugins/squeezeplug/scripts/custom.css /var/www/max2play/public/
+		cp -f /var/www/max2play/application/plugins/squeezeplug/scripts/plugins.xml /var/www/max2play/application/config/plugins.xml
+	fi	
 	
 	#Raspberry: asound.conf.pi (Equalizer Options)
 	cp -f max2play/CONFIG_SYSTEM/asound.conf.pi /etc/asound.conf

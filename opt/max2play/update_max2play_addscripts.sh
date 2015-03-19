@@ -69,4 +69,12 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	#Fix for rc.local file
 	sed -i 's/let \"COUNTER++\"/COUNTER=\$\(\(COUNTER+1\)\)/;s/\;mount/\;\/bin\/mount/' /etc/rc.local
 	echo "Y" | apt-get install ntfs-3g lsb-release
+	#Copy Squeezeplug custom.css and Header Files if Existing
+	if [ -e "/var/www/max2play/application/plugins/squeezeplug/view/header_custom.php" ]; then
+	    # Update Plugin squeezeplug
+		/opt/max2play/install_plugin.sh http://shop.max2play.com/media/downloadable/beta/squeezeplug.tar
+	    echo "Copy custom header files"
+	    cp -f /var/www/max2play/application/plugins/squeezeplug/view/header_custom.php /var/www/max2play/application/view/
+	    cp -f /var/www/max2play/application/plugins/squeezeplug/scripts/custom.css /var/www/max2play/public/
+	fi
 fi

@@ -107,14 +107,16 @@ class Accesspoint_Setup extends Service {
 			$script[] = 'echo "address=/#/192.168.189.1" >> /etc/dnsmasq.conf';
 			// Activate Default Gateway to self
 			$script[] = 'sed -i \'s/#gateway 192.168.189.1/gateway 192.168.189.1/\' /etc/network/interfaces';
-			$script[] = '/etc/init.d/dnsmasq restart';
+			$script[] = 'sed -i \'s/#\/bin\/ip route add default via 192.168.189.1 dev wlan0/\/bin\/ip route add default via 192.168.189.1 dev wlan0/\' /etc/init.d/hostapd';
+			$script[] = '/etc/init.d/dnsmasq restart;/etc/init.d/hostapd restart';
 			$this->view->message[] = nl2br($this->writeDynamicScript($script));
 		}
 		if(!isset($_GET['standalone']) && $this->config->standalone == 1){
 			// Remove Rules and Gateway
 			$script[] = 'sed -i "s/address=\/#\/192\.168\.189\.1//" /etc/dnsmasq.conf';
 			$script[] = 'sed -i \'s/gateway 192.168.189.1/#gateway 192.168.189.1/\' /etc/network/interfaces';
-			$script[] = '/etc/init.d/dnsmasq restart';
+			$script[] = 'sed -i \'s/ \/bin\/ip route add default via 192.168.189.1 dev wlan0/ #\/bin\/ip route add default via 192.168.189.1 dev wlan0/\' /etc/init.d/hostapd';
+			$script[] = '/etc/init.d/dnsmasq restart;/etc/init.d/hostapd restart';
 			$this->view->message[] = nl2br($this->writeDynamicScript($script));
 		}		
 		return true;

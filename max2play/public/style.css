@@ -216,13 +216,6 @@ input[type="submit"], input[type="button"], input[type="reset"] {
 
 .ui-state-highlight {word-wrap:break-word;}
 
-
-*, *::before, *::after {
-    box-sizing: border-box;
-}
-*, *::before, *::after {
-    box-sizing: border-box;
-}
 .aligncenter {
     display: block;
     margin: 5px auto;
@@ -231,6 +224,16 @@ input[type="submit"], input[type="button"], input[type="reset"] {
     display: block;
     margin: 5px auto;
 }
+.optiondetails {
+	padding: 10px; border: 1px dotted; margin: 10px;
+}
+.optiondetails td {	
+	border-bottom: 1px dashed;
+    padding-bottom: 15px;
+    padding-top: 5px;
+}
+.headerinfo {float:right;max-width: 160px;}
+
 .download-button {
     background-color: #09c;
     background-image: linear-gradient(#009fd4, #09c, #0086b2);
@@ -250,8 +253,7 @@ input[type="submit"], input[type="button"], input[type="reset"] {
 .download-button:hover{color:#fff;background-color:#09c;background-image:-webkit-linear-gradient(#09c,#0086b2);background-image:-moz-linear-gradient(#09c,#0086b2)}
 
 @media only screen 
-and (min-device-width : 220px) 
-and (max-device-width : 800px) 
+and (max-width : 800px) 
 { 
    .logo {
        background: url("/logo_k.png") no-repeat scroll left top transparent;
@@ -282,6 +284,12 @@ and (max-device-width : 800px)
    input[type="text"] {
    	   width: 40px;
    }
+   .headerinfo {font-size:0.8em;}
+}
+@media only screen 
+and (max-width : 400px) 
+{ 
+	.logo2 {display:none;}
 }
 
 .modal {
@@ -304,13 +312,4 @@ body.loading {
 
 body.loading .modal {
     display: block;
-}
-
-.optiondetails {
-	padding: 10px; border: 1px dotted; margin: 10px;
-}
-.optiondetails td {	
-	border-bottom: 1px dashed;
-    padding-bottom: 15px;
-    padding-top: 5px;
 }
