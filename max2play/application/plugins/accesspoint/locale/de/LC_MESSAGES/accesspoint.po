@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Example Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-16 16:16+0100\n"
-"PO-Revision-Date: 2015-03-16 16:43+0100\n"
+"POT-Creation-Date: 2015-03-19 14:40+0100\n"
+"PO-Revision-Date: 2015-03-19 14:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -74,7 +74,7 @@ msgid ""
 msgstr ""
 "Der Accesspoint ist installiert und aktiv! Mit ihren WiFi-kompatiblen "
 "Geräten, die mit dem Accesspoint verbunden sind, können sie nun in das "
-"Webinterface gelangen indem sie ihren Browser mit <a href=\"$URL\">$URL</a> "
+"Webinterface gelangen, indem sie ihren Browser mit <a href=\"$URL\">$URL</a> "
 "öffnen."
 
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:67
@@ -87,7 +87,7 @@ msgid ""
 "uninstall the accesspoint-modus to get back to the normal usage of your WiFi."
 msgstr ""
 "Die Accesspointfunktion ist installiert und aktiv. Um zurück zum normalen "
-"Gebrauch ihres WiFi zu gelangen müssen sie den Accesspointmodus "
+"Gebrauch ihres WiFi zu gelangen, müssen sie den Accesspointmodus "
 "deinstallieren."
 
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:69
@@ -120,19 +120,24 @@ msgstr "Standalone"
 
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:94
 msgid ""
-"The accesspoint redirects all external requests to itself. Always activate "
-"this, if the device is not connected to the internet."
+"The accesspoint redirects all external requests to itself and sets up a "
+"default gateway to its IP-adress. Always activate this, if the device is not "
+"connected to the internet and if there is no other router connected by LAN-"
+"interface. Otherwise the audioplayers (e.g. squeezelite) will not work "
+"correctly."
 msgstr ""
-"Der Accesspoint leitet alle externen Anfragen auf sich um. Achten sie darauf "
-"diese Einstellung immer aktiv zu haben, wenn das Gerät nicht mit dem "
-"Internet verbunden ist."
+"Der Accesspoint leitet alle externen Anfragen auf sich um und richtet einen "
+"Standardgateway auf seiner IP-Adresse ein. Achten sie darauf diese "
+"Einstellung immer aktiv zu haben, wenn das Gerät nicht mit dem Internet "
+"verbunden ist und nicht an einen anderen Router per LAN-Kabel angeschlossen "
+"ist. Andernfalls werden die Audioplayer (z.B. squeezelite) nicht korrekt "
+"funktionieren."
 
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:98
 msgid "save"
 msgstr "speichern"
 
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/view/setup.php:105
-#, fuzzy
 msgid "DEBUG Informations"
 msgstr "DEBUG Info"
 
@@ -143,6 +148,14 @@ msgstr "Neustarten ist erforderlich um fehlerfrei zu funktionieren!"
 #: y:\projects\max2play\max2play\application\plugins\accesspoint/controller/Setup.php:93
 msgid "Wrong passphrase (must be 8 to 64 characters)"
 msgstr "Falsches Passwort (mindestens 8 bis 64 Zeichen)"
+
+#~ msgid ""
+#~ "The accesspoint redirects all external requests to itself. Always "
+#~ "activate this, if the device is not connected to the internet."
+#~ msgstr ""
+#~ "Der Accesspoint leitet alle externen Anfragen auf sich um. Achten sie "
+#~ "darauf diese Einstellung immer aktiv zu haben, wenn das Gerät nicht mit "
+#~ "dem Internet verbunden ist."
 
 #~ msgid "Jivelite Squeezebox Desktop Visualisation"
 #~ msgstr "Jivelite Squeezebox Desktop Visualisierung"

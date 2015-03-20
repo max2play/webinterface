@@ -91,7 +91,7 @@
 					<td>
 						<input type="checkbox" id="standalone" name="standalone" value="1" <?php if ($accesspoint->config->standalone) echo "checked"; ?> />
 					</td>
-					<td><?php echo _t("The accesspoint redirects all external requests to itself. Always activate this, if the device is not connected to the internet.") ?></td> 
+					<td><?php echo _t("The accesspoint redirects all external requests to itself and sets up a default gateway to its IP-adress. Always activate this, if the device is not connected to the internet and if there is no other router connected by LAN-interface. Otherwise the audioplayers (e.g. squeezelite) will not work correctly.") ?></td> 
 				  </tr>
 				</table>
 				<br />

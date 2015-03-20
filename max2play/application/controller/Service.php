@@ -356,14 +356,46 @@ class Service {
 	
 	public function checkForUpdate(){
 		$this->getVersion();
-		//Check auf Update
-		$file = file_get_contents('http://shop.max2play.com/media/downloadable/currentversion/version.txt');
+		//Check for Update
+		$file = $this->getExternalFile('http://shop.max2play.com/media/downloadable/currentversion/version.txt', 3);
 		if(strpos($this->info->version, 'Beta') !== FALSE){
 			$this->view->message[] = _('You are running a Beta-Version of Max2Play!');
 		}elseif((float)$this->info->version < (float)$file){
 			$this->view->message[] = _('Max2Play update is available - start update on tab Settings / Reboot');
 		}
 		return true;
+	}
+	
+	/**
+	 * Get external File with defined timeout
+	 * Do it with Curl (if installed) or by file_get_contents
+	 */
+	public function getExternalFile($file = '', $timeout = 5, $curl = false){
+		if($file != ''){						
+			if($curl === true){
+				try{
+					$ch=curl_init();						
+					curl_setopt($ch, CURLOPT_URL, $file);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+					curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);			
+					$response=curl_exec($ch);
+					curl_close($ch);
+					if($response){
+						$header_size = curl_getinfo($ch,CURLINFO_HEADER_SIZE);				
+						$content = substr( $response, $header_size );
+						return $content;
+					}else 
+						return false;
+				}catch(Exception $e){
+					$this->view->message[] = _('No Curl for HTTP-Request available!');
+				}
+			}else{				
+				$ctx = stream_context_create(array('http'=>	array('timeout' => $timeout)));
+				$content = file_get_contents($file, false, $ctx);				
+				return $content;
+			}
+		}
+		return false;
 	}
 	
 	/**
