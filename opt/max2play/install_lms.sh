@@ -41,6 +41,7 @@ else
 		#ln /usr/bin/faad /usr/share/squeezeboxserver/Bin/arm-linux/faad
 		#ln /usr/bin/flac /usr/share/squeezeboxserver/Bin/arm-linux/flac
 		#ln /usr/bin/sox /usr/share/squeezeboxserver/Bin/arm-linux/sox
+		#git clone https://github.com/Logitech/slimserver-vendor -b public/7.9
 		#Fix Perl 5.18 CPAN: Paket libungif-bin und libungif.so symlink fixen, CPAN> Image::Scale manuell, Font + Hebrew raus aus buildme
 		#Fix http://forums.slimdevices.com/showthread.php?99566-Perl-5-14-vs-5-16-vs-5-18&p=772369&viewfull=1#post772369
 		#ln -f /usr/lib/arm-linux-gnueabihf/libgif.a /usr/lib/libungif.a
@@ -60,6 +61,10 @@ else
 		
 		#Fix ubuntu 14 interpreter
 		ln /lib/arm-linux-gnueabihf/ld-linux.so.3 /lib/ld-linux.so.3
+		
+		#Audio Fix für DSD
+		wget -O /opt/max2play/cache/CPAN_AUDIO_DSD_7.9.tar shop.max2play.com/media/downloadable/beta/CPAN_AUDIO_DSD_7.9.tar
+		tar -xf /opt/max2play/cache/CPAN_AUDIO_DSD_7.9.tar -C /opt		
 		
 		sleep 3
 		/etc/init.d/logitechmediaserver restart
