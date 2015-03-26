@@ -42,8 +42,11 @@
 	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
 			<span class="ui-icon ui-icon-wrench" style="float:left; margin:-2px 5px 0 0;"></span>
 			<b><?php echo _("Anwesenheitsüberwachung mittels FritzBox und Homematic Variablen") ?></b></p>
-	Über die Fritzbox lässt sich der Status einzelner Geräte im WLAN ermittlen. So kann bei Anwesenheit (Smartphone angemeldet) eine Variable im Homematic-System gesetzt werden.
-	Dieses Script simuliert eine Nutzeranmeldung an der Fritzbox, liest den Status der angegebenen Geräte aus und setzt die korrespondierenden Variablen in Homematic. Voraussetzung ist ein Installierter Cuxd-Dienst in der Homematic-Zentrale.
+	Über die Fritzbox (ab Version 6.10) lässt sich der Status einzelner Geräte im WLAN durch diese Erweiterung ermittlen. So kann bei Anwesenheit (Smartphone angemeldet) eine Variable im Homematic-System gesetzt werden.
+	<br /><br />
+	Dieses Script simuliert eine Nutzeranmeldung an der Fritzbox, liest den Status der angegebenen Geräte aus und setzt die korrespondierenden Variablen in Homematic (über die ise_id). Voraussetzung ist ein Installierter Cuxd-Dienst und die XML-API in der Homematic-Zentrale.	
+    <br /><br />
+    Wenn alle Felder ausgefüllt sind und der "Autostart" aktiviert ist, startet der Dienst aller X Sekunden (FritzBox Looptime) und die Ausgabe lässt sich über die "Debug Informationen" unten auf dieser Seite anzeigen und nachvollziehen.
 	<br /> 
 	<form action="" method="get">
 		<input type="hidden" id="action" name="action" value="" />				
@@ -76,14 +79,19 @@
 				<td><?php echo _("Die Geräte, die überwacht werden sollen - getrennt durch Leerzeichen") ?></td> 
 			  </tr>	 
 			  <tr>
-				<td><?php echo _("Homematic Variables") ?></td>
+				<td><?php echo _("Homematic Variables (ise_id)") ?></td>
 				<td><input type="text" name="config[hmvar]" value="<?php echo $homematic->config->hmvar ?>" /></td>
-				<td><?php echo _("Die korrespondierenden Homematic Variablen für die angegebenen Fritzbox Geräte") ?></td> 
+				<td><?php echo _("Die korrespondierenden Homematic Variablen (ise_id) für die angegebenen Fritzbox Geräte mit Leerzeichen getrennt in gleicher Reihenfolge wie die Fritzbox Geräte. Die ise_id kann über den Link http://[homematic-zentrale]/addons/xmlapi/sysvarlist.cgi ausgelesen werden.") ?></td> 
 			  </tr>	 
 			  <tr>
 				<td><?php echo _("FritzBox Looptime") ?></td>
 				<td><input type="text" name="config[looptime]" value="<?php echo $homematic->config->looptime ?>" /></td>
 				<td><?php echo _("Intervall für Statusupdates") ?></td> 
+			  </tr>	 
+			  <tr>
+				<td><?php echo _("Homematic IP-Adresse") ?></td>
+				<td><input type="text" name="config[homematic_ip]" value="<?php echo $homematic->config->homematic_ip ?>" /></td>
+				<td><?php echo _("Adresse der Homematic-Zentrale im Netzwerk. Z.b. &quot;http://homematic.fritz.box&quot; oder &quot;http://192.168.1.10&quot; (Eingabe ohne &quot;/&quot; am Ende)") ?></td> 
 			  </tr>	 
 			</table>
 			

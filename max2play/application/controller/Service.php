@@ -596,11 +596,15 @@ class Service {
 	
 	public function getHardwareInfo(){
 		$output = shell_exec("cat /proc/cpuinfo | grep Hardware");
-		if(strpos($output, 'BCM2708') || strpos($output, 'BCM2709'))
-			$this->info->hardware = 'Raspberry PI';
-		else{
-			preg_match('=Hardware.*: ([^ ]*)=', $output, $matches);
-			$this->info->hardware = $matches[1];
+		$this->info->hardware = '';
+		if(preg_match('=Hardware.*: ([^ ]*)=', $output, $matches)){
+			if(strpos($output, 'BCM2708') || strpos($output, 'BCM2709')){
+				$this->info->hardware = 'Raspberry PI';
+				$this->info->chipset = trim($matches[1]);
+			}else{			
+				$this->info->hardware = trim($matches[1]);
+				$this->info->chipset = trim($matches[1]);
+			}
 		}
 		return $this->info->hardware;
 	}

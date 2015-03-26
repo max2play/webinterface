@@ -13,11 +13,13 @@
 class Jivelite_Setup extends Service {	
 	protected $pname = 'jivelite';
 	public $viewname = 'Jivelite';
+	public $scriptPath = '';
 	
 	public function __construct(){		
 		parent::__construct();		
 		$this->registerLocale(dirname(__FILE__).'/../locale', 'jivelite');
 		$this->pluginname = _('Jivelite');				
+		$this->scriptPath = dirname(__FILE__).'/../scripts/';
 		
 		if($this->checkLicense(true) == false)
 			return true;
@@ -39,12 +41,22 @@ class Jivelite_Setup extends Service {
 					$output = $this->writeDynamicScript($script);
 					sleep(5);
 					$this->view->message[] = _('Restart Desktop-Manager completed (initialized Display)');
-				}							
-				$this->view->message[] = $this->start($this->pname, 'export DISPLAY=\':0\';sudo --user=odroid -H /opt/jivelite/jivelite/bin/jivelite > /dev/null 2>&1 &', '', true);
+				}
+				if($this->getSystemUser() == 'pi'){
+					//Check for XSesssion
+					$this->writeDynamicScript(array('export DISPLAY=\':0\';su -l pi -c startx > /dev/null 2>&1 &'));
+					sleep(3);
+					$this->view->message[] = $this->start($this->pname, 'export DISPLAY=\':0\';sudo -u pi -H /opt/jivelite/jivelite/bin/jivelite > /dev/null 2>&1 &', '', true);
+				}else{					
+					$this->view->message[] = $this->start($this->pname, 'export DISPLAY=\':0\';sudo -u odroid -H /opt/jivelite/jivelite/bin/jivelite > /dev/null 2>&1 &', '', true);
+				}
 			}
 			
 			if($_GET['action'] == 'stop'){			
 				$this->view->message[] = $this->stop('jivelite', 'sudo kill -9 $PID');
+				if($this->getSystemUser() == 'pi'){
+					$this->writeDynamicScript(array('killall lxsession'));
+				}
 			}
 			
 			if($_GET['action'] == 'save'){							
@@ -81,7 +93,7 @@ class Jivelite_Setup extends Service {
 	private function _install($ajax = 0){
 		if($ajax == 0){
 			if($this->getProgressWithAjax('/opt/max2play/cache/install_jivelite.txt', 1, 1)){				
-				$shellanswer = $this->writeDynamicScript(array("/opt/max2play/install_jivelite.sh >> /opt/max2play/cache/install_jivelite.txt &"));
+				$shellanswer = $this->writeDynamicScript(array($this->scriptPath."install_jivelite.sh >> /opt/max2play/cache/install_jivelite.txt 2>&1 &"));
 			}
 		}else{
 			$status = $this->getProgressWithAjax('/opt/max2play/cache/install_jivelite.txt');

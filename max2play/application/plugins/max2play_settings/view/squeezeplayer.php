@@ -128,10 +128,10 @@ $(function() {
 						<script>
 							function autosetCommandline(select){								
 								if(select.options[select.selectedIndex].value.indexOf("plug:") == -1 && document.getElementById('squeezelite_commandline').value == ''){
-									document.getElementById('squeezelite_commandline').value = '-a 120::16:';
+									document.getElementById('squeezelite_commandline').value = '-a 120:::';
 								}
 								if(select.options[select.selectedIndex].value == 'plughw:CARD=Audio,DEV=0' && document.getElementById('squeezelite_commandline').value == ''){
-									document.getElementById('squeezelite_commandline').value = '-a 120::16:';
+									document.getElementById('squeezelite_commandline').value = '-a 120:::';
 								}
 								return true;	
 							}

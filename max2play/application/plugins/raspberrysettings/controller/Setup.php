@@ -32,11 +32,13 @@ class Raspberrysettings_Setup extends Service {
 		
 	public $scriptPath = '';
 	public $usbSoundCards = array('' => 'none', 'hifiberry-dacplus' => 'Hifi Berry Card', 'iqaudio-dacplus' => 'IQaudio Card');
-	public $armFrequency = array('default','700', '800');
+	public $armFrequency = array('BCM2708' => array('default','700', '800'), 'BCM2709' => array('default','900', '1000'));
+	public $gpuMemory = array('BCM2708' => array('min' => '16', 'max' => '512'), 'BCM2709' => array('min' => '16', 'max' => '944'));
 	
 	public function __construct(){
 		parent::__construct();
 		$this->scriptPath = dirname(__FILE__).'/../scripts/';
+		$this->registerLocale(dirname(__FILE__).'/../locale', 'raspberrysettings');
 		
 		//Set your Pluginname
 		$this->pluginname = _('Raspberry Settings');
@@ -47,7 +49,7 @@ class Raspberrysettings_Setup extends Service {
 		if($this->getHardwareInfo() != 'Raspberry PI'){			
 			$this->view->message[] = _('This function is for Raspberry PI ONLY! It seems, that you do not have a Raspberry PI.');
 			return false;
-		}
+		}		
 		
 		//get Configuration for USB-Cards and Performance (CPU / GPU)
 		$this->_getDTOverlayConfig();
@@ -78,7 +80,7 @@ class Raspberrysettings_Setup extends Service {
 	}
 	
 	private function _saveCPUGPUConfig(){
-		if(isset($_GET['gpu_mem']) && $_GET['gpu_mem'] < 512 && $_GET['gpu_mem'] > 16 && $_GET['gpu_mem'] != $this->view->gpu_mem){
+		if(isset($_GET['gpu_mem']) && $_GET['gpu_mem'] <= $this->gpuMemory[$this->info->chipset]['max'] && $this->gpuMemory[$this->info->chipset]['min'] >= 16 && $_GET['gpu_mem'] != $this->view->gpu_mem){
 			$this->saveConfigFileParameter('/boot/config.txt', 'gpu_mem', $_GET['gpu_mem']);			
 			$this->view->message[] = _("GPU memory parameter changed");
 		}elseif($_GET['gpu_mem'] == ''){
@@ -86,7 +88,7 @@ class Raspberrysettings_Setup extends Service {
 			$this->view->message[] = _("GPU memory parameter removed");
 		}
 
-		if(isset($_GET['arm_freq']) && in_array($_GET['arm_freq'], $this->armFrequency)){
+		if(isset($_GET['arm_freq']) && in_array($_GET['arm_freq'], $this->armFrequency[$this->info->chipset])){
 			if($_GET['arm_freq'] == 'default')
 				$this->deleteConfigFileParameter('/boot/config.txt', 'arm_freq');
 			else
@@ -114,7 +116,7 @@ class Raspberrysettings_Setup extends Service {
 	 */
 	private function _getAllLogs(){		
 		
-		$out['EXAMPLE'] = shell_exec('ps -Al | grep apache');
+		$out['BOOT CONFIG TXT'] = shell_exec('cat /boot/config.txt');
 	
 		$this->view->debug = $out;
 	}

@@ -22,7 +22,7 @@ chmod -R 777 $SOURCEPATH/max2play
 chmod -R 777 $SOURCEPATH/opt/max2play
 
 HOSTS=( "176.9.62.131")
-PLUGINS=( "clementine" "fhem" "kernelmodules_odroid_u3" "jivelite" "callbot" "homematic" "raspberrysettings" "accesspoint" "squeezeplug" )
+PLUGINS=( "clementine" "fhem" "kernelmodules_odroid_u3" "jivelite" "callbot" "homematic" "raspberrysettings" "accesspoint" "squeezeplug" "speechcontrol" )
 PLUGINSTRING=$(printf " *\\%s\\*" "${PLUGINS[@]}")
 PLUGINSTRING=${PLUGINSTRING:1}
 echo "external Plugins: $PLUGINSTRING"

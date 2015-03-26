@@ -56,8 +56,16 @@ if [ "1" -gt "$xbmcrunning" ]; then
     running_jivelite=$(ps -Al | grep jivelite | wc -l)
     if [ "0" -lt "$autostart_jivelite" -a  "1" -gt "$running_jivelite" ]
         then
-        export DISPLAY=':0'
-        sudo --user=odroid -H /opt/jivelite/jivelite/bin/jivelite > /dev/null 2>&1 &
+        USER=$(grep -a "SYSTEM_USER" /opt/max2play/audioplayer.conf | sed -n -e 's/^[A-Z_]*\=//p')
+        if [ "$USER" = "pi" ]; then
+          export DISPLAY=':0'
+          sudo su -l pi -c /usr/bin/startx > /dev/null 2>&1 &
+          sleep 4         
+          sudo -u pi -H /opt/jivelite/jivelite/bin/jivelite > /dev/null 2>&1 &
+        else
+          export DISPLAY=':0'
+          sudo -u odroid -H /opt/jivelite/jivelite/bin/jivelite > /dev/null 2>&1 &
+        fi
     fi
 fi
 

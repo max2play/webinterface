@@ -2,6 +2,7 @@
 
 # Check for WiFi Adapter!
 echo "Y" | apt-get remove hostapd dnsmasq
+echo "Y" | apt-get purge dnsmasq
 
 # Disable Forwarding in Config
 sed -i 's/^net.ipv4.ip_forward=1/#net.ipv4.ip_forward=1/' /etc/sysctl.conf

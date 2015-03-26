@@ -65,6 +65,8 @@ else
 		#Audio Fix für DSD
 		wget -O /opt/max2play/cache/CPAN_AUDIO_DSD_7.9.tar shop.max2play.com/media/downloadable/beta/CPAN_AUDIO_DSD_7.9.tar
 		tar -xf /opt/max2play/cache/CPAN_AUDIO_DSD_7.9.tar -C /opt		
+		wget -O /opt/max2play/cache/dsdplayer-bin.zip www.max2play.com/downloads/squeezebox-server/dsdplayer-bin.zip
+		unzip -o /opt/max2play/cache/dsdplayer-bin.zip -d /usr/share/squeezeboxserver/Bin/
 		
 		sleep 3
 		/etc/init.d/logitechmediaserver restart

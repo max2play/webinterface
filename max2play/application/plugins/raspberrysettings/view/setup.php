@@ -45,8 +45,10 @@
 		
 		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
 			<span class="ui-icon ui-icon-wrench" style="float:left; margin:-2px 5px 0 0;"></span>
-			<b><?php echo _("Choose USB-Soundcard to load on boot (device tree overlay)") ?></b></p>
-		<?php echo _("The following USB-DACs are supported. Just choose the one that should be enabled and click save.");?><br />
+			<b><?php echo _t("Choose USB-Soundcard to load on boot (device tree overlay)") ?></b></p>
+		<?php echo _t("Remember to change the audiodevice in your desired player (e.g. squeezelite / shairport) in tab audioplayer after enabling the card and rebooting.");?><br />
+		<?php echo _t("Some audiocards like HiFi-Berry might not support simultanous usage of more than one audioplayer! Make sure to only assign one audioplayer at a time to that card.");?><br /><br />
+		<?php echo _t("The following USB-DACs are supported. Just choose the one that should be enabled and click save.");?><br />		
 		<select name="dtoverlay">			
 		<?php foreach ($rs->usbSoundCards as $card => $name) { ?>
 			<option value="<?php echo $card ?>" <?php if ($rs->view->dtoverlay == $card) echo 'selected'; ?>><?php echo $name ?></option>
@@ -57,26 +59,26 @@
 		<br /><br />
 		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
 			<span class="ui-icon ui-icon-wrench" style="float:left; margin:-2px 5px 0 0;"></span>
-			<b><?php echo _("Overclocking and GPU-Memory") ?></b></p>
-		<?php echo _("To get the maximum performance out of your Raspberry PI A/B/B+ you may change the frequency and the amount of memory used for GPU (graphics).");?><br />
+			<b><?php echo _t("Overclocking and GPU-Memory") ?></b></p>
+		<?php echo _t("To get the maximum performance out of your Raspberry PI A/B/B+ you may change the frequency and the amount of memory used for GPU (graphics).");?><br />
 		
 		<div class="optiondetails"> 
 			<table class="settings">
 			  <tr>
-				<td><?php echo _("CPU Frequency") ?></td>
+				<td><?php echo _t("CPU Frequency") ?></td>
 				<td>
 					<select name="arm_freq">
-					<?php foreach ($rs->armFrequency as $value) { ?>
+					<?php foreach ($rs->armFrequency[$rs->info->chipset] as $value) { ?>
 						<option value="<?php echo $value ?>" <?php if ($rs->view->arm_freq == $value) echo 'selected'; ?>><?php echo $value ?></option>
 					<?php } ?>	
 					</select>
 				</td>
-				<td><?php echo _("More CPU-Power results in more heat. <a href='http://www.raspberrypi.org/documentation/configuration/config-txt.md' target='_blank'>More Information</a>") ?></td> 
+				<td><?php echo _t("More CPU-Power results in more heat. <a href='http://www.raspberrypi.org/documentation/configuration/config-txt.md' target='_blank'>More Information</a>") ?></td> 
 			  </tr>	 
 			  <tr>
-				<td><?php echo _("GPU-Memory") ?></td>
+				<td><?php echo _t("GPU-Memory") ?></td>
 				<td><input type="text" id="gpu_mem" name="gpu_mem" value="<?php echo $rs->view->gpu_mem ?>" /></td>
-				<td><?php echo _("Default for Kodi/XBMC should be 128 MB. If you do not need any graphics, set it to 16 MB, which is the minimum. <a href='http://www.raspberrypi.org/documentation/configuration/config-txt.md' target='_blank'>More Information</a>"); ?></td> 
+				<td><?php echo _t("Default for Kodi/XBMC should be 128 MB. If you do not need any graphics, set it to 16 MB, which is the minimum. <a href='http://www.raspberrypi.org/documentation/configuration/config-txt.md' target='_blank'>More Information</a>"); ?></td> 
 			  </tr>	 
 			</table>
 			<br />

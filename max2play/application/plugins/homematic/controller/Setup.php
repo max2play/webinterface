@@ -76,6 +76,7 @@ class Homematic_Setup extends Service {
 		$this->config->device_list = $this->getConfigFileParameter($this->configfile, 'HM_FRITZ_DEVICE_LIST');
 		$this->config->hmvar = $this->getConfigFileParameter($this->configfile, 'HM_FRITZ_HMVAR');
 		$this->config->looptime = $this->getConfigFileParameter($this->configfile, 'HM_FRITZ_LOOPTIME');
+		$this->config->homematic_ip = $this->getConfigFileParameter($this->configfile, 'HM_HOMEMATIC_IP');
 	}
 	
 	/**
@@ -100,6 +101,9 @@ class Homematic_Setup extends Service {
 		}
 		if($this->saveConfigFileParameter($this->configfile, 'HM_FRITZ_LOOPTIME', $config['looptime'])){
 			$this->view->message[] = _('Looptime saved');
+		}
+		if($this->saveConfigFileParameter($this->configfile, 'HM_HOMEMATIC_IP', $config['homematic_ip'])){
+			$this->view->message[] = _('Homematic IP saved');
 		}
 		$this->selectAutostart(isset($config['autostart']) ? 1 : 0);
 		

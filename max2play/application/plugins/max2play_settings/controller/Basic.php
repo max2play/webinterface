@@ -251,7 +251,8 @@ class Basic extends Service {
 			if(file_exists($filename) && file_exists($filename.'.sav'))
 				$output = shell_exec('cat '.$filename.'.sav > '.$filename);
 		}
-		
+		//Correct install problems with dpkg
+		$this->writeDynamicScript(array('dpkg --configure -a'));
 		return _("Config Files restored for ").": <br />".implode('<br />',$files);
 	}
 	

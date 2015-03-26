@@ -29,6 +29,7 @@ class Info {
 	public $playername;
 	public $version;
 	public $hardware;
+	public $chipset;
 	public $system_user;
 	public $linux;
 	
