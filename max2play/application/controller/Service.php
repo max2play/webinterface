@@ -115,7 +115,7 @@ class Service {
 		return $shellanswer;
 	}
 	
-	public function stop($name = '', $command = '', $statusname = ''){
+	public function stop($name = '', $command = '', $statusname = '', $rootstop = false){
 		if($name == '')
 			return false;
 		
@@ -134,7 +134,12 @@ class Service {
 		}else{
 			$stopcom = 'sudo /etc/init.d/'.$name.' stop';
 		}
-		shell_exec($stopcom);		
+		
+		if(!$rootstop){
+			shell_exec($stopcom);
+		}else{
+			$this->writeDynamicScript(array($stopcom));
+		}			
 		
 		sleep(3);
 		
@@ -503,8 +508,8 @@ class Service {
 	 */
 	public function getConfigFileParameter($configfile = '', $parameter = ''){
 		if(!file_exists($configfile))
-			return false;
-		$output = trim(shell_exec('grep -a "^'.$parameter.'" '.$configfile.' | sed -n -e "s/^[A-Za-z_0-9]*\=//p"'));
+			return false;		
+		$output = trim(shell_exec('grep -a "^'.$parameter.'" '.$configfile.' | sed -n -e "s/^[A-Za-z_0-9\.]*\=//p"'));
 		return $output;
 	}
 	

@@ -1,6 +1,7 @@
 #!/bin/bash
 LOGFILE=/opt/max2play/cache/fritzbox.txt
-rm $LOGFILE
+LOGSTATE=/opt/max2play/cache/fritzbox_state.txt
+rm $LOGSTATE
 
 while true; do
 	tail -30 $LOGFILE > $LOGFILE.old; mv $LOGFILE.old $LOGFILE
@@ -39,17 +40,30 @@ while true; do
 	for (( i = 0; i < ${#DEVICE_LIST[@]} ; i++ ))
 	do
 	    active=$(echo $DEVICES | grep "${DEVICE_LIST[$i]}" | wc -l)
-	    if [ $active -gt 0 ] ; then
-	      wget -T 10 -t 1 -q -O /dev/null "$HMIP/config/xmlapi/statechange.cgi?ise_id=${HMVAR[$i]}&new_value=true"
-	      echo $(date) ${DEVICE_LIST[$i]}, angemeldet >> $LOGFILE
-	      echo "URL $HMIP/config/xmlapi/statechange.cgi?ise_id=${HMVAR[$i]}&new_value=true" >> $LOGFILE
-	    else
-	      wget -T 10 -t 1 -q -O /dev/null "$HMIP/config/xmlapi/statechange.cgi?ise_id=${HMVAR[$i]}&new_value=false"
-	      echo $(date) ${DEVICE_LIST[$i]}, abgemeldet >> $LOGFILE
-	      echo "URL $HMIP/config/xmlapi/statechange.cgi?ise_id=${HMVAR[$i]}&new_value=false" >> $LOGFILE
+	    
+	    OLDSTATE=$(grep -i "${DEVICE_LIST[$i]}" $LOGSTATE)
+	    if [ "$OLDSTATE" == "" ]; then
+	    	echo ${DEVICE_LIST[$i]} >> $LOGSTATE
+	    fi
+	    
+	    OLDSTATE_ACTIVE=$(echo $OLDSTATE | grep " 1" | wc -l)
+	    if [ "$OLDSTATE_ACTIVE" == "$active" -a ! "$OLDSTATE" == "" ]; then
+	       echo "Nothing to do"
+	    else 	    
+		    if [ $active -gt 0 ]; then
+		      sed -i "s/${DEVICE_LIST[$i]}.*/${DEVICE_LIST[$i]} 1/" $LOGSTATE
+		      wget -T 10 -t 1 -q -O /dev/null "$HMIP/config/xmlapi/statechange.cgi?ise_id=${HMVAR[$i]}&new_value=true"
+		      echo $(date) ${DEVICE_LIST[$i]}, angemeldet >> $LOGFILE
+		      echo "URL $HMIP/config/xmlapi/statechange.cgi?ise_id=${HMVAR[$i]}&new_value=true" >> $LOGFILE
+		    else
+		      sed -i "s/${DEVICE_LIST[$i]}.*/${DEVICE_LIST[$i]} 0/" $LOGSTATE
+		      wget -T 10 -t 1 -q -O /dev/null "$HMIP/config/xmlapi/statechange.cgi?ise_id=${HMVAR[$i]}&new_value=false"
+		      echo $(date) ${DEVICE_LIST[$i]}, abgemeldet >> $LOGFILE
+		      echo "URL $HMIP/config/xmlapi/statechange.cgi?ise_id=${HMVAR[$i]}&new_value=false" >> $LOGFILE
+		    fi
 	    fi
 	done
 	
-	echo "sleep $LOOPTIME" >> $LOGFILE
+	#echo "sleep $LOOPTIME" >> $LOGFILE
 	sleep $LOOPTIME
 done

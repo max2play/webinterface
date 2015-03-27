@@ -29,27 +29,20 @@
  * Have a close look at the Service Class with all its functions!
  *
  */
-class Homematic_Setup extends Service {
-	
-	/**
-	 * To add your scripts in your own folder change the scriptPath to /opt/myscripts/
-	 */
-	public $scriptPath = '/opt/max2play/';
-	
-	/**
-	 * Add further global variables like this one to get access from view
-	 */
+include_once('Homematic.php');
+
+class Homematic_Setup extends Homematic {		
 	
 	protected $pname = 'presence_detection';
 	
 	public function __construct(){
-		parent::__construct();
-		$this->configfile = '/opt/max2play/options.conf';
+		parent::__construct();		
 		
 		//Set your Pluginname
 		$this->pluginname = _('Homematic Setup');
 		
-		//If Button clicked or Form sent do Something
+		$this->configfile = '/opt/max2play/options.conf';
+		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'save'){
 				$this->_saveConfig($_GET['config']);
@@ -57,7 +50,6 @@ class Homematic_Setup extends Service {
 
 		}
 		
-		//Functions to call everytime
 		$this->_getConfig();
 		
 		//Get Debug Info
