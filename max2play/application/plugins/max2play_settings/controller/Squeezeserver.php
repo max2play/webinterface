@@ -29,10 +29,12 @@ class Squeezeserver extends Service {
 	protected $prozessname = 'squeezeboxserve';
 	public $viewname = 'Squeezebox Server';
 	public $lmsversions = array();
+	private $scriptPath = '';
 	
 	public function __construct(){						
 		parent::__construct();
 		$this->pluginname = _('Squeezebox Server');
+		$this->scriptPath = dirname(__FILE__).'/../scripts/';
 		
 		if($_GET['ajax'] == 1 && $_GET['action'] == 'install'){
 			//Function to get Progress of Installation
@@ -70,6 +72,9 @@ class Squeezeserver extends Service {
 			
 			if($_GET['action'] == 'showavailablelms'){
 				$this->getLMSVersions();
+			}
+			if($_GET['action'] == 'plugininstall'){
+				$this->_pluginInstall();
 			}
 		}
 		
@@ -156,6 +161,16 @@ class Squeezeserver extends Service {
 				$this->lmsversions['Nightly '.$versions[2][$i]] = $slimdevices_download.'nightly/'.$html_link[1][0];
 			}
 		}
+		return true;
+	}
+	
+	/**
+	 * 1-Click-Installer for rather complicated Shairtunes installer
+	 */
+	private function _pluginInstall(){
+		if($_GET['lmsplugin'] == 'shairtunes')
+			$this->view->message[] = $this->writeDynamicScript(array($this->scriptPath.'lms_plugin_shairtunes.sh'));
+		$this->view->message[] = _('Next steps: Reboot the device (in settings -> reboot) and you are ready to use your Squeezeplayers as Airplay device.');
 		return true;
 	}
 	
