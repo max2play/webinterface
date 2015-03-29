@@ -31,8 +31,27 @@
 class Raspberrysettings_Setup extends Service {
 		
 	public $scriptPath = '';
-	public $usbSoundCards = array('' => 'none', 'hifiberry-dacplus' => 'Hifi Berry Card', 'iqaudio-dacplus' => 'IQaudio Card');
-	public $armFrequency = array('BCM2708' => array('default','700', '800'), 'BCM2709' => array('default','900', '1000'));
+	public $usbSoundCards = array('' => 'none', 
+						          'hifiberry-dac' => 'Hifi Berry DAC (PI A/B)',
+								  'hifiberry-dacplus' => 'Hifi Berry DAC+ (PI 2)', 
+								  'hifiberry-digi' => 'Hifi Berry Digi/Digi+',
+								  'hifiberry-amp' => 'Hifi Berry Amp/Amp+',
+								  'iqaudio-dac' => 'IQaudio Card DAC',
+			 					  'iqaudio-dacplus' => 'IQaudio Card DAC+ (new)');
+	
+	public $armFrequency = array(
+			'BCM2708' => array(
+				'default' => array('name' => 'default (no changes)'),
+				'800' => array('arm_freq' => 800, 'core_freq' => 250, 'sdram_freq' => 400, 'over_voltage' => 0, 'name' => 'Modest'), 
+				'900' => array('arm_freq' => 900, 'core_freq' => 250, 'sdram_freq' => 450, 'over_voltage' => 2, 'name' => 'Medium'),
+				'950' => array('arm_freq' => 950, 'core_freq' => 250, 'sdram_freq' => 450, 'over_voltage' => 6, 'name' => 'High'),
+				'1000'=> array('arm_freq' => 1000,'core_freq' => 500, 'sdram_freq' => 600, 'over_voltage' => 6, 'name' => 'Turbo')
+			 ),
+			'BCM2709' => array(
+				'default' => array('name' => 'default (no changes)'),
+				'1000'=> array('arm_freq' => 1000,'core_freq' => 500, 'sdram_freq' => 500, 'over_voltage' => 2, 'name' => 'Turbo')
+			 ));
+	
 	public $gpuMemory = array('BCM2708' => array('min' => '16', 'max' => '512'), 'BCM2709' => array('min' => '16', 'max' => '944'));
 	
 	public function __construct(){
@@ -88,11 +107,19 @@ class Raspberrysettings_Setup extends Service {
 			$this->view->message[] = _("GPU memory parameter removed");
 		}
 
-		if(isset($_GET['arm_freq']) && in_array($_GET['arm_freq'], $this->armFrequency[$this->info->chipset])){
-			if($_GET['arm_freq'] == 'default')
+		if(isset($_GET['arm_freq']) && in_array($_GET['arm_freq'], array_keys($this->armFrequency[$this->info->chipset]))){
+			if($_GET['arm_freq'] == 'default'){
 				$this->deleteConfigFileParameter('/boot/config.txt', 'arm_freq');
-			else
-				$this->saveConfigFileParameter('/boot/config.txt', 'arm_freq', $_GET['arm_freq']);
+				$this->deleteConfigFileParameter('/boot/config.txt', 'core_freq');
+				$this->deleteConfigFileParameter('/boot/config.txt', 'sdram_freq');
+				$this->deleteConfigFileParameter('/boot/config.txt', 'over_voltage');
+			}else{
+				$values = $this->armFrequency[$this->info->chipset][$_GET['arm_freq']];
+				$this->saveConfigFileParameter('/boot/config.txt', 'arm_freq', $values['arm_freq']);
+				$this->saveConfigFileParameter('/boot/config.txt', 'core_freq', $values['core_freq']);
+				$this->saveConfigFileParameter('/boot/config.txt', 'sdram_freq', $values['sdram_freq']);
+				$this->saveConfigFileParameter('/boot/config.txt', 'over_voltage', $values['over_voltage']);				
+			}
 			$this->view->message[] = _("ARM-Frequency parameter changed");
 		}
 		$this->view->message[] = _('Reboot needed');

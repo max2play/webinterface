@@ -169,7 +169,7 @@ class Squeezeserver extends Service {
 	 */
 	private function _pluginInstall(){
 		if($_GET['lmsplugin'] == 'shairtunes')
-			$this->view->message[] = $this->writeDynamicScript(array($this->scriptPath.'lms_plugin_shairtunes.sh'));
+			$this->view->message[] = $this->formatMessageOutput($this->writeDynamicScript(array($this->scriptPath.'lms_plugin_shairtunes.sh')));
 		$this->view->message[] = _('Next steps: Reboot the device (in settings -> reboot) and you are ready to use your Squeezeplayers as Airplay device.');
 		return true;
 	}

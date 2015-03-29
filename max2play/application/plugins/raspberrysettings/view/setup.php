@@ -67,9 +67,9 @@
 			  <tr>
 				<td><?php echo _t("CPU Frequency") ?></td>
 				<td>
-					<select name="arm_freq">
+					<select style="width: 90%;" name="arm_freq">
 					<?php foreach ($rs->armFrequency[$rs->info->chipset] as $value) { ?>
-						<option value="<?php echo $value ?>" <?php if ($rs->view->arm_freq == $value) echo 'selected'; ?>><?php echo $value ?></option>
+						<option value="<?php echo $value['arm_freq'] ?>" <?php if ($rs->view->arm_freq == $value['arm_freq']) echo 'selected'; ?>><?php echo $value['name'].': '.$value['arm_freq'].'MHZ (core_freq='.$value['core_freq'].', sdram_freq='.$value['sdram_freq'].', over_voltage='.$value['over_voltage'].')' ?></option>
 					<?php } ?>	
 					</select>
 				</td>

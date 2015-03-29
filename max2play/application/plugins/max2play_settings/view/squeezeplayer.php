@@ -119,25 +119,33 @@ $(function() {
 				<tr>
 					<td><?php echo _('Soundcard') ?></td>					
 					<td style="width: 25%;">						
-						<select id="squeezelite_soundcard" name="squeezelite_soundcard" style="width: 90%;" onChange="autosetCommandline(this);">
+						<select id="squeezelite_soundcard" name="squeezelite_soundcard" style="width: 90%;" onChange="autosetALSAParam(this);">
 						<?php foreach($sp->view->soundDevices as $soundDeviceKey => $soundDevice){ ?>
 							<option <?php if($sp->view->squeezelite_soundcard == $soundDeviceKey) echo 'selected'; ?> value='<?php echo $soundDeviceKey ?>'><?php echo $soundDevice['name'].' - '.$soundDevice['description'].', '.$soundDevice['card']; ?></option>
 						<?php }?>
 						</select>
 						
 						<script>
-							function autosetCommandline(select){								
-								if(select.options[select.selectedIndex].value.indexOf("plug:") == -1 && document.getElementById('squeezelite_commandline').value == ''){
-									document.getElementById('squeezelite_commandline').value = '-a 120:::';
-								}
-								if(select.options[select.selectedIndex].value == 'plughw:CARD=Audio,DEV=0' && document.getElementById('squeezelite_commandline').value == ''){
-									document.getElementById('squeezelite_commandline').value = '-a 120:::';
-								}
+							function autosetALSAParam(select){								
+								if(select.options[select.selectedIndex].value.indexOf("CARD=ALSA") != -1 || select.options[select.selectedIndex].value == "plug:plugequal"){
+									<?php if(!isset($sp->view->audioOutputPI) || isset($sp->view->audioOutputPI) && $sp->view->audioOutputPI != 2 /*HDMI ausschließen*/){ ?>
+										document.getElementById('squeezelite_alsaparam').value = '-a 80:::';
+									<?php } else { ?>
+									    document.getElementById('squeezelite_alsaparam').value = '::32:0';
+									<?php } ?>
+								}else								
+									document.getElementById('squeezelite_alsaparam').value = '-a 80:4::';								
 								return true;	
 							}
 						</script>
 					</td>
 					<td><?php echo _('Select Audio output') ?></td>
+				</tr>
+				<tr>
+					<td><?php echo _('ALSA Parameter') ?></td>					
+					<td><input style="width: 90%;" type="text" name="squeezelite_alsaparam" id="squeezelite_alsaparam" value="<?php echo $sp->view->squeezelite_alsaparam ?>" />
+					</td>
+					<td><?php echo _('This parameter defines buffer, period count and sample format. It is set automatically when soundcard is changed.') ?></td>
 				</tr>
 				<tr>
 					<td><?php echo _('Command Line Options') ?></td>					

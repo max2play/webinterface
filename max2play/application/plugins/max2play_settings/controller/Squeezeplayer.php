@@ -176,11 +176,15 @@ class Squeezeplayer extends Service {
 	public function saveSqueezeliteCommandline(){
 		$commandLine = array();
 		$setsoundcard = $_GET['squeezelite_soundcard'];
-		if(in_array($setsoundcard, array_keys($this->view->soundDevices))){//array('plug:dmixer', 'plug:plugequal', 'hw:CARD=Audio,DEV=0', 'plughw:CARD=Audio,DEV=0', 'dmix:CARD=Audio,DEV=0', 'hw:CARD=Audio,DEV=1', 'plughw:CARD=Audio,DEV=1', 'dmix:CARD=Audio,DEV=1', 'iec958:CARD=Device,DEV=0', 'hw:CARD=Device,DEV=0', 'dmix:CARD=Device,DEV=0', 'plughw:CARD=Device,DEV=0'))){			
+		if(in_array($setsoundcard, array_keys($this->view->soundDevices))){			
 			$commandLine[] = '-o '.$setsoundcard;
 		}else{
 			$commandLine[] = '-o plug:dmixer';
 		}
+		if(isset($_GET['squeezelite_alsaparam']) && $_GET['squeezelite_alsaparam'] != ''){
+			$commandLine[] = '-a '.$_GET['squeezelite_alsaparam'];
+		}
+		
 		//TODO: Regex für korrekte Erkennung der Commandlineeingabe der Parameter
 		$commandLine[] = trim($_GET['squeezelite_commandline']);
 		
@@ -204,10 +208,11 @@ class Squeezeplayer extends Service {
 	 */
 	public function getSqueezeliteCommandline(){
 		$output = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'SQUEEZELITE_PARAMETER');
-		if(preg_match_all('=-o ([^ ]*)( (.*))?=', $output, $match)){
+		if(preg_match_all('=-o ([^ ]*)( -a ([^ ]*))?( (.*))?=', $output, $match)){
 			$this->view->squeezelite_soundcard = trim($match[1][0]);
-			$this->view->squeezelite_commandline = $match[3][0];
-		}
+			$this->view->squeezelite_alsaparam = trim($match[3][0]);
+			$this->view->squeezelite_commandline = $match[5][0];
+		}		
 		$this->view->use_usb_dac = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'USE_USB_DAC');
 		return true;
 	}

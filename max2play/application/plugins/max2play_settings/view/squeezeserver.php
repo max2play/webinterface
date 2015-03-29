@@ -86,7 +86,7 @@
 	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
 		<span class="ui-icon ui-icon-gear" style="float:left; margin:-2px 5px 0 0;"></span>
 		<?php echo _('Install special Plugins for Squeezebox Server') ?></p>
-	<select name="lmsplugin">	
+	<select name="lmsplugin" style="width: 90%;">	
 		<option value="shairtunes"><?php echo _('Install Shairtunes Plugin (All connected Squeezeplayers can be used as Airplay Devices)') ?></option>
 	</select>
 	<input type="button" value="<?php echo _('Install choosen Plugin') ?>" name="plugininstall" onclick="document.getElementById('action').value='plugininstall';submit();" />
