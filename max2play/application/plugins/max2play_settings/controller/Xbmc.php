@@ -119,10 +119,16 @@ class Xbmc extends Service {
 	 */
 	public function getAddon($url){
 		if($url != '' && $this->checkLicense(true) == true){
-			shell_exec('wget -P /opt/max2play/cache "'.$url.'" -o /opt/max2play/cache/download.txt');
-			$this->view->message[] = nl2br(shell_exec('cat /opt/max2play/cache/download.txt'));
+			if(strpos($url, 'repository.addonscriptorde') !== FALSE){
+				$this->writeDynamicScript(array('wget -P /opt/max2play/cache "shop.max2play.com/media/downloadable/beta/amazonprime.tar";if [ -e "/home/'.$this->getSystemUser().'/.kodi" ]; then sudo -u '.$this->getSystemUser().' tar -xf /opt/max2play/cache/amazonprime.tar -C /home/'.$this->getSystemUser().'/.kodi/addons; else tar -xf /opt/max2play/cache/amazonprime.tar -C /home/'.$this->getSystemUser().'/.xbmc/addons;fi;'));
+				$this->view->message[] = _('Plugin installed');
+			}else{
+				shell_exec('wget -P /opt/max2play/cache "'.$url.'" -o /opt/max2play/cache/download.txt');
+				$this->view->message[] = nl2br(shell_exec('cat /opt/max2play/cache/download.txt'));
+				$this->view->message[] = _('Plugin downloaded to path /opt/max2play/cache');
+			}
 		}
-			
+					
 		return true;
 	}
 }

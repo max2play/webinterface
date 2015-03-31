@@ -129,12 +129,12 @@ $(function() {
 							function autosetALSAParam(select){								
 								if(select.options[select.selectedIndex].value.indexOf("CARD=ALSA") != -1 || select.options[select.selectedIndex].value == "plug:plugequal"){
 									<?php if(!isset($sp->view->audioOutputPI) || isset($sp->view->audioOutputPI) && $sp->view->audioOutputPI != 2 /*HDMI ausschließen*/){ ?>
-										document.getElementById('squeezelite_alsaparam').value = '-a 80:::';
+										document.getElementById('squeezelite_alsaparam').value = '80:::';
 									<?php } else { ?>
 									    document.getElementById('squeezelite_alsaparam').value = '::32:0';
 									<?php } ?>
 								}else								
-									document.getElementById('squeezelite_alsaparam').value = '-a 80:4::';								
+									document.getElementById('squeezelite_alsaparam').value = '80:4::';								
 								return true;	
 							}
 						</script>

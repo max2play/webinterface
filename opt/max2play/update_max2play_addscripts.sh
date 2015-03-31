@@ -69,6 +69,8 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	#Fix for rc.local file
 	sed -i 's/let \"COUNTER++\"/COUNTER=\$\(\(COUNTER+1\)\)/;s/\;mount/\;\/bin\/mount/' /etc/rc.local
 	echo "Y" | apt-get install ntfs-3g lsb-release
+	#Remove "-a 120::16:" from squeezelite_parameter due to fixed sample rate
+	sed -i 's/\-a 120::16:/\-a 120:::/' /opt/max2play/audioplayer.conf
 	#Copy Squeezeplug custom.css and Header Files if Existing
 	if [ -e "/var/www/max2play/application/plugins/squeezeplug/view/header_custom.php" ]; then
 	    # Update Plugin squeezeplug

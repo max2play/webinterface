@@ -45,7 +45,7 @@ echo "UPDATEURL=$1" > "/opt/max2play/cache/newplugin/$PLUGINNAME/config.txt"
 echo "LASTUPDATE=$FILETIME" >> "/opt/max2play/cache/newplugin/$PLUGINNAME/config.txt"
 
 #Install
-cp -R /opt/max2play/cache/newplugin/* /var/www/max2play/application/plugins/
+cp -Rp /opt/max2play/cache/newplugin/* /var/www/max2play/application/plugins/
 
 echo "Install successful - you need to enable the plugin to use it";
 

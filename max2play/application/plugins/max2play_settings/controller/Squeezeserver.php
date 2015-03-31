@@ -168,6 +168,8 @@ class Squeezeserver extends Service {
 	 * 1-Click-Installer for rather complicated Shairtunes installer
 	 */
 	private function _pluginInstall(){
+		ignore_user_abort(true);
+		set_time_limit(1800);
 		if($_GET['lmsplugin'] == 'shairtunes')
 			$this->view->message[] = $this->formatMessageOutput($this->writeDynamicScript(array($this->scriptPath.'lms_plugin_shairtunes.sh')));
 		$this->view->message[] = _('Next steps: Reboot the device (in settings -> reboot) and you are ready to use your Squeezeplayers as Airplay device.');

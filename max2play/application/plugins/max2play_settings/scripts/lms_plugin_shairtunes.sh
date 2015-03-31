@@ -13,4 +13,6 @@ cp /opt/max2play/cache/ShairTunes/shairport_helper/pre-compiled/shairport_helper
 cp /opt/max2play/cache/ShairTunes.zip /var/lib/squeezeboxserver/cache/DownloadedPlugins/
 echo "ShairTunes: needs-install" >> /var/lib/squeezeboxserver/prefs/plugin/state.prefs
 
+/etc/init.d/logitechmediaserver restart
+
 echo "Finished"

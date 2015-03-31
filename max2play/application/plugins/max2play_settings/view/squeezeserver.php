@@ -89,7 +89,7 @@
 	<select name="lmsplugin" style="width: 90%;">	
 		<option value="shairtunes"><?php echo _('Install Shairtunes Plugin (All connected Squeezeplayers can be used as Airplay Devices)') ?></option>
 	</select>
-	<input type="button" value="<?php echo _('Install choosen Plugin') ?>" name="plugininstall" onclick="document.getElementById('action').value='plugininstall';submit();" />
+	<input type="button" value="<?php echo _('Install choosen Plugin (takes some time)') ?>" name="plugininstall" onclick="document.getElementById('action').value='plugininstall';submit();" />
 	
 	</form>
 	

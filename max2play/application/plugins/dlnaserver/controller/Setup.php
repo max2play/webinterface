@@ -55,7 +55,7 @@ class Dlnaserver_Setup extends Service {
 	
 	private function _reloadMiniDLNA(){
 		$script[] = '/etc/init.d/minidlna force-reload';
-		$this->view->message[] = $this->writeDynamicScript($script);
+		$this->view->message[] = nl2br(str_replace('getifaddr.c:73: error: ioctl(s, SIOCGIFADDR, ...): No such device','',$this->writeDynamicScript($script)));
 		return true;
 	}
 	

@@ -1,6 +1,6 @@
 <?php
 /**
-	 Example Setup View File
+	 Max2Play Accesspoint View File
 	
 	 @Copyright 2014 Stefan Rick
 	 @author Stefan Rick

@@ -14,6 +14,7 @@ echo "Sync to $VERSION"
 
 LOGFILE='rsync.log'
 SOURCEPATH='/home/webuser/projects/max2play'
+SOURCEPATHPREMIUM='/home/webuser/projects/svn_max2play'
 DESTPATH="/var/www/shop.max2play.com/magento/media/downloadable/$VERSION"
 SOURCEPATHOPT='/home/webuser/projects/max2play/opt/max2play/'
 
@@ -22,7 +23,9 @@ chmod -R 777 $SOURCEPATH/max2play
 chmod -R 777 $SOURCEPATH/opt/max2play
 
 HOSTS=( "176.9.62.131")
-PLUGINS=( "clementine" "fhem" "kernelmodules_odroid_u3" "jivelite" "callbot" "homematic" "raspberrysettings" "accesspoint" "squeezeplug" "speechcontrol" )
+PREMIUMPLUGINS=( "clementine" "fhem" "jivelite" "callbot" "homematic" "raspberrysettings" )
+ODPLUGINS=( "accesspoint" "kernelmodules_odroid_u3" "speechcontrol" )
+PLUGINS=("${ODPLUGINS[@]}" "${PREMIUMPLUGINS[@]}")
 PLUGINSTRING=$(printf " *\\%s\\*" "${PLUGINS[@]}")
 PLUGINSTRING=${PLUGINSTRING:1}
 echo "external Plugins: $PLUGINSTRING"
@@ -69,12 +72,21 @@ do
 	echo "Completed Max2Play"
 	
 	#Create and upload Plugins
-	for PLUGIN in "${PLUGINS[@]}"
+	for ODPLUGIN in "${ODPLUGINS[@]}"
 	do
-		tar -cf $PLUGIN.tar -C $SOURCEPATH/max2play/application/plugins/ $PLUGIN
-		scp $SOURCEPATH/$PLUGIN.tar root@$DESTHOST:$DESTPATH
-		rm $PLUGIN.tar
+		tar -cf $ODPLUGIN.tar -C $SOURCEPATH/max2play/application/plugins/ $ODPLUGIN
+		scp $SOURCEPATH/$ODPLUGIN.tar root@$DESTHOST:$DESTPATH
+		rm $ODPLUGIN.tar
 	done
+	
+	#Create and upload Plugins
+	for PREMIUMPLUGIN in "${PREMIUMPLUGINS[@]}"
+	do
+		tar -cf $PREMIUMPLUGIN.tar -C $SOURCEPATHPREMIUM/plugins/ $PREMIUMPLUGIN
+		scp $SOURCEPATH/$PREMIUMPLUGIN.tar root@$DESTHOST:$DESTPATH
+		rm $PREMIUMPLUGIN.tar
+	done
+		
 done
 
 #################################### Callblocker #######################################
