@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-31 13:26+0100\n"
-"PO-Revision-Date: 2015-03-31 13:32+0100\n"
+"POT-Creation-Date: 2015-04-01 11:28+0100\n"
+"PO-Revision-Date: 2015-04-01 11:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -156,8 +156,8 @@ msgstr ""
 msgid "Click here to show detailed information"
 msgstr "Hier klicken für weitere Informationen"
 
-#: y:\projects\max2play\max2play\application\controller/Service.php:656
-#: y:\projects\max2play\max2play\application/controller/Service.php:656
+#: y:\projects\max2play\max2play\application\controller/Service.php:670
+#: y:\projects\max2play\max2play\application/controller/Service.php:670
 msgid ""
 "No valid Max2Play-License for additional plugins and features found. Please "
 "enter a valid eMail-address on the Settings-page to verify that you are a "
@@ -722,6 +722,8 @@ msgid ""
 "This parameter defines buffer, period count and sample format. It is set "
 "automatically when soundcard is changed."
 msgstr ""
+"Dieser Parameter bestimmt die ALSA-Parameter für Squeezelite und wird "
+"automatisch gesetzt, wenn die Soundausgabe geändert wird."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:151
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:151
@@ -1567,7 +1569,7 @@ msgstr ""
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:322
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:322
 msgid "Raspberry PI Audio Output set to $VALUE"
-msgstr ""
+msgstr "Raspberry PI Audio Ausgabe gesetzt auf $VALUE"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:36
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:36
@@ -1972,6 +1974,14 @@ msgstr ""
 msgid "Squeezeplug"
 msgstr ""
 
+#: y:\projects\max2play\max2play\application/plugins/squeezeplug/controller/Setup.php:41
+msgid ""
+"Only $FREESPACE MB of free space left on the device! Did you already expand "
+"the filesystem?"
+msgstr ""
+"Es stehen nur noch $FREESPACE MB freier Speicherplatz auf dem Gerät zur "
+"Verfügung! Hast du schon das Dateisystem expandiert?"
+
 #: y:\projects\max2play\max2play\application/plugins/callblocker/view/header_custom.php:45
 msgid "logo"
 msgstr ""
@@ -2246,14 +2256,6 @@ msgid ""
 msgstr ""
 "Diese Funktion ist nur für den Raspberry PI verfügbar! Es scheint, als wäre "
 "dieses Gerät kein Raspberry PI."
-
-#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:92
-msgid "GPU memory parameter changed"
-msgstr ""
-
-#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:95
-msgid "GPU memory parameter removed"
-msgstr ""
 
 #: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:111
 msgid "ARM-Frequency parameter changed"

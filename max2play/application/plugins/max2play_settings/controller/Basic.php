@@ -328,7 +328,7 @@ class Basic extends Service {
 		}
 		
 		//Always Check for Plugin Updates
-		$this->_checkPluginUpdates();
+		$this->_checkPluginUpdates($version);
 		
 		return true;
 	}
@@ -336,7 +336,7 @@ class Basic extends Service {
 	/**
 	 * Function to parse all installed Plugins and check for Updates
 	 */
-	private function _checkPluginUpdates(){
+	private function _checkPluginUpdates($version = 'currentversion'){
 		$this->view->message[] = _('Check for Plugin Updates');
 		$plugins = $this->getActivePlugins();
 		$updatePlugins = false;
@@ -345,6 +345,19 @@ class Basic extends Service {
 			//check for updates
 			if(isset($plugin['updateurl']) && $plugin['updateurl'] != '' && !is_array($plugin['updateurl'])){
 				$lastupdate = new DateTime();
+				//Switch Version of Plugin to beta / currentversion and change URL and force Update if path Changed
+				if($version == 'beta'){
+					//PATH: http://shop.max2play.com/media/downloadable/beta/accesspoint.tar
+					if(strpos($plugin['updateurl'], 'downloadable/currentversion')){
+						$plugin['updateurl'] = str_replace('downloadable/currentversion','downloadable/beta', $plugin['updateurl']);
+						$plugin['lastupdate'] = '';
+					}
+				}else{
+					if(strpos($plugin['updateurl'], 'downloadable/beta')){
+						$plugin['updateurl'] = str_replace('downloadable/beta','downloadable/currentversion', $plugin['updateurl']);
+						$plugin['lastupdate'] = '';
+					}
+				}
 				try {
 					if(isset($plugin['lastupdate']) && $plugin['lastupdate'] != ''){
 						$lastupdate = new DateTime($plugin['lastupdate']);

@@ -600,26 +600,41 @@ class Service {
 	}
 	
 	public function getHardwareInfo(){
-		$output = shell_exec("cat /proc/cpuinfo | grep Hardware");
-		$this->info->hardware = '';
-		if(preg_match('=Hardware.*: ([^ ]*)=', $output, $matches)){
-			if(strpos($output, 'BCM2708') || strpos($output, 'BCM2709')){
-				$this->info->hardware = 'Raspberry PI';
-				$this->info->chipset = trim($matches[1]);
-			}else{			
-				$this->info->hardware = trim($matches[1]);
-				$this->info->chipset = trim($matches[1]);
+		if(!$this->info->hardware){
+			$output = shell_exec("cat /proc/cpuinfo | grep Hardware");
+			$this->info->hardware = '';
+			if(preg_match('=Hardware.*: ([^ ]*)=', $output, $matches)){
+				if(strpos($output, 'BCM2708') || strpos($output, 'BCM2709')){
+					$this->info->hardware = 'Raspberry PI';
+					$this->info->chipset = trim($matches[1]);
+				}else{			
+					$this->info->hardware = trim($matches[1]);
+					$this->info->chipset = trim($matches[1]);
+				}
 			}
 		}
 		return $this->info->hardware;
 	}
 	
+	public function getFreeDiskSpace(){
+		$this->getSystemUser();
+		if($this->info->system_user == 'pi'){			
+			$this->info->freespace = shell_exec("df -km /dev/root | tail -1 | awk '{print $4}'");
+		}			
+		if($this->info->system_user == 'odroid'){			
+			$this->info->freespace = shell_exec("df -km /dev/mmcblk0p2 | tail -1 | awk '{print $4}");
+		}
+		return $this->info->freespace;
+	}
+	
 	public function getSystemUser(){
-		$system_user = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'SYSTEM_USER');
-		if($system_user)
-			$this->info->system_user = $system_user;
-		else
-			$this->info->system_user = 'odroid';
+		if(!$this->info->system_user){
+			$system_user = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'SYSTEM_USER');
+			if($system_user)
+				$this->info->system_user = $system_user;
+			else
+				$this->info->system_user = 'odroid';
+		}
 		return $this->info->system_user;
 	}
 	

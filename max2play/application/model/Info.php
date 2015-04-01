@@ -25,14 +25,15 @@
 
 
 class Info {
-	public $devices;
-	public $playername;
-	public $version;
-	public $hardware;
-	public $chipset;
-	public $system_user;
-	public $linux;
+	public $devices = false;
+	public $playername = false;
+	public $version = false;
+	public $hardware = false;
+	public $chipset = false;
+	public $system_user = false;
+	public $linux = false;
+	public $freespace = false;
 	
-	public function __construct(){		
+	public function __construct(){
 	}
 }

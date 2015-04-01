@@ -34,8 +34,16 @@ class Squeezeplug_Setup extends Service {
 		$this->pluginname = _('Squeezeplug');
 		$this->registerLocale(dirname(__FILE__).'/../locale', 'squeezeplug');
 		
-		$this->checkForUpdate();			
-			
+		$this->checkForUpdate();
+		
+		if($this->info->version > 2.10 || strpos($this->info->version, 'Beta') !== FALSE){
+			//Vorher nicht Verfügbar
+			if($this->getFreeDiskSpace()){
+				if($this->info->freespace < 300){
+					$this->view->message[] = str_replace('$FREESPACE', $this->info->freespace, _('Only $FREESPACE MB of free space left on the device! Did you already expand the filesystem?'));
+				}
+			}	
+		}
 	}	
 }
 

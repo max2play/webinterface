@@ -8,7 +8,7 @@
 			<div class="ui-state-highlight ui-corner-all" style="margin-bottom: 10px; padding: 0.4em .7em;">
 				<p>
 					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-					<?php echo implode('<br />', $squeezeplug->view->message); ?>					
+					<?php echo implode('<br /><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>', $squeezeplug->view->message); ?>					
 				</p>
 			</div>
 		</div>
