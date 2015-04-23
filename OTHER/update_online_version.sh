@@ -23,7 +23,7 @@ chmod -R 777 $SOURCEPATH/max2play
 chmod -R 777 $SOURCEPATH/opt/max2play
 
 HOSTS=( "176.9.62.131")
-PREMIUMPLUGINS=( "clementine" "fhem" "jivelite" "callbot" "homematic" "raspberrysettings" )
+PREMIUMPLUGINS=( "clementine" "fhem" "jivelite" "callbot" "homematic" "raspberrysettings" "multisqueeze" )
 ODPLUGINS=( "accesspoint" "kernelmodules_odroid_u3" "speechcontrol" "squeezeplug" )
 PLUGINS=("${ODPLUGINS[@]}" "${PREMIUMPLUGINS[@]}")
 PLUGINSTRING=$(printf " *\\%s\\*" "${PLUGINS[@]}")

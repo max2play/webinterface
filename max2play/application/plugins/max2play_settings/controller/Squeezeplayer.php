@@ -176,6 +176,14 @@ class Squeezeplayer extends Service {
 	public function saveSqueezeliteCommandline(){
 		$commandLine = array();
 		$setsoundcard = $_GET['squeezelite_soundcard'];
+		
+		//Addon Hifiberry Sound
+		if(strpos($setsoundcard, 'CARD=sndrpihifiberry') !== FALSE){
+			$user = $this->getSystemUser();
+			$this->writeDynamicScript(array('su - '.$user.' -c \'amixer sset "PCM" 96%\'','su - '.$user.' -c \'amixer sset "Playback" 100%\'','su - pi -c \'alsactl store\''));
+			$this->view->message[] = _('Set HiFiBerry DAC Sound to 96% (Optimum value)');
+		}		
+		
 		if(in_array($setsoundcard, array_keys($this->view->soundDevices))){			
 			$commandLine[] = '-o '.$setsoundcard;
 		}else{
