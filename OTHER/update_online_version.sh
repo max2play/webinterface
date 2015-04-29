@@ -17,14 +17,15 @@ SOURCEPATH='/home/webuser/projects/max2play'
 SOURCEPATHPREMIUM='/home/webuser/projects/svn_max2play'
 DESTPATH="/var/www/shop.max2play.com/magento/media/downloadable/$VERSION"
 SOURCEPATHOPT='/home/webuser/projects/max2play/opt/max2play/'
+NEWSPATH='/var/www/max2play/wordpress/wp-content/uploads/max2play/news/'
 
 #Change File permissions due to eclipse Bug
 chmod -R 777 $SOURCEPATH/max2play
 chmod -R 777 $SOURCEPATH/opt/max2play
 
 HOSTS=( "176.9.62.131")
-PREMIUMPLUGINS=( "clementine" "fhem" "jivelite" "callbot" "homematic" "raspberrysettings" "multisqueeze" )
-ODPLUGINS=( "accesspoint" "kernelmodules_odroid_u3" "speechcontrol" "squeezeplug" )
+PREMIUMPLUGINS=( "clementine" "fhem" "jivelite" "callbot" "homematic" "raspberrysettings" "multisqueeze" "sdcardprotection" )
+ODPLUGINS=( "accesspoint" "kernelmodules_odroid_u3" "speechcontrol" "squeezeplug" "passwordprotection" )
 PLUGINS=("${ODPLUGINS[@]}" "${PREMIUMPLUGINS[@]}")
 PLUGINSTRING=$(printf " *\\%s\\*" "${PLUGINS[@]}")
 PLUGINSTRING=${PLUGINSTRING:1}
@@ -88,6 +89,9 @@ do
 	done
 		
 done
+
+#################################### NEWS #############################################
+scp $SOURCEPATHPREMIUM/news/news.php root@$DESTHOST:$NEWSPATH
 
 #################################### Callblocker #######################################
 # Update Version Script

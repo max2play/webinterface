@@ -31,20 +31,24 @@
  */
 
 include_once '../application/model/Info.php';
-//TODO: DEBUG für Alle Systembefehle ausgeben
 
 class Service {
 	public $view;	
 	public $viewname; //Name of Service in View
 	public $info;
 	public $plugins;
+	public $debug = false;
+	public $readonly_fs = 'unset'; // Readonly Filesystem
 	public $autostartconf = '/opt/max2play/autostart.conf';
 	public $dynamicScript = '/opt/max2play/dynamic_script.sh';
 	
 	public function __construct(){
 		$this->view = new stdClass();
 		$this->view->message = array(); // Array of Messages for View
-		$this->info = new Info();				
+		$this->info = new Info();
+		if(isset($_REQUEST['debug']) && $_REQUEST['debug'] == true){
+			$this->debug = true;
+		}	
 	}
 	
 	/**
@@ -359,6 +363,20 @@ class Service {
 		return $this->info->removedonate;
 	}
 	
+	/**
+	 * If an Addon needs a minimum Version of Max2Play
+	 * @param number $minversion
+	 * @return boolean
+	 */
+	public function checkMinVersion($minversion = 0){
+		$this->getVersion();
+		if((float)$this->info->version < $minversion && strpos($this->info->version, 'Beta') === FALSE){
+			$this->view->message[] = str_replace('$MINVERSION', $minversion, _('You need at least Max2Play Version $MINVERSION to run this addon. Please update Max2Play on Settings tab!'));
+			return false;
+		}
+		return true;
+	}
+	
 	public function checkForUpdate(){
 		$this->getVersion();
 		//Check for Update
@@ -419,7 +437,18 @@ class Service {
 	 * $background to run script in background
 	 * $daemon to run as real daemon - survives even a apache restart. e.g. for update and upgrade
 	 */
-	public function writeDynamicScript($script = '', $background = false, $daemon = false){
+	public function writeDynamicScript($script = '', $background = false, $daemon = false){		
+		if($this->readonly_fs === 'unset'){
+			if($this->getConfigFileParameter('/opt/max2play/options.conf', 'readonly') == '1'){
+				$this->readonly_fs = true;
+				$this->dynamicScript = '/tmp/dynamic_script.sh';				
+				if(!file_exists('/tmp/writemode.txt'))
+					$this->view->message[] = _('SD-Card is Read-Only! Changes on settings will not be saved!');
+			}else{
+				$this->readonly_fs = false;
+			}
+		}
+		
 		$fp = fopen($this->dynamicScript, 'w+');
 		
 		fwrite($fp,"#!/bin/bash\n");				
@@ -427,7 +456,15 @@ class Service {
 		foreach ($script as $s)
 			fwrite($fp, "\n".str_ireplace("\x0D", "", $s));			
 		
-		fclose($fp);
+		fclose($fp);				
+		
+		if($this->readonly_fs)
+			shell_exec('chmod 777 '.$this->dynamicScript);
+		
+		if($this->debug){
+			global $debuglog;			
+			$debuglog[] = get_class($this).' '. shell_exec('cat '.$this->dynamicScript);			
+		}
 		
 		if($daemon){
 			$command = escapeshellarg('sudo '.$this->dynamicScript);
@@ -508,7 +545,7 @@ class Service {
 	 */
 	public function getConfigFileParameter($configfile = '', $parameter = ''){
 		if(!file_exists($configfile))
-			return false;		
+			return false;
 		$output = trim(shell_exec('grep -a "^'.$parameter.'" '.$configfile.' | sed -n -e "s/^[A-Za-z_0-9\.]*\=//p"'));
 		return $output;
 	}
@@ -574,7 +611,7 @@ class Service {
 	 * @param reload Set to reload Header after Changes (if global settings changed)
 	 */
 	public function loadViewHeader($reload = false){
-		global $service;		
+		global $service;
 	
 		if(true == $reload){
 			//Clear Output

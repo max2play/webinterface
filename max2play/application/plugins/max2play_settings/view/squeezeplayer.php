@@ -91,9 +91,9 @@ $(function() {
 			<div class="ui-state-highlight ui-corner-all" style="margin-bottom: 10px; padding: 0.4em .7em;">
 				<p>
 					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-					<?php if(isset($sp->view->message[0])) echo implode('<br />', $sp->view->message); ?>
-					<?php if(isset($ap->view->message[0])) echo implode('<br />', $ap->view->message); ?>
-					<?php if(isset($gm->view->message[0])) echo implode('<br />', $gm->view->message); ?>
+					<?php if(isset($sp->view->message[0])) echo implode('<br /><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>', $sp->view->message); ?>
+					<?php if(isset($ap->view->message[0])) echo implode('<br /><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>', $ap->view->message); ?>
+					<?php if(isset($gm->view->message[0])) echo implode('<br /><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>', $gm->view->message); ?>
 				</p>
 			</div>
 		</div>

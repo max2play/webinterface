@@ -83,12 +83,40 @@ class Squeezeplayer extends Service {
 		
 		$this->getAllLogs();		
 		
-		$this->getSqueezeliteCommandline();
+		$this->getSqueezeliteCommandline();				
 		
 		$this->view->pid = $this->status($this->pname);
 		
 		$this->view->autostart = $this->checkAutostart($this->pname, true);
 	}
+	
+	/**
+	 * Set additional Settings for Soundcards
+	 * @return boolean
+	 */
+	public function setOptionsDependingSoundcard($setsoundcard = ''){		
+		//Wolfson Sound
+		if(strpos($setsoundcard, 'CARD=sndrpiwsp') !== FALSE){
+			$this->view->wolfsonaddon = true;
+			$user = $this->getSystemUser();
+			$script[] = 'su - '.$user.' -c \'amixer -D hw:sndrpiwsp -q set "HPOUT2 Digital Switch" on\'';
+			$script[] = 'su - '.$user.' -c \'amixer -D hw:sndrpiwsp -q set "HPOUT2 Digital Volume" 150\'';						
+			$this->view->message[] = _('Set Wolfson Audio-Output to Line OUT');
+			$this->view->message[] = $this->writeDynamicScript($script);			
+		}
+		
+		//Addon Hifiberry Sound
+		if(strpos($setsoundcard, 'CARD=sndrpihifiberry') !== FALSE){
+			$user = $this->getSystemUser();
+			$dtoverlay = $this->getConfigFileParameter('/boot/config.txt', 'dtoverlay');
+			if(in_array($dtoverlay, array('hifiberry-dacplus','hifiberry-dac'))){
+				$this->writeDynamicScript(array('su - '.$user.' -c \'amixer sset "PCM" 96%\'','su - '.$user.' -c \'amixer sset "Playback" 100%\'','su - pi -c \'alsactl store\''));
+				$this->view->message[] = _('Set HiFiBerry DAC Sound to 96% (Optimum value)');
+			}
+		}
+		return true;
+	}
+	
 	
 	/**
 	 * use Alsaequal 
@@ -175,14 +203,9 @@ class Squeezeplayer extends Service {
 	 */
 	public function saveSqueezeliteCommandline(){
 		$commandLine = array();
-		$setsoundcard = $_GET['squeezelite_soundcard'];
+		$setsoundcard = $_GET['squeezelite_soundcard'];				
 		
-		//Addon Hifiberry Sound
-		if(strpos($setsoundcard, 'CARD=sndrpihifiberry') !== FALSE){
-			$user = $this->getSystemUser();
-			$this->writeDynamicScript(array('su - '.$user.' -c \'amixer sset "PCM" 96%\'','su - '.$user.' -c \'amixer sset "Playback" 100%\'','su - pi -c \'alsactl store\''));
-			$this->view->message[] = _('Set HiFiBerry DAC Sound to 96% (Optimum value)');
-		}		
+		$this->setOptionsDependingSoundcard($setsoundcard);
 		
 		if(in_array($setsoundcard, array_keys($this->view->soundDevices))){			
 			$commandLine[] = '-o '.$setsoundcard;
@@ -326,7 +349,7 @@ class Squeezeplayer extends Service {
 	 */
 	private function setAudioOutputPI($value = 0){
 		if($this->getHardwareInfo() == 'Raspberry PI'){
-			$this->view->audioOutputPI = $this->writeDynamicScript(array('sudo -u pi amixer cset numid=3 '.$value));
+			$this->view->audioOutputPI = $this->writeDynamicScript(array('sudo -u pi amixer -c ALSA cset numid=3 '.$value));
 			$this->view->message[] = str_replace('$VALUE',$value, _('Raspberry PI Audio Output set to $VALUE'));
 		}
 		return true;
@@ -338,7 +361,7 @@ class Squeezeplayer extends Service {
 	 */
 	private function getAudioOutputPI(){
 		if($this->getHardwareInfo() == 'Raspberry PI'){
-			$this->view->audioOutputPI = trim($this->writeDynamicScript(array('sudo -u pi amixer cget numid=3 | grep ": values=" | sed "s/.*values=//"')), "\n");
+			$this->view->audioOutputPI = trim($this->writeDynamicScript(array('sudo -u pi amixer -c ALSA cget numid=3 | grep ": values=" | sed "s/.*values=//"')), "\n");
 			return $this->view->audioOutputPI;
 		}else
 			return false;

@@ -31,9 +31,16 @@
 					<h3 class="widget-title"><?php echo _('Topics') ?></h3>
 					<ul>
 						<li><a href="/" title="Info"><?php echo _('Features') ?></a></li>	
-						<li><a href="<?php echo _('http://www.max2play.com/faq/') ?>" target="_blank" title="FAQ"><?php echo _('FAQ - Questions & Answers') ?></a></li>					
+						<li><a href="<?php echo _('http://www.max2play.com/faq/') ?>" target="_blank" title="FAQ"><?php echo _('FAQ - Questions & Answers') ?></a></li>
+						<li><a href="<?php echo _('http://www.max2play.com/en/addons/') ?>" title="Addons"><?php echo _('Addons and Feature Requests') ?></a></li>					
 					</ul>
-				</aside>		
+				</aside>
+
+				<aside class="widget">
+					<h3 class="widget-title"><?php echo _('News') ?></h3>
+					<?php include_once(APPLICATION_PATH.'/controller/News.php'); echo $news->getNews(0); ?>
+				</aside>
+
 			</div>
 		</div>
 	
@@ -46,5 +53,7 @@
 		</footer>
 	</div>
 	<div class="modal"></div>
+
+	<?php include_once(APPLICATION_PATH.'/view/debug.php');?>
 </body>
 </html>

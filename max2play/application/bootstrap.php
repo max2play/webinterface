@@ -1,6 +1,8 @@
 <?php 
 define('APPLICATION_PATH', dirname(__FILE__));
 
+$debuglog = array(); // Log for Scripts and other stuff
+
 /**
  * translate init for all output strings
  * translate strings should be defined in /locale/de_DE/LC_MESSAGES/max2play.mo

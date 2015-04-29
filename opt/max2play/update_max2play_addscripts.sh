@@ -85,3 +85,8 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	    rm /opt/max2play/cache/cronmax2play
 	fi
 fi
+
+#htaccess Password Protection Overwrite Backup
+if [ -e "/var/www/max2play/public/.htaccess_add" ]; then
+	cat /var/www/max2play/public/.htaccess_add | cat - /var/www/max2play/public/.htaccess > /var/www/max2play/public/.htaccess.tmp && mv /var/www/max2play/public/.htaccess.tmp /var/www/max2play/public/.htaccess
+fi

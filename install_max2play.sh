@@ -15,13 +15,13 @@ echo ""
 EXPAND_FILESYSTEM="Y"
 
 # set to Y if you want default password "max2play"
-CHANGE_PASSWORD="N" 
+CHANGE_PASSWORD="Y" 
 
 # leave empty to keep current hostname
 # CHANGE_HOSTNAME="max2play"
-CHANGE_HOSTNAME="" 
+CHANGE_HOSTNAME="max2play" 
 SHAIRPORT="SHAIRPORT_SYNC"
-PROJECT="max2play" #squeezeplug, max2play, etc.
+PROJECT="squeezeplug" #, max2play, etc.
 
 CWD=$(pwd)
 
@@ -84,6 +84,7 @@ fi
 chmod 666 /etc/fstab
 echo "##USERMOUNT" >> /etc/fstab
 cp /etc/fstab /etc/fstab.sav
+chmod 666 /etc/fstab.sav
 
 crontab -u $USER -l > cronmax2play
 sudo echo "* * * * * /opt/max2play/start_audioplayer.sh > /dev/null 2>&1" >> cronmax2play
@@ -158,7 +159,7 @@ fi
 pushd /tmp
 git clone https://code.google.com/p/squeezelite/
 cd squeezelite
-OPTS="-DFFMPEG -DRESAMPLE -DVISEXPORT" make
+OPTS="-DFFMPEG -DRESAMPLE -DVISEXPORT -DDSD" make
 mkdir /opt/squeezelite
 mkdir /opt/squeezelite/log
 chmod 777 /opt/squeezelite/log
@@ -271,8 +272,8 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	sudo sh -c "echo \"options snd-rpi-iqaudio-dac index=-2\" >> /etc/modprobe.d/alsa-base.conf"	
 	
 	#Default Soundoutput
-	sudo sed -i 's/SQUEEZELITE_PARAMETER.*/SQUEEZELITE_PARAMETER=-o plug:plugequal/' /opt/max2play/audioplayer.conf	
-	sudo sed -i 's/SHAIRPORT_PARAMETER.*/SHAIRPORT_PARAMETER=-d plug:plugequal/' /opt/max2play/audioplayer.conf			
+	sudo sed -i 's/SQUEEZELITE_PARAMETER.*/SQUEEZELITE_PARAMETER=-o default:CARD=ALSA -a 120::16:/' /opt/max2play/audioplayer.conf	
+	sudo sed -i 's/SHAIRPORT_PARAMETER.*/SHAIRPORT_PARAMETER=-d default:CARD=ALSA/' /opt/max2play/audioplayer.conf			
 	
 	#Add Autostart Kodi / XBMC	
 	sudo sed -i 's/^exit 0/#Max2Play\nsudo -u pi -H -s \/opt\/max2play\/autostart_xbmc.sh > \/dev\/null 2>\&1 \&\n\nexit 0/' /etc/rc.local
