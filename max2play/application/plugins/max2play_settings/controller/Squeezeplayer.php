@@ -99,9 +99,11 @@ class Squeezeplayer extends Service {
 		if(strpos($setsoundcard, 'CARD=sndrpiwsp') !== FALSE){
 			$this->view->wolfsonaddon = true;
 			$user = $this->getSystemUser();
-			$script[] = 'su - '.$user.' -c \'amixer -D hw:sndrpiwsp -q set "HPOUT2 Digital Switch" on\'';
-			$script[] = 'su - '.$user.' -c \'amixer -D hw:sndrpiwsp -q set "HPOUT2 Digital Volume" 150\'';						
-			$this->view->message[] = _('Set Wolfson Audio-Output to Line OUT');
+			//Start the 3 Scripts for Headphone, Lineout and SPDIF
+			$script[] = 'su - '.$user.' -c \'/opt/max2play/wolfson/Playback_to_Headset.sh 2>&1\'';
+			$script[] = 'su - '.$user.' -c \'/opt/max2play/wolfson/Playback_to_Lineout.sh 2>&1\'';
+			$script[] = 'su - '.$user.' -c \'/opt/max2play/wolfson/SPDIF_playback.sh 2>&1\'';
+			$this->view->message[] = _('Set Wolfson Audio-Output to play on Line-Out, Headphone and SPDIF');
 			$this->view->message[] = $this->writeDynamicScript($script);			
 		}
 		

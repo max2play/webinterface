@@ -69,6 +69,7 @@ if [ ! -e /opt/max2play/ ]; then
 	# get Live Version!
 	wget shop.max2play.com/media/downloadable/currentversion/max2play_complete.zip
 	unzip max2play_complete.zip -d max2play
+	mkdir /opt
 	sudo cp -r max2play/opt/* /opt
 	chmod -R 777 /opt/max2play/
 	
@@ -98,7 +99,7 @@ cp max2play/CONFIG_SYSTEM/apache2/sites-enabled/max2play.conf /etc/apache2/sites
 sed -i 's/LogLevel warn/LogLevel error/' /etc/apache2/apache2.conf
 cp -r max2play/max2play/ /var/www/max2play 
 sudo /etc/init.d/apache2 restart
-sudo echo "Y" | apt-get install samba samba-common samba-common-bin mc ntfs-3g
+sudo echo "Y" | apt-get install samba samba-common samba-common-bin mc ntfs-3g cifs-utils
 
 sudo apt-get install debconf-utils
 if [ "$HW_RASPBERRY" -gt "0" ] || [ "$LINUX" == "Debian" ]; then  	
@@ -359,14 +360,26 @@ if [ "$HW_ODROID" -gt "0" ]; then
 	
 	#ODROID C1:
 	#udev persistent net rules Mac-Adresse von eth0 ist falsch
-	#echo "Y" | apt-get install iw
+	echo "Y" | apt-get install iw
 	#nano /etc/default/autogetty # remove enabled for 100%CPU usage bash
+	
+	#Rights to start XBMC/Kodi
+	sed -i 's@www-data:/var/www:/usr/sbin/nologin@www-data:/var/www:/bin/bash@' /etc/passwd
+	
+	#for Shairtunes 
+	echo "Y" | sudo apt-get install libao-dev
+	echo "y\ny" | perl -MCPAN -e 'install IO::Socket::INET6'
+	
+	# Disable IPv6
+	#echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
+	#echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.conf
+	#echo "net.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
 	
 	# Odroid Wheezy Debian	
 	if [ "$LINUX" == "Debian" ]; then
+		echo "Y" | apt-get install iw 
 		sudo usermod -a -G audio odroid
-		sudo usermod -a -G video odroid
-		echo "Y" | sudo apt-get install cifs-utils
+		sudo usermod -a -G video odroid	
 		echo "/usr/local/lib" >> /etc/ld.so.conf.d/arm-linux-gnueabihf.conf
 		ldconfig
 		# solve Problem with new Modulename in Equalizer

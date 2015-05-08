@@ -23,6 +23,10 @@ else
    			    if [ -e /opt/CPAN/7.8 ]; then
    					ln -sf /opt/CPAN/7.8/arm-linux-gnueabihf-thread-multi-64int/ /usr/share/squeezeboxserver/CPAN/arch/5.18/
    					echo "Linking CPAN to 7.8"
+   					wget -O /opt/max2play/cache/LMS_7.8_CPAN_Compress.zip shop.max2play.com/media/downloadable/currentversion/LMS_7.8_CPAN_Compress.zip
+   					unzip -o /opt/max2play/cache/LMS_7.8_CPAN_Compress.zip -d /opt/CPAN/7.8/arm-linux-gnueabihf-thread-multi-64int/auto/
+					chmod 777 /opt/CPAN/7.8/arm-linux-gnueabihf-thread-multi-64int/auto/Compress/Raw/Zlib/Zlib.so
+					echo "Compress Fix for 7.8"
    				else
    					ln -sf /opt/CPAN/arm-linux-gnueabihf-thread-multi-64int/ /usr/share/squeezeboxserver/CPAN/arch/5.18/
    					echo "Linking CPAN to Latest"

@@ -22,6 +22,9 @@ NEWSPATH='/var/www/max2play/wordpress/wp-content/uploads/max2play/news/'
 #Change File permissions due to eclipse Bug
 chmod -R 777 $SOURCEPATH/max2play
 chmod -R 777 $SOURCEPATH/opt/max2play
+find $SOURCEPATH -name "*.sh" | xargs chmod 777
+find $SOURCEPATH -type f -regextype sed -regex ".*/init.d/[^\.]*" | xargs chmod 777
+find $SOURCEPATHPREMIUM -name "*.sh" | xargs chmod 777
 
 HOSTS=( "176.9.62.131")
 PREMIUMPLUGINS=( "clementine" "fhem" "jivelite" "callbot" "homematic" "raspberrysettings" "multisqueeze" "sdcardprotection" )
