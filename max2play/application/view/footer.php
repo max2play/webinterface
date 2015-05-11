@@ -27,6 +27,20 @@
 </div>
 			</div>
 			<div id="secondary" class="widget-area">
+			<?php if (isset($ShowGuideTitle) && $ShowGuideTitle != ''){ ?>			
+				<script>
+					function closeGuide(){
+						$("#guide").display='none';
+						window.alert('Hilfebox kann in den Einstellungen wieder aktiviert werden.');
+						window.open(document.URL+'?closeguide=1&closeguide=1');
+					}
+				</script>
+				<aside id="guide" class="widget guide" style="margin-bottom: 10px;">
+ 				   <h3 class="widget-title" style="background: #e8641b;color: #ffffff;text-align: center;"><?php echo $ShowGuideTitle ?><span style="float: right; margin-right: .3em;" class="ui-icon ui-icon-close" onclick="closeGuide();"></span></h3>
+				   <?php echo $ShowGuideContent ?>    
+				</aside>
+			<?php } ?>
+				
 				<aside class="widget">
 					<h3 class="widget-title"><?php echo _('Topics') ?></h3>
 					<ul>

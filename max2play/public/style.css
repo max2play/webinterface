@@ -252,6 +252,15 @@ input[type="submit"], input[type="button"], input[type="reset"] {
 }
 .download-button:hover{color:#fff;background-color:#09c;background-image:-webkit-linear-gradient(#09c,#0086b2);background-image:-moz-linear-gradient(#09c,#0086b2)}
 
+.guide li::before {
+    background: url("/css/ui-lightness/images/ui-icons_228ef1_256x240.png") no-repeat scroll -16px -144px rgba(0, 0, 0, 0);
+    content: " ";
+    float: left;
+    height: 20px;
+    margin: 3px 0 0 -20px;
+    width: 20px;
+}
+
 @media only screen 
 and (max-width : 800px) 
 { 

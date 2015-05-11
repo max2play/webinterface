@@ -628,12 +628,22 @@ class Service {
 	
 	public function loadViewFooter(){
 		global $service;
+		$helpOnSidebar = $service->getHelpOnSidebar();
 		if(file_exists(APPLICATION_PATH.'/view/footer_custom.php'))
 			include_once(APPLICATION_PATH.'/view/footer_custom.php');
 		else
 			include_once(APPLICATION_PATH.'/view/footer.php');
-	
+		
 		return true;
+	}
+	
+	public function getHelpOnSidebar(){
+		if($this->getConfigFileParameter('/opt/max2play/options.conf', 'showHelpOnSidebar')){
+			$help['title'] = 'Hilfe - Audioplayer';
+			$help['content'] = '<ul><li>Im Menüpunkt Audioplayer werden alle Abspielgeräte verwaltet. Für jeden Player können unter "Erweiterte Einstellungen" Soundkarten und weitere Optionen angepasst werden.</li><li>Einige Soundkarten wie HifiBerry müssen vorher aktiviert werden. Dies geschieht über die Erweiterung "Raspberry PI Einstellungen".</li><li>Für Airplay kann Shairport genutzt werden ODER das Plugin Shairtunes, welches für alle Squeezeboxen (dazu zählt auch Squeezelite) Airplay aktiviert. Dies empfiehlt sich, wenn lediglich ein Ausgabegerät auf die Soundkarte zugreifen kann.</li></ul>';
+			return $help;
+		}
+		return false;
 	}
 	
 	public function getHardwareInfo(){
