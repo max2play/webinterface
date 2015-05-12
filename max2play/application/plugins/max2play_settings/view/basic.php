@@ -86,6 +86,11 @@
 		<td><input type="checkbox" id="removedonate" name="removedonate" <?php if($basic->view->removedonate == 1) echo 'checked'; ?> value="1" /></td>
 		<td><?php echo _("Remove the donate-button in header of Max2Play-Webinterface") ?></td> 
 	  </tr>
+	  <tr>
+		<td><?php echo _("Help on Sidebar") ?></td>
+		<td><input type="checkbox" id="showhelponsidebar" name="showhelponsidebar" <?php if($basic->view->showHelpOnSidebar == true) echo 'checked'; ?> value="1" /></td>
+		<td><?php echo _("Show help on sidebar for current page/addon, if the page supports it.") ?></td> 
+	  </tr>
 	</table>
 	<br />
 	<input type="button" value="<?php echo _("Save Settings") ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />

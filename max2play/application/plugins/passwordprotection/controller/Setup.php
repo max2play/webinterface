@@ -45,6 +45,13 @@ class Passwordprotection_Setup extends Service {
 			if($_REQUEST['action'] == 'uninstall'){
 				$this->_uninstall();
 			}
+			
+			if($_REQUEST['action'] == 'savepasswordroot'){
+				$this->_changeUserPassword('root', $_REQUEST['rootpassword']);
+			}
+			if($_REQUEST['action'] == 'savepassworduser'){
+				$this->_changeUserPassword($this->getSystemUser(), $_REQUEST['userpassword']);
+			}
 		}				
 				
 	}
@@ -62,8 +69,9 @@ class Passwordprotection_Setup extends Service {
 		//edit /var/www/max2play/.htaccess
 		$user = $_REQUEST['user'];
 		$pass = $_REQUEST['password'];
-		$htaccess_code = "##AUTHENTICATION START\nAuthType Basic\nAuthName 'Protected Max2Play Login'\nAuthUserFile /var/www/max2play/.htpasswd\nAuthGroupFile /dev/null\nRequire valid-user\n##AUTHENTICATION END";
+		$htaccess_code = "##AUTHENTICATION START\nAuthType Basic\nAuthName 'Protected Max2Play Login'\nAuthUserFile /var/www/max2play/.htpasswd\nRequire valid-user\n##AUTHENTICATION END";
 		$script = array();
+		$script[] = 'if [ $(dpkg -s apache2-utils | grep "install ok" | wc -l) -lt 1 ]; then apt-get update;echo "y" | apt-get install apache2-utils; fi';
 		$script[] = "/bin/sed -i \"s@RewriteEngine on@".str_replace("\n","\\\\n",$htaccess_code)."\\nRewriteEngine on@\" /var/www/max2play/public/.htaccess";		
 		$script[] = '/usr/bin/htpasswd -b -c /var/www/max2play/.htpasswd "'.$user.'" "'.$pass.'"';
 		$script[] = 'echo "'.$htaccess_code.'" > /var/www/max2play/public/.htaccess_add';
@@ -80,6 +88,19 @@ class Passwordprotection_Setup extends Service {
 		$this->writeDynamicScript($script);
 		$this->view->message[] = _t('Password Protection is now removed!');
 		$this->_getProtectionInfo();
+	}
+	
+	private function _changeUserPassword($user = '', $pass = ''){	
+		if($user == '')
+			return false;
+		if($pass == ''){
+			$this->view->message[] = _t('Password not set (must not be empty)');
+			return false;
+		}
+		$script[] = 'echo -e "'.$pass.'\n'.$pass.'\n" | passwd '.$user;
+		$this->writeDynamicScript($script);
+		$this->view->message[] = _t('Password changed for user').' '. $user;
+		return true;
 	}
 		
 }

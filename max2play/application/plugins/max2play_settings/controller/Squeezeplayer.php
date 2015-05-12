@@ -88,6 +88,8 @@ class Squeezeplayer extends Service {
 		$this->view->pid = $this->status($this->pname);
 		
 		$this->view->autostart = $this->checkAutostart($this->pname, true);
+		
+		$this->showHelpSidebar();
 	}
 	
 	/**
@@ -377,6 +379,13 @@ class Squeezeplayer extends Service {
 	private function trim_value(&$value)
 	{
 		$value = trim($value);
+		return true;
+	}
+	
+	public function showHelpSidebar(){
+		global $helpSidebar;		
+		$helpSidebar['title'] = _('Help - Audioplayer');
+		$helpSidebar['content'] = _('<ul><li>On this page you may set up and configure all audioplayers. Each player has the button "Advanced Settings" to set up the soundcard and further options.</li><li>Some soundcards like HifiBerry need to be activated before you can assign them to a player. This can be done with the addon "Raspberry PI Settings".</li><li>To use Airplay you may choose the Shairport player OR the plugin Shairtunes (install on Squeezebox Server tab), that enables all Squeezeplayers (such as Squeezelite) to act as an Airplay device. This is useful if a soundcard supports only one connected player.</li></ul>');
 		return true;
 	}
 		

@@ -27,17 +27,17 @@
 </div>
 			</div>
 			<div id="secondary" class="widget-area">
-			<?php if (isset($ShowGuideTitle) && $ShowGuideTitle != ''){ ?>			
+			<?php if (isset($helpOnSidebar) && $helpOnSidebar !== false){ ?>			
 				<script>
 					function closeGuide(){
 						$("#guide").display='none';
-						window.alert('Hilfebox kann in den Einstellungen wieder aktiviert werden.');
+						window.alert('<?php echo _('Help on Sidebar can be reactivated on Settings-Page.') ?>');
 						window.open(document.URL+'?closeguide=1&closeguide=1');
 					}
 				</script>
 				<aside id="guide" class="widget guide" style="margin-bottom: 10px;">
- 				   <h3 class="widget-title" style="background: #e8641b;color: #ffffff;text-align: center;"><?php echo $ShowGuideTitle ?><span style="float: right; margin-right: .3em;" class="ui-icon ui-icon-close" onclick="closeGuide();"></span></h3>
-				   <?php echo $ShowGuideContent ?>    
+ 				   <h3 class="widget-title" style="background: #e8641b;color: #ffffff;text-align: center;"><?php echo $helpOnSidebar['title'] ?><span style="float: right; margin-right: .3em;" class="ui-icon ui-icon-close" onclick="closeGuide();"></span></h3>
+				   <?php echo $helpOnSidebar['content'] ?>    
 				</aside>
 			<?php } ?>
 				

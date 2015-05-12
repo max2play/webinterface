@@ -79,7 +79,8 @@ class Basic extends Service {
 				$this->setDonateButton((isset($_GET['removedonate']) ? 1 : 0));
 				$this->updateEmail($_GET['email']);
 				$this->updateDisplayResolution($_GET['displayResolution']);
-				$this->updateMax2playNetworkLookup();				
+				$this->updateMax2playNetworkLookup();
+				$this->setHelpOnSidebar($_REQUEST['showhelponsidebar']);
 			}
 		}
 		$this->getLocale();
@@ -91,7 +92,8 @@ class Basic extends Service {
 		$this->getEmail();
 		$this->enableBetaUpdates();
 		$this->view->removedonate = $this->getDonate();
-		
+		$this->getHelpOnSidebar();
+		$this->showHelpSidebar();		
 	}		
 	
 	public function getDisplayResolutions(){
@@ -591,6 +593,21 @@ class Basic extends Service {
 		if($this->checkLicense(true, true) == false)
 			return true;
 		$this->view->betaEnabled = true;
+	}
+	
+	public function getHelpOnSidebar(){
+		if($this->getConfigFileParameter('/opt/max2play/options.conf', 'showHelpOnSidebar') == "1")
+			$this->view->showHelpOnSidebar = true;
+		else
+			$this->view->showHelpOnSidebar = false;
+		return true;
+	}
+	
+	public function showHelpSidebar(){
+		global $helpSidebar;
+		$helpSidebar['title'] = _('Help - Basic Settings');
+		$helpSidebar['content'] = _('<ul><li>Use this page to change the devicename, update Max2Play to the latest version, expand the filesystem on a new installation and install new addons.</li><li>To install and activate a new addon on the buttom of this page, you have to take 2 steps: first install the addon and second enable it.</li></ul>');
+		return true;
 	}
 }
 
