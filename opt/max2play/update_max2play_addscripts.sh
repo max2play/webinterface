@@ -90,3 +90,9 @@ fi
 if [ -e "/var/www/max2play/public/.htaccess_add" ]; then
 	cat /var/www/max2play/public/.htaccess_add | cat - /var/www/max2play/public/.htaccess > /var/www/max2play/public/.htaccess.tmp && mv /var/www/max2play/public/.htaccess.tmp /var/www/max2play/public/.htaccess
 fi
+
+showHelpOnSidebar=$(grep -a "showHelpOnSidebar" /opt/max2play/options.conf | wc -l)
+if [ "$showHelpOnSidebar" -lt "1" ]; then
+    echo "showHelpOnSidebar=1" >> /opt/max2play/options.conf
+    echo "Added Help on Sidebar"
+fi
