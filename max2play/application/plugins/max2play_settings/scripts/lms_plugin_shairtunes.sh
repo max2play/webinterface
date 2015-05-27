@@ -12,7 +12,12 @@ cp /opt/max2play/cache/ShairTunes/shairport_helper/pre-compiled/shairport_helper
 #Path /var/lib/squeezeboxserver/cache/InstalledPlugins/Plugins/
 cp /opt/max2play/cache/ShairTunes.zip /var/lib/squeezeboxserver/cache/DownloadedPlugins/
 echo "ShairTunes: needs-install" >> /var/lib/squeezeboxserver/prefs/plugin/state.prefs
-sed -i 's/plugin: {}/plugin:\n  ShairTunes: 1/' /var/lib/squeezeboxserver/prefs/plugin/extensions.prefs
+
+foundShairtunes=$(grep -i "ShairTunes" /var/lib/squeezeboxserver/prefs/plugin/extensions.prefs | wc -l)
+if [ "$foundShairtunes" -lt "1" ]; then
+	sed -i 's/plugin:$/plugin:\n  ShairTunes: 1/' /var/lib/squeezeboxserver/prefs/plugin/extensions.prefs
+	sed -i 's/plugin: {}/plugin:\n  ShairTunes: 1/' /var/lib/squeezeboxserver/prefs/plugin/extensions.prefs
+fi
 
 /etc/init.d/logitechmediaserver restart
 
