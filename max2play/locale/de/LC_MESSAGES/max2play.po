@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-12 14:22+0100\n"
-"PO-Revision-Date: 2015-05-12 14:26+0100\n"
+"POT-Creation-Date: 2015-05-28 14:00+0100\n"
+"PO-Revision-Date: 2015-05-28 14:02+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -541,10 +541,13 @@ msgstr ""
 #: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:89
 #: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:119
 #: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:136
+#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:156
 #: y:\projects\svn_max2play\plugins/homematic/view/setup.php:103
 #: y:\projects\svn_max2play\plugins/homematic/view/ccuhistorian.php:103
 #: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:57
 #: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:69
+#: y:\projects\svn_max2play\plugins/vnc/view/setup.php:63
+#: y:\projects\svn_max2play\plugins/vnc/view/setup.php:91
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/setup.php:39
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/setup.php:51
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/setup.php:69
@@ -636,6 +639,8 @@ msgstr "Mediaplayer Squeezelite & Airplay - Status, Start / Stop"
 #: y:\projects\svn_max2play\plugins/homematic/view/ccuhistorian.php:64
 #: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:46
 #: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:49
+#: y:\projects\svn_max2play\plugins/vnc/view/setup.php:53
+#: y:\projects\svn_max2play\plugins/vnc/view/setup.php:56
 msgid "Status"
 msgstr "Status"
 
@@ -652,6 +657,7 @@ msgstr "Status"
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:47
 #: y:\projects\svn_max2play\plugins/homematic/view/ccuhistorian.php:58
 #: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:46
+#: y:\projects\svn_max2play\plugins/vnc/view/setup.php:53
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/squeezeplayer.php:5
 msgid "$SERVICENAME is running with processID"
 msgstr "$SERVICENAME läuft aktuell unter der ProzessID"
@@ -669,6 +675,7 @@ msgstr "$SERVICENAME läuft aktuell unter der ProzessID"
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:49
 #: y:\projects\svn_max2play\plugins/homematic/view/ccuhistorian.php:61
 #: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:47
+#: y:\projects\svn_max2play\plugins/vnc/view/setup.php:54
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/squeezeplayer.php:6
 msgid "stop $SERVICENAME"
 msgstr "$SERVICENAME stoppen"
@@ -699,6 +706,7 @@ msgstr "$SERVICENAME killen"
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:53
 #: y:\projects\svn_max2play\plugins/homematic/view/ccuhistorian.php:64
 #: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:49
+#: y:\projects\svn_max2play\plugins/vnc/view/setup.php:56
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/squeezeplayer.php:9
 msgid "$SERVICENAME not running"
 msgstr "$SERVICENAME läuft nicht"
@@ -716,6 +724,7 @@ msgstr "$SERVICENAME läuft nicht"
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:54
 #: y:\projects\svn_max2play\plugins/homematic/view/ccuhistorian.php:65
 #: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:52
+#: y:\projects\svn_max2play\plugins/vnc/view/setup.php:57
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/squeezeplayer.php:10
 msgid "start $SERVICENAME"
 msgstr "$SERVICENAME starten"
@@ -833,6 +842,7 @@ msgstr ""
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:56
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:57
 #: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:55
+#: y:\projects\svn_max2play\plugins/vnc/view/setup.php:61
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/setup.php:48
 msgid "Autostart $SERVICENAME"
 msgstr "Autostart $SERVICENAME"
@@ -1163,24 +1173,25 @@ msgstr "Unter dieser Auflösung läuft Kodi/XBMC und der Desktop"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:64
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/basic.php:64
-msgid "Your eMail-Address"
-msgstr "Deine eMail-Adresse"
+msgid "Your eMail-Address / activation code"
+msgstr "EMail-Adresse / Aktivierungscode"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:66
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/basic.php:66
 msgid ""
 "To access all functions and plugins of Max2Play and constantly get new "
-"features, you need to be a customer of shop.max2play.com. This is verified "
-"with your eMail-address. If you are no customer yet, you may buy the <a "
-"href='http://shop.max2play.com/en/max2play-full-license.html' "
-"target='_blank'>Max2Play-Full-Package here</a>."
+"features, you need to be a customer of shop.max2play.com or have a code for "
+"activation. This is verified with your eMail-address or activation code. If "
+"you are no customer yet, you may buy the <a href='http://shop.max2play.com/"
+"en/max2play-full-license.html' target='_blank'>Max2Play-Full-Package here</"
+"a>."
 msgstr ""
 "Um Zugang zu allen Funktionen, regelmäßigen Updates, Plugins und Support von "
-"Max2Play zu erhalten, musst du Kunde von shop.max2play.com sein. Diese "
-"Eingabe wird mit deiner Kundenadresse im Shop abgeglichen. Wenn du noch kein "
-"Kunde bist, ist es auch möglich die <a href='http://shop.max2play.com/de/"
-"max2play-full-license.html' target='_blank'>Max2Play-Komplett-Lizenz</a> "
-"einzeln zu kaufen."
+"Max2Play zu erhalten, musst du Kunde von shop.max2play.com sein oder einen "
+"Aktivierungscode haben. Diese Eingabe wird mit deiner Kundenadresse im Shop "
+"abgeglichen. Wenn du noch kein Kunde bist, ist es auch möglich die <a "
+"href='http://shop.max2play.com/de/max2play-full-license.html' "
+"target='_blank'>Max2Play-Komplett-Lizenz</a> einzeln zu kaufen."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:69
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/basic.php:69
@@ -1649,7 +1660,7 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:357
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:357
-#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:107
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:113
 #: y:\projects\svn_max2play\plugins/multisqueeze/controller/Setup.php:205
 msgid "Raspberry PI Audio Output set to $VALUE"
 msgstr "Raspberry PI Audio Ausgabe gesetzt auf $VALUE"
@@ -1867,8 +1878,8 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:283
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:283
-msgid "Your eMail-address is saved."
-msgstr "EMail-Adresse wurde gespeichert"
+msgid "Your eMail-address / activation code is saved."
+msgstr "EMail-Adresse / Aktivierungscode wurde gespeichert"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:285
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:285
@@ -1881,10 +1892,13 @@ msgstr ""
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:287
 msgid ""
 "Your license could not be validated. Did you choose the right eMail-Address "
-"that is registered as a customer at www.max2play.com?"
+"that is registered as a customer at www.max2play.com? If you have a key for "
+"activation please recheck, that the key is entered correctly."
 msgstr ""
 "Deine Lizenz konnte leider nicht bestätigt werden. Hast du die richtige "
-"Mailadresse eingegeben, die auch im Shop von Max2Play genutzt wurde?"
+"Mailadresse eingegeben, die auch im Shop von Max2Play genutzt wurde? Falls "
+"du einen Aktivierungscode eingegeben hast, prüfe bitte nochmal die genaue "
+"Schreibweise."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:312
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:312
@@ -2069,7 +2083,7 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application/plugins/speechcontrol/view/setup.php:63
 #: y:\projects\max2play\max2play\application/plugins/accesspoint/view/setup.php:61
-#: y:\projects\max2play\max2play\application/plugins/passwordprotection/view/setup.php:57
+#: y:\projects\max2play\max2play\application/plugins/passwordprotection/view/setup.php:58
 #: y:\projects\svn_max2play\plugins/sdcardprotection/view/setup.php:58
 #: y:\projects\svn_max2play\plugins/clementine/view/setup.php:37
 #: y:\projects\svn_max2play\plugins/homematic/view/ccuhistorian.php:51
@@ -2090,7 +2104,7 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application/plugins/speechcontrol/view/setup.php:137
 #: y:\projects\max2play\max2play\application/plugins/accesspoint/view/setup.php:69
-#: y:\projects\max2play\max2play\application/plugins/passwordprotection/view/setup.php:60
+#: y:\projects\max2play\max2play\application/plugins/passwordprotection/view/setup.php:61
 #: y:\projects\svn_max2play\plugins/sdcardprotection/view/setup.php:50
 msgid "uninstall"
 msgstr "Deinstallieren"
@@ -2103,9 +2117,10 @@ msgstr "Deinstallieren"
 #: y:\projects\svn_max2play\plugins/fhem/view/setup.php:68
 #: y:\projects\svn_max2play\plugins/callbot/view/setup.php:98
 #: y:\projects\svn_max2play\plugins/clementine/view/setup.php:48
-#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:141
+#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:160
 #: y:\projects\svn_max2play\plugins/homematic/view/setup.php:109
 #: y:\projects\svn_max2play\plugins/homematic/view/ccuhistorian.php:114
+#: y:\projects\svn_max2play\plugins/vnc/view/setup.php:103
 msgid "DEBUG Informations"
 msgstr "DEBUG Info"
 
@@ -2224,15 +2239,30 @@ msgstr "MiniDLNA Einstellungen gespeichert"
 msgid "Password Protection Setup"
 msgstr "SD-Karte Schreibschutz"
 
-#: y:\projects\max2play\max2play\application/plugins/passwordprotection/view/setup.php:48
+#: y:\projects\max2play\max2play\application/plugins/passwordprotection/view/setup.php:51
 #, fuzzy
 msgid "installed"
 msgstr "Installieren"
 
-#: y:\projects\max2play\max2play\application/plugins/passwordprotection/view/setup.php:48
+#: y:\projects\max2play\max2play\application/plugins/passwordprotection/view/setup.php:51
 #, fuzzy
 msgid "NOT installed"
 msgstr "Installieren"
+
+#: y:\projects\max2play\max2play\application/plugins/passwordprotection/view/setup.php:70
+msgid "savepasswordroot"
+msgstr ""
+
+#: y:\projects\max2play\max2play\application/plugins/passwordprotection/view/setup.php:70
+#: y:\projects\max2play\max2play\application/plugins/passwordprotection/view/setup.php:73
+#, fuzzy
+msgid "save password"
+msgstr "Netzwerkschlüssel"
+
+#: y:\projects\max2play\max2play\application/plugins/passwordprotection/view/setup.php:73
+#, fuzzy
+msgid "savepassworduser"
+msgstr "Passwort geändert"
 
 #: y:\projects\max2play\max2play\application/plugins/passwordprotection/controller/Setup.php:34
 #, fuzzy
@@ -2440,20 +2470,20 @@ msgstr ""
 "Diese Funktion ist nur für den Raspberry PI verfügbar! Es scheint, als wäre "
 "dieses Gerät kein Raspberry PI."
 
-#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:155
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:161
 msgid "ARM-Frequency parameter changed"
 msgstr ""
 
-#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:157
-#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:182
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:163
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:188
 msgid "Reboot needed"
 msgstr "Neustart erforderlich"
 
-#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:181
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:187
 msgid "Boot config parameters changed"
 msgstr ""
 
-#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:239
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:245
 #, fuzzy
 msgid "Updated Alsa Settings"
 msgstr "Equalizer Optionen gespeichert"
@@ -2510,9 +2540,18 @@ msgstr "Homematic IP gespeichert"
 msgid "Jivelite"
 msgstr "Jivelite"
 
-#: y:\projects\svn_max2play\plugins/jivelite/controller/Setup.php:103
+#: y:\projects\svn_max2play\plugins/jivelite/controller/Setup.php:106
 msgid "INSTALL SUCCESSFUL"
 msgstr "Installation erfolgreich"
+
+#: y:\projects\svn_max2play\plugins/vnc/controller/Setup.php:29
+msgid "VNC Server"
+msgstr ""
+
+#: y:\projects\svn_max2play\plugins/vnc/controller/Setup.php:133
+#, fuzzy
+msgid "VNC uninstall started"
+msgstr "FHEM Deinstallation gestarted"
 
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/squeezeplayer.php:5
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/squeezeplayer.php:9
@@ -2526,6 +2565,9 @@ msgstr ""
 #: y:\projects\svn_max2play\plugins/multisqueeze/controller/Setup.php:22
 msgid "Multisqueeze"
 msgstr ""
+
+#~ msgid "Your eMail-Address"
+#~ msgstr "Deine eMail-Adresse"
 
 #, fuzzy
 #~ msgid "Hilfe - Audioplayer"

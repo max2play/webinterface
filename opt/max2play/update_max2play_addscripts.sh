@@ -78,6 +78,8 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	    echo "Copy custom header files"
 	    cp -f /var/www/max2play/application/plugins/squeezeplug/view/header_custom.php /var/www/max2play/application/view/
 	    cp -f /var/www/max2play/application/plugins/squeezeplug/scripts/custom.css /var/www/max2play/public/
+	    mkdir /var/www/max2play/public/addons/squeezeplug
+	    cp -f /var/www/max2play/application/plugins/squeezeplug/scripts/images/* /var/www/max2play/public/addons/squeezeplug/
 	    
 	    # FIX ERROR remove double Entry in Crontab
 	    crontab -u pi -l | /usr/bin/uniq > /opt/max2play/cache/cronmax2play

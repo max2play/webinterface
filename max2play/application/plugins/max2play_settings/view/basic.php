@@ -61,9 +61,9 @@
 		  </tr>
 	  <?php } ?>
 	  <tr>
-		<td><?php echo _("Your eMail-Address") ?></td> 
+		<td><?php echo _("Your eMail-Address / activation code") ?></td> 
 		<td style="width:25%;"><input style="width:95%;" type="text" id="email" name="email" value="<?php echo $basic->view->email; ?>" /></td>
-		<td><?php echo _("To access all functions and plugins of Max2Play and constantly get new features, you need to be a customer of shop.max2play.com. This is verified with your eMail-address. If you are no customer yet, you may buy the <a href='http://shop.max2play.com/en/max2play-full-license.html' target='_blank'>Max2Play-Full-Package here</a>.") ?></td>
+		<td><?php echo _("To access all functions and plugins of Max2Play and constantly get new features, you need to be a customer of shop.max2play.com or have a code for activation. This is verified with your eMail-address or activation code. If you are no customer yet, you may buy the <a href='http://shop.max2play.com/en/max2play-full-license.html' target='_blank'>Max2Play-Full-Package here</a>.") ?></td>
 	  </tr>
 	  <tr>
 		<td><?php echo _("Language") ?></td> 
