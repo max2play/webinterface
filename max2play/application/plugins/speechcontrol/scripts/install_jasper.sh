@@ -1,7 +1,7 @@
 #!/bin/bash
 #http://jasperproject.github.io/documentation/configuration/
 echo "Scriptpath: $1"
-
+apt-get update
 echo "Y" | apt-get install vim git-core python-dev python-pip bison libasound2-dev libportaudio-dev python-pyaudio --yes
 pushd /opt
 git clone https://github.com/jasperproject/jasper-client.git jasper

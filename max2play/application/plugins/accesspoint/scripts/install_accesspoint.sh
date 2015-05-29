@@ -15,6 +15,7 @@ else
 fi
 	
 # Install everything
+apt-get update
 echo "Y" | apt-get install hostapd dnsmasq
 
 # Check for Realtek Chipset (Edimax) and switch hostapd binary
