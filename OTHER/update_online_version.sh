@@ -27,7 +27,7 @@ find $SOURCEPATH -type f -regextype sed -regex ".*/init.d/[^\.]*" | xargs chmod 
 find $SOURCEPATHPREMIUM -name "*.sh" | xargs chmod 777
 
 HOSTS=( "176.9.62.131")
-PREMIUMPLUGINS=( "clementine" "fhem" "jivelite" "callbot" "homematic" "raspberrysettings" "multisqueeze" "sdcardprotection" "vnc" )
+PREMIUMPLUGINS=( "clementine" "fhem" "jivelite" "callbot" "homematic" "raspberrysettings" "multisqueeze" "sdcardprotection" "vnc" "printserver" )
 ODPLUGINS=( "accesspoint" "kernelmodules_odroid_u3" "speechcontrol" "squeezeplug" "passwordprotection" )
 PLUGINS=("${ODPLUGINS[@]}" "${PREMIUMPLUGINS[@]}")
 PLUGINSTRING=$(printf " *\\%s\\*" "${PLUGINS[@]}")
@@ -59,13 +59,15 @@ do
 	cp -R CONFIG_SYSTEM/init.d etc/init.d
 	cp -R CONFIG_SYSTEM/sudoers.d etc/sudoers.d		
 	cp -R CONFIG_SYSTEM/usbmount etc/usbmount
-	#include config files from /home/odroid - panel erstmal rausgenommen - genügt in Grundkonfiguration
+	
+	###  include config files from /home/odroid - panel erstmal rausgenommen - genügt in Grundkonfiguration ###
 	#mkdir -p home/odroid/.config
 	#cp -R CONFIG_USER/lxpanel home/odroid/.config	
+	#in folgenden zip befehl zu scripts.zip ./home/odroid/.config/lxpanel
 	
-	zip -r scripts.zip ./opt/max2play ./etc/usbmount/usbmount.conf ./etc/init.d/squeezelite ./etc/init.d/gmediarender ./etc/init.d/shairport ./etc/sudoers.d/max2play ./home/odroid/.config/lxpanel -x /opt/max2play/playername.txt /opt/max2play/samba.conf /opt/max2play/wpa_supplicant.conf /opt/max2play/audioplayer.conf /opt/max2play/autostart.conf
+	zip -r scripts.zip ./opt/max2play ./etc/usbmount/usbmount.conf ./etc/init.d/squeezelite ./etc/init.d/gmediarender ./etc/init.d/shairport ./etc/sudoers.d/max2play -x /opt/max2play/playername.txt /opt/max2play/samba.conf /opt/max2play/wpa_supplicant.conf /opt/max2play/audioplayer.conf /opt/max2play/autostart.conf
 	rm -R etc
-	rm -R home		
+	#rm -R home
 	scp $SOURCEPATH/webinterface.zip root@$DESTHOST:$DESTPATH
 	scp $SOURCEPATH/scripts.zip root@$DESTHOST:$DESTPATH
 	scp $SOURCEPATH/max2play_complete.zip root@$DESTHOST:$DESTPATH

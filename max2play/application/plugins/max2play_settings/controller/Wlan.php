@@ -45,6 +45,7 @@ class Wlan extends Service {
 				$this->_showWlanNetworks();
 			}
 		}
+		$this->showHelpSidebar();
 	}
 	
 	private function _showWlanNetworks(){
@@ -177,6 +178,13 @@ class Wlan extends Service {
 		if($match[1]){
 			$this->view->lanmac = $match[1];			
 		}
+		return true;
+	}
+	
+	public function showHelpSidebar(){
+		global $helpSidebar;
+		$helpSidebar['title'] = _('Help - WiFi & LAN');
+		$helpSidebar['content'] = _('<ul><li>On this page you may set up and configure your WiFi and see details on the connected interfaces and their IP-Address.</li><li><a href="https://youtu.be/HsEBb_CIJ5A" target="blank">Watch a video showing WiFi setup with Max2Play</a></li><li>Step by Step: search for networks - choose you prefered network, activate the enable WiFi checkbox, enter the password and click save.</li></ul>');
 		return true;
 	}	
 }

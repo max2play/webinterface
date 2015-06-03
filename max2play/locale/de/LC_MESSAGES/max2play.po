@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-28 14:00+0100\n"
-"PO-Revision-Date: 2015-05-28 14:02+0100\n"
+"POT-Creation-Date: 2015-06-02 11:02+0100\n"
+"PO-Revision-Date: 2015-06-02 11:05+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -535,7 +535,7 @@ msgstr ""
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:58
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:59
 #: y:\projects\svn_max2play\plugins/fhem/view/setup.php:61
-#: y:\projects\svn_max2play\plugins/callbot/view/setup.php:84
+#: y:\projects\svn_max2play\plugins/callbot/view/setup.php:67
 #: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:63
 #: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:75
 #: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:89
@@ -1784,35 +1784,58 @@ msgstr "WLAN & LAN"
 msgid "Data saved"
 msgstr "Daten gespeichert"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:53
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:53
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:54
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:54
 msgid "WLAN Device not responding - Reboot and try again."
 msgstr "WLAN Device reagiert nicht - Gerät neu starten."
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:58
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:58
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:59
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:59
 msgid "Networks found and added to dropdown list"
 msgstr "Netzwerke gefunden und in Auswahlliste eingefügt"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:63
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:63
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:64
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:64
 msgid "No networks found"
 msgstr "Keine Netzwerke gefunden"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:90
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:90
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:91
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:91
 msgid "MAC-Address changed - please reboot"
 msgstr "MAC-Adresse geändert - bitte Neustarten"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:105
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:105
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:106
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:106
 msgid "WLAN activated - please reboot device"
 msgstr "WLAN aktiviert - bitte Neustarten"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:112
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:112
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:113
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:113
 msgid "WLAN deactivated - no network choosen - please reboot"
 msgstr "WLAN deaktiviert - kein Netzwerk gewählt - bitte Neustarten"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:186
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:186
+msgid "Help - WiFi & LAN"
+msgstr "Hilfe - WLAN & LAN"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:187
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:187
+msgid ""
+"<ul><li>On this page you may set up and configure your WiFi and see details "
+"on the connected interfaces and their IP-Address.</li><li><a href=\"https://"
+"youtu.be/HsEBb_CIJ5A\" target=\"blank\">Watch a video showing WiFi setup "
+"with Max2Play</a></li><li>Step by Step: search for networks - choose you "
+"prefered network, activate the enable WiFi checkbox, enter the password and "
+"click save.</li></ul>"
+msgstr ""
+"<ul><li>Auf dieser Seite wird das WLAN konfiguriert und es können Details zu "
+"den aktiven Netzwerkgeräten wie die IP-Adresse ausgelesen werden.</li><li><a "
+"href=\"https://youtu.be/HsEBb_CIJ5A\" target=\"blank\">Hier klicken für ein "
+"Video, welches die WLAN-Einrichtung mit Max2Play zeigt.</a></li><li>Schritt "
+"für Schritt: nach Netzwerken suchen - gewünschtes Netzwerk auswählen, das "
+"WLAN-Interface mit der Checkbox aktivieren, Passwort eingeben und speichern."
+"</li></ul>"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:31
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:31
@@ -2115,7 +2138,7 @@ msgstr "Deinstallieren"
 #: y:\projects\max2play\max2play\application/plugins/example/view/setup.php:78
 #: y:\projects\max2play\max2play\application/plugins/kernelmodules_odroid_u3/view/setup.php:59
 #: y:\projects\svn_max2play\plugins/fhem/view/setup.php:68
-#: y:\projects\svn_max2play\plugins/callbot/view/setup.php:98
+#: y:\projects\svn_max2play\plugins/callbot/view/setup.php:81
 #: y:\projects\svn_max2play\plugins/clementine/view/setup.php:48
 #: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:160
 #: y:\projects\svn_max2play\plugins/homematic/view/setup.php:109
@@ -2366,71 +2389,13 @@ msgstr ""
 msgid "FHEM uninstall started"
 msgstr "FHEM Deinstallation gestarted"
 
-#: y:\projects\svn_max2play\plugins/callbot/view/setup.php:31
-#: y:\projects\svn_max2play\plugins/callbot/controller/Setup.php:49
-msgid "Callbot Setup"
-msgstr "Anruferbot Setup"
-
-#: y:\projects\svn_max2play\plugins/callbot/view/setup.php:47
-msgid "Callbot - automatically submit voice messages to your mobile phone"
-msgstr ""
-"Anruferbot - automatisierte Anrufe auf dein Handy oder Festnetz mit eigenen "
-"Sprachnachrichten"
-
-#: y:\projects\svn_max2play\plugins/callbot/view/setup.php:63
-msgid "Aktiviert"
-msgstr ""
-
-#: y:\projects\svn_max2play\plugins/callbot/view/setup.php:65
-msgid "Ausgehende Anrufe sind möglich über einfache URL-Aufrufe"
-msgstr ""
-
-#: y:\projects\svn_max2play\plugins/callbot/view/setup.php:68
-msgid "Telefonnummer"
-msgstr ""
-
-#: y:\projects\svn_max2play\plugins/callbot/view/setup.php:70
-msgid "Welche Telefonnummer soll angerufen werden?"
-msgstr ""
-
-#: y:\projects\svn_max2play\plugins/callbot/view/setup.php:73
-msgid "Sprachansage aufnehmen / ändern"
-msgstr ""
-
-#: y:\projects\svn_max2play\plugins/callbot/view/setup.php:78
-msgid "record"
-msgstr ""
-
-#: y:\projects\svn_max2play\plugins/callbot/view/setup.php:78
-msgid "Starte Aufnahme"
-msgstr ""
-
-#: y:\projects\svn_max2play\plugins/callbot/view/setup.php:80
-msgid ""
-"Bei Übergabe des Parameters 'wavfile=1' wird die entsprechende Nachricht (in "
-"dem Fall die erste) abgespielt. Die Sprachnachricht wird als WAV-Datei "
-"gespeichert und hat eine maximale Länge von 10 Sekunden."
-msgstr ""
-
-#: y:\projects\svn_max2play\plugins/callbot/view/setup.php:92
+#: y:\projects\svn_max2play\plugins/callbot/view/setup.php:75
 msgid "startcall"
 msgstr ""
 
-#: y:\projects\svn_max2play\plugins/callbot/view/setup.php:92
-msgid "Starte Testanruf"
-msgstr "Starte Testanruf"
-
-#: y:\projects\svn_max2play\plugins/callbot/controller/Setup.php:90
-msgid "Active status saved"
-msgstr ""
-
-#: y:\projects\svn_max2play\plugins/callbot/controller/Setup.php:93
-msgid "Phonenumber saved"
-msgstr ""
-
-#: y:\projects\svn_max2play\plugins/callbot/controller/Setup.php:96
-msgid "Message 1 saved"
-msgstr ""
+#: y:\projects\svn_max2play\plugins/callbot/controller/Setup.php:30
+msgid "Callbot Setup"
+msgstr "Anruferbot Setup"
 
 #: y:\projects\svn_max2play\plugins/sdcardprotection/controller/Setup.php:19
 msgid "SD-Card Protection"
@@ -2565,6 +2530,14 @@ msgstr ""
 #: y:\projects\svn_max2play\plugins/multisqueeze/controller/Setup.php:22
 msgid "Multisqueeze"
 msgstr ""
+
+#~ msgid "Callbot - automatically submit voice messages to your mobile phone"
+#~ msgstr ""
+#~ "Anruferbot - automatisierte Anrufe auf dein Handy oder Festnetz mit "
+#~ "eigenen Sprachnachrichten"
+
+#~ msgid "Starte Testanruf"
+#~ msgstr "Starte Testanruf"
 
 #~ msgid "Your eMail-Address"
 #~ msgstr "Deine eMail-Adresse"

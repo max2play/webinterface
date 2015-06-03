@@ -373,7 +373,7 @@ if [ "$HW_ODROID" -gt "0" ]; then
 	# Disable IPv6
 	#echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
 	#echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.conf
-	#echo "net.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
+	#echo "net.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf		
 	
 	# Odroid Wheezy Debian	
 	if [ "$LINUX" == "Debian" ]; then
@@ -390,6 +390,10 @@ if [ "$HW_ODROID" -gt "0" ]; then
 		sudo sed -i 's/^exit 0/#Max2Play\nsudo -u odroid -H -s \/opt\/max2play\/autostart_xbmc.sh > \/dev\/null 2>\&1 \&\n\nexit 0/' /etc/rc.local
 				
 		echo "TODO: set autologin for user odroid - if no user is logged in, XBMC will not start from webinterface"
+	else
+		#Powerkey Handling on U3
+		sed -i 's/value=3/value=0/' /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml 
+		sed -i 's/#HandlePowerKey=.*/HandlePowerKey=ignore/' /etc/systemd/logind.conf
 	fi
 	
 	echo "TODO: Remove LAN-Address before saving Image (generates new one on first start): rm /etc/smsc95xx_mac_addr"
