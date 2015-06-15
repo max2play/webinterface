@@ -87,7 +87,8 @@
 		<span class="ui-icon ui-icon-gear" style="float:left; margin:-2px 5px 0 0;"></span>
 		<?php echo _('Install special Plugins for Squeezebox Server') ?></p>
 	<select name="lmsplugin" style="width: 90%;">	
-		<option value="shairtunes"><?php echo _('Install Shairtunes Plugin (All connected Squeezeplayers can be used as Airplay Devices)') ?></option>
+		<option value="shairtunes2"><?php echo _('Install Shairtunes2 (NEW) Plugin (Optimized version for ODROID and Raspberry by disaster123 - All connected Squeezeplayers can be used as Airplay Devices)') ?></option>
+		<option value="shairtunes"><?php echo _('Install Shairtunes Plugin (All connected Squeezeplayers can be used as Airplay Devices)') ?></option>		
 	</select>
 	<input type="button" value="<?php echo _('Install choosen Plugin (takes some time)') ?>" name="plugininstall" onclick="document.getElementById('action').value='plugininstall';submit();" />
 	

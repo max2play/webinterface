@@ -25,6 +25,7 @@
 
 class Basic extends Service {		
 	public $timezonesfile = '/opt/max2play/timezones.txt';
+	public $plugins;
 	
 	public function __construct(){										
 		parent::__construct();
@@ -67,7 +68,7 @@ class Basic extends Service {
 				$this->loadViewHeader(true);
 			}
 			if($_GET['action'] == 'installplugin'){				
-				$this->installPlugin($_GET['installplugin']);
+				$this->installPlugin($_GET['installplugin'], true);
 			}
 			
 			if($_GET['action'] == 'save'){
@@ -283,6 +284,22 @@ class Basic extends Service {
 			$this->view->message[] = _('Your eMail-address / activation code is saved.');
 			if($this->checkLicense() == true){
 				$this->view->message[] = _('Your license is validated. Now you have access to all features and plugins.');
+				
+				//Rasbperry PI Settings load Plugin and activate
+				if($this->getHardwareInfo() == 'Raspberry PI'){
+					$this->installPlugin('http://shop.max2play.com/media/downloadable/currentversion/raspberrysettings.tar');
+					$this->parsePlugins();
+					foreach($this->view->pluginselect as $key => $value){
+						if($value['active'] == 1)
+							$activeplugins[$key] = $value['name'];
+						if($value['default'] == 1)
+							$defaultplugin = $value['name'];
+					}					
+					$activeplugins[] = 'Raspberry Settings';
+					$this->pluginConfig($activeplugins, $defaultplugin);
+					$this->loadViewHeader(true);
+				}
+				
 			}else{
 				$this->view->message[] = _('Your license could not be validated. Did you choose the right eMail-Address that is registered as a customer at www.max2play.com? If you have a key for activation please recheck, that the key is entered correctly.');
 			}
@@ -460,8 +477,7 @@ class Basic extends Service {
 						$default = 1;
 					}
 				}
-			}
-			//$pluginselect[$pa['name']] = array('name' => $pa['name'], 'active' => $active, 'default' => $default);
+			}			
 			if($active)
 				$pluginselect[$position] = array('name' => $pa['name'], 'active' => $active, 'default' => $default);
 			else
@@ -516,14 +532,35 @@ class Basic extends Service {
 	 * Install a new Plugin from HTTP-Resource
 	 * @param string $pathToPlugin
 	 */
-	private function installPlugin($pathToPlugin = ''){		
+	private function installPlugin($pathToPlugin = '', $autoenable = false){		
 		$this->getEmail();		
 		if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$pathToPlugin)) {
   			$this->view->message[] = _("Invalid Plugin-URL");
 		}else{
 			$linux = $this->getLinuxVersion();
 			$add_params = '"?email='.$this->view->email.'&premium='.$this->checkLicense(true, true).'&hardware='.urlencode($this->getHardwareInfo()).'&linux='.urlencode($linux[0]).'"';
-			$this->view->message[] = nl2br($this->writeDynamicScript(array('/opt/max2play/install_plugin.sh '.$pathToPlugin.' '.$add_params)));
+			$output = nl2br($this->writeDynamicScript(array('/opt/max2play/install_plugin.sh '.$pathToPlugin.' '.$add_params)));
+			$this->view->message[] = $output;
+			
+			if($autoenable == true){				
+				if(preg_match("=Installing Plugin ([a-zA-Z0-9 _-]*)=", $output, $match)){
+					if(preg_match('=\$this-\>pluginname \= \_\(\'(.*)\'=', shell_exec('grep -i \'$this->pluginname\' /opt/max2play/cache/newplugin/'.$match[1].'/controller/Setup.php'), $namematch)){
+						$pluginname = $namematch[1];
+					 
+						$this->parsePlugins();
+						foreach($this->view->pluginselect as $key => $value){
+							if($value['active'] == 1)
+								$activeplugins[$key] = $value['name'];
+							if($value['default'] == 1)
+								$defaultplugin = $value['name'];
+						}
+						$activeplugins[] = $pluginname;
+						$this->pluginConfig($activeplugins, $defaultplugin);
+						$this->view->message[] = str_replace('$PLUGINNAME', _($pluginname),_('Plugin $PLUGINNAME activated and added to main navigation. You may change the position and visibility in the addon configuration at the bottom of this page.'));
+						$this->loadViewHeader(true);
+					}
+				}
+			}
 		}
 		return true;
 	}

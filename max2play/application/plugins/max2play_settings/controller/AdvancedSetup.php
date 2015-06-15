@@ -180,7 +180,8 @@ class Advanced_Max2play_Setup extends Service {
 	 * get Debuginformation
 	 */
 	private function _getDebug(){
-		$out = array();				
+		$out = array();
+		$out['BURN SD-CARD'] = shell_exec('cat /opt/max2play/cache/burnsdcard.txt');
 		$this->view->debug = $out;
 	}
 	
