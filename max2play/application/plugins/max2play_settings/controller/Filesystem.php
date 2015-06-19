@@ -51,6 +51,9 @@ class Filesystem extends Service {
 				$pos = explode('_', $_GET['action']);
 				$this->removeMount($pos[1]);
 			}
+			if($_REQUEST['action'] == 'setfixmount'){
+				$this->addMountpointSDA();
+			}
 		}
 		
 		if(isset($_GET['sambaaction'])){
@@ -71,14 +74,18 @@ class Filesystem extends Service {
 		$this->getMountpointsSDA();
 	}
 	
-	public function addMount(){
-		//Prüfen der Eingaben!
-		$m = new Mount();
-		
-		$test1 = $m->setMountpoint($_GET['mountpoint']);
-		$test2 = $m->setPath($_GET['path']);
-		$test3 = $m->setType($_GET['type']);
-		$test4 = $m->setOptions($_GET['options']);
+	public function addMount($m = false){
+		if(!$m){
+			//Prüfen der Eingaben!
+			$m = new Mount();
+			
+			$test1 = $m->setMountpoint($_GET['mountpoint']);
+			$test2 = $m->setPath($_GET['path']);
+			$test3 = $m->setType($_GET['type']);
+			$test4 = $m->setOptions($_GET['options']);
+		}else{
+			$test1 = $test2 = $test3 = $test4 = true;
+		}
 		//only allowed in mnt and media to mount directories
 		if(strpos($m->getPath(), '/mnt/') === 0 || strpos($m->getPath(), '/media/') === 0){			
 			//richtiges Verzeichnis
@@ -261,19 +268,60 @@ class Filesystem extends Service {
 		$this->view->message[] = _('Samba Service restarted');
 	}
 	
+	/**
+	 * set a fix Mountpoint in FSTAB by UUID for SDA-Device to prevent different Mountpoints on Bootup
+	 */
+	public function addMountpointSDA(){
+		$this->getMountsFstab();
+		$this->getMountpointsSDA();
+		foreach($_REQUEST['fixmount'] as $device => $value){
+			if(!isset($this->view->mountpointsSDA[$device]['fixmounted']) || $this->view->mountpointsSDA[$device]['fixmounted'] == false){
+				$m = new Mount();
+					
+				$test1 = $m->setMountpoint('UUID='.$this->view->mountpointsSDA[$device]['uuid']);
+				$test2 = $m->setPath($this->view->mountpointsSDA[$device]['path']);
+				$test3 = $m->setType($this->view->mountpointsSDA[$device]['type']);
+				$test4 = $m->setOptions('defaults');
+				
+				$this->addMount($m);
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Get Mountpoints for external Devices (e.g. USB-Drives)
+	 * @return boolean
+	 */
 	public function getMountpointsSDA(){
-		 $output = explode("\n", shell_exec("mount | grep /dev/sd"));
-		 if(isset($output[0])){
-		 	$this->view->mountpointsSDA = array();
+		$output = explode("\n", $this->writeDynamicScript(array("blkid")));
+		if(isset($output[0])){
+			$this->view->mountpointsSDA = array();
+			foreach($output as $value){				
+				if(preg_match('@(/dev/sd[^:]*): LABEL="([^"]*)" UUID="([^"]*)" TYPE="([^"]*)"@', $value, $match)){					
+					$this->view->mountpointsSDA[$match[1]] = array('device' => $match[1], 'label' => $match[2], 'uuid' => $match[3], 'type' => $match[4]);
+					if(isset($this->view->mounts[0])){
+						foreach($this->view->mounts as $mnt){
+							if($mnt->getMountpoint() == 'UUID='.$match[3]){
+								$this->view->mountpointsSDA[$match[1]]['fixmounted'] = true;
+							}
+						}
+					}
+				}
+			}
+		}else
+			$this->view->mountpointsSDA = false;		
+		
+		$output = explode("\n", shell_exec("mount | grep /dev/sd"));		 
+		if(isset($output[0])){
 		 	foreach($output as $value){	 		
-		 		if($pos = strpos($value, 'type')){
-		 			$first = strpos($value, ' on ') + 4;
-		 			$this->view->mountpointsSDA[] = substr($value, $first, $pos - $first);
+		 		if(preg_match('=(/dev/sd[^ ]*) on (/[^ ]*) type =', $value, $match)){
+		 			$this->view->mountpointsSDA[$match[1]]['path'] = $match[2];
 		 		}
 		 	}
-		 }else
-		 	$this->view->mountpointsSDA = false;
-		 return true;		 
+		}else
+			$this->view->mountpointsSDA = false;
+		return true;
 	}
 	
 }

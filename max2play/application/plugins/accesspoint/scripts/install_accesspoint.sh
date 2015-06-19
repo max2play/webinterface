@@ -19,7 +19,7 @@ apt-get update
 echo "Y" | apt-get install hostapd dnsmasq
 
 # Check for Realtek Chipset (Edimax) and switch hostapd binary
-IS_EDIMAX=$(sudo lsusb | grep Wireless | grep RTL8188CUS | wc -l)
+IS_EDIMAX=$(sudo lsusb | grep "Wireless\|Edimax" | grep "RTL8188CUS\|Edimax" | wc -l)
 if [ "$IS_EDIMAX" -gt "0" ]; then 
     echo "Change hostapd-Binary to Edimax RTL8188CUS Chipset"
     sudo cp /usr/sbin/hostapd /usr/sbin/hostapd-old;sudo cp -f /opt/max2play/hostapd-rtl /usr/sbin/hostapd

@@ -314,6 +314,8 @@ class Squeezeplayer extends Service {
 		$out['AUDIOPLAYER CONFIG'] = shell_exec('cat /opt/max2play/audioplayer.conf');		
 		$out['SQUEEZELITE -l'] = $this->soundDeviceLog;
 		$out['SHAIRPORT VERSION'] = shell_exec('/opt/shairport/shairport -V');
+		$out['OUTPUT SOUND DETAILS CARD 0'] = shell_exec('cat /proc/asound/card0/pcm0p/sub0/hw_params');
+		$out['OUTPUT SOUND DETAILS CARD 1'] = shell_exec('cat /proc/asound/card1/pcm0p/sub0/hw_params');
 		$this->view->debug = $out;
 		return true;
 	}

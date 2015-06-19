@@ -73,7 +73,7 @@
 			<td valign=top><input type="button" value="<?php echo _('Save'); ?>" name="add" onclick="document.getElementById('action').value='add';submit();" /></td>
 		</tr>
 		</table>	
-	</form>
+	
 	<br /><br />
 	<b><?php echo _('Important Information') ?>:</b><br />
 	<?php echo _('Important Information Filesystem Description') ?>	
@@ -89,11 +89,16 @@
 	<p><?php echo _("This list shows all external storages and their mountpoints. You may access the devices by their path in Squeezeboxserver or XBMC/Kodi.") ?></p>
 	<?php if ($fs->view->mountpointsSDA){?>
 		<ul class="description">
-	<?php foreach ($fs->view->mountpointsSDA as $mnt){ ?>
-	 		<li><b><?php echo $mnt ?></b></li>
-	<?php } ?>
+		<?php foreach ($fs->view->mountpointsSDA as $mnt){ ?>
+	 		<li><b><?php echo $mnt['label'] .' in '. $mnt['path'].'</b>  (Device ' .$mnt['device']. ' with UUID '.$mnt['uuid'].')'; ?>
+	 		<br /><?php echo _('Set fixed Mountpoint to prevent directory switching on reboot: ')?>
+	 		<input type="checkbox" name="fixmount[<?php echo $mnt['device'] ?>]" <?php if($mnt['fixmounted']) echo 'checked' ?> />
+	 		<input type="button" value="<?php echo _('Save'); ?>" name="add" onclick="document.getElementById('action').value='setfixmount';submit();" />
+	 		</li>
+		<?php } ?>
 		</ul>
 	<?php }else echo "<b>"._("No external devices found.")."</b>" ?>
+	</form>
 	
 	<br /><br />
 	<h1 class="entry-header">
