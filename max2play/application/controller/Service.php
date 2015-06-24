@@ -561,13 +561,18 @@ class Service {
 	 * @param $progressfile File that as long as it exists shows current status of install
 	 * @param $create First call creates Outputfile and Message
 	 * @param $reloadWhenFinished Reload Window when everything is finished
+	 * @param $lastlines Show X lastlines of Progressfile
+	 * @param $message Show this Message instead of "Installation started"
 	 * @return Message for Ajax-Output
 	 */
-	public function getProgressWithAjax($progressfile = '', $create = 0, $reloadWhenFinished = 0, $lastlines = 0){
+	public function getProgressWithAjax($progressfile = '', $create = 0, $reloadWhenFinished = 0, $lastlines = 0, $message = false){
 		if(!file_exists($progressfile) && $create == 1){		
 			//Create File and set Message Output for Ajax-Call
 			shell_exec('echo `date +"%Y-%m-%d %H:%M|"` > '.$progressfile);
-			$this->view->message[] = _('Installation startet - This Messages refreshes every 3 seconds to show current status of installation. If finished this message disappears.');
+			if($message)
+				$this->view->message[] = $message;
+			else
+				$this->view->message[] = _('Installation startet - This Messages refreshes every 3 seconds to show current status of installation. If finished this message disappears.');
 			//Separate Parameters from current Filename
 			$url = preg_replace('=\?.*$=', '', $_SERVER['REQUEST_URI']);
 			$this->view->message[] = '<div id="msgprogress"></div><script type="text/javascript">setTimeout(function(){reloadprogress("msgprogress", "'.$url.'", '.$reloadWhenFinished.')}, 3000);</script>';

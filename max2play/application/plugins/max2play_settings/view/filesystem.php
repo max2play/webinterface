@@ -53,7 +53,7 @@
 		<?php $i=0;
 			 foreach ($fs->view->mounts as $mount){ ?>
 			<tr>
-				<td><input type="text" name="" size="20" value="<?php echo $mount->getMountpoint(); ?>" /></td>
+				<td><input type="text" name="" size="20" value="<?php echo $mount->getMountpoint(false); ?>" /></td>
 				<td><input type="text" name="" size="8" value="<?php echo $mount->getPath(); ?>" /></td>
 				<td><input type="text" name="" size="4" value="<?php echo $mount->getType(); ?>" /></td>
 				<td><input type="text" name="" size="40" value="<?php echo $mount->getOptions(); ?>" /></td>
@@ -66,7 +66,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td><input type="text" name="mountpoint" value="" size="20" /><br /><span class="small">//192.168.1.100/share</span></td>
+			<td><input type="text" id="mountpoint" name="mountpoint" value="" size="20" /><br /><span class="small">//192.168.1.100/share</span></td>
 			<td><input type="text" name="path" value="" size="8" /><br /><span class="small">/mnt/share</span></td>
 			<td><input type="text" name="type" value="" size="4" /><br /><span class="small">cifs</span></td>
 			<td><input type="text" name="options" value="" size="40" /><br /><span class="small">user=name,password=pass,sec=ntlm,iocharset=utf8</span></td>
@@ -75,8 +75,25 @@
 		</table>	
 	
 	<br /><br />
-	<b><?php echo _('Important Information') ?>:</b><br />
-	<?php echo _('Important Information Filesystem Description') ?>	
+	<script>	
+		function loadajax(){
+			ajaxload("networkdevices","/plugins/max2play_settings/controller/Filesystem.php?shownetworkshares=1&ajax=1");
+			document.getElementById('networkdevices').style.display = '';
+		}
+	</script>
+	
+	<a href="#javascript" onclick="document.getElementById('helpmount').style.display = '';" class="download-button" style="width:40%; float:left;"><?php echo _("Show Help"); ?></a>
+	<a href="#javascript" onclick="loadajax();" class="download-button" style="width:40%; float:right;"><?php echo _("Show Network Devices"); ?></a>
+	<br style="clear:both;" />
+	<div id="networkdevices" style="display:none;" >
+		
+	</div>
+	
+	<div id="helpmount" style="display:none;" >		
+		<br />
+		<b><?php echo _('Important Information') ?>:</b><br />
+		<?php echo _('Important Information Filesystem Description') ?>	
+	</div>
 	
 	<br /><br />	
 	<a href="#javascript" onclick="document.getElementById('debug').style.display='';return false;"><?php echo _("DEBUG Info") ?></a>

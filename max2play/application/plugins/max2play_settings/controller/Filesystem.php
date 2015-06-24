@@ -43,6 +43,13 @@ class Filesystem extends Service {
 		parent::__construct();
 		$this->pluginname = _('Filesystem Mount');
 		
+		if(isset($_REQUEST['ajax']) && isset($_REQUEST['shownetworkshares'])){
+			ob_end_clean();
+			$this->getSMBTree(true);			
+			ob_flush();
+			die();
+		}
+		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'add'){
 				$this->addMount();
@@ -72,6 +79,7 @@ class Filesystem extends Service {
 		$this->getMountsFstab();
 		$this->getSambaConfig();
 		$this->getMountpointsSDA();
+		$this->showHelpSidebar();
 	}
 	
 	public function addMount($m = false){
@@ -79,8 +87,8 @@ class Filesystem extends Service {
 			//Prüfen der Eingaben!
 			$m = new Mount();
 			
-			$test1 = $m->setMountpoint($_GET['mountpoint']);
-			$test2 = $m->setPath($_GET['path']);
+			$test1 = $m->setMountpoint(trim($_GET['mountpoint']));
+			$test2 = $m->setPath(trim($_GET['path']));
 			$test3 = $m->setType($_GET['type']);
 			$test4 = $m->setOptions($_GET['options']);
 		}else{
@@ -101,7 +109,7 @@ class Filesystem extends Service {
 		
 		//Hinzufügen in FSTAB hinter ##USERMOUNT (Trennlinie für Usereigene Mounts)
 		if($test1 && $test2 && $test3 && $test4){			
-			shell_exec("echo ".$m->getMountpoint()." ".$m->getPath()." ".$m->getType()." ".$m->getOptions()." >> ".$this->_fstabPath."fstab");			
+			shell_exec("echo '".$m->getMountpoint(true, true)." ".$m->getPath()." ".$m->getType()." ".$m->getOptions()."' >> ".$this->_fstabPath."fstab");			
 			if($this->reloadMount()){
 				$this->view->message[] = _("Mountpoint successfully added");
 				return true;
@@ -116,7 +124,7 @@ class Filesystem extends Service {
 		//Komplette Zeile entfernen
 		$this->getMountsFstab();
 				
-		$content = str_replace(array('/'), array('\/'), $this->view->mounts[$pos]->getMountpoint()." ".$this->view->mounts[$pos]->getPath()." ".$this->view->mounts[$pos]->getType()." ".$this->view->mounts[$pos]->getOptions());
+		$content = str_replace(array('/'), array('\/'), $this->view->mounts[$pos]->getMountpoint(true, true)." ".$this->view->mounts[$pos]->getPath()." ".$this->view->mounts[$pos]->getType()." ".$this->view->mounts[$pos]->getOptions());
 		
 		shell_exec("sed -n '/".$content."/!p' ".$this->_fstabPath."fstab > /tmp/fstab && cp /tmp/fstab ".$this->_fstabPath."fstab");	
 		
@@ -155,7 +163,7 @@ class Filesystem extends Service {
 				$test1 = $m->setMountpoint($mountvars[0]);
 				$test2 = $m->setPath($mountvars[1]);
 				$test3 = $m->setType($mountvars[2]);
-				$test4 = $m->setOptions($mountvars[3]);			
+				$test4 = $m->setOptions($mountvars[3]);
 	
 				if($test1 && $test2 && $test3 && $test4)
 					$this->view->mounts[] = $m;
@@ -321,6 +329,38 @@ class Filesystem extends Service {
 		 	}
 		}else
 			$this->view->mountpointsSDA = false;
+		return true;
+	}
+	
+	/**
+	 * Get possible Network Shares and IPs to Print in assistant window
+	 */
+	public function getSMBTree($directoutput = true){
+		$this->view->networkshares = array();
+		$output = shell_exec('smbtree -N');
+		if(preg_match_all('=(\\\\[^\$\t]*)[\t]+([^\n]*)$=im', $output, $matches)){
+			for($i = 0; $i < count($matches[0]); $i++ ){
+				$this->view->networkshares[] = array('serverpath' => str_replace('\\','/',$matches[1][$i]), 'description' =>  $matches[2][$i]);
+			}
+		}
+		if($directoutput){
+			echo "<br />"._("The following list shows available Network Resources. On some resources the name of the share (path) might be missing. To set up a network share you need the server name (or IP-address) and the name of the share. See help for the correct syntax.");
+			echo "<br /><br /><table><tr><td><b>"._("Server / Path")."</b></td><td><b>"._("Description")."</b></td></tr>";
+			foreach($this->view->networkshares as $value){
+				echo "<tr><td>".$value['serverpath']."</td><td>".$value['description']."</td><td>";
+				if(preg_match('=//[^/]+/=', $value['serverpath'], $match))
+					echo "<input type='submit' onclick='document.getElementById(\"mountpoint\").value=\"".$value['serverpath']."\";$(\"body\").removeClass(\"loading\");return false;' value='"._("set path")."' />";
+				echo "</td></tr>";
+			}
+			echo "</table>";
+		}			
+		return true;
+	}
+	
+	public function showHelpSidebar(){
+		global $helpSidebar;
+		$helpSidebar['title'] = _('Help - Mounts / Shares');
+		$helpSidebar['content'] = _('<ul><li>For mounting a network share from a Diskstation or any other network storage you need the servers IP-Address, the name of the Share and the Login information (user, password). Enter everything like it is shown below the input fields and <a href="https://www.youtube.com/watch?v=3klQkxF6iNA" target="blank">watch this video on mounting (enable subtitles for english)</a>, if you encounter any problems.</li><li>You may also see your connected USB-drives and set up Shares on this device (via Samba) to get access from other computers in your network.</li></ul>');
 		return true;
 	}
 	

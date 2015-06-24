@@ -103,6 +103,10 @@
 	<?php echo _("Configure LAN Mac-Address") ?>: <input type="text" id="lanmac" name="lanmac" value="<?php echo $wlan->view->lanmac ?>" />
 	<br /><?php echo _("(Change only if there are more Max2Play-Devices in one network)") ?>	
 	
+	<br /><br />
+	<?php echo _("Set fixed LAN IP-Address") ?>: <input type="checkbox" id="lanipfix" name="lanipfix" value="1" <?php if($wlan->view->fixedip) echo 'checked'; ?> /> <?php echo _("Current IP-Address") ?>: <input type="text" id="lanip" name="lanip" value="<?php echo $wlan->view->lanip ?>" />
+	<br /><?php echo _("(Useful, if your router sometimes changes the IP-Address of you Max2Play-device and you need a fixed IP-Address.)") ?>
+	
 	<br /><br />	
 	
 	<input type="button" value="<?php echo _("Save all settings") ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />		

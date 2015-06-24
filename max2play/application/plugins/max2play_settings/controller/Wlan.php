@@ -91,7 +91,28 @@ class Wlan extends Service {
 			$this->view->message[] = _('MAC-Address changed - please reboot');
 		}
 		
-		shell_exec("echo '".$shellanswer."' > ".$this->wpa_config);				
+		if($_REQUEST['lanipfix'] == '1' && preg_match("=([0-9]{1,3}\.){3}[0-9]{1,3}=", $_REQUEST['lanip'], $match) == true){
+			if($match[0] != $this->view->lanip || $this->view->fixedip == false){
+				$fixedIP = $match[0];
+				$output_route = shell_exec("ip route show");
+				if(preg_match("=default via (([0-9]{1,3}\.){3}[0-9]{1,3})=", $output_route, $route)){
+					$gateway = $route[1];
+					$this->view->networkmask;
+					$this->view->lanip = $fixedIP;
+					//set fixed IP
+					$shellanswer_eth = str_replace('iface eth0 inet dhcp', "iface eth0 inet static\n  address ".$fixedIP."\n  gateway ".$gateway."\n  netmask ".$this->view->networkmask, $shellanswer_eth);
+					$this->writeDynamicScript(array("echo '".$shellanswer_eth."' > ".$this->networkinterfaces."; ifdown eth0; ifup eth0;"));
+					$this->view->message[] = str_replace('$FIXEDIP',$fixedIP, _('IP-Address set to $FIXEDIP'));
+				}
+			}
+		}elseif(!isset($_REQUEST['lanipfix']) && $this->view->fixedip){
+			//Remove fixed IP
+			$shellanswer_eth = preg_replace('=iface eth0 inet static[^#]*netmask .*$=m', 'iface eth0 inet dhcp', $shellanswer_eth);
+			$this->writeDynamicScript(array("echo '".$shellanswer_eth."' > ".$this->networkinterfaces."; ifdown eth0; ifup eth0;"));
+			$this->view->message[] = _('IP-Address set to dynamic DHCP');
+		}
+		
+		shell_exec("echo '".$shellanswer."' > ".$this->wpa_config);
 		
 		//Wenn Netzwerk gesetzt muss dieses in der etc/network/interfaces geladen werden				
 		if(strpos($shellanswer_eth, '#pre-up wpa_supplicant') !== FALSE){
@@ -127,6 +148,11 @@ class Wlan extends Service {
 		preg_match('=wlan0=', $shellanswer_if, $match);		
 		$this->view->ifconfig_txt = $shellanswer_if;
 		
+		//Get Current IP-address from first interface 
+		if(preg_match('=inet addr:(([0-9]{1,3}\.){3}[0-9]{1,3}).*Mask:(([0-9]{1,3}\.){3}[0-9]{1,3})=', $shellanswer_if, $currip)){
+			$this->view->lanip = $currip[1];
+			$this->view->networkmask = $currip[3];
+		}		
 		
 		$shellanswer_eth = $this->writeDynamicScript(array("cat ".$this->networkinterfaces));
 		//Wenn Netzwerk gesetzt muss dieses in der etc/network/interfaces geladen werden
@@ -135,6 +161,15 @@ class Wlan extends Service {
 			$this->view->wlan_configured = false;
 		}else{
 			$this->view->wlan_configured = true;
+		}
+		
+		//Get fixed IP-address from network config, if set		
+		if(preg_match('=iface eth0 inet static\s*address (([0-9]{1,3}\.){3}[0-9]{1,3})\s*gateway (([0-9]{1,3}\.){3}[0-9]{1,3})\s*netmask (([0-9]{1,3}\.){3}[0-9]{1,3})=im', $shellanswer_eth, $fixedip)){
+			$this->view->fixedip = $fixedip[1];
+			$this->view->fixedgateway = $fixedip[3];
+			$this->view->fixednetmask = $fixedip[5];
+		}else{
+			$this->view->fixedip = false;
 		}
 		
 		//iwconfig zur Erkennung des WLAN-Sticks

@@ -99,7 +99,14 @@
 	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
 		<span class="ui-icon ui-icon-refresh" style="float:left; margin:-2px 5px 0 0;"></span>
 		<b><?php echo _("Reboot / Update / Filesystem Settings") ?></b></p>
-	<input type="button" value="<?php echo _("Reboot") ?>" name="reboot" onclick="document.getElementById('action').value='reboot';submit();" />&nbsp;&nbsp;
+	<script type="text/javascript">
+		function doReboot(){
+			document.getElementById("secondary").style.background = "url(http://<?php echo $_SERVER['SERVER_ADDR']; ?>/css/wait.gif) no-repeat -9999px -9999px";
+			window.open('http://<?php echo $_SERVER['SERVER_ADDR']; ?>/plugins/max2play_settings/controller/Basic.php?action=reboot', '_self');
+			return true;
+		}
+	</script>
+	<input type="button" value="<?php echo _("Reboot") ?>" name="reboot" onclick="doReboot();document.getElementById('action').value='reboot';" />&nbsp;&nbsp;
 	<input type="button" value="<?php echo _("Shutdown") ?>" name="shutdown" onclick="document.getElementById('action').value='shutdown';submit();" />&nbsp;&nbsp;
 	<input type="button" value="<?php echo _("Expand Filesystem") ?>" name="expandfs" onclick="document.getElementById('action').value='expandfs';submit();" />&nbsp;&nbsp;	
 	<input type="button" value="<?php echo _("Update Max2Play") ?>" name=checkMax2PlayUpdate onclick="document.getElementById('action').value='checkMax2PlayUpdate';submit();" />&nbsp;&nbsp;	

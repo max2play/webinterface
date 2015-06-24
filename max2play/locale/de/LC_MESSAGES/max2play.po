@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-19 12:32+0100\n"
-"PO-Revision-Date: 2015-06-19 12:38+0100\n"
+"POT-Creation-Date: 2015-06-23 15:10+0100\n"
+"PO-Revision-Date: 2015-06-23 15:21+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -200,9 +200,9 @@ msgid "Filesystem - mount network paths (e.g. NFS) "
 msgstr "Dateisystem - Mounten von Netzwerkpfaden (Samba/NFS) "
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:47
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:113
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:130
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:47
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:113
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:130
 msgid "Path"
 msgstr "Pfad"
 
@@ -222,16 +222,16 @@ msgid "Options"
 msgstr "Optionen"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:51
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:117
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:134
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:51
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:117
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:134
 msgid "Action"
 msgstr "Aktion"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:60
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:129
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:146
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:60
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:129
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:146
 msgid "Delete"
 msgstr "Löschen"
 
@@ -241,24 +241,34 @@ msgid "Add new mountpoint"
 msgstr "Neuen Mountpoint hinzufügen"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:73
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:96
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:143
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:157
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:113
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:160
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:174
 #: y:\projects\max2play\max2play\application/plugins/dlnaserver/view/setup.php:54
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:73
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:96
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:143
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:157
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:113
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:160
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:174
 msgid "Save"
 msgstr "Speichern"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:78
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:78
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:85
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:85
+msgid "Show Help"
+msgstr "Hilfe anzeigen"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:86
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:86
+msgid "Show Network Devices"
+msgstr "Netzwerk Geräte anzeigen"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:94
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:94
 msgid "Important Information"
 msgstr "Bitte beachten"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:79
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:79
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:95
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:95
 msgid "Important Information Filesystem Description"
 msgstr ""
 "Normale Netzwerkfreigaben auf NFS (z.B. Synology Diskstation) erfolgen wie "
@@ -276,24 +286,24 @@ msgstr ""
 "\"Ursprungskonfiguration Wiederherstellen\" im Reiter Einstellungen "
 "zurückgesetzt werden."
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:82
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:99
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/advancedsetup.php:116
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/basic.php:218
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/wlan.php:116
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:82
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/wlan.php:120
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:99
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/advancedsetup.php:116
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/basic.php:218
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/wlan.php:116
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/wlan.php:120
 msgid "DEBUG Info"
 msgstr "DEBUG Info"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:87
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:87
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:104
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:104
 msgid "External Drives on Max2Play - mountpoints for USB-Storage"
 msgstr "Externe Laufwerke an Max2Play - Pfade zu USB-Laufwerken"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:89
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:89
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:106
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:106
 msgid ""
 "This list shows all external storages and their mountpoints. You may access "
 "the devices by their path in Squeezeboxserver or XBMC/Kodi."
@@ -305,75 +315,75 @@ msgstr ""
 "sein, so muss diese zuerst auf einem System in max. 2GB Partitionen "
 "aufgeteilt werden."
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:94
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:94
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:111
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:111
 msgid "Set fixed Mountpoint to prevent directory switching on reboot: "
 msgstr "Fixiere Pfad zum USB-Speicher (bleibt bei Neustart erhalten):"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:100
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:100
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:117
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:117
 msgid "No external devices found."
 msgstr "Keine USB-Festplatten oder Speichersticks gefunden"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:105
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:105
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:122
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:122
 msgid "Sambashares on Max2Play - setup network share paths"
 msgstr ""
 "Sambafreigaben auf Max2Play konfigurieren - Netzwerkfreigaben für externen "
 "Zugriff"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:112
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:112
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:129
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:129
 msgid "Name"
 msgstr "Name"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:114
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:114
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:131
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:131
 msgid "Comment"
 msgstr "Kommentar"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:115
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:115
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:132
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:132
 msgid "Writeable"
 msgstr "Schreib-Rechte"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:116
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:116
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:133
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:133
 msgid "Create Mode"
 msgstr "Datei-Rechte"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:134
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:134
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:151
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:151
 msgid "Add new Sambashare"
 msgstr "Neue Sambafreigabe hinzufügen"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:138
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:138
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:155
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:155
 msgid "usbshare"
 msgstr "usbfreigabe"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:147
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:147
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:164
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:164
 msgid "Sambashare Access"
 msgstr "Sambashare Zugang"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:150
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:150
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:167
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:167
 msgid "User for Samba-Access"
 msgstr "Benutzer für Samba-Zugriff"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:153
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:153
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:170
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:170
 msgid "Password for Samba-Access"
 msgstr "Passwort für Samba-Zugriff"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:161
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:161
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:178
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:178
 msgid "Samba Important Information"
 msgstr "Bitte beachten bei Samba Freigaben"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:162
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:162
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:179
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:179
 msgid "Important Information Samba Description"
 msgstr ""
 "Mit Samba können Verzeichnisse für das Netzwerk freigegeben werden. Wenn z."
@@ -1481,13 +1491,32 @@ msgstr "LAN-Konfiguration MAC-Adresse"
 msgid "(Change only if there are more Max2Play-Devices in one network)"
 msgstr "(Nur ändern bei mehreren Playern im Netzwerk)"
 
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/wlan.php:107
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/wlan.php:107
+msgid "Set fixed LAN IP-Address"
+msgstr "Setze feste LAN IP-Adresse"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/wlan.php:107
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/wlan.php:107
+msgid "Current IP-Address"
+msgstr "Aktuelle IP-Adresse"
+
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/wlan.php:108
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/wlan.php:108
+msgid ""
+"(Useful, if your router sometimes changes the IP-Address of you Max2Play-"
+"device and you need a fixed IP-Address.)"
+msgstr ""
+"(Nützlich, wenn der Router nach einiger Zeit eine neue IP-Adresse vergibt "
+"oder aus anderen Gründen die IP statisch bleiben soll)"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/wlan.php:112
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/wlan.php:112
 msgid "Save all settings"
 msgstr "Alle Einstellungen speichern"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/wlan.php:113
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/wlan.php:113
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/wlan.php:117
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/wlan.php:117
 msgid "WLAN INFO DESCRIPTION"
 msgstr ""
 "Info: bei Änderung der Netzwerkparameter bitte das Gerät Neustarten! Bei "
@@ -1748,52 +1777,109 @@ msgstr ""
 msgid "Filesystem Mount"
 msgstr "Dateisystem Mount"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:95
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:95
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:103
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:103
 msgid "Directory created: "
 msgstr "Verzeichnis erstellt:"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:99
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:99
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:107
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:107
 msgid "Wrong Path: "
 msgstr "Falscher Pfad:"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:106
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:106
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:114
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:114
 msgid "Mountpoint successfully added"
 msgstr "Hinzufügen erfolgreich!"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:110
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:110
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:118
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:118
 msgid "Mountpoint NOT added! Please refer to the description below!"
 msgstr "Hinzufügen nicht möglich! Bitte Anleitung beachten!"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:123
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:252
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:123
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:252
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:131
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:260
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:131
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:260
 msgid "Entry deleted"
 msgstr "Eintrag gelöscht"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:224
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:224
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:232
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:232
 msgid "Sambashare successfully added"
 msgstr "Hinzufügen erfolgreich!"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:229
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:229
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:237
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:237
 msgid "Sambashare NOT added! Please refer to the description below!"
 msgstr "Hinzufügen nicht möglich! Bitte Anleitung beachten!"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:261
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:261
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:269
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:269
 msgid "Password changed"
 msgstr "Passwort geändert"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:268
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:268
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:276
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:276
 msgid "Samba Service restarted"
 msgstr "Samba Dienst neu gestartet"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:347
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:347
+msgid ""
+"The following list shows available Network Resources. On some resources the "
+"name of the share (path) might be missing. To set up a network share you "
+"need the server name (or IP-address) and the name of the share. See help for "
+"the correct syntax."
+msgstr ""
+"Die Liste zeigt verfügbare Netzwerkgeräte. Bei einigen ist nur der "
+"Servername vorhanden und der Pfad (Name der Freigabe) fehlt. Um zu einer "
+"Netzwerkfreigabe zu Verbinden, ist es nötig den Servernamen (oder die IP-"
+"Adresse) und den Namen der Freigabe in das Feld \"Pfad\" einzugeben. Klicke "
+"auf Hilfe anzeigen, um Hinweise zur Eingabe zu erhalten."
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:348
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:348
+msgid "Server / Path"
+msgstr "Server / Pfad"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:348
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:348
+msgid "Description"
+msgstr "Beschreibung"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:352
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:352
+msgid "set path"
+msgstr "setze Pfad"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:362
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:362
+msgid "Help - Mounts / Shares"
+msgstr "Hilfe - Netzwerkfreigaben"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Filesystem.php:363
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Filesystem.php:363
+msgid ""
+"<ul><li>For mounting a network share from a Diskstation or any other network "
+"storage you need the servers IP-Address, the name of the Share and the Login "
+"information (user, password). Enter everything like it is shown below the "
+"input fields and <a href=\"https://www.youtube.com/watch?v=3klQkxF6iNA\" "
+"target=\"blank\">watch this video on mounting (enable subtitles for english)"
+"</a>, if you encounter any problems.</li><li>You may also see your connected "
+"USB-drives and set up Shares on this device (via Samba) to get access from "
+"other computers in your network.</li></ul>"
+msgstr ""
+"<ul><li>Zum Einrichten einer Netzwerkfreigabe von einer Diskstation oder "
+"einem anderen Netzwerkspeicher unter Max2Play werden der Servername "
+"(alternativ die IP-Adresse), der Name der Freigabe und das Nutzer-Login "
+"(Benutzername, Passwort) benötigt. Diese Informationen müssen in die "
+"Eingabefelder entsprechend der Anleitung eingetragen werden. Bei Fragen oder "
+"Problemen hilft dir <a href=\"https://www.youtube.com/watch?v=3klQkxF6iNA\" "
+"target=\"blank\">dieses Video zum Einrichten von Netzwerk Freigaben</a>.</"
+"li><li>Auf dieser Seite werden alle verbundenen USB-Laufwerke dargestellt "
+"und es können Freigaben von diesem Gerät im Netzwerk (über Samba) "
+"eingerichtet werden.</li></ul>"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:34
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:34
@@ -1825,23 +1911,33 @@ msgstr "Keine Netzwerke gefunden"
 msgid "MAC-Address changed - please reboot"
 msgstr "MAC-Adresse geändert - bitte Neustarten"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:106
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:106
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:105
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:105
+msgid "IP-Address set to $FIXEDIP"
+msgstr "IP-Adresse gesetzt auf $FIXEDIP"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:112
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:112
+msgid "IP-Address set to dynamic DHCP"
+msgstr "IP-Adresse auf DHCP (automatisch beziehen) gesetzt"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:127
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:127
 msgid "WLAN activated - please reboot device"
 msgstr "WLAN aktiviert - bitte Neustarten"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:113
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:113
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:134
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:134
 msgid "WLAN deactivated - no network choosen - please reboot"
 msgstr "WLAN deaktiviert - kein Netzwerk gewählt - bitte Neustarten"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:186
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:186
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:221
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:221
 msgid "Help - WiFi & LAN"
 msgstr "Hilfe - WLAN & LAN"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:187
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:187
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:222
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:222
 msgid ""
 "<ul><li>On this page you may set up and configure your WiFi and see details "
 "on the connected interfaces and their IP-Address.</li><li><a href=\"https://"
@@ -2593,9 +2689,6 @@ msgstr ""
 
 #~ msgid "Starte Testanruf"
 #~ msgstr "Starte Testanruf"
-
-#~ msgid "Your eMail-Address"
-#~ msgstr "Deine eMail-Adresse"
 
 #, fuzzy
 #~ msgid "Hilfe - Audioplayer"

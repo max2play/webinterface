@@ -35,8 +35,16 @@ class Basic extends Service {
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'reboot'){
-				shell_exec('sudo /sbin/reboot -n');
-				$this->view->message[] = _("REBOOT gestartet");
+				if($_REQUEST['ajax'] == 1){
+					ob_end_clean();					
+					echo _("REBOOT successful"). " - finished";
+					shell_exec('rm /opt/max2play/cache/reboot.txt');
+					ob_flush();
+					die();
+				}else{
+					$reboot = true;
+					$this->getProgressWithAjax('/opt/max2play/cache/reboot.txt', 1, 0, 0, _("REBOOT gestartet"));							
+				}				
 			}
 			
 			if($_GET['action'] == 'reset'){
@@ -94,7 +102,12 @@ class Basic extends Service {
 		$this->enableBetaUpdates();
 		$this->view->removedonate = $this->getDonate();
 		$this->getHelpOnSidebar();
-		$this->showHelpSidebar();		
+		$this->showHelpSidebar();
+		
+		if($reboot){
+			shell_exec('sudo /sbin/reboot -n');
+		}
+		return true;
 	}		
 	
 	public function getDisplayResolutions(){

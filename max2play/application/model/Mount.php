@@ -35,14 +35,25 @@ class Mount {
 	
 	public function setMountpoint($mp){
 		if($mp != ''){
-			$this->mountpoint = $mp;
+			$this->mountpoint = str_replace(' ', '\\040', $mp);
 			return true;
 		}
 		return false;
 	}
 	
-	public function getMountpoint(){
-		return $this->mountpoint;
+	/**
+	 * get Realpath with spaces
+	 * @param string $truepath
+	 */
+	public function getMountpoint($realpath = true, $escape = false){
+		if($realpath){
+			if($escape)
+				return str_replace('\\', '\\\\', $this->mountpoint);
+			else
+				return $this->mountpoint;
+		}else 
+			return str_replace('\\040', ' ', $this->mountpoint);
+		
 	}
 	
 	public function setType($type){
