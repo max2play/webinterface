@@ -27,7 +27,7 @@ find $SOURCEPATH -type f -regextype sed -regex ".*/init.d/[^\.]*" | xargs chmod 
 find $SOURCEPATHPREMIUM -name "*.sh" | xargs chmod 777
 
 HOSTS=( "176.9.62.131")
-PREMIUMPLUGINS=( "clementine" "fhem" "jivelite" "callbot" "homematic" "raspberrysettings" "multisqueeze" "sdcardprotection" "vnc" "printserver" )
+PREMIUMPLUGINS=( "clementine" "fhem" "jivelite" "callbot" "homematic" "raspberrysettings" "multisqueeze" "sdcardprotection" "vnc" "printserver" "hifiberry" "ampache" )
 ODPLUGINS=( "accesspoint" "kernelmodules_odroid_u3" "speechcontrol" "squeezeplug" "passwordprotection" )
 PLUGINS=("${ODPLUGINS[@]}" "${PREMIUMPLUGINS[@]}")
 PLUGINSTRING=$(printf " *\\%s\\*" "${PLUGINS[@]}")

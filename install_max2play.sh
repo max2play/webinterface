@@ -12,7 +12,7 @@ echo "RUN with 'sudo install_max2play.sh 2>&1 | tee install_max2play.log' to sav
 echo ""
 
 # expand Filesystem during install
-EXPAND_FILESYSTEM="Y"
+EXPAND_FILESYSTEM="N"
 
 # set to Y if you want default password "max2play"
 CHANGE_PASSWORD="Y" 
@@ -21,7 +21,7 @@ CHANGE_PASSWORD="Y"
 # CHANGE_HOSTNAME="max2play"
 CHANGE_HOSTNAME="max2play" 
 SHAIRPORT="SHAIRPORT_SYNC"
-PROJECT="squeezeplug" #, max2play, etc.
+PROJECT="max2play" #, max2play, squeezeplug, hifiberry, etc.
 
 CWD=$(pwd)
 
@@ -167,6 +167,8 @@ chmod 777 /opt/squeezelite/log
 cp /tmp/squeezelite/squeezelite /opt/squeezelite/
 pushd $CWD
 
+#### Squeezeboxserver Basic ####
+echo "Y" | apt-get install libungif-bin
 
 #### Shairport install
 echo "Y" | apt-get install libssl-dev libavahi-client-dev libasound2-dev autoconf libtool libdaemon-dev libpopt-dev
@@ -221,9 +223,6 @@ if [ "$LINUX" == "Debian" ]; then
 	sudo make install	
 	pushd $CWD
 fi
-
-#### Squeezeboxserver Basic ####
-echo "Y" | apt-get install libungif-bin
 
 
 #fix exzessives Logging in syslog & co (cron)
@@ -287,7 +286,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	cd /
 	history -c
 	
-	echo "TODO: Update to latest Version in Webinterface"
+	echo "TODO: Update to latest Version in Webinterface - Check hd-idle (1.5 might not work)"
 	echo "TODO: Run raspbi-config at least one time AND Reboot!"	
 fi
 
