@@ -53,11 +53,11 @@
 		<?php $i=0;
 			 foreach ($fs->view->mounts as $mount){ ?>
 			<tr>
-				<td><input type="text" name="" size="20" value="<?php echo $mount->getMountpoint(false); ?>" /></td>
-				<td><input type="text" name="" size="8" value="<?php echo $mount->getPath(); ?>" /></td>
-				<td><input type="text" name="" size="4" value="<?php echo $mount->getType(); ?>" /></td>
-				<td><input type="text" name="" size="40" value="<?php echo $mount->getOptions(); ?>" /></td>
-				<td><input type="button" value="<?php echo _('Delete'); ?>" name="delete" onclick="document.getElementById('action').value='delete_<?php echo $i; ?>';submit();" /></td>
+				<td><input style="width:95%;" type="text" name="" size="20" value="<?php echo $mount->getMountpoint(false); ?>" /></td>
+				<td><input style="width:95%;" type="text" name="" size="8" value="<?php echo $mount->getPath(); ?>" /></td>
+				<td><input style="width:95%;" type="text" name="" size="4" value="<?php echo $mount->getType(); ?>" /></td>
+				<td><input style="width:95%;" type="text" name="" size="40" value="<?php echo $mount->getOptions(); ?>" /></td>
+				<td><input style="width:95%;" type="button" value="<?php echo _('Delete'); ?>" name="delete" onclick="document.getElementById('action').value='delete_<?php echo $i; ?>';submit();" /></td>
 			</tr>
 		<?php $i++; } ?>
 		<tr>
@@ -66,10 +66,10 @@
 			</td>
 		</tr>
 		<tr>
-			<td><input type="text" id="mountpoint" name="mountpoint" value="" size="20" /><br /><span class="small">//192.168.1.100/share</span></td>
-			<td><input type="text" name="path" value="" size="8" /><br /><span class="small">/mnt/share</span></td>
-			<td><input type="text" name="type" value="" size="4" /><br /><span class="small">cifs</span></td>
-			<td><input type="text" name="options" value="" size="40" /><br /><span class="small">user=name,password=pass,sec=ntlm,iocharset=utf8</span></td>
+			<td><input style="width:95%;" type="text" id="mountpoint" name="mountpoint" value="" size="20" /><br /><span class="small">//192.168.1.100/share</span></td>
+			<td><input style="width:95%;" type="text" name="path" value="" size="8" /><br /><span class="small">/mnt/share</span></td>
+			<td><input style="width:95%;" type="text" name="type" value="" size="4" /><br /><span class="small">cifs</span></td>
+			<td><input style="width:95%;" type="text" name="options" value="" size="40" /><br /><span class="small">user=name,password=pass,sec=ntlm,iocharset=utf8</span></td>
 			<td valign=top><input type="button" value="<?php echo _('Save'); ?>" name="add" onclick="document.getElementById('action').value='add';submit();" /></td>
 		</tr>
 		</table>	
@@ -100,7 +100,7 @@
 	<textarea id="debug" rows="5" cols="80" style="display:none;"><?php echo $fs->view->mount_txt ?></textarea>	
 	
 	<br /><br /><br />
-	<h1 class="entry-header">
+	<h1 class="entry-header" id="usbdrivesblock">
 		<?php echo _("External Drives on Max2Play - mountpoints for USB-Storage") ?>
 	</h1>
 	<p><?php echo _("This list shows all external storages and their mountpoints. You may access the devices by their path in Squeezeboxserver or XBMC/Kodi.") ?></p>
@@ -118,7 +118,7 @@
 	</form>
 	
 	<br /><br />
-	<h1 class="entry-header">
+	<h1 class="entry-header" id="sambashares">
 		<?php echo _("Sambashares on Max2Play - setup network share paths") ?>
 	</h1>
 	<form action="" method="get">
@@ -136,12 +136,12 @@
 		<?php $i=0;
 			foreach ($fs->view->sambashares as $samba){ ?>
 			<tr>
-				<td><input type="text" name="" value="<?php echo $samba->getName(); ?>" /></td>
+				<td><input type="text" style="width:95%;" name="" value="<?php echo $samba->getName(); ?>" /></td>
 				
-				<td><input type="text" name="" value="<?php echo $samba->getOptions('path'); ?>" /></td>
-				<td><input type="text" name="" value="<?php echo $samba->getOptions('comment'); ?>" /></td>
-				<td><input type="text" name="" size=4 value="<?php echo $samba->getOptions('writeable'); ?>" /></td>
-				<td><input type="text" name="" size=4 value="<?php echo $samba->getOptions('create mode'); ?>" /></td>
+				<td><input type="text" style="width:95%;" name="" value="<?php echo $samba->getOptions('path'); ?>" /></td>
+				<td><input type="text" style="width:95%;" name="" value="<?php echo $samba->getOptions('comment'); ?>" /></td>
+				<td><input type="text" style="width:95%;" name="" size=4 value="<?php echo $samba->getOptions('writeable'); ?>" /></td>
+				<td><input type="text" style="width:95%;" name="" size=4 value="<?php echo $samba->getOptions('create mode'); ?>" /></td>
 
 				<td><input type="button" value="<?php echo _('Delete'); ?>" name="delete" onclick="document.getElementById('sambaaction').value='delete_<?php echo $i; ?>';submit();" /></td>
 			</tr>
@@ -152,11 +152,11 @@
 			</td>
 		</tr>
 		<tr>
-			<td><input type="text" name="name" value="" /><br /><span class="small"><?php echo _('usbshare'); ?></span></td>
-			<td><input type="text" name="path" value="" /><br /><span class="small">/media/usb</span></td>
-			<td><input type="text" name="comment" value="" /><br /><span class="small">Max2Play USB</span></td>
-			<td><input type="text" size=4 name="writeable" value="" /><br /><span class="small">yes</span></td>
-			<td><input type="text" size=4 name="create mode" value="" /><br /><span class="small">664</span></td>
+			<td><input type="text" style="width:95%;" name="name" value="" /><br /><span class="small"><?php echo _('usbshare'); ?></span></td>
+			<td><input type="text" style="width:95%;" name="path" value="" /><br /><span class="small">/media/usb</span></td>
+			<td><input type="text" style="width:95%;" name="comment" value="" /><br /><span class="small">Max2Play USB</span></td>
+			<td><input type="text" style="width:95%;" size=4 name="writeable" value="" /><br /><span class="small">yes</span></td>
+			<td><input type="text" style="width:95%;" size=4 name="create mode" value="" /><br /><span class="small">664</span></td>
 			<td valign="top"><input type="button" value="<?php echo _('Save'); ?>" name="add" onclick="document.getElementById('sambaaction').value='add';submit();" /></td>
 		</tr>
 		</table>

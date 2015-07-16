@@ -38,17 +38,13 @@ if [ "1" -gt "$xbmcrunning" ]; then
         fi
     fi        
     
-    autostart_squeezeslave=$(cat /opt/max2play/autostart.conf | grep squeezeslave=1 | wc -l)
-    if [ "0" -lt "$autostart_squeezeslave" ]
+    autostart_mpd=$(cat /opt/max2play/autostart.conf | grep mpd=1 | wc -l)
+    if [ "0" -lt "$autostart_mpd" ]
         then
-        running_squeezeslave=$(ps -Al | grep squeezeslave | wc -l)
-        if [ "1" -gt "$running_squeezeslave" ]
+        running_mpd=$(ps -Al | grep mpd | wc -l)
+        if [ "1" -gt "$running_mpd" ]
 	        then
-	        sudo /etc/init.d/squeezeslave start
-	        sleep 4
-	        sudo /etc/init.d/squeezeslave stop
-	        sleep 4
-	        sudo /etc/init.d/squeezeslave start
+	        sudo /etc/init.d/mpd start	        
 	    fi
     fi
 	

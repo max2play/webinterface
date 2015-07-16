@@ -46,7 +46,7 @@
 					<ul>
 						<li><a href="/" title="Info"><?php echo _('Features') ?></a></li>	
 						<li><a href="<?php echo _('http://www.max2play.com/faq/') ?>" target="_blank" title="FAQ"><?php echo _('FAQ - Questions & Answers') ?></a></li>
-						<li><a href="<?php echo _('http://www.max2play.com/en/addons/') ?>" title="Addons"><?php echo _('Addons and Feature Requests') ?></a></li>					
+						<li><a href="<?php echo _('http://www.max2play.com/en/addons/') ?>" target="_blank" title="Addons"><?php echo _('Addons and Feature Requests') ?></a></li>					
 					</ul>
 				</aside>
 
@@ -61,7 +61,7 @@
 		<footer>
 			<div class="site-info">
 				<br /><br />
-				<?php echo _('Max2Play - <a href="http://www.max2play.com/en/features-2/" title="Powered by Max2Play">the <i>easy to use</i> webinterface and framework for mini-computers</a>!'); ?>
+				<?php echo _('Max2Play - <a target="_blank" href="http://www.max2play.com/en/features/" title="Powered by Max2Play">the <i>easy to use</i> webinterface and framework for mini-computers</a>!'); ?>
 				<br /><br />
 			</div>
 		</footer>
@@ -69,5 +69,13 @@
 	<div class="modal"></div>
 
 	<?php include_once(APPLICATION_PATH.'/view/debug.php');?>
+	
+	<?php if($_REQUEST['action'] == 'reboot'){ 
+		//to preload loading-gif on Restart	?>
+		<div id="preload"> </div>
+		<script type="text/javascript">
+			$('#preload').css('background', "url(http://<?php echo $_SERVER['SERVER_ADDR']; ?>/css/wait.gif) no-repeat -9999px -9999px");
+		</script>
+	<?php } ?>
 </body>
 </html>

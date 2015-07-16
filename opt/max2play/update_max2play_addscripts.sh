@@ -86,6 +86,11 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		crontab -u pi /opt/max2play/cache/cronmax2play
 	    rm /opt/max2play/cache/cronmax2play
 	fi
+	if [ -e "/var/www/max2play/application/plugins/hifiberry/view/header_custom.php" ]; then
+	    # Update Plugin Header		
+	    echo "Copy custom header files"
+	    cp -f /var/www/max2play/application/plugins/hifiberry/view/header_custom.php /var/www/max2play/application/view/
+	fi
 fi
 
 #htaccess Password Protection Overwrite Backup

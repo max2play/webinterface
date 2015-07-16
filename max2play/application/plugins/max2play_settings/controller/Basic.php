@@ -43,7 +43,15 @@ class Basic extends Service {
 					die();
 				}else{
 					$reboot = true;
-					$this->getProgressWithAjax('/opt/max2play/cache/reboot.txt', 1, 0, 0, _("REBOOT gestartet"));							
+					if(isset($_REQUEST['redirecturl'])){
+						$url = $_REQUEST['redirecturl'];
+						$reload = 1;
+					}
+					else{
+						$url = false;
+						$reload = 1;
+					}
+					$this->getProgressWithAjax('/opt/max2play/cache/reboot.txt', 1, $reload, 0, _("REBOOT started"), $url);							
 				}				
 			}
 			
@@ -319,12 +327,7 @@ class Basic extends Service {
 			return true;
 		}
 		return true;
-	}
-
-	public function getEmail(){
-		$this->view->email = $this->getConfigFileParameter('/opt/max2play/options.conf', 'email');
-		return true;
-	}
+	}	
 	
 	/**
 	 * check for available Updates and do it
@@ -423,157 +426,6 @@ class Basic extends Service {
 			$xml = Array2XML::createXML('config', $plugins);
 		
 			$xml->save(APPLICATION_PATH.'/config/plugins.xml');
-		}
-		return true;
-	}
-	
-	/**
-	 * get all plugins
-	 * user may activate plugins and add them to the navigation
-	 */
-	public function parsePlugins(){
-		$plugins_avail = array();
-		//Parse Folder				
-		$handle = opendir(APPLICATION_PATH.'/plugins');
-		while (false !== ($file = readdir($handle))) {
-			if ($file != "." && $file != "..") {
-				try {
-					$handle_controller = opendir(APPLICATION_PATH.'/plugins/'.$file.'/controller');
-					if($handle_controller){
-						while (false !== ($action = readdir($handle_controller))) {
-							if ($action != "." && $action != "..") {
-								$path = '/plugins/'.$file.'/controller/'.$action;
-								//Parse Pluginname							
-								$output = shell_exec('cat '.APPLICATION_PATH.$path.' | grep "this->pluginname"');							
-								
-								if(preg_match('=\$this-\>pluginname \= \_\(\'(.*)\'=', $output, $match)){					
-									//only activate plugin if name is set (class of plugin may just be part of another class)
-									//add version / timestamp to plugin to get later updates from config.txt if existing
-									$updateURL = $lastUpdate = '';
-									if(file_exists(APPLICATION_PATH.'/plugins/'.$file.'/config.txt')){
-										$updateURL = $this->getConfigFileParameter(APPLICATION_PATH.'/plugins/'.$file.'/config.txt', 'UPDATEURL');
-										$lastUpdate = $this->getConfigFileParameter(APPLICATION_PATH.'/plugins/'.$file.'/config.txt', 'LASTUPDATE');
-									}
-									$plugins_avail[$match[1]] = array('name' => $match[1], 
-														     'navigation' => array('translate' => $match[1]), 
-														     'path' => $path,
-															 'updateurl' => $updateURL,
-															 'lastupdate' => $lastUpdate,
-													  );
-								}							
-							}
-						}
-						closedir($handle_controller);
-					}
-				}catch(Exception $e){
-					$this->view->message[] = _('Plugin Error');
-				}				
-			}
-		}		
-		closedir($handle);		
-		
-		// get current Configuration from XML
-		$pluginConf = $this->getActivePlugins();
-		
-		$plugins['configuration'] = $pluginConf['plugin'];
-		$plugins['available'] = $plugins_avail;
-		//Prepare Output for Choosing plugins in Multi SELECT
-		$pos = 100;
-		$position = 0;
-		foreach($plugins['available'] as $pa){
-			$active = $default = $position = false;
-			foreach($plugins['configuration'] as $key => $pc){
-				if($pa['name'] == $pc['name'] && isset($pc['active']) && $pc['active'] == 1){
-					$active = true;
-					$position = $key;
-					if(isset($pc['default']) && $pc['default'] == 1){
-						$default = 1;
-					}
-				}
-			}			
-			if($active)
-				$pluginselect[$position] = array('name' => $pa['name'], 'active' => $active, 'default' => $default);
-			else
-				$pluginselect[$pos++] = array('name' => $pa['name'], 'active' => $active, 'default' => $default);
-		}
-		ksort($pluginselect);
-		$this->view->pluginselect = $pluginselect;
-		return $plugins;
-	}
-	
-	/**
-	 * Save Plugin Configuration to XML
-	 * @param string $plugins
-	 */
-	private function pluginConfig($pluginchoose = false, $defaultplugin = false){				
-		//Make config Folder and Plugin Config File writeable
-		$this->writeDynamicScript(array('chmod -R 777 '.APPLICATION_PATH.'/config'));
-		
-		//Check active Plugins
-		$plugins = $this->parsePlugins();
-		$pos = 100;
-		foreach($plugins['available'] as $pa){
-			$pa['active'] = 0;
-			$pa['pos'] = $pos++;
-			foreach($pluginchoose as $key => $pc){
-				if($pc == $pa['name']){
-					$pa['active'] = 1;
-					$pa['pos'] = $key;
-				}
-			}
-			if($defaultplugin == $pa['name']){
-				$pa['default'] = 1;				
-			}
-			$newconfig['plugin'][$pa['pos']] = $pa;			
-		}
-		ksort($newconfig['plugin']);
-		
-		include_once(APPLICATION_PATH.'/library/array2xml.php');
-		$xml = Array2XML::createXML('config', $newconfig);
-
-		$xml->save(APPLICATION_PATH.'/config/plugins.xml');
-		
-		//Reload Plugins
-		global $service;
-		$service->plugins = $this->getActivePlugins();
-		
-		return _('Plugin configuration updated');				
-		
-	}
-	
-	/**
-	 * Install a new Plugin from HTTP-Resource
-	 * @param string $pathToPlugin
-	 */
-	private function installPlugin($pathToPlugin = '', $autoenable = false){		
-		$this->getEmail();		
-		if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$pathToPlugin)) {
-  			$this->view->message[] = _("Invalid Plugin-URL");
-		}else{
-			$linux = $this->getLinuxVersion();
-			$add_params = '"?email='.$this->view->email.'&premium='.$this->checkLicense(true, true).'&hardware='.urlencode($this->getHardwareInfo()).'&linux='.urlencode($linux[0]).'"';
-			$output = nl2br($this->writeDynamicScript(array('/opt/max2play/install_plugin.sh '.$pathToPlugin.' '.$add_params)));
-			$this->view->message[] = $output;
-			
-			if($autoenable == true){				
-				if(preg_match("=Installing Plugin ([a-zA-Z0-9 _-]*)=", $output, $match)){
-					if(preg_match('=\$this-\>pluginname \= \_\(\'(.*)\'=', shell_exec('grep -i \'$this->pluginname\' /opt/max2play/cache/newplugin/'.$match[1].'/controller/Setup.php'), $namematch)){
-						$pluginname = $namematch[1];
-					 
-						$this->parsePlugins();
-						foreach($this->view->pluginselect as $key => $value){
-							if($value['active'] == 1)
-								$activeplugins[$key] = $value['name'];
-							if($value['default'] == 1)
-								$defaultplugin = $value['name'];
-						}
-						$activeplugins[] = $pluginname;
-						$this->pluginConfig($activeplugins, $defaultplugin);
-						$this->view->message[] = str_replace('$PLUGINNAME', _($pluginname),_('Plugin $PLUGINNAME activated and added to main navigation. You may change the position and visibility in the addon configuration at the bottom of this page.'));
-						$this->loadViewHeader(true);
-					}
-				}
-			}
 		}
 		return true;
 	}

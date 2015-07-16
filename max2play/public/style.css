@@ -322,3 +322,39 @@ body.loading {
 body.loading .modal {
     display: block;
 }
+
+.button-small {
+    background-color: #09c;
+    background-image: linear-gradient(#009fd4, #09c, #0086b2);
+    border: 1px solid #0086b2;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    color: #fff !important;
+    cursor: pointer;
+    display: inline;
+    font-size: 1.0em;
+    line-height: 1.0em;
+    padding: 0.4em 0.5em;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
+}
+.button-small:hover{color:#fff;background-color:#09c;background-image:-webkit-linear-gradient(#09c,#0086b2);background-image:-moz-linear-gradient(#09c,#0086b2)}
+
+.positive li, .negative li {list-style: none;}
+.positive li:before {
+	background: url(/css/ui-lightness/images/ui-icons_228ef1_256x240.png) no-repeat left top; 
+	background-position: -16px -126px; 
+	margin-left: -20px;
+	margin-top:3px;
+    padding: 0 0 0 18px;
+    content: "";
+}
+.negative li:before {
+	background: url(/css/ui-lightness/images/ui-icons_228ef1_256x240.png) no-repeat left top; 
+	background-position: -48px -126px; 
+	margin-left: -20px;
+	margin-top:3px;
+    padding: 0 0 0 18px;
+    content: "";
+}

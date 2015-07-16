@@ -21,8 +21,7 @@
 	 with this program; if not, write to the Free Software Foundation, Inc.,
 	 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */ 
-?>											
-
+?>
 
 <h1 class="entry-header">
 	<?php echo _("Basic settings for Max2Play") ?>
@@ -99,9 +98,9 @@
 	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
 		<span class="ui-icon ui-icon-refresh" style="float:left; margin:-2px 5px 0 0;"></span>
 		<b><?php echo _("Reboot / Update / Filesystem Settings") ?></b></p>
+	
 	<script type="text/javascript">
-		function doReboot(){
-			document.getElementById("secondary").style.background = "url(http://<?php echo $_SERVER['SERVER_ADDR']; ?>/css/wait.gif) no-repeat -9999px -9999px";
+		function doReboot(){			
 			window.open('http://<?php echo $_SERVER['SERVER_ADDR']; ?>/plugins/max2play_settings/controller/Basic.php?action=reboot', '_self');
 			return true;
 		}
@@ -128,7 +127,7 @@
 	<?php echo _("Settings for WiFi, autostart, playername, filesystem mounts will be overwritten.") ?>	
 	
 	<br /><br />
-	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+	<p id="pluginconfigblock" class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
 		<span class="ui-icon ui-icon-gear" style="float:left; margin:-2px 5px 0 0;"></span>
 		<b><?php echo _("Plugin Configuration - Activate / Deactivate") ?></b></p>		
 	<?php echo _('Activate Plugins by selecting and moving them to the "Active Plugins". You may change the order of the active Plugins in the navigation bar by selecting them and move up or down. Plugins that are not active will not show up in the navigation bar!') ?>

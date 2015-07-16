@@ -13,7 +13,7 @@ if [ "1" -gt "$xbmcrunning" ]; then
 	fi
 	
 	/etc/init.d/shairport stop
-	/etc/init.d/squeezeslave stop
+	sudo /etc/init.d/mpd stop
 		
 	if [ -e /usr/local/bin/kodi ]; then
 		/usr/local/bin/kodi
@@ -34,5 +34,10 @@ else
 	autostartshairport=$(grep -a shairport=1 /opt/max2play/autostart.conf | wc -l)
 	if [ "0" -lt "$autostartshairport" ]; then
 		/etc/init.d/shairport start
+	fi
+	
+	autostartmpd=$(grep -a mpd=1 /opt/max2play/autostart.conf | wc -l)
+	if [ "0" -lt "$autostartmpd" ]; then
+		/etc/init.d/mpd start
 	fi
 fi

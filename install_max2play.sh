@@ -262,7 +262,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	echo "Y" | apt-get install kodi
 	sudo echo "KERNEL==\"tty[0-9]*\", GROUP=\"tty\", MODE=\"0660\"" >> /etc/udev/rules.d/99-input.rules 
 	sudo usermod -a -G tty pi
-	#sudo sh -c "echo \"gpu_mem=128\" >> /boot/config.txt"
+	sudo sh -c "echo \"gpu_mem=128\" >> /boot/config.txt"
 	
 	#Hifi Berry - TODO: add to webinterface
 	# sudo sh -c "echo \"dtoverlay=hifiberry-dac\" >> /boot/config.txt"
@@ -277,6 +277,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	
 	#Add Autostart Kodi / XBMC	
 	sudo sed -i 's/^exit 0/#Max2Play\nsudo -u pi -H -s \/opt\/max2play\/autostart_xbmc.sh > \/dev\/null 2>\&1 \&\n\nexit 0/' /etc/rc.local
+	sudo sed -i 's/^exit 0/#Max2Play Start Audioplayer\nsudo -u pi -H -s \/opt\/max2play\/start_audioplayer.sh > \/dev\/null 2>\&1 \&\n\nexit 0/' /etc/rc.local
 	
 	#Remove Bash history & Clean up the system
 	apt-get --yes autoremove

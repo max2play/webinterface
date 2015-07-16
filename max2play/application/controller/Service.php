@@ -237,8 +237,8 @@ class Service {
 			}
 			return $isactive;
 		}else{
-			$output = shell_exec('cat '.$this->autostartconf);
-			if(strpos($output, $name.'=1') !== FALSE){
+			$output = shell_exec('grep -i "'.$name.'=1" '.$this->autostartconf);
+			if(strpos($output, $name.'=1') === 0){
 				$isactive = true;
 			}else{
 				$isactive = false;
@@ -252,14 +252,16 @@ class Service {
 	 * @param bool $autostart
 	 * @param bool $autostartconf defines wether update-rc.d or the autostartconfigfile in /opt/max2play should be used
 	 */
-	public function selectAutostart($autostart = false, $autostartconf = true){
-		$isactive = $this->checkAutostart($this->pname, $autostartconf);
+	public function selectAutostart($autostart = false, $autostartconf = true, $name = ''){
+		if($name == '')
+			$name = $this->pname;
+		$isactive = $this->checkAutostart($name, $autostartconf);
 		if(!$autostart && $isactive){
-			$this->updateAutostart($this->pname, false, $autostartconf);
-			$this->view->message[] = $this->pname." "._('successfully removed from autostart');
+			$this->updateAutostart($name, false, $autostartconf);
+			$this->view->message[] = $name." "._('successfully removed from autostart');
 		}elseif($autostart && !$isactive){
-			$this->updateAutostart($this->pname, true, $autostartconf);
-			$this->view->message[] = $this->pname." "._('successfully added to autostart');
+			$this->updateAutostart($name, true, $autostartconf);
+			$this->view->message[] = $name." "._('successfully added to autostart');
 		}
 		return true;
 	}
@@ -497,7 +499,7 @@ class Service {
 	 * @param string $parameter
 	 * @param string $value
 	 */
-	public function saveConfigFileParameter($configfile = '', $parameter = '', $value = ''){		
+	public function saveConfigFileParameter($configfile = '', $parameter = '', $value = '', $separator = '='){		
 		if(file_exists($configfile)){
 			$old_parameter = trim($this->getConfigFileParameter($configfile, $parameter));
 			
@@ -506,9 +508,9 @@ class Service {
 				return false;
 			}
 			//Check for empty entry
-			$param_exists = shell_exec('grep -a "^'.$parameter.'" '.$configfile.' | wc -l');
+			$param_exists = shell_exec('grep -aP "^[ \t]*'.$parameter.'" '.$configfile.' | wc -l');
 			if($old_parameter != '' || $param_exists > 0){
-				$this->writeDynamicScript(array('sed -i "s/^'.$parameter.'.*$/'.$parameter.'='.$value.'/g" '.$configfile));
+				$this->writeDynamicScript(array('sed -i "s/^[ \t]*'.$parameter.'.*$/'.$parameter.$separator.$value.'/g" '.$configfile));
 				$this->view->message[] = _("Update Configfile - existing Entry changed");
 			}else{
 				//check for Newline in Last Line in config file
@@ -516,12 +518,12 @@ class Service {
 					//Newline missing -> add one
 					$parameter = "\n".$parameter;
 				}
-				$this->writeDynamicScript(array('echo "'.$parameter.'='.$value.'" >> '.$configfile));
+				$this->writeDynamicScript(array('echo "'.$parameter.$separator.$value.'" >> '.$configfile));
 				$this->view->message[] = _("Update Configfile - new Entry created");
 			}
 		}
 		else{
-			$this->writeDynamicScript(array('echo "'.$parameter.'='.$value.'" > '.$configfile));
+			$this->writeDynamicScript(array('echo "'.$parameter.$separator.$value.'" > '.$configfile));
 			$this->view->message[] = _("Update Configfile - new Configfile created");
 		}
 		return true;
@@ -535,9 +537,9 @@ class Service {
 	public function deleteConfigFileParameter($configfile = '', $parameter = ''){
 		if(!file_exists($configfile))
 			return false;
-		$param_exists = shell_exec('grep -a "^'.$parameter.'" '.$configfile.' | wc -l');
+		$param_exists = shell_exec('grep -aP "^[ \t]*'.$parameter.'" '.$configfile.' | wc -l');
 		if($param_exists > 0){
-			$this->writeDynamicScript(array('sed -i "s/^'.$parameter.'.*$//g" '.$configfile));
+			$this->writeDynamicScript(array('sed -i "s/^[ \t]*'.$parameter.'.*$//g" '.$configfile));
 		}
 		return true;
 	}
@@ -546,10 +548,10 @@ class Service {
 	 * Function to get specific Parameter from specified Configfile
 	 * @return boolean
 	 */
-	public function getConfigFileParameter($configfile = '', $parameter = ''){
+	public function getConfigFileParameter($configfile = '', $parameter = '', $separator = '\='){
 		if(!file_exists($configfile))
 			return false;
-		$output = trim(shell_exec('grep -a "^'.$parameter.'" '.$configfile.' | sed -n -e "s/^[A-Za-z_0-9\.]*\=//p"'));
+		$output = trim(shell_exec('grep -aP "^[ \t]*'.$parameter.'" '.$configfile.' | sed -n -e "s/^[ \t]*[A-Za-z_0-9\.]*'.$separator.'//p"'));
 		return $output;
 	}
 	
@@ -563,9 +565,10 @@ class Service {
 	 * @param $reloadWhenFinished Reload Window when everything is finished
 	 * @param $lastlines Show X lastlines of Progressfile
 	 * @param $message Show this Message instead of "Installation started"
+	 * @param $url Redirect URL after finished
 	 * @return Message for Ajax-Output
 	 */
-	public function getProgressWithAjax($progressfile = '', $create = 0, $reloadWhenFinished = 0, $lastlines = 0, $message = false){
+	public function getProgressWithAjax($progressfile = '', $create = 0, $reloadWhenFinished = 0, $lastlines = 0, $message = false, $url = false){
 		if(!file_exists($progressfile) && $create == 1){		
 			//Create File and set Message Output for Ajax-Call
 			shell_exec('echo `date +"%Y-%m-%d %H:%M|"` > '.$progressfile);
@@ -574,7 +577,8 @@ class Service {
 			else
 				$this->view->message[] = _('Installation startet - This Messages refreshes every 3 seconds to show current status of installation. If finished this message disappears.');
 			//Separate Parameters from current Filename
-			$url = preg_replace('=\?.*$=', '', $_SERVER['REQUEST_URI']);
+			if(!url)
+				$url = preg_replace('=\?.*$=', '', $_SERVER['REQUEST_URI']);
 			$this->view->message[] = '<div id="msgprogress"></div><script type="text/javascript">setTimeout(function(){reloadprogress("msgprogress", "'.$url.'", '.$reloadWhenFinished.')}, 3000);</script>';
 			return true;
 		}elseif(file_exists($progressfile) && $create == 0){
@@ -744,6 +748,194 @@ class Service {
 			$this->saveConfigFileParameter('/opt/max2play/options.conf', 'license', '0');
 			return false;
 		}
+	}
+	
+	/**
+	 * Install a new Plugin from HTTP-Resource
+	 * @param string $pathToPlugin
+	 * @param autoenable add to navigation 
+	 * @param position at position X
+	 */
+	public function installPlugin($pathToPlugin = '', $autoenable = false, $position = false, $default = false){
+		$this->getEmail();
+		if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$pathToPlugin)) {
+			$this->view->message[] = _("Invalid Plugin-URL");
+		}else{
+			$linux = $this->getLinuxVersion();
+			$add_params = '"?email='.$this->view->email.'&premium='.$this->checkLicense(true, true).'&hardware='.urlencode($this->getHardwareInfo()).'&linux='.urlencode($linux[0]).'"';
+			$output = nl2br($this->writeDynamicScript(array('/opt/max2play/install_plugin.sh '.$pathToPlugin.' '.$add_params)));
+			$this->view->message[] = $output;
+				
+			if($autoenable == true){
+				if(preg_match("=Installing Plugin ([a-zA-Z0-9 _-]*)=", $output, $match)){
+					if(preg_match('=\$this-\>pluginname \= \_\(\'(.*)\'=', shell_exec('grep -i \'$this->pluginname\' /opt/max2play/cache/newplugin/'.$match[1].'/controller/Setup.php'), $namematch)){
+						$pluginname = $namematch[1];
+	
+						$this->enablePlugin($pluginname, $position, $default);
+
+						$this->view->message[] = str_replace('$PLUGINNAME', _($pluginname),_('Plugin $PLUGINNAME activated and added to main navigation. You may change the position and visibility in the addon configuration on the <a href="/plugins/max2play_settings/controller/Basic.php#pluginconfigblock">settings page</a>.'));
+						$this->loadViewHeader(true);
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * 
+	 * @param array $pluginnames
+	 */
+	public function enablePlugin($pluginname = '', $position = false, $default = false){
+		$this->parsePlugins();
+		foreach($this->view->pluginselect as $key => $value){
+			if($value['active'] == 1){
+				if($position !== false && $key >= $position) $key++;
+				$activeplugins[$key] = $value['name'];
+			}
+			if($value['default'] == 1)
+				$defaultplugin = $value['name'];
+		}
+		if($position !== false)
+			$activeplugins[$position] = $pluginname;
+		else
+			$activeplugins[] = $pluginname;
+		if($default != false)
+			$defaultplugin = $pluginname;
+		$this->pluginConfig($activeplugins, $defaultplugin);
+		return true;
+	}
+	
+	/**
+	 * get all plugins
+	 * user may activate plugins and add them to the navigation
+	 */
+	public function parsePlugins(){
+		$plugins_avail = array();
+		//Parse Folder
+		$handle = opendir(APPLICATION_PATH.'/plugins');
+		while (false !== ($file = readdir($handle))) {
+			if ($file != "." && $file != "..") {
+				try {
+					$handle_controller = opendir(APPLICATION_PATH.'/plugins/'.$file.'/controller');
+					if($handle_controller){
+						while (false !== ($action = readdir($handle_controller))) {
+							if ($action != "." && $action != "..") {
+								$path = '/plugins/'.$file.'/controller/'.$action;
+								//Parse Pluginname
+								$output = shell_exec('cat '.APPLICATION_PATH.$path.' | grep "this->pluginname"');
+	
+								if(preg_match('=\$this-\>pluginname \= \_\(\'(.*)\'=', $output, $match)){
+									//only activate plugin if name is set (class of plugin may just be part of another class)
+									//add version / timestamp to plugin to get later updates from config.txt if existing
+									$updateURL = $lastUpdate = '';
+									if(file_exists(APPLICATION_PATH.'/plugins/'.$file.'/config.txt')){
+										$updateURL = $this->getConfigFileParameter(APPLICATION_PATH.'/plugins/'.$file.'/config.txt', 'UPDATEURL');
+										$lastUpdate = $this->getConfigFileParameter(APPLICATION_PATH.'/plugins/'.$file.'/config.txt', 'LASTUPDATE');
+									}
+									$plugins_avail[$match[1]] = array('name' => $match[1],
+											'navigation' => array('translate' => $match[1]),
+											'path' => $path,
+											'updateurl' => $updateURL,
+											'lastupdate' => $lastUpdate,
+									);
+								}
+							}
+						}
+						closedir($handle_controller);
+					}
+				}catch(Exception $e){
+					$this->view->message[] = _('Plugin Error');
+				}
+			}
+		}
+		closedir($handle);
+	
+		// get current Configuration from XML
+		$pluginConf = $this->getActivePlugins();
+	
+		$plugins['configuration'] = $pluginConf['plugin'];
+		$plugins['available'] = $plugins_avail;
+		//Prepare Output for Choosing plugins in Multi SELECT
+		$pos = 100;
+		$position = 0;
+		foreach($plugins['available'] as $pa){
+			$active = $default = $position = false;
+			foreach($plugins['configuration'] as $key => $pc){
+				if($pa['name'] == $pc['name'] && isset($pc['active']) && $pc['active'] == 1){
+					$active = true;
+					$position = $key;
+					if(isset($pc['default']) && $pc['default'] == 1){
+						$default = 1;
+					}
+				}
+			}
+			if($active)
+				$pluginselect[$position] = array('name' => $pa['name'], 'active' => $active, 'default' => $default);
+			else
+				$pluginselect[$pos++] = array('name' => $pa['name'], 'active' => $active, 'default' => $default);
+		}
+		ksort($pluginselect);
+		$this->view->pluginselect = $pluginselect;
+		return $plugins;
+	}
+	
+	/**
+	 * Save Plugin Configuration to XML
+	 * @param string $plugins
+	 */
+	public function pluginConfig($pluginchoose = false, $defaultplugin = false){
+		//Make config Folder and Plugin Config File writeable
+		$this->writeDynamicScript(array('chmod -R 777 '.APPLICATION_PATH.'/config'));
+	
+		//Check active Plugins
+		$plugins = $this->parsePlugins();
+		$pos = 100;
+		foreach($plugins['available'] as $pa){
+			$pa['active'] = 0;
+			$pa['pos'] = $pos++;
+			foreach($pluginchoose as $key => $pc){
+				if($pc == $pa['name']){
+					$pa['active'] = 1;
+					$pa['pos'] = $key;
+				}
+			}
+			if($defaultplugin == $pa['name']){
+				$pa['default'] = 1;
+			}
+			$newconfig['plugin'][$pa['pos']] = $pa;
+		}
+		ksort($newconfig['plugin']);
+	
+		include_once(APPLICATION_PATH.'/library/array2xml.php');
+		$xml = Array2XML::createXML('config', $newconfig);
+	
+		$xml->save(APPLICATION_PATH.'/config/plugins.xml');
+	
+		//Reload Plugins
+		global $service;
+		$service->plugins = $this->getActivePlugins();
+	
+		return _('Plugin configuration updated');
+	
+	}
+	
+	public function getEmail(){
+		$this->view->email = $this->getConfigFileParameter('/opt/max2play/options.conf', 'email');
+		return $this->view->email;
+	}
+	
+	public function removePlugins($plugins = array()){		
+		$this->parsePlugins();
+		foreach($this->view->pluginselect as $key => $value){
+			if($value['active'] == 1 && !in_array($value['name'], $plugins))
+				$activeplugins[$key] = $value['name'];
+			if($value['default'] == 1)
+				$defaultplugin = $value['name'];
+		}
+		$this->pluginConfig($activeplugins, $defaultplugin);
+		$this->loadViewHeader(true);
+		return true;
 	}
 }
 
