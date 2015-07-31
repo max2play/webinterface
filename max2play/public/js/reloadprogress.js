@@ -10,6 +10,7 @@ function reloadprogress(msgboxid, successurl, reloadWindowWhenFinished){
     	var Finished = data.match(/finished|Finished/g);
     	if (Finished){
     		if(reloadWindowWhenFinished){
+    			document.getElementById(msgboxid).innerHTML = data;
     			window.open(successurl,'_self');
     		}else{
     			document.getElementById(msgboxid).innerHTML = data;

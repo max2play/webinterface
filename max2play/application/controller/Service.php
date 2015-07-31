@@ -42,6 +42,9 @@ class Service {
 	public $autostartconf = '/opt/max2play/autostart.conf';
 	public $dynamicScript = '/opt/max2play/dynamic_script.sh';
 	
+	public $equal = array('01. 31 Hz', '02. 63 Hz', '03. 125 Hz', '04. 250 Hz', '05. 500 Hz', '06. 1 kHz', '07. 2 kHz', '08. 4 kHz', '09. 8 kHz', '10. 16 kHz');
+	public $equalvalues = array();
+	
 	public function __construct(){
 		$this->view = new stdClass();
 		$this->view->message = array(); // Array of Messages for View
@@ -935,6 +938,45 @@ class Service {
 		}
 		$this->pluginConfig($activeplugins, $defaultplugin);
 		$this->loadViewHeader(true);
+		return true;
+	}
+	
+	/**
+	 * use Alsaequal
+	 */
+	public function updateEqualizer($equalvalue, $user = false){
+		if(!$user)
+			$user = $this->getSystemUser();
+		//if($_GET['use_equalizer'] == 1 && $this->checkLicense(true) == false)
+		//	return true;
+		if($this->saveConfigFileParameter('/opt/max2play/audioplayer.conf', 'USE_EQUALIZER', ($_REQUEST['use_equalizer'] == 1) ? 1 : 0)){
+			//Changes successful
+		}
+	
+		foreach($this->equal as $key){
+			$value = (isset($equalvalue[$key])) ? (int)$equalvalue[$key] : 66;
+			$script[] = 'su - '.$user.' -c \'amixer -D equal -q set "'.$key.'" '.$value.'\'';
+		}
+	
+		$this->view->message[] = $this->writeDynamicScript($script);
+		$this->view->message[] = _("Updated Equalizer Settings");
+	}
+	
+	/**
+	 * get Alsaequal Settings
+	 */
+	public function getEqualizer($user = false){
+		$this->view->use_equalizer = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'USE_EQUALIZER');
+		if($this->view->use_equalizer){
+			if(!$user)
+				$user = $this->getSystemUser();
+			foreach($this->equal as $key){
+				$script = array('su - '.$user.' -c \'amixer -D equal sget "'.$key.'"\'');
+				$output = $this->writeDynamicScript($script);
+				preg_match('=\[(.*)\]=', $output, $match);
+				$this->equalvalues[$key] = $match[1];
+			}
+		}
 		return true;
 	}
 }
