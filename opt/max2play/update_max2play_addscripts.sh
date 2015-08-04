@@ -70,6 +70,14 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	sudo sed -i 's/odroid/pi/' /etc/usbmount/usbmount.conf
 	#Fix for rc.local file
 	sed -i 's/let \"COUNTER++\"/COUNTER=\$\(\(COUNTER+1\)\)/;s/\;mount/\;\/bin\/mount/' /etc/rc.local
+	
+	#Fix for missing SYSTEM_USER in audioplayer.conf and wrong audioplayer.conf.sav on image creation
+	if [ $(grep -i "SYSTEM_USER" /opt/max2play/audioplayer.conf.sav | wc -l) -lt "1" ]; then
+		echo "SYSTEM_USER=pi" >> /opt/max2play/audioplayer.conf.sav
+		sed -i 's/SQUEEZELITE_PARAMETER.*/SQUEEZELITE_PARAMETER=-o default:CARD=ALSA -a 120::16:/' /opt/max2play/audioplayer.conf.sav
+		sed -i 's/SHAIRPORT_PARAMETER.*/SHAIRPORT_PARAMETER=-d default:CARD=ALSA/' /opt/max2play/audioplayer.conf.sav
+	fi
+	
 	echo "Y" | apt-get install ntfs-3g lsb-release
 	#Remove "-a 120::16:" from squeezelite_parameter due to fixed sample rate
 	sed -i 's/\-a 120::16:/\-a 120:::/' /opt/max2play/audioplayer.conf
