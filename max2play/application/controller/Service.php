@@ -574,7 +574,7 @@ class Service {
 	public function getProgressWithAjax($progressfile = '', $create = 0, $reloadWhenFinished = 0, $lastlines = 0, $message = false, $url = false){
 		if(!file_exists($progressfile) && $create == 1){		
 			//Create File and set Message Output for Ajax-Call
-			shell_exec('echo `date +"%Y-%m-%d %H:%M|"` > '.$progressfile);
+			shell_exec('echo `date +"%Y-%m-%d %H:%M:%S|"` > '.$progressfile);
 			if($message)
 				$this->view->message[] = $message;
 			else

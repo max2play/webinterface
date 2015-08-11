@@ -154,6 +154,7 @@ if [ "$HW_RASPBERRY" -gt "0" ] || [ "$LINUX" == "Debian" ]; then
 	cd Release
 	make install
 else
+   	echo -e "Y\ny\n" | apt-get install libavformat-dev ffmpeg libmpg123-dev libfaad-dev libvorbis-dev libmad0-dev libflac-dev libasound2-dev
    	echo -e "Y\ny\n" | apt-get install libsoxr-dev   	
 fi
 
@@ -276,8 +277,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	sudo sed -i 's/SHAIRPORT_PARAMETER.*/SHAIRPORT_PARAMETER=-d default:CARD=ALSA/' /opt/max2play/audioplayer.conf			
 	
 	#Add Autostart Kodi / XBMC	
-	sudo sed -i 's/^exit 0/#Max2Play\nsudo -u pi -H -s \/opt\/max2play\/autostart_xbmc.sh > \/dev\/null 2>\&1 \&\n\nexit 0/' /etc/rc.local
-	sudo sed -i 's/^exit 0/#Max2Play Start Audioplayer\nsudo -u pi -H -s \/opt\/max2play\/start_audioplayer.sh > \/dev\/null 2>\&1 \&\n\nexit 0/' /etc/rc.local
+	sudo sed -i 's/^exit 0/#Max2Play\nsudo -u pi -H -s \/opt\/max2play\/autostart_xbmc.sh > \/dev\/null 2>\&1 \&\n\nexit 0/' /etc/rc.local	
 	
 	#Remove Bash history & Clean up the system
 	apt-get --yes autoremove
@@ -310,6 +310,9 @@ sudo alsactl store 0
 
 #Add Net-Availability Check for Mountpoints to /etc/rc.local
 sudo sed -i "s/^exit 0/#Network Check for Mountpoints\nCOUNTER=0;while \[ -z \"\$\(\/sbin\/ifconfig eth0 \| grep -i 'inet ad'\)\" -a -z \"\$\(\/sbin\/ifconfig wlan0 \| grep -i 'inet ad'\)\" -a \"\$COUNTER\" -lt \"5\" \]; do echo \"Waiting for network\";COUNTER=\$\(\(COUNTER+1\)\);sleep 3;done;\/bin\/mount -a\n\nexit 0/" /etc/rc.local
+
+# Autostart Audioplayer in rc.local (not waiting for cron)
+sudo sed -i "s/^exit 0/#Max2Play Start Audioplayer\nsudo -u $USER -H -s \/opt\/max2play\/start_audioplayer.sh > \/dev\/null 2>\&1 \&\n\nexit 0/" /etc/rc.local
 
 #Change Password to default
 if [ "$CHANGE_PASSWORD" = "Y" ]; then 
@@ -349,10 +352,16 @@ if [ "$HW_ODROID" -gt "0" ]; then
 	cp -rf max2play/CONFIG_USER/Desktop/* /home/odroid/Desktop	
 	
 	# Autostart XBMC
-	cp -rf max2play/CONFIG_USER/lxsession/Lubuntu/* /home/odroid/.config/lxsession/Lubuntu
+	cp -rf max2play/CONFIG_USER/lxsession/Lubuntu/* /home/odroid/.config/lxsession/Lubuntu	
 	
 	# eth0 Start by ifplugd 
 	cp -rf max2play/CONFIG_SYSTEM/default/ifplugd /etc/default/ifplugd
+	
+	# Disable apport (Crash error on startup)
+	sed -i 's/enabled=1/enabled=0/' /etc/default/apport
+	
+	# Autologin into lightdm
+	echo -e "[SeatDefaults]\ngreeter-session=lightdm-gtk-greeter\nautologin-user=odroid" >> /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf
 	
 	#Default Soundoutput
 	sudo sed -i 's/SQUEEZELITE_PARAMETER.*/SQUEEZELITE_PARAMETER=-o plug:dmixer/' /opt/max2play/audioplayer.conf	
@@ -368,12 +377,15 @@ if [ "$HW_ODROID" -gt "0" ]; then
 	
 	#for Shairtunes 
 	echo "Y" | sudo apt-get install libao-dev
-	echo "y\ny" | perl -MCPAN -e 'install IO::Socket::INET6'
+	echo -e "y\ny" | perl -MCPAN -e 'install IO::Socket::INET6'
 	
 	# Disable IPv6
 	#echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
 	#echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.conf
 	#echo "net.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf		
+	
+	#Disable IPv6 for Apache
+	sed -i 's/Listen 80/Listen 0.0.0.0:80/' /etc/apache2/ports.conf
 	
 	# Odroid Wheezy Debian	
 	if [ "$LINUX" == "Debian" ]; then

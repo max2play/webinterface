@@ -14,7 +14,10 @@ if [ "1" -gt "$xbmcrunning" ]; then
 	
 	/etc/init.d/shairport stop
 	sudo /etc/init.d/mpd stop
-		
+	
+	# Fix for XU3/XU4 and Ubuntu 15.04
+	killall pulseaudio
+	
 	if [ -e /usr/local/bin/kodi ]; then
 		/usr/local/bin/kodi
 	elif [ -e /usr/bin/kodi-standalone ]; then
@@ -27,7 +30,7 @@ else
 	killall -9 kodi.bin
 	
 	autostartsqueeze=$(grep -a squeezelite=1 /opt/max2play/autostart.conf | wc -l)
-	if [ "0" -lt "$autostartsqueeze" ]; then
+	if [ "0" -lt "$autostartsqueeze" ]; then		
 		/etc/init.d/squeezelite start
 	fi
 	

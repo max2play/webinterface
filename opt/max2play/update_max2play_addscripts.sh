@@ -39,6 +39,8 @@ if [ "$HW_U3" -gt "0" ]; then
 		rm -Rf /opt/max2play/cache/x2u2
 		cp -f /media/boot/boot.scr /media/boot/boot-auto_edid.scr
 	fi
+	# Fix IPv6 deaktivieren
+	sudo sed -i 's/Listen 80/Listen 0.0.0.0:80/' /etc/apache2/ports.conf
 fi
 
 #Disable IPv6 - not working correct yet

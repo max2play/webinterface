@@ -56,12 +56,20 @@ class Xbmc extends Service {
 				}else{
 					//Methode odroid
 					$this->view->message[] = $this->start($this->pname, 'export DISPLAY=\':0\';sudo -u odroid -H -s /opt/max2play/start_xbmc.sh > /dev/null 2>&1 &', '',true);
+					sleep(3);
 				}
 			}
 			
-			if($_GET['action'] == 'stop'){											
+			if($_GET['action'] == 'stop'){
 				$this->stop('kodi-standalone', 'sudo kill -9 $PID');
-				$this->view->message[] = $this->stop($this->pname.'.bin', 'sudo kill -9 $PID');				
+				$this->view->message[] = $this->stop($this->pname.'.bin', 'sudo kill -9 $PID');
+				/*if($this->getHardwareInfo() == 'ODROID-XU3'){
+					//on XU reinitX after stopping Kodi - TODO: Ubuntu 15.4 special?
+					$script = array('/etc/init.d/lightdm stop > /dev/null 2>&1 &','sleep 2', '/etc/init.d/lightdm start > /dev/null 2>&1 &');
+					$this->writeDynamicScript($script);
+					sleep(5);
+					$this->view->message[] = _('Restart Desktop-Manager completed (initialized Display)');
+				}*/
 			}
 			
 			if($_GET['action'] == 'save'){							

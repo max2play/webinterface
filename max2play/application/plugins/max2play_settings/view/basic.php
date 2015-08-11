@@ -101,7 +101,7 @@
 	
 	<script type="text/javascript">
 		function doReboot(){			
-			window.open('http://<?php echo $_SERVER['SERVER_ADDR']; ?>/plugins/max2play_settings/controller/Basic.php?action=reboot', '_self');
+			window.open('http://<?php echo (strpos($_SERVER['SERVER_ADDR'], ':') !== FALSE) ? '['.$_SERVER['SERVER_ADDR'].']' : $_SERVER['SERVER_ADDR']; ?>/plugins/max2play_settings/controller/Basic.php?action=reboot', '_self');
 			return true;
 		}
 	</script>

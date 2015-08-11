@@ -35,24 +35,7 @@ class Basic extends Service {
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'reboot'){
-				if($_REQUEST['ajax'] == 1){
-					ob_end_clean();					
-					echo _("REBOOT successful"). " - finished";
-					shell_exec('rm /opt/max2play/cache/reboot.txt');
-					ob_flush();
-					die();
-				}else{
-					$reboot = true;
-					if(isset($_REQUEST['redirecturl'])){
-						$url = $_REQUEST['redirecturl'];
-						$reload = 1;
-					}
-					else{
-						$url = false;
-						$reload = 1;
-					}
-					$this->getProgressWithAjax('/opt/max2play/cache/reboot.txt', 1, $reload, 0, _("REBOOT started"), $url);							
-				}				
+				$reboot = $this->reboot();			
 			}
 			
 			if($_GET['action'] == 'reset'){
@@ -112,11 +95,43 @@ class Basic extends Service {
 		$this->getHelpOnSidebar();
 		$this->showHelpSidebar();
 		
-		if($reboot){
-			shell_exec('sudo /sbin/reboot -n');
+		if($reboot){		
+			$this->writeDynamicScript(array('sleep 1s;sudo /sbin/reboot -n;'), false, true);
 		}
 		return true;
 	}		
+	
+	/**
+	 * Check for Reboot
+	 * @return boolean
+	 */
+	public function reboot(){
+		if($_REQUEST['ajax'] == 1){
+			ob_end_clean();
+			//Check for time difference in reboot.txt and set finished only if more than 15 seconds passed since reboot
+			$rebootTime = strtotime(trim(shell_exec('grep -io "[^|]*" /opt/max2play/cache/reboot.txt')));
+			if($rebootTime < (time() - 10)){			
+				echo _("REBOOT successful"). " - finished";
+				shell_exec('rm /opt/max2play/cache/reboot.txt');				
+			}else {
+				echo _("Please wait...");
+			}
+			ob_flush();
+			die();
+			return false;
+		}else{			
+			if(isset($_REQUEST['redirecturl'])){
+				$url = $_REQUEST['redirecturl'];
+				$reload = 1;
+			}
+			else{
+				$url = false;
+				$reload = 1;
+			}
+			$this->getProgressWithAjax('/opt/max2play/cache/reboot.txt', 1, $reload, 0, _("REBOOT started"), $url);
+			return true;
+		}
+	}
 	
 	public function getDisplayResolutions(){
 		$resolutions = array('1024x768' => '1024x768-noedid', '1920x1080@60' => '1080p-edid', '1080p' => '1080p-noedid', '1280x720M@60' => '720p-edid', '720p' => '720p-noedid');
@@ -446,6 +461,10 @@ class Basic extends Service {
 			$script = array('/opt/max2play/expandfs.sh '.$resizePart.' > /opt/max2play/cache/resize-max2play-log.txt');		
 			$this->view->message[] = nl2br($this->writeDynamicScript($script));
 			$this->view->message[] = nl2br(shell_exec('cat /opt/max2play/cache/resize-max2play-log.txt'));
+			if($this->getHardwareInfo() == 'ODROID-XU3'){
+				//Only Ubuntu 15.04 on odroid XU3
+				$this->writeDynamicScript(array('echo -e "[Unit]\nDescription=Resize FS\n[Service]\nType=simple\nExecStart=/etc/init.d/resize2fs_once start\n[Install]\nWantedBy=multi-user.target" >> /etc/systemd/system/multi-user.target.wants/fsresize.service'));
+			}
 		}else {
 			$this->view->message[] = _('No Resize possible - no valid partition found to expand. Contact Max2Play-Support to add support for further file-systems.');
 		}
