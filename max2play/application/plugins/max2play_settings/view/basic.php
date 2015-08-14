@@ -52,7 +52,7 @@
 	  <?php if (isset($basic->view->displayResolutions)) {?>
 		  <tr>
 			<td><?php echo _("Display Resolution") ?></td> 
-			<td><select name="displayResolution">
+			<td><select name="displayResolution" style="width:99%">
 				<?php foreach($basic->view->displayResolutions as $res) { ?><option value="<?php echo $res?>" <?php if($basic->view->currentResolution == $res) echo 'selected'; ?>><?php echo $res?></option><?php } ?>
 				</select>
 			</td>

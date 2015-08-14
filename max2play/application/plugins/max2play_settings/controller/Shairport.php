@@ -33,7 +33,7 @@ class Shairport extends Service {
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'startap'){			
-				$this->view->message[] = $this->start($this->pname);			
+				$this->view->message[] = $this->start($this->pname, $command = '', $statusname = '', $rootstart = false, $background = '/tmp/shairport.txt');			
 			}
 			
 			if($_GET['action'] == 'stopap'){			

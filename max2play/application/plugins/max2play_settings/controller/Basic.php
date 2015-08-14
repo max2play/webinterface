@@ -131,29 +131,45 @@ class Basic extends Service {
 			$this->getProgressWithAjax('/opt/max2play/cache/reboot.txt', 1, $reload, 0, _("REBOOT started"), $url);
 			return true;
 		}
-	}
+	}	
 	
 	public function getDisplayResolutions(){
 		$resolutions = array('1024x768' => '1024x768-noedid', '1920x1080@60' => '1080p-edid', '1080p' => '1080p-noedid', '1280x720M@60' => '720p-edid', '720p' => '720p-noedid');
-		$output = shell_exec('ls /boot/ | grep boot-');
-		preg_match_all("=boot-(.*?).scr=", $output, $matches);
-		if($matches[1])
-			$this->view->displayResolutions = $matches[1];
-		else
-			return false;
-		$output = shell_exec('cat /boot/boot.scr');
-		preg_match_all("=HDMI-A-1:([0-9xM@]*)=", $output, $matches);
+		$this->view->currentResolution = 'Autodetect - NONE SET';
 		
-		if($matches[1][0])
-			//EDID Options
-			$this->view->currentResolution = $resolutions[$matches[1][0]];
-		else{
-			//NOEDID Options
-			preg_match_all("=-([0-9px]{4,})-(edid|noedid)=", $output, $matches);
-			if($matches[1][0]){
+		if($this->getHardwareInfo() == 'ODROID-XU3'){
+			preg_match_all('=# ([^\n]*)\n(# )?setenv videoconfig "([^"]*)"=ism', shell_exec('cat /media/boot/boot.ini'), $matches);
+			$this->view->displayResolutions = $matches[1];
+			$this->view->displayResolutions[] = 'Autodetect - NONE SET';
+			$this->view->displayResolutionValues = $matches[3];
+			foreach($matches[2] as $key => $selector){
+				if($selector == ''){
+					$this->view->currentResolution = $matches[1][$key];					
+				}
+			}			
+			
+		}else{
+		
+			$output = shell_exec('ls /boot/ | grep boot-');
+			preg_match_all("=boot-(.*?).scr=", $output, $matches);
+			if($matches[1])
+				$this->view->displayResolutions = $matches[1];
+			else
+				return false;
+			$output = shell_exec('cat /boot/boot.scr');
+			preg_match_all("=HDMI-A-1:([0-9xM@]*)=", $output, $matches);
+			
+			if($matches[1][0])
+				//EDID Options
 				$this->view->currentResolution = $resolutions[$matches[1][0]];
-			}else
-				$this->view->currentResolution = 'auto_edid';
+			else{
+				//NOEDID Options
+				preg_match_all("=-([0-9px]{4,})-(edid|noedid)=", $output, $matches);
+				if($matches[1][0]){
+					$this->view->currentResolution = $resolutions[$matches[1][0]];
+				}else
+					$this->view->currentResolution = 'auto_edid';
+			}
 		}
 		return true;
 	}
@@ -162,11 +178,27 @@ class Basic extends Service {
 		if(!$this->getDisplayResolutions())
 			return false;
 		if($this->view->currentResolution != $newResolution && in_array($newResolution,$this->view->displayResolutions)){			
-			$output = shell_exec('sudo cp /boot/boot-'.$newResolution.'.scr /boot/boot.scr');
+			if($this->getHardwareInfo() == 'ODROID-XU3'){				
+				//get Position and change boot.ini file 
+				foreach($this->view->displayResolutions as $key => $value){
+					if($value == $this->view->currentResolution && isset($this->view->displayResolutionValues[$key])){
+						// Disable previous one 
+						$script[] = 'sed -i "s~.*'.$this->view->displayResolutionValues[$key].'~# setenv videoconfig \"'.$this->view->displayResolutionValues[$key].'~" /media/boot/boot.ini';
+					}
+					if($value == $newResolution && isset($this->view->displayResolutionValues[$key])){
+						// enable new one
+						$script[] = 'sed -i "s~.*'.$this->view->displayResolutionValues[$key].'~setenv videoconfig \"'.$this->view->displayResolutionValues[$key].'~" /media/boot/boot.ini';
+					}
+				}
+				$this->writeDynamicScript($script);
+			}else{
+				$output = shell_exec('sudo cp /boot/boot-'.$newResolution.'.scr /boot/boot.scr');
+			}
 			$this->view->message[] = _('Changed display resolution - Reboot needed');
 		}else{
 			//$this->view->message[] = _('no valid resolution choosen');
 		}
+		
 		return true;
 	}
 	
@@ -365,7 +397,7 @@ class Basic extends Service {
 				$this->view->message[] = _('UPDATE SUCCESSFUL');
 				$this->view->message[] = _('Max2Play-Webinterface Restarted - Reload Page to see Changes');
 				//Reload apache!
-				$this->writeDynamicScript(array('/etc/init.d/apache2 reload'));
+				$this->view->message[] = $this->writeDynamicScript(array('/etc/init.d/apache2 reload 2>&1'));
 			}
 			else
 				$this->view->message[] = _('UPDATE NOT SUCCESSFUL');

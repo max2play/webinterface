@@ -34,8 +34,8 @@ case "$1" in
     useusbdac=$(grep -a USE_USB_DAC=1 /opt/max2play/audioplayer.conf | wc -l)
     if [ "1" -gt "$xbmcrunning" -o "0" -lt "$useusbdac" ]
     then
-        /sbin/start-stop-daemon --start --quiet -b -m -p /opt/squeezelite/log/squeezelite.pid --chuid $USER --exec /opt/squeezelite/squeezelite -- -n $NAME $LMS $MAC $SQUEEZELITE_PARAMETER
- 		echo "Erfolgreich gestartet"
+        # /sbin/start-stop-daemon --start --quiet -b -m -p /opt/squeezelite/log/squeezelite.pid --chuid $USER --exec /opt/squeezelite/squeezelite -- -n $NAME $LMS $MAC $SQUEEZELITE_PARAMETER
+        /sbin/start-stop-daemon --start -b -m -p /opt/squeezelite/log/squeezelite.pid --chuid $USER --startas /bin/bash -- -c "exec /opt/squeezelite/squeezelite -n $NAME $LMS $MAC $SQUEEZELITE_PARAMETER > /tmp/squeezelite.txt 2>&1"
     fi
   ;;
   stop)

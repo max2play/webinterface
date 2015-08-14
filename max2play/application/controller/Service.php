@@ -84,7 +84,7 @@ class Service {
 		return false;			
 	}
 	
-	public function start($name = '', $command = '', $statusname = '', $rootstart = false){
+	public function start($name = '', $command = '', $statusname = '', $rootstart = false, $background = false){
 		if($name == '')
 			return false;
 		if($statusname != '')
@@ -99,13 +99,16 @@ class Service {
 		if($command != ''){
 			$startcom = $command;
 		}else{
-			$startcom = 'sudo /etc/init.d/'.$name.' start';
+			$startcom = 'sudo /etc/init.d/'.$name.' start 2>&1';
 		}
 		
 		if(!$rootstart){
-			shell_exec($startcom);
+			$answer = shell_exec($startcom);
 		}else{
-			$this->writeDynamicScript(array($startcom));
+			if($background)
+				$answer = $this->writeDynamicScript(array($startcom), $background);
+			else
+				$answer = $this->writeDynamicScript(array($startcom));
 		}
 		
 		sleep(2);
@@ -121,6 +124,10 @@ class Service {
 			$shellanswer .= ' ... '._('successful with ID').' '.$pid;
 		}else{
 			$shellanswer .= ' ... '._('NOT successful');
+			if($background)
+				$shellanswer .= ' '.$this->formatMessageOutput(shell_exec('cat '.$background));
+			else 
+				$shellanswer .= ' '.$this->formatMessageOutput($answer);
 		}
 		return $shellanswer;
 	}
@@ -474,11 +481,16 @@ class Service {
 			$debuglog[] = get_class($this).' '. shell_exec('cat '.$this->dynamicScript);			
 		}
 		
+		$backgroundfile = '/dev/null';
+		if(strpos($background,'/tmp') !== FALSE){
+			$backgroundfile = $background;			
+		}
+		
 		if($daemon){
 			$command = escapeshellarg('sudo '.$this->dynamicScript);
 			exec("php /opt/max2play/dynamicscriptdaemon.php {$command} >> /dev/null 2>&1 &");
 		}else{
-			$output = shell_exec('sudo './*((true == $background) ? 'nohup ' : ' ').*/$this->dynamicScript.((true == $background) ? ' > /dev/null &' : ''));
+			$output = shell_exec('sudo './*((true == $background) ? 'nohup ' : ' ').*/$this->dynamicScript.((true == $background) ? ' > '.$backgroundfile.' &' : ''));
 		}		
 		
 		return $output;

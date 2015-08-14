@@ -37,7 +37,7 @@ class Squeezeplayer extends Service {
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'start'){			
-				$this->view->message[] = $this->start($this->pname);
+				$this->view->message[] = $this->start($this->pname, $command = '', $statusname = '', $rootstart = false, $background = '/tmp/squeezelite.txt');
 			}
 			
 			if($_GET['action'] == 'stop'){			

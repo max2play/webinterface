@@ -38,6 +38,15 @@ class Xbmc extends Service {
 		if (file_exists('/usr/local/bin/kodi') || file_exists('/usr/bin/kodi'))
 			$this->pname = 'kodi';		
 		
+		if($_REQUEST['ajax'] == 1 && strpos($_REQUEST['action'], 'install') !== FALSE){
+			//Function to get Progress of Installation
+			$this->installXBMC(1);
+			ob_end_clean();
+			echo implode('<br />', $this->view->message);
+			ob_flush();
+			die();
+		}
+		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'start'){			
 				//Check auf Lightdm
@@ -51,12 +60,12 @@ class Xbmc extends Service {
 				
 				if($this->getSystemUser() == 'pi'){
 					//auf Rasbperry PI 1/2
-					$this->view->message[] = $this->start($this->pname, 'export DISPLAY=\':0\';sudo -u pi -H -s /opt/max2play/start_xbmc.sh > /dev/null 2>&1 &', '',true);
+					$this->view->message[] = $this->start($this->pname, 'export DISPLAY=\':0\';sudo -u pi -H -s /opt/max2play/start_xbmc.sh >> /dev/null 2>&1 &', '',true);
 					sleep(3);
 				}else{
 					//Methode odroid
-					$this->view->message[] = $this->start($this->pname, 'export DISPLAY=\':0\';sudo -u odroid -H -s /opt/max2play/start_xbmc.sh > /dev/null 2>&1 &', '',true);
-					sleep(3);
+					$this->view->message[] = $this->start($this->pname, $command = 'export DISPLAY=\':0\';sudo -u odroid -H -s /opt/max2play/start_xbmc.sh 2>&1', '',$rootstart = true, $background = '/tmp/kodi.txt');
+					sleep(3);					
 				}
 			}
 			
@@ -87,37 +96,41 @@ class Xbmc extends Service {
 		$this->getXbmcVersion();		
 	}
 
-	public function installXBMC(){
+	public function installXBMC($ajax = 0){
 		ignore_user_abort(true);
 		set_time_limit(7200);
-		$shellanswer = shell_exec("cat /opt/max2play/cache/install_xbmc.txt");
-		if($shellanswer != ''){
-			preg_match('=[0-9\: -]*=', $shellanswer, $started);
-			//Use WGET Timestamp - install should never take more than 2 hours
-			if((time() - 2*60*60) > strtotime(trim($started[0], '- '))){
-				$this->view->message[] = _('Something went wrong in last Install Attempt - Deleting Progressfile');
-				shell_exec("rm /opt/max2play/cache/install_xbmc.txt");
-			}
-			$shellanswer = preg_replace('=[0-9]{1,}s.*?[0-9]{1,}K[\. ]{10,}.*?[0-9]{1,}(M|K) =s', '', $shellanswer);
-			$this->view->message[] = nl2br("Installationsfortschritt: (gestartet ".$started[0].") ". $shellanswer);
-			return false;
-		}else{
+		
+		if($ajax == 0){
 			if($_GET['downloadurl'] == ''){
 				$this->view->message[] = _('No Link for download given');
 				return false;
-			}
-			if($_GET['downloadurl'] != ''){
+			}else{
 				$downurl = $_GET['downloadurl'];
 			}
-			$shellanswer = $this->writeDynamicScript(array("/opt/max2play/install_xbmc.sh update ".$downurl." > /dev/null &"));
-			$this->view->message[] = _('Installation gestartet - Seite neu Laden oder Button erneut drücken, um Status der Installation zu sehen.');
 			$this->view->message[] = _('Installationspaket: ').$downurl;
-			return true;
+			
+			if($this->getProgressWithAjax('/opt/max2play/cache/install_xbmc.txt', 1, 0, 40)){
+				// Run installer as Deamon
+				sleep(1);																
+				$shellanswer = $this->writeDynamicScript(array("/opt/max2play/install_xbmc.sh update ".$downurl." > /opt/max2play/cache/install_xbmc.txt 2>&1"), true, false);
+			}
+		}else{
+			$status = $this->getProgressWithAjax('/opt/max2play/cache/install_xbmc.txt',0, 0, 25);						
+			
+			$this->view->message[] = nl2br($status);
+			if(strpos($status, 'finished') !== FALSE){
+				//Finished Progress - did not delete progressfile yet
+				$this->view->message[] = _('Installation abgeschlossen!');
+				shell_exec('rm /opt/max2play/cache/install_xbmc.txt');
+			}
 		}
+						
 	}
 	
 	public function getXbmcVersion(){
-		 $this->xbmcversion = $this->writeDynamicScript(array('dpkg -s '.$this->pname.' | grep Version'));
+		 $this->xbmcversion = trim($this->writeDynamicScript(array('dpkg -s '.$this->pname.' | grep Version')));
+		 if($this->xbmcversion == '')
+		 	$this->xbmcversion = $this->writeDynamicScript(array('dpkg -s xbmc | grep Version'));
 		 return true;
 	}
 	
