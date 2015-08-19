@@ -83,11 +83,14 @@ class Wlan extends Service {
 		
 		$shellanswer_eth = $this->writeDynamicScript(array("cat ".$this->networkinterfaces));
 		if($_GET['lanmac'] != '' && $this->view->lanmac != $_GET['lanmac'] && preg_match("=([0-9abcdefABCDEF]{2}:){5}[0-9abcdefABCDEF]{2}=", $_GET['lanmac'], $matches) == true){			
-			//Set rights to update Mac-Address-File
-			shell_exec("sudo /opt/max2play/change_mac_address.sh");
-			shell_exec("echo '".$matches[0]."' > ".$this->mac_address);
-			//$shellanswer_eth = str_replace('hwaddress ether '.$this->view->lanmac, 'hwaddress ether '.$matches[0], $shellanswer_eth);
-			//shell_exec("echo '".$shellanswer_eth."' > ".$this->networkinterfaces);			
+			if($this->view->bootconfig){
+				// XU3
+				$this->writeDynamicScript(array('sed -i \'s@setenv macaddr .*@setenv macaddr "'.$matches[0].'"@\' /media/boot/boot.ini'));
+			}else{
+				//Set rights to update Mac-Address-File
+				shell_exec("sudo /opt/max2play/change_mac_address.sh");
+				shell_exec("echo '".$matches[0]."' > ".$this->mac_address);			
+			}			
 			$this->view->message[] = _('MAC-Address changed - please reboot');
 		}
 		
@@ -100,15 +103,19 @@ class Wlan extends Service {
 					$this->view->networkmask;
 					$this->view->lanip = $fixedIP;
 					//set fixed IP
-					$shellanswer_eth = str_replace('iface eth0 inet dhcp', "iface eth0 inet static\n  address ".$fixedIP."\n  gateway ".$gateway."\n  netmask ".$this->view->networkmask, $shellanswer_eth);
-					$this->writeDynamicScript(array("echo '".$shellanswer_eth."' > ".$this->networkinterfaces."; ifdown eth0; ifup eth0;"));
+					// $this->view->fixedinterface is set to eth0 / wlan0
+					//TODO: Set dnsserver?
+					$shellanswer_eth = str_replace('iface '.$this->view->fixedinterface.' inet dhcp', "iface ".$this->view->fixedinterface." inet static\n  address ".$fixedIP."\n  gateway ".$gateway."\n  dns-nameservers 8.8.8.8\n  netmask ".$this->view->networkmask, $shellanswer_eth);
+					$this->writeDynamicScript(array("echo '".$shellanswer_eth."' > ".$this->networkinterfaces."; ifdown ".$this->view->fixedinterface."; ifup ".$this->view->fixedinterface.";"));
 					$this->view->message[] = str_replace('$FIXEDIP',$fixedIP, _('IP-Address set to $FIXEDIP'));
+				}else{
+					$this->view->message[] = _('No network route found.');
 				}
 			}
 		}elseif(!isset($_REQUEST['lanipfix']) && $this->view->fixedip){
 			//Remove fixed IP
-			$shellanswer_eth = preg_replace('=iface eth0 inet static[^#]*netmask .*$=m', 'iface eth0 inet dhcp', $shellanswer_eth);
-			$this->writeDynamicScript(array("echo '".$shellanswer_eth."' > ".$this->networkinterfaces."; ifdown eth0; ifup eth0;"));
+			$shellanswer_eth = preg_replace('=iface '.$this->view->fixedinterface.' inet static[^#]*netmask .*$=m', 'iface '.$this->view->fixedinterface.' inet dhcp', $shellanswer_eth);
+			$this->writeDynamicScript(array("echo '".$shellanswer_eth."' > ".$this->networkinterfaces."; ifdown ".$this->view->fixedinterface."; ifup ".$this->view->fixedinterface.";"));
 			$this->view->message[] = _('IP-Address set to dynamic DHCP');
 		}
 		
@@ -148,10 +155,12 @@ class Wlan extends Service {
 		preg_match('=wlan0=', $shellanswer_if, $match);		
 		$this->view->ifconfig_txt = $shellanswer_if;
 		
-		//Get Current IP-address from first interface 
-		if(preg_match('=inet addr:(([0-9]{1,3}\.){3}[0-9]{1,3}).*Mask:(([0-9]{1,3}\.){3}[0-9]{1,3})=', $shellanswer_if, $currip)){
-			$this->view->lanip = $currip[1];
-			$this->view->networkmask = $currip[3];
+		//Get Current IP-address from first interface OR any other interface but not lo		
+		//Old Regex: '=inet addr:(([0-9]{1,3}\.){3}[0-9]{1,3})(?<!127\.0\.0\.1).*Mask:(([0-9]{1,3}\.){3}[0-9]{1,3})='
+		if(preg_match('/(?=(eth0|wlan0).*)((?!packets).)+inet addr:(([0-9]{1,3}\.){3}[0-9]{1,3})(?<!127\.0\.0\.1).*Mask:(([0-9]{1,3}\.){3}[0-9]{1,3})/si', $shellanswer_if, $currip)){
+			$this->view->fixedinterface = $currip[1]; // this interface will get a fixed IP if set
+			$this->view->lanip = $currip[3];
+			$this->view->networkmask = $currip[5];
 		}		
 		
 		$shellanswer_eth = $this->writeDynamicScript(array("cat ".$this->networkinterfaces));
@@ -164,10 +173,11 @@ class Wlan extends Service {
 		}
 		
 		//Get fixed IP-address from network config, if set		
-		if(preg_match('=iface eth0 inet static\s*address (([0-9]{1,3}\.){3}[0-9]{1,3})\s*gateway (([0-9]{1,3}\.){3}[0-9]{1,3})\s*netmask (([0-9]{1,3}\.){3}[0-9]{1,3})=im', $shellanswer_eth, $fixedip)){
-			$this->view->fixedip = $fixedip[1];
-			$this->view->fixedgateway = $fixedip[3];
-			$this->view->fixednetmask = $fixedip[5];
+		if(preg_match('=iface (eth0|wlan0) inet static\s*address (([0-9]{1,3}\.){3}[0-9]{1,3})\s*gateway (([0-9]{1,3}\.){3}[0-9]{1,3}).*?\s*.*?netmask (([0-9]{1,3}\.){3}[0-9]{1,3})=ims', $shellanswer_eth, $fixedip)){
+			$this->view->fixedinterface = $fixedip[1];
+			$this->view->fixedip = $fixedip[2];
+			$this->view->fixedgateway = $fixedip[4];
+			$this->view->fixednetmask = $fixedip[6];
 		}else{
 			$this->view->fixedip = false;
 		}
@@ -208,10 +218,19 @@ class Wlan extends Service {
 		
 		//Netzwerk Konfiguration ODROID ETH0 / /etc/smsc95xx_mac_addr löschen -> wird neu zugewiesen		
 		$shellanswer = shell_exec("cat /etc/smsc95xx_mac_addr 2>/dev/null");
-		preg_match('=([0-9a-zA-Z:]*)=', $shellanswer, $match);		
-		//preg_match('=hwaddress ether ([0-9a-zA-Z:]*)=', $shellanswer_eth, $match);
-		if($match[1]){
-			$this->view->lanmac = $match[1];			
+		if(preg_match('=([0-9a-zA-Z:]*)=', $shellanswer, $match)){				
+			if($match[1]){
+				$this->view->lanmac = $match[1];			
+			}
+		}
+		
+		//Netzwerk MAC ODROID XU3
+		$shellanswer = shell_exec('cat /media/boot/boot.ini | grep "setenv macaddr"');
+		if(preg_match('="([0-9a-zA-Z:]*)"=', $shellanswer, $match)){	
+			if($match[1]){
+				$this->view->lanmac = $match[1];
+				$this->view->bootconfig = true;
+			}
 		}
 		return true;
 	}

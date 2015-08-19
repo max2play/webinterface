@@ -5,6 +5,8 @@ Browser Administration for Linux-Based Audio/Video-Player like ODROID or Raspber
 
 More Information on <a href="http://www.max2play.com/">http://www.max2play.com</a> and <a href="http://shop.max2play.com/">http://shop.max2play.com</a>
 
+Find a live Demo of Max2Play Web interface at <a href="http://demo.max2play.com:81/ ">http://demo.max2play.com:81/</a>. 
+
 FEATURES
  - browser interface for configuring WiFi, filesystem mountpoints, autostarts, display resolution, init-scripts, etc.
  - no need to ssh to your device any more

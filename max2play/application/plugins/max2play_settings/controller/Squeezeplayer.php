@@ -37,6 +37,7 @@ class Squeezeplayer extends Service {
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'start'){			
+				//Backgroundfile is set as output in init.d Script!
 				$this->view->message[] = $this->start($this->pname, $command = '', $statusname = '', $rootstart = false, $background = '/tmp/squeezelite.txt');
 			}
 			
@@ -56,10 +57,11 @@ class Squeezeplayer extends Service {
 			}
 			
 			if($_GET['action'] == 'resetEqualizer'){
-				$this->updateEqualizer(0);
+				$this->updateEqualizer(0, (strpos($this->view->squeezelite_soundcard, 'equalUSB') !== FALSE) ? $card = 'equalUSB' : $card = 'equal');
 			}
 			if($_GET['action'] == 'saveEqualizer'){
-				$this->updateEqualizer($_GET['settingsEqualizer']);
+				$this->getSqueezeliteCommandline();
+				$this->updateEqualizer($_GET['settingsEqualizer'], false, (strpos($this->view->squeezelite_soundcard, 'equalUSB') !== FALSE) ? $card = 'equalUSB' : $card = 'equal');
 			}
 			
 			if($_GET['action'] == 'installLadspa'){
@@ -72,16 +74,17 @@ class Squeezeplayer extends Service {
 				$this->setAudioOutputPI($_GET['AudioOutputPI']);
 			}
 			
-		}
-		$this->getEqualizer();
+		}		
 		
 		$this->getAudioOutputPI();
 		
 		$this->configLADSPA();
 		
-		$this->getAllLogs();		
+		$this->getAllLogs();
 		
 		$this->getSqueezeliteCommandline();				
+		
+		$this->getEqualizer(false, (strpos($this->view->squeezelite_soundcard, 'equalUSB') !== FALSE) ? $card = 'equalUSB' : $card = 'equal');
 		
 		$this->view->pid = $this->status($this->pname);
 		
@@ -191,7 +194,7 @@ class Squeezeplayer extends Service {
 			if($this->status($this->pname) !== FALSE){
 				//Restart Service
 				$this->view->message[] = $this->stop($this->pname);
-				$this->view->message[] = $this->start($this->pname);
+				$this->view->message[] = $this->start($this->pname, $command = '', $statusname = '', $rootstart = false, $background = '/tmp/squeezelite.txt');
 			}
 		}				
 		
@@ -256,8 +259,13 @@ class Squeezeplayer extends Service {
 			$value = 1;
 			//Set Soundoutput to 100% for Card 1 all Speakers - should be done on FIRST usage
 			$user = $this->getSystemUser();
-			$this->writeDynamicScript(array('sudo --user '.$user.' amixer -c 1 sset Speaker 100%',
-											'sudo cp /opt/max2play/alsa_max2play_usb.conf /usr/share/alsa/alsa.conf.d'));
+			$script[] = 'sudo --user '.$user.' amixer -c 1 sset Speaker 100%';
+			$script[] = 'sudo cp /opt/max2play/alsa_max2play_usb.conf /usr/share/alsa/alsa.conf.d';
+			if($this->getHardwareInfo() == 'Raspberry PI'){
+				//Remove Eq10 as Pluginname for USB-Equalizer
+				$script[] = 'sed -i "s@module \"Eq10\";@@" /usr/share/alsa/alsa.conf.d/alsa_max2play_usb.conf';
+			}
+			$this->writeDynamicScript($script);			
 		}else {
 			$value = 0;
 			$this->writeDynamicScript(array('sudo rm /usr/share/alsa/alsa.conf.d/alsa_max2play_usb.conf'));

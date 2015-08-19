@@ -395,9 +395,9 @@ class Basic extends Service {
 			$this->view->message[] = $this->formatMessageOutput($shellanswer);
 			if(strpos($shellanswer, 'inflating: /opt/max2play/list_devices.sh') !== FALSE && strpos($shellanswer, 'extracting: /var/www/max2play/application/config/version.txt') !== FALSE){
 				$this->view->message[] = _('UPDATE SUCCESSFUL');
-				$this->view->message[] = _('Max2Play-Webinterface Restarted - Reload Page to see Changes');
-				//Reload apache!
-				$this->view->message[] = $this->writeDynamicScript(array('/etc/init.d/apache2 reload 2>&1'));
+				$this->view->message[] = _('Max2Play-Webinterface Restarted - this takes up to 15 seconds - Wait for 15 seconds and Reload Page to see Changes');
+				//Reload apache as Deamon in Background!
+				$this->view->message[] = $this->writeDynamicScript(array('sleep 15;/etc/init.d/apache2 restart'), false, true);
 			}
 			else
 				$this->view->message[] = _('UPDATE NOT SUCCESSFUL');

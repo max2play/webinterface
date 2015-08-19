@@ -39,8 +39,19 @@ if [ "$HW_U3" -gt "0" ]; then
 		rm -Rf /opt/max2play/cache/x2u2
 		cp -f /media/boot/boot.scr /media/boot/boot-auto_edid.scr
 	fi
-	# Fix IPv6 deaktivieren
-	sudo sed -i 's/Listen 80/Listen 0.0.0.0:80/' /etc/apache2/ports.conf
+	# Fix IPv6 deaktivieren - Problem: reloadin apache after this fix crashes apache process -> restart Apache right here
+	IPV6DISABLED=$(grep -i "Listen 0.0.0.0:80" /etc/apache2/ports.conf | wc -l)
+	#if [ "$IPV6DISABLED" -lt "1" ]; then 
+		#TODO activate in next version...
+		#echo "Disable IPv6 for Webinterface"		
+		#sudo sed -i 's/Listen 80/Listen 0.0.0.0:80/' /etc/apache2/ports.conf		
+	#fi
+	
+	NFSINSTALLED=$(dpkg -s nfs-common | grep "Status: install ok" | wc -l)	
+	if [ "$NFSINSTALLED" -lt "1" ]; then
+		apt-get update
+		echo "Y" | apt-get install nfs-common --yes
+	fi  
 fi
 
 #Disable IPv6 - not working correct yet

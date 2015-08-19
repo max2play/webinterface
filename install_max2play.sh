@@ -83,7 +83,7 @@ if [ ! -e /opt/max2play/ ]; then
 fi
 
 chmod 666 /etc/fstab
-echo "##USERMOUNT" >> /etc/fstab
+echo -e "\n##USERMOUNT" >> /etc/fstab
 cp /etc/fstab /etc/fstab.sav
 chmod 666 /etc/fstab.sav
 
@@ -99,7 +99,7 @@ cp max2play/CONFIG_SYSTEM/apache2/sites-enabled/max2play.conf /etc/apache2/sites
 sed -i 's/LogLevel warn/LogLevel error/' /etc/apache2/apache2.conf
 cp -r max2play/max2play/ /var/www/max2play 
 sudo /etc/init.d/apache2 restart
-sudo echo "Y" | apt-get install samba samba-common samba-common-bin mc ntfs-3g cifs-utils
+sudo echo "Y" | apt-get install samba samba-common samba-common-bin mc ntfs-3g cifs-utils nfs-common
 
 sudo apt-get install debconf-utils
 if [ "$HW_RASPBERRY" -gt "0" ] || [ "$LINUX" == "Debian" ]; then  	
@@ -411,6 +411,7 @@ if [ "$HW_ODROID" -gt "0" ]; then
 	echo "TODO: Remove LAN-Address before saving Image (generates new one on first start): rm /etc/smsc95xx_mac_addr"
 	echo "TODO: ODROID C1: use asound.conf.c1, udev persistant net rules eth0, install iw, nano /etc/default/autogetty -> remove "
 	echo "TODO: Update to latest Version in Webinterface! IMPORTANT - otherwise some Scripts are missing!"
+	echo "ON XU4: set kodi sound to always on"
 	echo "TODO: REBOOT !!!"
 fi
 

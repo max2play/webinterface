@@ -956,7 +956,7 @@ class Service {
 	/**
 	 * use Alsaequal
 	 */
-	public function updateEqualizer($equalvalue, $user = false){
+	public function updateEqualizer($equalvalue, $user = false, $card='equal' ){
 		if(!$user)
 			$user = $this->getSystemUser();
 		//if($_GET['use_equalizer'] == 1 && $this->checkLicense(true) == false)
@@ -967,7 +967,7 @@ class Service {
 	
 		foreach($this->equal as $key){
 			$value = (isset($equalvalue[$key])) ? (int)$equalvalue[$key] : 66;
-			$script[] = 'su - '.$user.' -c \'amixer -D equal -q set "'.$key.'" '.$value.'\'';
+			$script[] = 'su - '.$user.' -c \'amixer -D '.$card.' -q set "'.$key.'" '.$value.'\'';
 		}
 	
 		$this->view->message[] = $this->writeDynamicScript($script);
@@ -977,13 +977,13 @@ class Service {
 	/**
 	 * get Alsaequal Settings
 	 */
-	public function getEqualizer($user = false){
+	public function getEqualizer($user = false, $card = 'equal'){
 		$this->view->use_equalizer = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'USE_EQUALIZER');
 		if($this->view->use_equalizer){
 			if(!$user)
 				$user = $this->getSystemUser();
 			foreach($this->equal as $key){
-				$script = array('su - '.$user.' -c \'amixer -D equal sget "'.$key.'"\'');
+				$script = array('su - '.$user.' -c \'amixer -D '.$card.' sget "'.$key.'"\'');
 				$output = $this->writeDynamicScript($script);
 				preg_match('=\[(.*)\]=', $output, $match);
 				$this->equalvalues[$key] = $match[1];

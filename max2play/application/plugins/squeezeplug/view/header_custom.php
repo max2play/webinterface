@@ -33,8 +33,8 @@
 	<link href="/css/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
 	<script src="/js/jquery-1.10.2.js"></script>
 	<script src="/js/jquery-ui-1.10.4.custom.min.js"></script>
-	<script type="text/javascript" src="/js/reloadprogress.js"></script>	
-	<link rel='stylesheet' id=''  href='/style.css' type='text/css' media='all' />
+	<script type="text/javascript" src="/js/reloadprogress.js?v=<?php echo $service->info->version?>"></script>	
+	<link rel='stylesheet' id=''  href='/style.css?v=<?php echo $service->info->version?>' type='text/css' media='all' />
 	<?php if(file_exists(APPLICATION_PATH.'/../public/custom.css')) { ?>
 		<link rel='stylesheet' id=''  href='/custom.css' type='text/css' media='all' />
 	<?php } ?>

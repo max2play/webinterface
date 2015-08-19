@@ -56,7 +56,10 @@ class Advanced_Max2play_Setup extends Service {
 			}
 			if($_GET['action'] == 'installFlash'){
 				$this->_installFlash();
-			}	
+			}
+			if($_GET['action'] == 'installFan'){
+				$this->_installFanXU4();
+			}
 		}
 		$this->_getPowerButton();
 		$this->_getDebug();
@@ -195,6 +198,13 @@ class Advanced_Max2play_Setup extends Service {
 		$this->view->message[] = $this->writeDynamicScript($script);
 		$this->view->message[] = _('After Installation you must open the Chromium URL "chrome:plugins" and set check [Always allowed] for Adobe Flash player. Then Restart Max2Play.');
 		return true;
+	}
+	
+	private function _installFanXU4(){
+		$script[] = 'pushd /opt/max2play/; rm -R /opt/max2play/odroid-xu3-fan-control;git clone https://github.com/max2play/odroid-xu3-fan-control.git;cd odroid-xu3-fan-control;';
+		$script[] = 'ln -s /opt/max2play/odroid-xu3-fan-control/odroid-fan-controller /etc/init.d/odroid-fan-controller;update-rc.d odroid-fan-controller defaults;/etc/init.d/odroid-fan-controller start';
+		$this->writeDynamicScript($script);
+		$this->view->message[] = _('Install finished');
 	}
 }
 

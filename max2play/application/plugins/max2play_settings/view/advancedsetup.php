@@ -110,6 +110,14 @@
 		</p>
 		<input type="button" id="installFlash" name="installFlash" onclick="document.getElementById('action').value='installFlash';submit();" value="<?php echo _("Install Pepperflash") ?>" /><br />
 		<?php echo _('After Installation you must open the Chromium URL "chrome:plugins" and set check [Always allowed] for Adobe Flash player. Then Restart Max2Play.') ?>
+		
+		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-top:3em;">
+				<span class="ui-icon ui-icon-video" style="float:left; margin:-2px 5px 0 0;"></span>
+				<?php echo _("Install Fan silencer on XU4") ?>
+		</p>
+		<input type="button" id="installFan" name="installFan" onclick="document.getElementById('action').value='installFan';submit();" value="<?php echo _("Install Fan silencer") ?>" /><br />
+		<?php echo _('After Installation your XU4 Fan will be more silent and runs only if cooling is needed.') ?>
+		
 	</form>
 	
 	<br /><br />	
