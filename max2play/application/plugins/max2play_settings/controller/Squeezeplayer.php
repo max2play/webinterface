@@ -222,7 +222,7 @@ class Squeezeplayer extends Service {
 	public function installLADSPA(){		
 		//if($this->checkLicense(true) == false)
 		//	return true;
-		$this->view->message[] = nl2br($this->writeDynamicScript(array('/opt/max2play/install_ladspa.sh')));
+		$this->view->message[] = nl2br($this->writeDynamicScript(array('/opt/max2play/install_ladspa.sh "'.$this->getHardwareInfo().'"')));	
 		return true;
 	}
 	

@@ -703,7 +703,7 @@ class Service {
 			$this->info->freespace = shell_exec("df -km /dev/root | tail -1 | awk '{print $4}'");
 		}			
 		if($this->info->system_user == 'odroid'){			
-			$this->info->freespace = shell_exec("df -km /dev/mmcblk0p2 | tail -1 | awk '{print $4}");
+			$this->info->freespace = shell_exec("df -km /dev/mmcblk0p2 | tail -1 | awk '{print $4}'");
 		}
 		return $this->info->freespace;
 	}

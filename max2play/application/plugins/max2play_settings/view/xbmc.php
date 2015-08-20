@@ -76,7 +76,8 @@
 		<input id="addonurl" type="text" value="" name="addonurl" style="width:200px;" /><br />
 		<select name="addonbox" onclick="copytodownloadurl(this);">
 			<option value=""><?php echo _('Choose Addon')?></option>
-			<option value="https://addonscriptorde-beta-repo.googlecode.com/files/repository.addonscriptorde-beta.zip">Amazon Instant Video</option>
+			<option value="https://addonscriptorde-beta-repo.googlecode.com/files/repository.addonscriptorde-beta.zip">Amazon Instant Video (old XBMC version)</option>
+			<option value="https://github.com/XLordKX/kodi/raw/master/zip/repository.xlordkx/repository.xlordkx-1.0.0.zip">Amazon Instant Video (new Kodi version)</option>
 		</select>
 		<script type="text/javascript">
 			function copytodownloadurl(item){

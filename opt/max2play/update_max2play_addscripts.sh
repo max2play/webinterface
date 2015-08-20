@@ -39,19 +39,34 @@ if [ "$HW_U3" -gt "0" ]; then
 		rm -Rf /opt/max2play/cache/x2u2
 		cp -f /media/boot/boot.scr /media/boot/boot-auto_edid.scr
 	fi
-	# Fix IPv6 deaktivieren - Problem: reloadin apache after this fix crashes apache process -> restart Apache right here
+	# Fix IPv6 deaktivieren - Problem: reloadin apache after this fix may crash apache process
 	IPV6DISABLED=$(grep -i "Listen 0.0.0.0:80" /etc/apache2/ports.conf | wc -l)
-	#if [ "$IPV6DISABLED" -lt "1" ]; then 
-		#TODO activate in next version...
-		#echo "Disable IPv6 for Webinterface"		
-		#sudo sed -i 's/Listen 80/Listen 0.0.0.0:80/' /etc/apache2/ports.conf		
-	#fi
+	if [ "$IPV6DISABLED" -lt "1" ]; then 
+		echo "Disable IPv6 for Webinterface"		
+		sudo sed -i 's/Listen 80/Listen 0.0.0.0:80/' /etc/apache2/ports.conf		
+	fi	
 	
 	NFSINSTALLED=$(dpkg -s nfs-common | grep "Status: install ok" | wc -l)	
 	if [ "$NFSINSTALLED" -lt "1" ]; then
 		apt-get update
 		echo "Y" | apt-get install nfs-common --yes
 	fi  
+fi
+
+# XU4: check Mac-Adress and remove udev rule with Mac
+HW_XU3=$(cat /proc/cpuinfo | grep Hardware | grep -i "ODROID-XU3" | wc -l)
+if [ "$HW_XU3" -gt "0" ]; then	
+	echo "Remove MAC-Address from UDEV-Rules"
+	# cat /etc/udev/rules.d/70-persistent-net.rules remove my Device MAC and eth1 if existing
+	sed -i 's/.*00:1e:06:31:06:13.*//' /etc/udev/rules.d/70-persistent-net.rules
+	sed -i 's/.*eth1.*//' /etc/udev/rules.d/70-persistent-net.rules
+	
+	# Fix IPv6 deaktivieren - Problem: reloadin apache after this fix may crash apache process
+	IPV6DISABLED=$(grep -i "Listen 0.0.0.0:80" /etc/apache2/ports.conf | wc -l)
+	if [ "$IPV6DISABLED" -lt "1" ]; then 
+		echo "Disable IPv6 for Webinterface"		
+		sudo sed -i 's/Listen 80/Listen 0.0.0.0:80/' /etc/apache2/ports.conf		
+	fi
 fi
 
 #Disable IPv6 - not working correct yet

@@ -1,15 +1,22 @@
 #!/bin/sh
 installcheck=$(grep -a headphonesplug /etc/asound.conf | wc -l)
+echo "Hardware is $1"
+
+if [ "$1" = "Raspberry PI" ]; then
+    OUTPUT="hw:0,0"
+else
+	OUTPUT="dmix:CARD=0,RATE=44100"
+fi    
 
 if [ "$installcheck" -lt 1 ]; then
 	echo "Installation started"
-
+	apt-get update
 	echo "Y" | apt-get install bs2b-ladspa
 
 	echo "
 pcm.headphonesplug { 
  type plug
- slave.pcm \"dmix:CARD=0,RATE=44100\"
+ slave.pcm \"$OUTPUT\"
 }
 
 pcm.bs2b {

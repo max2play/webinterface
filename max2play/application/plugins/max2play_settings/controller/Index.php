@@ -23,6 +23,11 @@
    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 //$this->pluginname = _('Start');
+
 $service = new Service();
 $service->checkForUpdate();
+$freespace = $service->getFreeDiskSpace();
+if($freespace < 600){	
+	$service->view->message[] = str_replace('$FREESPACE', $freespace, _('Only $FREESPACE MB of free space left on the device! Did you already expand the filesystem?'));	
+}
 include_once(dirname(__FILE__).'/../view/index.php');

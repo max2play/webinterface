@@ -142,7 +142,10 @@ class Xbmc extends Service {
 		if($url != '' && $this->checkLicense(true) == true){
 			if(strpos($url, 'repository.addonscriptorde') !== FALSE){
 				$this->writeDynamicScript(array('wget -P /opt/max2play/cache "shop.max2play.com/media/downloadable/beta/amazonprime.tar";if [ -e "/home/'.$this->getSystemUser().'/.kodi" ]; then sudo -u '.$this->getSystemUser().' tar -xf /opt/max2play/cache/amazonprime.tar -C /home/'.$this->getSystemUser().'/.kodi/addons; else tar -xf /opt/max2play/cache/amazonprime.tar -C /home/'.$this->getSystemUser().'/.xbmc/addons;fi;'));
-				$this->view->message[] = _('Plugin installed');
+				$this->view->message[] = _('Plugin installed');				
+			}elseif(strpos($url, 'repository.xlordkx') !== FALSE){
+					$this->writeDynamicScript(array('wget -P /opt/max2play/cache "https://github.com/XLordKX/kodi/raw/master/zip/repository.xlordkx/repository.xlordkx-1.0.0.zip";if [ -e "/home/'.$this->getSystemUser().'/.kodi" ]; then sudo -u '.$this->getSystemUser().' unzip /opt/max2play/cache/repository.xlordkx-1.0.0.zip -d /home/'.$this->getSystemUser().'/.kodi/addons; else unzip /opt/max2play/cache/repository.xlordkx-1.0.0.zip -d /home/'.$this->getSystemUser().'/.xbmc/addons;fi;'));
+					$this->view->message[] = _('Plugin installed');
 			}else{
 				shell_exec('wget -P /opt/max2play/cache "'.$url.'" -o /opt/max2play/cache/download.txt');
 				$this->view->message[] = nl2br(shell_exec('cat /opt/max2play/cache/download.txt'));
