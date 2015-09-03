@@ -23,8 +23,12 @@ if [ "$ETH0" = "up" ]; then
 else
     INTERFACE=wlan0
 fi
-MAC="-m $(cat /sys/class/net/$INTERFACE/address)"
-echo "Use Interface $INTERFACE with $MAC"
+if [ -e /sys/class/net/$INTERFACE/address ]; then
+  MAC="-m $(cat /sys/class/net/$INTERFACE/address)"
+  echo "Use Interface $INTERFACE with $MAC"
+else
+  MAC=""
+fi
 
 case "$1" in
   start)

@@ -63,6 +63,10 @@ class News extends Service {
 			if(!$new_content){
 				$new_content = 'No News';
 			}
+			if(strlen($new_content) > 2000){
+				//Too much Content - something went wrong! E.g. when used as Access Point
+				$new_content = 'No News';
+			}
 			if(!file_exists($this->cachepath)){
 				mkdir($this->cachepath);
 			}

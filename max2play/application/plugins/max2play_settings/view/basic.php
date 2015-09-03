@@ -124,7 +124,7 @@
 		<span class="ui-icon ui-icon-arrowreturnthick-1-n" style="float:left; margin:-2px 5px 0 0;"></span>
 		<b><?php echo _("Reset configs to Max2Play delivery configuration") ?></b></p>
 	<input type="button" value="<?php echo _("Reset configs - WARNING: deletes all changes") ?>" name="reset" onclick="document.getElementById('action').value='reset';submit();" /><br />
-	<?php echo _("Settings for WiFi, autostart, playername, filesystem mounts will be overwritten.") ?>	
+	<br /><?php echo _("Settings for WiFi, autostart, playername, filesystem mounts will be overwritten.") ?>	
 	
 	<br /><br />
 	<p id="pluginconfigblock" class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
