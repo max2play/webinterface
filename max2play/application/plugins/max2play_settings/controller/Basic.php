@@ -128,8 +128,10 @@ class Basic extends Service {
 				$url = false;
 				$reload = 1;
 			}
-			$this->getProgressWithAjax('/opt/max2play/cache/reboot.txt', 1, $reload, 0, _("REBOOT started"), $url);
-			return true;
+			if($this->getProgressWithAjax('/opt/max2play/cache/reboot.txt', 1, $reload, 0, _("REBOOT started"), $url))
+				return true;
+			else
+				return false;
 		}
 	}	
 	
