@@ -49,7 +49,7 @@
 	  $(function() {
 	    $( "#purposeselect" ).accordion({
 	      heightStyle: "content",
-	      <?php if($hifiberry->view->purpose != false) echo "active: false,"; ?>
+	      <?php if($start->view->purpose != false) echo "active: false,"; ?>
 	      collapsible: true 
 	    });   
 	  });  

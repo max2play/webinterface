@@ -65,8 +65,13 @@ if [ "$HW_XU3" -gt "0" ]; then
 	IPV6DISABLED=$(grep -i "Listen 0.0.0.0:80" /etc/apache2/ports.conf | wc -l)
 	if [ "$IPV6DISABLED" -lt "1" ]; then 
 		echo "Disable IPv6 for Webinterface"		
-		sudo sed -i 's/Listen 80/Listen 0.0.0.0:80/' /etc/apache2/ports.conf		
+		sudo sed -i 's/Listen 80/Listen 0.0.0.0:80/' /etc/apache2/ports.conf
 	fi
+	# Fix for usbmount ntfs/ntfs-3g (otherwise it will not mount correctly)
+	apt-get update
+	apt-get install at -y
+	# Apply Patch for usbmount
+	sed -i "s~mount \"-t\$fstype\" \"\${options:+-o\$options}\" \"\$DEVNAME\" \"\$mountpoint\"~echo mount \"-t\$fstype\" \"\${options:\+-o\$options}\" \"\$DEVNAME\" \"\$mountpoint\" >/tmp/usbmount_max2play.sh\n                at -f /tmp/usbmount_max2play.sh now~" /usr/share/usbmount/usbmount
 fi
 
 #Disable IPv6 - not working correct yet
@@ -90,13 +95,15 @@ else
 	unzip -o /opt/max2play/cache/scripts.zip -d /
 fi
 
+#Fix for rc.local file to make Mounting more robust
+sed -i 's/done;\/bin\/mount -a/done;set +e;\/bin\/mount -a;set -e;/' /etc/rc.local
 
 HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709" | wc -l)
 if [ "$HW_RASPBERRY" -gt "0" ]; then
 	sudo sed -i 's@/var/lib/mpd:/bin/false@/var/lib/mpd:/bin/bash@' /etc/passwd
 	sudo usermod -aG audio mpd
 	sudo sed -i 's/odroid/pi/' /etc/usbmount/usbmount.conf
-	#Fix for rc.local file
+	#Fix for rc.local file	
 	sed -i 's/let \"COUNTER++\"/COUNTER=\$\(\(COUNTER+1\)\)/;s/\;mount/\;\/bin\/mount/' /etc/rc.local
 	
 	#Fix for missing SYSTEM_USER in audioplayer.conf and wrong audioplayer.conf.sav on image creation

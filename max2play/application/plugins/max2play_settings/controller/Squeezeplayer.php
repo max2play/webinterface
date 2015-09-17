@@ -119,6 +119,15 @@ class Squeezeplayer extends Service {
 				$this->view->message[] = _('Set HiFiBerry DAC Sound to 96% (Optimum value)');
 			}
 		}
+		//IQAudIO Soundcard
+		if(strpos($setsoundcard, 'CARD=IQaudIODAC') !== FALSE){
+			$user = $this->getSystemUser();
+			$dtoverlay = $this->getConfigFileParameter('/boot/config.txt', 'dtoverlay');
+			if(in_array($dtoverlay, array('iqaudio-dacplus'))){
+				$this->writeDynamicScript(array('su - '.$user.' -c \'amixer sset "PCM" 86%\'','su - '.$user.' -c \'amixer sset "Playback" 100%\'','su - pi -c \'alsactl store\''));
+				$this->view->message[] = _('Set IQAudIO DAC Sound to 86% (Optimum value)');
+			}
+		}
 		return true;
 	}
 			
@@ -278,13 +287,15 @@ class Squeezeplayer extends Service {
 	}
 	
 	private function getAllLogs(){
-		$out['SQUEEZELITE VERSION'] = shell_exec('/opt/squeezelite/squeezelite -t | grep ^Squeezelite');
-		//$out['SQUEEZESLAVE VERSION'] = shell_exec('/opt/squeezeslave/squeezeslave -V | grep ^squeezeslave');
+		$out['SQUEEZELITE VERSION'] = shell_exec('/opt/squeezelite/squeezelite -t | grep ^Squeezelite');		
 		$out['AUDIOPLAYER CONFIG'] = shell_exec('cat /opt/max2play/audioplayer.conf');		
 		$out['SQUEEZELITE -l'] = $this->soundDeviceLog;
 		$out['SHAIRPORT VERSION'] = shell_exec('/opt/shairport/shairport -V');
 		$out['OUTPUT SOUND DETAILS CARD 0'] = shell_exec('cat /proc/asound/card0/pcm0p/sub0/hw_params');
 		$out['OUTPUT SOUND DETAILS CARD 1'] = shell_exec('cat /proc/asound/card1/pcm0p/sub0/hw_params');
+		if($this->debug === TRUE){
+			$out['SOUNDDEVICES IN USE'] = $this->writeDynamicScript(array('/bin/fuser -v /dev/snd/* 2>&1'));
+		}
 		$this->view->debug = $out;
 		return true;
 	}

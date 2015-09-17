@@ -499,6 +499,7 @@ class Basic extends Service {
 				//Only Ubuntu 15.04 on odroid XU3
 				$this->writeDynamicScript(array('echo -e "[Unit]\nDescription=Resize FS\n[Service]\nType=simple\nExecStart=/etc/init.d/resize2fs_once start\n[Install]\nWantedBy=multi-user.target" >> /etc/systemd/system/multi-user.target.wants/fsresize.service'));
 			}
+			$this->view->message[] = "<b><a href='/plugins/max2play_settings/controller/Basic.php?action=reboot'>"._("Please Click here to Reboot Now")."!</a></b>";
 		}else {
 			$this->view->message[] = _('No Resize possible - no valid partition found to expand. Contact Max2Play-Support to add support for further file-systems.');
 		}
