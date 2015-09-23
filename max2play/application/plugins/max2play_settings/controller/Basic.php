@@ -397,8 +397,9 @@ class Basic extends Service {
 			$this->view->message[] = $this->formatMessageOutput($shellanswer);
 			if(strpos($shellanswer, 'inflating: /opt/max2play/list_devices.sh') !== FALSE && strpos($shellanswer, 'extracting: /var/www/max2play/application/config/version.txt') !== FALSE){
 				$this->view->message[] = _('UPDATE SUCCESSFUL');
-				$this->view->message[] = _('Max2Play-Webinterface Restarted - this takes up to 15 seconds - Wait for 15 seconds and Reload Page to see Changes');
+				$this->view->message[] = _('Max2Play-Webinterface Restarted - this takes up to 15 seconds - Wait for 15 seconds and Reload Page to see Changes');				
 				//Reload apache as Deamon in Background!
+				$this->view->message[] = '<a href="http://www.max2play.com/changelog-max2play/" target="blank"><b>'._('Click here to see what is new (Changelog)!').'</b></a>';
 				$this->view->message[] = $this->writeDynamicScript(array('sleep 15;/etc/init.d/apache2 restart'), false, true);
 			}
 			else
@@ -421,7 +422,7 @@ class Basic extends Service {
 	 * Function to parse all installed Plugins and check for Updates
 	 */
 	private function _checkPluginUpdates($version = 'currentversion'){
-		$this->view->message[] = _('Check for Plugin Updates');
+		$this->view->message[] = _('Running Check for Plugin Updates and install if available');
 		$plugins = $this->getActivePlugins();
 		$updatePlugins = false;
 		for($i = 0; $i < count($plugins['plugin']); $i++){

@@ -136,7 +136,8 @@ class Wlan extends Service {
 					array('#pre-up wpa_supplicant','#allow-hotplug wlan0','#auto wlan0','#iface wlan0 inet dhcp','#post-down killall'), 
 					array('pre-up wpa_supplicant','allow-hotplug wlan0','auto wlan0','iface wlan0 inet dhcp','post-down killall'), 
 					$shellanswer_eth);
-			$this->writeDynamicScript(array("echo '".$shellanswer_eth."' > ".$this->networkinterfaces.";sudo ifup wlan0"));			
+			$this->writeDynamicScript(array("echo '".$shellanswer_eth."' > ".$this->networkinterfaces.";sudo ifup wlan0"));
+			$this->saveConfigFileParameter('/opt/max2play/options.conf', 'autoreconnect_wifi', '1');
 		}elseif(($ssid == '' || $_GET['wlan_configured'] == false) && $wlanstatus == true){
 			$this->view->message[] = _('WLAN deactivated - no network choosen - please reboot');
 			$shellanswer_eth = str_replace(
@@ -144,6 +145,7 @@ class Wlan extends Service {
 					array('#pre-up wpa_supplicant','#allow-hotplug wlan0','#auto wlan0','#iface wlan0 inet dhcp','#post-down killall'),
 					$shellanswer_eth);
 			$this->writeDynamicScript(array("echo '".$shellanswer_eth."' > ".$this->networkinterfaces.";sudo ifdown wlan0"));
+			$this->saveConfigFileParameter('/opt/max2play/options.conf', 'autoreconnect_wifi', '0');
 		}
 		return true;
 	}

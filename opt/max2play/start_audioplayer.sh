@@ -71,3 +71,11 @@ if [ "0" -lt "$autostart_presence_detection" -a  "1" -gt "$running_presence_dete
    then
      /opt/max2play/fritzbox_devices.sh &
 fi
+
+autoreconnect_wifi=$(cat /opt/max2play/autostart.conf | grep autoreconnect_wifi=1 | wc -l)
+if [ "$autoreconnect_wifi" -gt "0" ]; then
+   if [ "$(ifconfig | wc -l)" -gt "0" -a "$(ifconfig wlan0 | grep -q 'inet addr:' | wc -l)" -lt "1" ]; then
+      echo "Network connection down! Attempting reconnection."
+      ifup --force wlan0
+   fi
+fi

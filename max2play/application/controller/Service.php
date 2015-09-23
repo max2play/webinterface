@@ -489,8 +489,13 @@ class Service {
 		if($daemon){
 			$command = escapeshellarg('sudo '.$this->dynamicScript);
 			exec("php /opt/max2play/dynamicscriptdaemon.php {$command} >> /dev/null 2>&1 &");
+			// To prevent other actions to overwrite dynamic_script file
+			sleep(1);
 		}else{
 			$output = shell_exec('sudo './*((true == $background) ? 'nohup ' : ' ').*/$this->dynamicScript.((true == $background) ? ' > '.$backgroundfile.' &' : ''));
+			if(true == $background){
+				sleep(1);
+			}
 		}		
 		
 		return $output;
@@ -525,7 +530,7 @@ class Service {
 			//Check for empty entry
 			$param_exists = shell_exec('grep -aP "^[ \t]*'.$parameter.'" '.$configfile.' | wc -l');
 			if($old_parameter != '' || $param_exists > 0){
-				$this->writeDynamicScript(array('sed -i "s/^[ \t]*'.$parameter.'.*$/'.$parameter.$separator.$value.'/g" '.$configfile));
+				$this->writeDynamicScript(array('sed -i "s/^[ \t]*'.$parameter.'.*$/'.$parameter.$separator.str_replace(array('/'),array('\/'),$value).'/g" '.$configfile));
 				$this->view->message[] = _("Update Configfile - existing Entry changed");
 			}else{
 				//check for Newline in Last Line in config file

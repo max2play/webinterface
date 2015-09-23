@@ -50,7 +50,7 @@ if [ "$HW_U3" -gt "0" ]; then
 	if [ "$NFSINSTALLED" -lt "1" ]; then
 		apt-get update
 		echo "Y" | apt-get install nfs-common --yes
-	fi  
+	fi	
 fi
 
 # XU4: check Mac-Adress and remove udev rule with Mac
@@ -60,6 +60,9 @@ if [ "$HW_XU3" -gt "0" ]; then
 	# cat /etc/udev/rules.d/70-persistent-net.rules remove my Device MAC and eth1 if existing
 	sed -i 's/.*00:1e:06:31:06:13.*//' /etc/udev/rules.d/70-persistent-net.rules
 	sed -i 's/.*eth1.*//' /etc/udev/rules.d/70-persistent-net.rules
+	
+	# Fix for wrong FSTAB
+	sed -i "s/1##USERMOUNT/1\n\n##USERMOUNT/" /etc/fstab
 	
 	# Fix IPv6 deaktivieren - Problem: reloadin apache after this fix may crash apache process
 	IPV6DISABLED=$(grep -i "Listen 0.0.0.0:80" /etc/apache2/ports.conf | wc -l)
@@ -135,6 +138,11 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	    # Update Plugin Header		
 	    echo "Copy custom header files"
 	    cp -f /var/www/max2play/application/plugins/hifiberry/view/header_custom.php /var/www/max2play/application/view/
+	fi
+	
+	if [ "$(grep -i "start_audioplayer" /etc/rc.local | wc -l)" -lt "1" ]; then
+		# Add Start Audioplayer to boot (not wait for crontab)
+		sudo sed -i "s/^exit 0/#Max2Play Start Audioplayer\nsudo -u pi -H -s \/opt\/max2play\/start_audioplayer.sh > \/dev\/null 2>\&1 \&\n\nexit 0/" /etc/rc.local
 	fi
 fi
 
