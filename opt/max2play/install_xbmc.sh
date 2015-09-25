@@ -17,9 +17,13 @@ else
 		# apt-get update
 		# apt-get install libgnutls-dev
 		echo "Installation abgeschlossen"
-		
-		# Fix für Bild, das nicht angezeigt wird (Fehler bei Kodi Start)
-		rm -R /usr/lib/arm-linux-gnueabihf/mesa-egl/
+				
+		# Fix Ubuntu 15.04 and ODROID XU4
+		if [ "$(cat /proc/cpuinfo | grep Hardware | grep XU3 | wc -l)" -gt "1" ]; then
+			# Fix für Bild, das nicht angezeigt wird (Fehler bei Kodi Start)
+			rm -R /usr/lib/arm-linux-gnueabihf/mesa-egl/
+			apt-get install fonts-roboto javascript-common libhdhomerun1 libjs-iscroll libjs-jquery libshairport2 -y
+		fi
 	else
 		echo "Is already installed - installed=$installcheck"
 	fi
