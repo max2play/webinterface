@@ -19,10 +19,13 @@ else
 		echo "Installation abgeschlossen"
 				
 		# Fix Ubuntu 15.04 and ODROID XU4
-		if [ "$(cat /proc/cpuinfo | grep Hardware | grep XU3 | wc -l)" -gt "1" ]; then
+		if [ "$(cat /proc/cpuinfo | grep Hardware | grep XU3 | wc -l)" -gt "0" ]; then
 			# Fix für Bild, das nicht angezeigt wird (Fehler bei Kodi Start)
 			rm -R /usr/lib/arm-linux-gnueabihf/mesa-egl/
 			apt-get install fonts-roboto javascript-common libhdhomerun1 libjs-iscroll libjs-jquery libshairport2 -y
+			# Needed for PVR-Plugins and others
+			sudo /var/www/max2play/application/plugins/max2play_settings/scripts/buildkodiplatform.sh
+			echo "Update for XU4 done"
 		fi
 	else
 		echo "Is already installed - installed=$installcheck"

@@ -78,7 +78,7 @@
 			<option value=""><?php echo _('Choose Addon')?></option>
 			<option value="https://addonscriptorde-beta-repo.googlecode.com/files/repository.addonscriptorde-beta.zip">Amazon Instant Video (old XBMC version)</option>
 			<option value="https://github.com/XLordKX/kodi/raw/master/zip/repository.xlordkx/repository.xlordkx-1.0.0.zip">Amazon Instant Video (new Kodi version)</option>
-			<option value="http://cdn.max2play.com/kodi-15-pvr/max2play-u3-repository.zip">ODROID U3 Kodi 15 PVR-Addons Repository (ONLY for U3 and Kodi 15!)</option>
+			<option value="http://cdn.max2play.com/kodi-15-pvr/max2play-u3-repository.zip">ODROID U3/XU4 Kodi 15 PVR-Addons Repository (ONLY for ODROID and Kodi 15!)</option>
 		</select>
 		<script type="text/javascript">
 			function copytodownloadurl(item){
@@ -92,5 +92,13 @@
 	
 	<br /><br />
 	<?php echo _('XBMC INFO DESCRIPTION') ?>
+	
+	<br /><br />
+	<a href="#javascript" onclick="document.getElementById('debug').style.display='';return false;">DEBUG Information</a>
+	<textarea id="debug" rows="30" cols="70" style="display:none;"><?php foreach ($sp->view->debug as $key => $debug) {
+			echo "#### ". $key. " ####\n"; 
+			 echo $debug." \n\n"; 
+		 }?>
+	</textarea>
 </div>	
 															

@@ -93,7 +93,8 @@ class Xbmc extends Service {
 		}
 		$this->view->autostart = $this->checkAutostart($this->pname, true);
 		$this->view->pid = $this->status($this->pname.'.bin');
-		$this->getXbmcVersion();		
+		$this->getXbmcVersion();
+		$this->getAllLogs();	
 	}
 
 	public function installXBMC($ajax = 0){
@@ -159,6 +160,13 @@ class Xbmc extends Service {
 					
 		return true;
 	}
+	
+	private function getAllLogs(){
+		$out['KODI_LOG'] = shell_exec('cat /home/'.$this->getSystemUser().'/.kodi/temp/kodi.log');		
+		$this->view->debug = $out;
+		return true;
+	}
+	
 }
 
 $sp = new Xbmc();
