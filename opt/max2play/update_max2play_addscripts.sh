@@ -73,8 +73,12 @@ if [ "$HW_XU3" -gt "0" ]; then
 	# Fix for usbmount ntfs/ntfs-3g (otherwise it will not mount correctly)
 	apt-get update
 	apt-get install at -y
-	# Apply Patch for usbmount
-	sed -i "s~mount \"-t\$fstype\" \"\${options:+-o\$options}\" \"\$DEVNAME\" \"\$mountpoint\"~echo mount \"-t\$fstype\" \"\${options:\+-o\$options}\" \"\$DEVNAME\" \"\$mountpoint\" >/tmp/usbmount_max2play.sh\n                at -f /tmp/usbmount_max2play.sh now~" /usr/share/usbmount/usbmount
+	# Apply Patch for usbmount if not yet patched
+	if [ "$(grep -i "max2play" /usr/share/usbmount/usbmount | wc -l)" -lt "1" ]; then 
+		sed -i "s~mount \"-t\$fstype\" \"\${options:+-o\$options}\" \"\$DEVNAME\" \"\$mountpoint\"~echo mount \"-t\$fstype\" \"\${options:\+-o\$options}\" \"\$DEVNAME\" \"\$mountpoint\" >/tmp/usbmount_max2play.sh\n                at -f /tmp/usbmount_max2play.sh now~" /usr/share/usbmount/usbmount
+	fi
+	# Patch wrong patch...
+	sed -i "s/echo echo/echo/;s/echo echo/echo/;s/echo echo/echo/;s/echo echo/echo/;s@at -f /tmp/usbmount_max2play.sh now >/tmp/usbmount_max2play.sh@@" /usr/share/usbmount/usbmount
 fi
 
 #Disable IPv6 - not working correct yet

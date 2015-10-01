@@ -81,6 +81,12 @@
 			document.getElementById('networkdevices').style.display = '';
 		}
 	</script>
+	<div id="helpmount" style="display:none;" >		
+		<br />
+		<b><?php echo _('Important Information') ?>:</b><br />
+		<?php echo _('Important Information Filesystem Description') ?>	
+		<br /><br />
+	</div>		
 	
 	<a href="#javascript" onclick="document.getElementById('helpmount').style.display = '';" class="download-button" style="width:40%; float:left;"><?php echo _("Show Help"); ?></a>
 	<a href="#javascript" onclick="loadajax();" class="download-button" style="width:40%; float:right;"><?php echo _("Show Network Devices"); ?></a>
@@ -89,13 +95,7 @@
 		
 	</div>
 	
-	<div id="helpmount" style="display:none;" >		
-		<br />
-		<b><?php echo _('Important Information') ?>:</b><br />
-		<?php echo _('Important Information Filesystem Description') ?>	
-	</div>
-	
-	<br /><br />	
+	<br /><br />
 	<a href="#javascript" onclick="document.getElementById('debug').style.display='';return false;"><?php echo _("DEBUG Info") ?></a>
 	<textarea id="debug" rows="5" cols="80" style="display:none;"><?php echo $fs->view->mount_txt ?></textarea>	
 	
