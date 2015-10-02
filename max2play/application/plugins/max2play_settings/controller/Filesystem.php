@@ -289,7 +289,7 @@ class Filesystem extends Service {
 				$test1 = $m->setMountpoint('UUID='.$this->view->mountpointsSDA[$device]['uuid']);
 				$test2 = $m->setPath($this->view->mountpointsSDA[$device]['path']);
 				$test3 = $m->setType($this->view->mountpointsSDA[$device]['type']);
-				$test4 = $m->setOptions('defaults');
+				$test4 = $m->setOptions('defaults,nobootwait');
 				
 				$this->addMount($m);
 			}
