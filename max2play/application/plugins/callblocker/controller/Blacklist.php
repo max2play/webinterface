@@ -121,7 +121,7 @@ class Callblocker_Blacklist extends Service {
 			$this->writeDynamicScript(array('echo "'.trim(str_replace("\r\n", "\n", $whitelist), "\n").'" > '.$this->local_whitelist));
 		}
 		//2>&1 > /opt/callblocker/cache/tellowsblacklist.txt
-		$this->writeDynamicScript(array('sudo /opt/callblocker/tellowsblacklist.sh'), true);
+		$this->writeDynamicScript(array('sudo /opt/callblocker/tellowsblacklist.sh local'), true);
 		
 		return true;
 	}

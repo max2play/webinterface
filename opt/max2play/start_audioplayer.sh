@@ -55,8 +55,11 @@ if [ "1" -gt "$xbmcrunning" ]; then
         USER=$(grep -a "SYSTEM_USER" /opt/max2play/audioplayer.conf | sed -n -e 's/^[A-Z_]*\=//p')
         if [ "$USER" = "pi" ]; then
           export DISPLAY=':0'
-          sudo su -l pi -c /usr/bin/startx > /dev/null 2>&1 &
-          sleep 4         
+          running_xserver=$(ps -Al | grep startx | wc -l)
+          if [ "1" -gt "$running_xserver" ]; then
+          	sudo su -l pi -c /usr/bin/startx > /dev/null 2>&1 &
+          	sleep 4
+          fi         
           sudo -u pi -H /opt/jivelite/jivelite/bin/jivelite > /dev/null 2>&1 &
         else
           export DISPLAY=':0'
@@ -72,10 +75,11 @@ if [ "0" -lt "$autostart_presence_detection" -a  "1" -gt "$running_presence_dete
      /opt/max2play/fritzbox_devices.sh &
 fi
 
-autoreconnect_wifi=$(cat /opt/max2play/autostart.conf | grep autoreconnect_wifi=1 | wc -l)
+autoreconnect_wifi=$(cat /opt/max2play/options.conf | grep autoreconnect_wifi=1 | wc -l)
 if [ "$autoreconnect_wifi" -gt "0" ]; then
-   if [ "$(ifconfig | wc -l)" -gt "0" -a "$(ifconfig wlan0 | grep -q 'inet addr:' | wc -l)" -lt "1" ]; then
+   if [ "$(sudo /sbin/ifconfig eth0 | grep 'inet addr:' | wc -l)" -lt "1" -a "$(sudo /sbin/ifconfig wlan0 | grep 'inet addr:' | wc -l)" -lt "1" ]; then
       echo "Network connection down! Attempting reconnection."
-      ifup --force wlan0
+      #sudo rm /var/run/wpa_supplicant/wlan0
+      sudo /sbin/ifup --force wlan0
    fi
 fi

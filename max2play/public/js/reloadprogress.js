@@ -24,7 +24,7 @@ function reloadprogress(msgboxid, successurl, reloadWindowWhenFinished){
     }).fail(function (data) {
         //count tries
     	reloadcount = reloadcount + 1;
-    	if(reloadcount < 20){    		
+    	if(reloadcount < 60){    		
     		setTimeout(function(){reloadprogress("msgprogress", successurl, reloadWindowWhenFinished)}, 3000);
     		//$("body").removeClass("loading");
     	}else{

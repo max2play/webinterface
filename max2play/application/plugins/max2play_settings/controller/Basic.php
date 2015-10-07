@@ -408,6 +408,8 @@ class Basic extends Service {
 			$this->checkLicense();
 			
 			$this->loadViewHeader(true);
+		}elseif($file === false){
+			$this->view->message[] = _('Max2Play Website not available - maybe no internet connection? Please try a reboot to fix the internet connection.');
 		}else{
 			$this->view->message[] = _('Max2Play is up to date - no update required');			
 		}
@@ -503,6 +505,7 @@ class Basic extends Service {
 			$this->view->message[] = "<b><a href='/plugins/max2play_settings/controller/Basic.php?action=reboot'>"._("Please Click here to Reboot Now")."!</a></b>";
 		}else {
 			$this->view->message[] = _('No Resize possible - no valid partition found to expand. Contact Max2Play-Support to add support for further file-systems.');
+			$this->view->message[] = _('Make sure to disconnect all USB-drives and Memory-Cards and do a reboot before expanding the filesystem!');
 		}
 		return true;
 	}

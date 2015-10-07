@@ -113,7 +113,7 @@ class Xbmc extends Service {
 			if($this->getProgressWithAjax('/opt/max2play/cache/install_xbmc.txt', 1, 0, 40)){
 				// Run installer as Deamon
 				sleep(1);																
-				$shellanswer = $this->writeDynamicScript(array("/opt/max2play/install_xbmc.sh update ".$downurl." > /opt/max2play/cache/install_xbmc.txt 2>&1"), true, false);
+				$shellanswer = $this->writeDynamicScript(array("/opt/max2play/install_xbmc.sh update ".$downurl." > /opt/max2play/cache/install_xbmc.txt 2>&1"), false, true);
 			}
 		}else{
 			$status = $this->getProgressWithAjax('/opt/max2play/cache/install_xbmc.txt',0, 0, 25);						
