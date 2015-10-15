@@ -141,6 +141,10 @@ class Xbmc extends Service {
 	 */
 	public function getAddon($url){
 		if($url != '' && $this->checkLicense(true) == true){
+			if(!(file_exists('/home/'.$this->getSystemUser().'/.kodi') || file_exists('/home/'.$this->getSystemUser().'/.xbmc'))){
+				//make sure addon directory exists
+				$this->writeDynamicScript(array('mkdir -p /home/'.$this->getSystemUser().'/.kodi/addons; chown -R '.$this->getSystemUser().' /home/'.$this->getSystemUser().'/.kodi'));
+			}
 			if(strpos($url, 'repository.addonscriptorde') !== FALSE){
 				$this->writeDynamicScript(array('wget -P /opt/max2play/cache "shop.max2play.com/media/downloadable/beta/amazonprime.tar";if [ -e "/home/'.$this->getSystemUser().'/.kodi" ]; then sudo -u '.$this->getSystemUser().' tar -xf /opt/max2play/cache/amazonprime.tar -C /home/'.$this->getSystemUser().'/.kodi/addons; else tar -xf /opt/max2play/cache/amazonprime.tar -C /home/'.$this->getSystemUser().'/.xbmc/addons;fi;'));
 				$this->view->message[] = _('Plugin installed');				

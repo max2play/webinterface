@@ -8,6 +8,7 @@ if [ "$1" = "check" ]; then
 	echo "installed=$installcheck"
 else
 	if [ "1" -gt "$installcheck" ] || [ "$1" = "update" ]; then
+		apt-get update
 		if [ "$(cat /proc/cpuinfo | grep Hardware | grep BCM270 | wc -l)" -gt "0" ]; then
 			# Fix Download for Raspberry PI Version
 			cd /opt
@@ -16,14 +17,15 @@ else
 			tar -xzf kodi-15.tar.gz
 			cd kodi-15
 			./install
+			# get support for PVR-Addons
+			sudo /var/www/max2play/application/plugins/max2play_settings/scripts/buildkodiplatform.sh
 		else		
 			echo "Remove old version"
 			dpkg -r xbmc
 			dpkg -r kodi		
 			wget -O /opt/max2play/xbmc.deb $source
 			dpkg -i /opt/max2play/xbmc.deb
-			# XU3/XU4 Ubuntu 15.04
-			# apt-get update
+			# XU3/XU4 Ubuntu 15.04			
 			# apt-get install libgnutls-dev
 			echo "Installation abgeschlossen"
 					

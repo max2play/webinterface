@@ -78,7 +78,7 @@
 			<option value=""><?php echo _('Choose Addon')?></option>
 			<option value="https://addonscriptorde-beta-repo.googlecode.com/files/repository.addonscriptorde-beta.zip">Amazon Instant Video (old XBMC version)</option>
 			<option value="https://github.com/XLordKX/kodi/raw/master/zip/repository.xlordkx/repository.xlordkx-1.0.0.zip">Amazon Instant Video (new Kodi version)</option>
-			<option value="http://cdn.max2play.com/kodi-15-pvr/max2play-u3-repository.zip">ODROID U3/XU4 Kodi 15 PVR-Addons Repository (ONLY for ODROID and Kodi 15!)</option>
+			<option value="http://cdn.max2play.com/kodi-15-pvr/max2play-u3-repository.zip">Kodi 15 PVR-Addons Repository (for Raspberry Pi/ODROID and Kodi version 15 ONLY!)</option>
 		</select>
 		<script type="text/javascript">
 			function copytodownloadurl(item){
