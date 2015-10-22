@@ -66,10 +66,10 @@ class Wlan extends Service {
 		return true;
 	}
 	private function _saveWirelessConfig(){
-		$ssid = urldecode($_GET['ssid']);
-		$psk = urldecode($_GET['psk']);
-		if(in_array($_GET['groupcipher'], array('TKIP', 'CCMP'))){
-			$gcipher = $_GET['groupcipher'];
+		$ssid = $_REQUEST['ssid'];
+		$psk = $_REQUEST['psk'];
+		if(in_array($_REQUEST['groupcipher'], array('TKIP', 'CCMP'))){
+			$gcipher = $_REQUEST['groupcipher'];
 		}else{
 			$gcipher = $this->view->groupcipher;
 		}

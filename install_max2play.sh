@@ -415,6 +415,9 @@ if [ "$HW_ODROID" -gt "0" ]; then
 	echo "TODO: REBOOT !!!"
 fi
 
+echo "To Install Autoconfig run: "
+echo "sed -i \"s@^#Max2Play\\\$@#Max2Play\nif [ -e /boot/max2play.conf ]; then /opt/max2play/autoconfig.sh; fi\n@\" /etc/rc.local" 
+
 #Remove Install Files in local directory
 rm -R max2play
 rm -R max2play_complete.zip

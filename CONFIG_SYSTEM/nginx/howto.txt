@@ -1,0 +1,3 @@
+# apt-get install php5-fpm nginx -y
+
+# set up config - default on Port 81 for testing

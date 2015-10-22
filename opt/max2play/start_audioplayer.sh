@@ -58,7 +58,7 @@ if [ "1" -gt "$xbmcrunning" ]; then
           running_xserver=$(ps -Al | grep startx | wc -l)
           if [ "1" -gt "$running_xserver" ]; then
           	sudo su -l pi -c /usr/bin/startx > /dev/null 2>&1 &
-          	sleep 4
+          	sleep 5
           fi         
           sudo -u pi -H /opt/jivelite/jivelite/bin/jivelite > /dev/null 2>&1 &
         else
