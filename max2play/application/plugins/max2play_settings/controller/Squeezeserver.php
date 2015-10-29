@@ -45,7 +45,9 @@ class Squeezeserver extends Service {
 			ob_flush();
 			die();
 		}
-			
+		
+		$this->getNomysqueezebox();
+		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'start'){			
 				$this->view->message[] = $this->start($this->pname, '', $this->prozessname);	
@@ -66,6 +68,9 @@ class Squeezeserver extends Service {
 				$this->selectAutostart(isset($_GET['autostart']) ? 1 : 0, false);
 			}
 			
+			if($_GET['action'] == 'save_nomysqueezebox'){
+				$this->saveNomysqueezebox(isset($_GET['nomysqueezebox']) ? 1 : 0);
+			}
 			if($_GET['action'] == 'install'){
 				$this->installLMS($_GET['lmsversion']);
 			}
@@ -123,6 +128,30 @@ class Squeezeserver extends Service {
 			$this->view->message[] = '<div id="msgprogress"></div><script type="text/javascript">setTimeout(function(){reloadprogress("msgprogress", "/plugins/max2play_settings/controller/Squeezeserver.php", 1)}, 3000);</script>';
 			return true;
 		}
+	}
+	
+	/**
+	 * Enable / Disable Services from Mysqueezebox.com
+	 * @param string $deactivate
+	 * @return boolean
+	 */
+	public function saveNomysqueezebox($deactivate = false){
+		if($deactivate)
+			$this->saveConfigFileParameter('/etc/default/logitechmediaserver', 'SLIMOPTIONS', '\"--nomysqueezebox --nomigration\"');
+		else{
+			$this->saveConfigFileParameter('/etc/default/logitechmediaserver', 'SLIMOPTIONS', str_replace($this->view->nomysqueezebox, '--nomysqueezebox --nomigration', ''));
+		}
+		$this->getNomysqueezebox();
+		return true;
+	}
+	
+	public function getNomysqueezebox(){
+		$this->view->nomysqueezeboxvalue = $this->getConfigFileParameter('/etc/default/logitechmediaserver', 'SLIMOPTIONS');
+		if(strpos($this->view->nomysqueezeboxvalue, '--nomysqueezebox --nomigration') !== FALSE)
+			$this->view->nomysqueezebox = true;
+		else 
+			$this->view->nomysqueezebox = false;
+		return true;
 	}
 	
 	/**

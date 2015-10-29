@@ -16,6 +16,13 @@ fi
 NAME=$(cat /opt/max2play/playername.txt)
 SHAIRPORT_PARAMETER=$(grep -a "SHAIRPORT_PARAMETER" /opt/max2play/audioplayer.conf | sed -n -e 's/^[A-Z_]*\=//p')
 
+LMSIP=$(grep -a "LMSIP" /opt/max2play/audioplayer.conf | sed -n -e 's/^[A-Z_]*\=//p')
+if [ ! "$LMSIP" = "" ]; then
+    SHAIRPORT_OPTIONS="--on-start '/opt/max2play/shairport_switch.sh shutup' --on-stop '/opt/max2play/shairport_switch.sh resume'"
+else
+	SHAIRPORT_OPTIONS=""
+fi
+
 case "$1" in
   start)
     echo "Starting Shairport"
@@ -25,7 +32,7 @@ case "$1" in
     then
 	  # -d plug:plugequal for Equalizer Options
 	  # /sbin/start-stop-daemon --start --quiet -b -m -p /opt/shairport/log/shairport.pid --chuid $USER --exec /opt/shairport/shairport -- --name "$NAME" -o alsa -- $SHAIRPORT_PARAMETER
-      /sbin/start-stop-daemon --start -b -m -p /opt/shairport/log/shairport.pid --chuid $USER --startas /bin/bash -- -c "exec /opt/shairport/shairport --name \"$NAME\" -o alsa -- $SHAIRPORT_PARAMETER > /tmp/shairport.txt 2>&1"      
+      /sbin/start-stop-daemon --start -b -m -p /opt/shairport/log/shairport.pid --chuid $USER --startas /bin/bash -- -c "exec /opt/shairport/shairport --name \"$NAME\" -o alsa $SHAIRPORT_OPTIONS -- $SHAIRPORT_PARAMETER > /tmp/shairport.txt 2>&1"      
     fi
   ;;
   stop)

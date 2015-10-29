@@ -57,6 +57,10 @@
 		<b><?php echo str_replace('$SERVICENAME', $sp->viewname, _('Autostart $SERVICENAME')) ?>:</b><br />
 		<input type="checkbox" <?php if($sp->view->autostart) echo "checked"; ?> value="1" name="autostart" />
 		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
+		<br /><br />		
+		<b><?php echo _('Run Squeezebox Server without www.mysqueezebox.com') ?>:</b><br />
+		<input type="checkbox" <?php if($sp->view->nomysqueezebox) echo "checked"; ?> value="1" name="nomysqueezebox" /> <?php echo _('Disable services from www.mysqueezebox.com and render thumbnail images locally.') ?><br />		
+		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save_nomysqueezebox';submit();" />
 		<br /><br />
 	<?php } ?>				
 							

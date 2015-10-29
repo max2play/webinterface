@@ -197,6 +197,18 @@ $(function() {
 					</td>
 					<td><?php echo _('Select Audio output') ?></td>
 				</tr>
+				<tr>
+					<td><?php echo _('Command Line Options') ?></td>					
+					<td><input style="width: 90%;" type="text" name="shairport_commandline" id="shairport_commandline" value="<?php echo $ap->view->shairport_commandline ?>" />
+					</td>
+					<td><?php echo _('Advanced Users may add Start-Parameters for Shairport. Some Audiocards (e.g. AMPs) require special settings to access Hardware Volume Control.') ?></td>
+				</tr>
+				<tr>
+					<td><?php echo _('Shairport/Squeezelite automatic Audio-Switch') ?></td>					
+					<td><input style="width: 90%;" type="text" name="squeezebox_serverip" id="squeezebox_serverip" value="<?php echo $ap->view->squeezebox_serverip ?>" />
+					</td>
+					<td><?php echo _('Enter the Squeezebox-Server URL-Name or IP-Address. It enables automatic switching between Squeezelite and Shairport (running Squeezelite and Shairport with soundcards that only support one audio-stream at a time like HiFiBerry DACs). Everything else beside the Squeezebox Server IP is set up automatically. Just start Airplay and the Squeezeplayer will Soft-Power-Off. Stop Airplay and will Soft-Power-On again. Example IP (when running Server on this device): ').$_SERVER['SERVER_ADDR'] ?> </td>
+				</tr>
 			</table>
 			<input type="button" name="save" value="<?php echo _('save') ?>" onclick="document.getElementById('action').value='save';submit();" />
 		</div>

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-09 13:50+0100\n"
-"PO-Revision-Date: 2015-10-12 14:23+0100\n"
+"POT-Creation-Date: 2015-10-27 16:50+0100\n"
+"PO-Revision-Date: 2015-10-28 17:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -32,7 +32,7 @@ msgstr "Start"
 #: y:\projects\max2play\max2play\application\controller/Start.php:48
 #: y:\projects\max2play\max2play\application/controller/Start.php:48
 #: y:\projects\max2play\max2play\application/plugins/squeezeplug/controller/Setup.php:43
-#: y:\projects\svn_max2play\plugins/hifiberry/controller/Setup.php:52
+#: y:\projects\svn_max2play\plugins/hifiberry/controller/Setup.php:57
 msgid ""
 "Only $FREESPACE MB of free space left on the device! Did you already expand "
 "the filesystem?"
@@ -43,13 +43,13 @@ msgstr ""
 #: y:\projects\max2play\max2play\application\controller/Start.php:76
 #: y:\projects\max2play\max2play\application/controller/Start.php:76
 msgid "Created View-Files"
-msgstr ""
+msgstr "View-Files erstellt"
 
 #: y:\projects\max2play\max2play\application\controller/Start.php:141
 #: y:\projects\max2play\max2play\application/controller/Start.php:141
-#: y:\projects\svn_max2play\plugins/hifiberry/controller/Setup.php:154
+#: y:\projects\svn_max2play\plugins/hifiberry/controller/Setup.php:159
 msgid "Help - Introduction"
-msgstr ""
+msgstr "Hilfe - Einführung"
 
 #: y:\projects\max2play\max2play\application\controller/Start.php:142
 #: y:\projects\max2play\max2play\application/controller/Start.php:142
@@ -59,6 +59,10 @@ msgid ""
 "channel/UCu2JHGI142fLrkoUN8dUkRA\">our video tutorials about the settings in "
 "this web interface</a>.</li></ul>"
 msgstr ""
+"<ul><li>Max2Play - Der einfachste Weg um Audio- und Videoplayer "
+"einzustellen! Schaut euch <a target=\"_blank\" href=\"https://www.youtube."
+"com/channel/UCu2JHGI142fLrkoUN8dUkRA\">unsere Video-Anleitungen über die "
+"Einstellungen im Webinterface hier an</a>.</li></ul>"
 
 #: y:\projects\max2play\max2play\application\controller/Service.php:96
 #: y:\projects\max2play\max2play\application/controller/Service.php:96
@@ -153,6 +157,8 @@ msgid ""
 "You need at least Max2Play Version $MINVERSION to run this addon. Please "
 "update Max2Play on Settings tab!"
 msgstr ""
+"Sie benötigen Max2Play Version $MINVERSION oder neuer um dieses Addon zu "
+"nutzen. Bitte klicken Sie \"Update Max2Play\" im Einstellungen-Menü!"
 
 #: y:\projects\max2play\max2play\application\controller/Service.php:400
 #: y:\projects\max2play\max2play\application/controller/Service.php:400
@@ -175,24 +181,24 @@ msgid "SD-Card is Read-Only! Changes on settings will not be saved!"
 msgstr ""
 "SD-Karte ist nicht beschreibbar! Änderungen können nicht gespeichert werden!"
 
-#: y:\projects\max2play\max2play\application\controller/Service.php:529
-#: y:\projects\max2play\max2play\application/controller/Service.php:529
+#: y:\projects\max2play\max2play\application\controller/Service.php:534
+#: y:\projects\max2play\max2play\application/controller/Service.php:534
 msgid "Update Configfile - existing Entry changed"
 msgstr "Konfiguration aktualisiert - existierender Eintrag wurde geändert"
 
-#: y:\projects\max2play\max2play\application\controller/Service.php:537
-#: y:\projects\max2play\max2play\application/controller/Service.php:537
+#: y:\projects\max2play\max2play\application\controller/Service.php:542
+#: y:\projects\max2play\max2play\application/controller/Service.php:542
 msgid "Update Configfile - new Entry created"
 msgstr "Konfiguration aktualisiert - neuer Eintrag wurde erstellt"
 
-#: y:\projects\max2play\max2play\application\controller/Service.php:542
-#: y:\projects\max2play\max2play\application/controller/Service.php:542
+#: y:\projects\max2play\max2play\application\controller/Service.php:547
+#: y:\projects\max2play\max2play\application/controller/Service.php:547
 msgid "Update Configfile - new Configfile created"
 msgstr "Konfiguration aktualisiert - neue Konfigurationsdatei wurde angelegt"
 
-#: y:\projects\max2play\max2play\application\controller/Service.php:593
+#: y:\projects\max2play\max2play\application\controller/Service.php:598
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:121
-#: y:\projects\max2play\max2play\application/controller/Service.php:593
+#: y:\projects\max2play\max2play\application/controller/Service.php:598
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:121
 msgid ""
 "Installation startet - This Messages refreshes every 3 seconds to show "
@@ -202,22 +208,22 @@ msgstr ""
 "Installation aller 3 Sekunden an. Wenn diese abgeschlossen ist verschwindet "
 "die Meldung und der Server läuft."
 
-#: y:\projects\max2play\max2play\application\controller/Service.php:610
+#: y:\projects\max2play\max2play\application\controller/Service.php:615
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeserver.php:102
-#: y:\projects\max2play\max2play\application/controller/Service.php:610
+#: y:\projects\max2play\max2play\application/controller/Service.php:615
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeserver.php:102
 msgid "Something went wrong in last Install Attempt - Deleting Progressfile"
 msgstr ""
 "Etwas lief schief beim letzten Installationsversuch - lösche "
 "Installationsdatei und versuche es nochmal"
 
-#: y:\projects\max2play\max2play\application\controller/Service.php:630
-#: y:\projects\max2play\max2play\application/controller/Service.php:630
+#: y:\projects\max2play\max2play\application\controller/Service.php:635
+#: y:\projects\max2play\max2play\application/controller/Service.php:635
 msgid "Click here to show detailed information"
 msgstr "Hier klicken für weitere Informationen"
 
-#: y:\projects\max2play\max2play\application\controller/Service.php:752
-#: y:\projects\max2play\max2play\application/controller/Service.php:752
+#: y:\projects\max2play\max2play\application\controller/Service.php:757
+#: y:\projects\max2play\max2play\application/controller/Service.php:757
 msgid ""
 "No valid Max2Play-License for additional plugins and features found. Please "
 "enter a valid eMail-address on the Settings-page to verify that you are a "
@@ -228,13 +234,13 @@ msgstr ""
 "\"Einstellungen\" ein. Nur Kunden des Max2Play-Webshops haben kompletten "
 "Zugang zu allen Funktionen."
 
-#: y:\projects\max2play\max2play\application\controller/Service.php:777
-#: y:\projects\max2play\max2play\application/controller/Service.php:777
+#: y:\projects\max2play\max2play\application\controller/Service.php:782
+#: y:\projects\max2play\max2play\application/controller/Service.php:782
 msgid "Invalid Plugin-URL"
 msgstr "Ungültige Plugin URL"
 
-#: y:\projects\max2play\max2play\application\controller/Service.php:791
-#: y:\projects\max2play\max2play\application/controller/Service.php:791
+#: y:\projects\max2play\max2play\application\controller/Service.php:796
+#: y:\projects\max2play\max2play\application/controller/Service.php:796
 msgid ""
 "Plugin $PLUGINNAME activated and added to main navigation. You may change "
 "the position and visibility in the addon configuration on the <a href=\"/"
@@ -246,18 +252,18 @@ msgstr ""
 "der <a href=\"/plugins/max2play_settings/controller/Basic."
 "php#pluginconfigblock\">Seite Einstellungen</a> geändert werden."
 
-#: y:\projects\max2play\max2play\application\controller/Service.php:863
-#: y:\projects\max2play\max2play\application/controller/Service.php:863
+#: y:\projects\max2play\max2play\application\controller/Service.php:868
+#: y:\projects\max2play\max2play\application/controller/Service.php:868
 msgid "Plugin Error"
 msgstr "Plugin Fehler"
 
-#: y:\projects\max2play\max2play\application\controller/Service.php:934
-#: y:\projects\max2play\max2play\application/controller/Service.php:934
+#: y:\projects\max2play\max2play\application\controller/Service.php:939
+#: y:\projects\max2play\max2play\application/controller/Service.php:939
 msgid "Plugin configuration updated"
 msgstr "Pluginkonfiguration geändert"
 
-#: y:\projects\max2play\max2play\application\controller/Service.php:974
-#: y:\projects\max2play\max2play\application/controller/Service.php:974
+#: y:\projects\max2play\max2play\application\controller/Service.php:979
+#: y:\projects\max2play\max2play\application/controller/Service.php:979
 msgid "Updated Equalizer Settings"
 msgstr "Equalizer Optionen gespeichert"
 
@@ -323,23 +329,13 @@ msgstr "Neuen Mountpoint hinzufügen"
 msgid "Save"
 msgstr "Speichern"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:85
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:85
-msgid "Show Help"
-msgstr "Hilfe anzeigen"
-
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:86
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:86
-msgid "Show Network Devices"
-msgstr "Netzwerk Geräte anzeigen"
-
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:94
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:94
 msgid "Important Information"
 msgstr "Bitte beachten"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:95
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:95
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:87
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:87
 msgid "Important Information Filesystem Description"
 msgstr ""
 "Normale Netzwerkfreigaben auf NFS (z.B. Synology Diskstation) erfolgen wie "
@@ -356,6 +352,16 @@ msgstr ""
 "Eingaben können die Einstellungen dieser Seite unter "
 "\"Ursprungskonfiguration Wiederherstellen\" im Reiter Einstellungen "
 "zurückgesetzt werden."
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:91
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:91
+msgid "Show Help"
+msgstr "Hilfe anzeigen"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:92
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/filesystem.php:92
+msgid "Show Network Devices"
+msgstr "Netzwerk Geräte anzeigen"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/filesystem.php:99
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/advancedsetup.php:124
@@ -597,14 +603,14 @@ msgstr ""
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/advancedsetup.php:95
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:168
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:173
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:201
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:205
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:236
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:240
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:265
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:286
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:290
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:310
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:207
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:211
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:242
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:246
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:271
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:292
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:296
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:316
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:58
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:59
 #: y:\projects\max2play\max2play\application/plugins/speechcontrol/view/setup.php:130
@@ -617,37 +623,39 @@ msgstr ""
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/advancedsetup.php:95
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:168
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:173
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:201
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:205
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:236
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:240
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:265
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:286
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:290
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:310
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:207
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:211
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:242
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:246
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:271
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:292
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:296
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:316
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:58
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:59
 #: y:\projects\svn_max2play\plugins/mpd/view/setup.php:214
 #: y:\projects\svn_max2play\plugins/mpd/view/setup.php:218
 #: y:\projects\svn_max2play\plugins/fhem/view/setup.php:61
-#: y:\projects\svn_max2play\plugins/rpicam/view/setup.php:55
-#: y:\projects\svn_max2play\plugins/rpitouchdisplay/view/setup.php:55
+#: y:\projects\svn_max2play\plugins/rpicam/view/setup.php:87
+#: y:\projects\svn_max2play\plugins/rpitouchdisplay/view/setup.php:87
 #: y:\projects\svn_max2play\plugins/callbot/view/setup.php:67
-#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:64
-#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:76
-#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:90
-#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:125
-#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:143
-#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:192
-#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:222
+#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:65
+#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:77
+#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:91
+#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:126
+#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:144
+#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:193
+#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:223
+#: y:\projects\svn_max2play\plugins/rpisensehat/view/setup.php:75
 #: y:\projects\svn_max2play\plugins/homematic/view/setup.php:103
 #: y:\projects\svn_max2play\plugins/homematic/view/ccuhistorian.php:103
-#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:57
-#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:62
+#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:59
+#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:64
 #: y:\projects\svn_max2play\plugins/vnc/view/setup.php:63
-#: y:\projects\svn_max2play\plugins/vnc/view/setup.php:91
+#: y:\projects\svn_max2play\plugins/vnc/view/setup.php:92
 #: y:\projects\svn_max2play\plugins/hifiberry/view/setup.php:25
-#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:25
+#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:43
+#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:54
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/setup.php:39
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/setup.php:51
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/setup.php:69
@@ -684,11 +692,13 @@ msgstr ""
 msgid ""
 "Install Flash for Desktop Chromium Browser - Enable Youtube/Vimeo Flashplayer"
 msgstr ""
+"Installiere Flash für den Desktop Chromium Browser - Aktiviere Youtube/Vimeo "
+"Flashplayer"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/advancedsetup.php:111
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/advancedsetup.php:111
 msgid "Install Pepperflash"
-msgstr ""
+msgstr "Installiere Pepperflash"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/advancedsetup.php:112
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/AdvancedSetup.php:199
@@ -698,11 +708,14 @@ msgid ""
 "After Installation you must open the Chromium URL \"chrome:plugins\" and set "
 "check [Always allowed] for Adobe Flash player. Then Restart Max2Play."
 msgstr ""
+"Nach der Installation müssen Sie die URL \"chrome:plugins\"  in Chromium "
+"öffnen und [Always allowed] für den Adobe Flash Player auswählen. Danach "
+"starten Sie Max2Play neu."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/advancedsetup.php:116
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/advancedsetup.php:116
 msgid "Install Fan silencer on XU4"
-msgstr ""
+msgstr "Installiere Lüftungsgeräuschdämpfer für XU4"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/advancedsetup.php:118
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/advancedsetup.php:118
@@ -716,6 +729,8 @@ msgid ""
 "After Installation your XU4 Fan will be more silent and runs only if cooling "
 "is needed."
 msgstr ""
+"Nach der Installation wird Ihr XU4 Lüfter leiser sein und nur laufen wenn "
+"auch gekühlt werden muss."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/faq.php:28
 #: y:\projects\max2play\max2play\application\view/faq.php:28
@@ -727,7 +742,7 @@ msgstr "FAQ - Häufig gestellte Fragen"
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/easyinstaller.php:2
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/easyinstaller.php:2
 msgid "Choose your preferred setup and purpose of Max2Play"
-msgstr ""
+msgstr "Wähle deine bevorzugte Einstellung und Einsatz für Max2Play"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/easyinstaller.php:3
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/easyinstaller.php:3
@@ -736,11 +751,15 @@ msgid ""
 "to select something. The mediacenter Kodi is available and preinstalled in "
 "every setup."
 msgstr ""
+"Du kannst alle Einstellungen später ändern, aber für den ersten Start wird "
+"empfohlen eine Auswahl zu treffen. Das Mediencenter Kodi ist verfügbar und "
+"vorinstalliert in jeder Auswahl."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/easyinstaller.php:5
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/easyinstaller.php:5
 msgid "Starter: A simple audioplayer for internet radio and local music (mp3)"
 msgstr ""
+"Starter: Ein simpler Audioplayer für Internetradio und lokale Musik (mp3)"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/easyinstaller.php:8
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/easyinstaller.php:8
@@ -748,20 +767,24 @@ msgid ""
 "You want a simple way to play music from online radio streams and local "
 "sources (e.g. USB-drives or network storage)"
 msgstr ""
+"Sie wollen einfach Musik von Online-Radiosendern und lokalen Quellen "
+"wiedergeben (z.B. USB-Sticks oder Netzwerkspeicher)"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/easyinstaller.php:10
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/easyinstaller.php:10
 msgid "!PURPOSESELECT_SIMPLE_MPD_POSITIVE"
 msgstr ""
-"Easy and fast set up, no music server needed|Choose from YMPD and Ampache as "
-"frontend, to control the music player|Some Radiostations are preconfigured|A "
-"network Share on this device will be automatically set up. You can connect "
-"to it from any network device to add local music and radio stations."
+"Einfach und schnell eingestellt, kein Musikserver nötig|Wähle zwischen YMPD "
+"und Ampache als Frontend um dein Musikplayer zu steuern|Einige "
+"Radiostationen sind voreingestellt|Eine Netzwerkfreigabe wird automatisch "
+"auf diesem Gerät erstellt. Sie können sich damit von allen Geräten in Ihrem "
+"Netzwerk verbinden um lokale Musik oder Radiostationen hinzuzufügen."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/easyinstaller.php:13
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/easyinstaller.php:13
 msgid "!PURPOSESELECT_SIMPLE_MPD_NEGATIVE"
-msgstr "No synchronized audioplayers|No airplay with soundcards like HiFiBerry"
+msgstr ""
+"Keine synchonisierten Audioplayer|Kein Airplay mit Soundkarten wie HiFiBerry"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/easyinstaller.php:15
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/easyinstaller.php:28
@@ -773,7 +796,7 @@ msgstr "No synchronized audioplayers|No airplay with soundcards like HiFiBerry"
 #: y:\projects\svn_max2play\plugins/hifiberry/view/setup.php:56
 #: y:\projects\svn_max2play\plugins/hifiberry/view/setup.php:70
 msgid "Select this setup!"
-msgstr ""
+msgstr "Wähle diese Einstellung!"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/easyinstaller.php:18
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/easyinstaller.php:18
@@ -782,6 +805,9 @@ msgid ""
 "environment with powerful options for high-quality audio and a lot of "
 "features."
 msgstr ""
+"Erweitert: Ein echter Multiroom-Audioplayer der sich problemlos in jedes "
+"Squeezebox-System integriert mit wirksamen Einstellungen für hochwertigen "
+"Sound und vielen Möglichkeiten."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/easyinstaller.php:21
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/easyinstaller.php:21
@@ -789,23 +815,26 @@ msgid ""
 "Using Squeezebox-technology you have a squeezebox server running on one of "
 "your devices and use Squeezelite as audioplayer."
 msgstr ""
+"Mit der Squeezebox-Technologie haben Sie einen Squeezebox Server auf einem "
+"Ihrer Geräte am laufen und nutzen Squeezelite als Audioplayer."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/easyinstaller.php:23
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/easyinstaller.php:23
 msgid "!PURPOSESELECT_SIMPLE_SQUEEEZE_POSITIVE"
 msgstr ""
-"Supports a lot of audio-formats|Tons of features and Plug-Ins for Squeezebox-"
-"Server (controls Audioplayer)|Sleep-Timer and Alarmclock modes|Synchronized "
-"players|Airplay enabled by installing Shairtunes Plugin for Squeezebox-Server"
+"Unterstützt sehr viele Audioformate|Viele Features und Plugins für den "
+"Squeezebox Server (kontrolliert die Audioplayer)|Sleep-Timer- and Alarmuhr-"
+"Modus|Synchronisierte Player|Airplay aktivierbar mit Shairtunes Plugin für "
+"Squeezebox Server"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/easyinstaller.php:26
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/easyinstaller.php:26
 msgid "!PURPOSESELECT_SIMPLE_SQUEEEZE_NEGATIVE"
 msgstr ""
-"Little more difficult to set up first time: Squeezebox-Server needed (easy "
-"installation on Squeezebox Server tab)|Squeezebox-Server webinterface is a "
-"little old-fashioned, but Apps for smarphones like iPeng and Squeezer are up "
-"to date."
+"Ein bisschen komplizierter einzustellen beim ersten Mal: Squeezebox Server "
+"wird benötigt (einfache Installation im Squeezebox Server-Menü)|Squeezebox "
+"Server Webinterface ist ein wenig altmodisch, aber Apps für Smartphones wie "
+"iPeng and Squeezer sind aktuell und ersetzen dies."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/easyinstaller.php:32
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/easyinstaller.php:32
@@ -813,23 +842,26 @@ msgid ""
 "Simple Airplay: Apple Airplay Device, that plays music streamed from iPhone, "
 "iPad or Mac."
 msgstr ""
+"Simples Airplay: Apple Airplay-Funktion, die Musik von iPhone, iPad oder Mac "
+"wiedergibt."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/easyinstaller.php:35
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/easyinstaller.php:35
 msgid "Just one player (shairport) is running. No additional setup needed."
 msgstr ""
+"Nur ein Player (Shairport) läuft. Keine weiteren Einstellungen notwendig."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/easyinstaller.php:37
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/easyinstaller.php:37
 msgid "!PURPOSESELECT_SIMPLE_SHAIRPORT_POSITIVE"
 msgstr ""
-"Very simple. Nothing to do than activating Shairport player on Audioplayer "
-"tab"
+"Sehr simpel. Nichts zu tun außer den Shairport-Player zu aktivieren im "
+"Audioplayer-Menü"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/easyinstaller.php:40
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/easyinstaller.php:40
 msgid "!PURPOSESELECT_SIMPLE_SHAIRPORT_NEGATIVE"
-msgstr "Just Airplay..."
+msgstr "Nur Airplay..."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:84
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:84
@@ -840,9 +872,9 @@ msgstr "Mediaplayer Squeezelite & Airplay - Status, Start / Stop"
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:112
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:179
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:183
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:214
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:218
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:246
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:220
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:224
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:252
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:47
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:50
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:47
@@ -852,9 +884,9 @@ msgstr "Mediaplayer Squeezelite & Airplay - Status, Start / Stop"
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:112
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:179
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:183
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:214
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:218
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:246
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:220
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:224
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:252
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:47
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:50
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:47
@@ -863,10 +895,14 @@ msgstr "Mediaplayer Squeezelite & Airplay - Status, Start / Stop"
 #: y:\projects\svn_max2play\plugins/mpd/view/ampache.php:27
 #: y:\projects\svn_max2play\plugins/mpd/view/setup.php:39
 #: y:\projects\svn_max2play\plugins/mpd/view/setup.php:43
+#: y:\projects\svn_max2play\plugins/rpicam/view/setup.php:51
+#: y:\projects\svn_max2play\plugins/rpicam/view/setup.php:55
+#: y:\projects\svn_max2play\plugins/rpisensehat/view/setup.php:47
+#: y:\projects\svn_max2play\plugins/rpisensehat/view/setup.php:50
 #: y:\projects\svn_max2play\plugins/homematic/view/ccuhistorian.php:58
 #: y:\projects\svn_max2play\plugins/homematic/view/ccuhistorian.php:64
-#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:46
-#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:49
+#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:48
+#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:51
 #: y:\projects\svn_max2play\plugins/vnc/view/setup.php:53
 #: y:\projects\svn_max2play\plugins/vnc/view/setup.php:56
 msgid "Status"
@@ -874,18 +910,20 @@ msgstr "Status"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:108
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:179
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:214
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:220
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:47
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:47
 #: y:\projects\max2play\max2play\application/plugins/speechcontrol/view/setup.php:71
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:108
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:179
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:214
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:220
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:47
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:47
 #: y:\projects\svn_max2play\plugins/mpd/view/setup.php:39
+#: y:\projects\svn_max2play\plugins/rpicam/view/setup.php:51
+#: y:\projects\svn_max2play\plugins/rpisensehat/view/setup.php:47
 #: y:\projects\svn_max2play\plugins/homematic/view/ccuhistorian.php:58
-#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:46
+#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:48
 #: y:\projects\svn_max2play\plugins/vnc/view/setup.php:53
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/squeezeplayer.php:5
 msgid "$SERVICENAME is running with processID"
@@ -893,18 +931,20 @@ msgstr "$SERVICENAME läuft aktuell unter der ProzessID"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:109
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:180
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:215
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:221
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:48
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:49
 #: y:\projects\max2play\max2play\application/plugins/speechcontrol/view/setup.php:72
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:109
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:180
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:215
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:221
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:48
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:49
 #: y:\projects\svn_max2play\plugins/mpd/view/setup.php:40
+#: y:\projects\svn_max2play\plugins/rpicam/view/setup.php:52
+#: y:\projects\svn_max2play\plugins/rpisensehat/view/setup.php:48
 #: y:\projects\svn_max2play\plugins/homematic/view/ccuhistorian.php:61
-#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:47
+#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:49
 #: y:\projects\svn_max2play\plugins/vnc/view/setup.php:54
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/squeezeplayer.php:6
 msgid "stop $SERVICENAME"
@@ -912,11 +952,11 @@ msgstr "$SERVICENAME stoppen"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:110
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:181
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:216
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:222
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:51
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:110
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:181
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:216
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:222
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:51
 #: y:\projects\svn_max2play\plugins/mpd/view/setup.php:41
 #: y:\projects\svn_max2play\plugins/homematic/view/ccuhistorian.php:62
@@ -926,18 +966,20 @@ msgstr "$SERVICENAME killen"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:112
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:183
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:218
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:224
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:50
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:53
 #: y:\projects\max2play\max2play\application/plugins/speechcontrol/view/setup.php:74
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:112
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:183
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:218
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:224
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:50
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:53
 #: y:\projects\svn_max2play\plugins/mpd/view/setup.php:43
+#: y:\projects\svn_max2play\plugins/rpicam/view/setup.php:55
+#: y:\projects\svn_max2play\plugins/rpisensehat/view/setup.php:50
 #: y:\projects\svn_max2play\plugins/homematic/view/ccuhistorian.php:64
-#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:49
+#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:51
 #: y:\projects\svn_max2play\plugins/vnc/view/setup.php:56
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/squeezeplayer.php:9
 msgid "$SERVICENAME not running"
@@ -945,18 +987,20 @@ msgstr "$SERVICENAME läuft nicht"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:113
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:184
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:219
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:225
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:53
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:54
 #: y:\projects\max2play\max2play\application/plugins/speechcontrol/view/setup.php:75
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:113
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:184
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:219
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:225
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:53
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:54
 #: y:\projects\svn_max2play\plugins/mpd/view/setup.php:44
+#: y:\projects\svn_max2play\plugins/rpicam/view/setup.php:56
+#: y:\projects\svn_max2play\plugins/rpisensehat/view/setup.php:51
 #: y:\projects\svn_max2play\plugins/homematic/view/ccuhistorian.php:65
-#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:52
+#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:54
 #: y:\projects\svn_max2play\plugins/vnc/view/setup.php:57
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/squeezeplayer.php:10
 msgid "start $SERVICENAME"
@@ -964,30 +1008,30 @@ msgstr "$SERVICENAME starten"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:116
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:186
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:221
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:227
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:116
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:186
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:221
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:227
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/squeezeplayer.php:13
 msgid "Edit Advanced Options"
 msgstr "Erweiterte Optionen"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:120
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:190
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:225
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:231
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:120
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:190
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:225
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:231
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/squeezeplayer.php:17
 msgid "Soundcard"
 msgstr "Soundkarte"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:142
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:198
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:233
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:239
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:142
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:198
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:233
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:239
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/squeezeplayer.php:39
 msgid "Select Audio output"
 msgstr ""
@@ -1065,41 +1109,64 @@ msgstr ""
 "RESAMPLE VISEXPORT)"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:171
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:203
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:238
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:209
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:244
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:56
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:57
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:171
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:203
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:238
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:209
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:244
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:56
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:57
-#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:55
+#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:57
 #: y:\projects\svn_max2play\plugins/vnc/view/setup.php:61
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/setup.php:48
 msgid "Autostart $SERVICENAME"
 msgstr "Autostart $SERVICENAME"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:246
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:246
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:201
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:201
+msgid "Shairport/Squeezelite automatic Audio-Switch"
+msgstr "Shairport/Squeezelite automatischer Wechsel der Audioquelle"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:204
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:204
+msgid ""
+"Enter the Squeezebox-Server URL-Name or IP-Address. It enables automatic "
+"switching between Squeezelite and Shairport (running Squeezelite and "
+"Shairport with soundcards that only support one audio-stream at a time like "
+"HiFiBerry DACs). Everything else beside the Squeezebox Server IP is set up "
+"automatically. Just start Airplay and the Squeezeplayer will Soft-Power-Off. "
+"Stop Airplay and will Soft-Power-On again. Example IP (when running Server "
+"on this device): "
+msgstr ""
+"Gib die Squeezebox-Server URL- oder IP-Adresse ein. Diese erlaubt "
+"automatisches wechseln zwischen Squeezelite und Shairport (für Soundkarten "
+"die nur eine Soundquelle erlauben wie HiFiBerry's DAC's). Alles andere neben "
+"der Squeezebox Server IP wird automatisch eingestellt. Starte einfach "
+"Airplay und der Squeezeplayer wird automatisch temporär ausgeschaltet (Soft-"
+"Power-Off). "
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:252
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:252
 msgid "$SERVICENAME not installed"
 msgstr "$SERVICENAME ist nicht installiert"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:247
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:247
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:253
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:253
 msgid "install $SERVICENAME"
 msgstr "$SERVICENAME installieren"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:254
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:254
-#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:131
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:260
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:260
+#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:132
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/setup.php:58
 msgid "Set Audio Output on Raspberry PI"
 msgstr "Wähle Audio Ausgang für Raspberry PI"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:257
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:257
-#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:135
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:263
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:263
+#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:136
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/setup.php:61
 msgid ""
 "Use this to change the audio output of your Raspberry PI - if you have HDMI "
@@ -1109,51 +1176,51 @@ msgstr ""
 "HDMI angeschlossen ist, aber die Ausgabe über den Kopfhöreranschluss "
 "(Klinke) erfolgen soll."
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:260
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:260
-#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:138
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:266
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:266
+#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:139
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/setup.php:64
 msgid "Default (use HDMI if plugged)"
 msgstr "Standard (verwende HDMI, falls angeschlossen)"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:261
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:261
-#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:139
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:267
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:267
+#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:140
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/setup.php:65
 msgid "force Headphone Jack"
 msgstr "Kopfhöreranschluss"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:262
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:262
-#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:140
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:268
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:268
+#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:141
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/setup.php:66
 msgid "force HDMI"
 msgstr "HDMI"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:274
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:274
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:280
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:280
 #: y:\projects\svn_max2play\plugins/mpd/view/setup.php:141
 msgid "Graphic Equalizer"
 msgstr "Grafischer Equalizer (benötigt Audioausgabe auf Equalizer)"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:277
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:277
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:283
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:283
 #: y:\projects\svn_max2play\plugins/mpd/view/setup.php:144
 msgid "Use Equalizer (activate settings in this webinterface)"
 msgstr "Benutze Equalizer (erhöht Ladezeit dieser Seite)"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:285
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:285
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:291
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:291
 msgid "Zurücksetzen"
-msgstr ""
+msgstr "Zurücksetzen"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:296
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:296
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:302
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:302
 msgid "Lowpassfilter and Crossfeed Level Adjuster for Headphones"
 msgstr "Lowpassfilter und Crossfeed Level Einstellung für Kopfhörer"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:299
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:299
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:305
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:305
 msgid ""
 "This is a filter for audiophile usage to change lowpass filter cut frequency "
 "and crossfeed level of the audio-output. These settings take effect when "
@@ -1169,30 +1236,30 @@ msgstr ""
 "es unter <a href=\"http://bs2b.sourceforge.net/\">http://bs2b.sourceforge."
 "net/</a>"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:303
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:303
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:309
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:309
 msgid "Lowpass filter cut frequency:"
 msgstr "Lowpass Filter Cut Frequenz:"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:306
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:306
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:312
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:312
 msgid "Crossfeed Level:"
 msgstr "Crossfeed Level:"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:313
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:313
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:319
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:319
 msgid "This button sets up the plugin and your ALSA-Soundconfiguration."
 msgstr ""
 "Dieser Button installiert das Plugin und konfiguriert die ALSA-"
 "Soundeinstellungen."
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:315
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:315
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:321
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:321
 msgid "Install"
 msgstr "Installieren"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:320
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:320
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:326
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:326
 msgid "SQUEEZEPLAYER INFO DESCRIPTION"
 msgstr ""
 "Squeezelite ist ein Software Player für Squeezebox, der mit dem Logitech "
@@ -1209,7 +1276,7 @@ msgstr "Kodi / XBMC - Status, Start & Stop"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:51
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:51
-#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:50
+#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:52
 msgid ""
 "Reinitialize Display (if screen is black or HDMI was not connected on "
 "startup)"
@@ -1225,12 +1292,15 @@ msgstr ""
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:67
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:65
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:82
-#: y:\projects\svn_max2play\plugins/rpicam/view/setup.php:60
-#: y:\projects\svn_max2play\plugins/rpicam/view/setup.php:61
-#: y:\projects\svn_max2play\plugins/rpitouchdisplay/view/setup.php:60
-#: y:\projects\svn_max2play\plugins/rpitouchdisplay/view/setup.php:61
-#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:76
-#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:77
+#: y:\projects\svn_max2play\plugins/rpicam/view/setup.php:97
+#: y:\projects\svn_max2play\plugins/rpicam/view/setup.php:98
+#: y:\projects\svn_max2play\plugins/rpitouchdisplay/view/setup.php:94
+#: y:\projects\svn_max2play\plugins/rpitouchdisplay/view/setup.php:101
+#: y:\projects\svn_max2play\plugins/rpisensehat/view/setup.php:86
+#: y:\projects\svn_max2play\plugins/rpisensehat/view/setup.php:87
+#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:87
+#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:92
+#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:93
 msgid "$NAME start installation"
 msgstr "Starte Installation von $NAME"
 
@@ -1286,13 +1356,13 @@ msgstr ""
 msgid "Choose Addon"
 msgstr "Wähle Addon"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:89
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:89
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:90
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:90
 msgid "Get Addon-Repository for Kodi / XBMC"
 msgstr "Lade Addon-Quelle für Kodi / XBMC"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:94
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:94
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/xbmc.php:95
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/xbmc.php:95
 msgid "XBMC INFO DESCRIPTION"
 msgstr ""
 "Kodi/XBMC ist ein Media-Center für Videos, Musik und mehr.<br /><br /"
@@ -1750,7 +1820,7 @@ msgstr "Max2Play Update gestartet"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:17
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/index.php:17
-#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:32
+#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:63
 msgid ""
 "Welcome to Max2Play - Your easy to use Interface for Multiroom-Audio and "
 "Video!"
@@ -1760,7 +1830,7 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:19
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/index.php:19
-#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:34
+#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:65
 msgid ""
 "The Max2Play Web Interface is used to configure the device without having to "
 "set up monitor, keyboard and mouse on the device itsself or login by ssh."
@@ -1779,66 +1849,73 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:28
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/index.php:28
-#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:37
+#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:68
 msgid ""
 "Max2Play gives you the best experience with High-Quality Sound together with "
 "an easy configuration and control. With the extensions of Max2Play you can "
 "easily choose and install new features like the following:"
 msgstr ""
+"Max2Play bietet Ihnen die beste Erfahrung mit hochwertigem Sound gepaart mit "
+"einfacher Konfiguration und Bedienung. Die Erweiterungen von Max2Play können "
+"Sie einfach auswählen und neue installieren wie die Folgenden:"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:32
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/index.php:32
-#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:41
+#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:72
 #, fuzzy
 msgid "Features with Max2Play"
 msgstr "Was ist Max2Play und wobei hilft es mir?"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:35
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/index.php:35
-#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:44
+#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:75
 msgid "!FEATURE LIST"
 msgstr ""
-"Tweak your Audio-Setup with Advanced Audio-Settings like an <b>Equalizer</b> "
-"or optimization of Audioplayer settings.|Install a <b>Squeezebox Server</b> "
-"with one click and get Airplay working on Squeezebox Players with the Addon "
-"Shairtunes2 on Squeezebox Server Tab of this webinterface.|Set up <b>network-"
-"shares</b> to access your music and videos in your local network.|Use "
-"<b>Kodi</b> as mediaplayer to watch Online-Streams and HD-videos.|Install a "
-"DLNA-Server to stream your Music to other network devices.|<b>Personalize</"
-"b> this webinterface to fit your personal needs and install <a href=\"www."
-"max2play.com/en/addons\" target=\"_blank\">further addons</a> on the "
-"Settings-tab."
+"Optimiere dein Audio-Setup mit erweiterten Audioeinstellungen wie einem "
+"<b>Equalizer</b> oder Optimierung der Audioplayer Einstellungen.|Installiere "
+"einen <b>Squeezebox Server</b> mit einem Klick und aktiviere Airplay für "
+"Squeezeboxplayer mit dem Addon Shairtunes2 im Squeezebox Server-Menü im "
+"Webinterface.|Lege <b>Network-shares</b> an um auf deine Musik und Videos im "
+"lokalen Netzwerk zuzugreifen.|Nutze <b>Kodi</b> als Mediaplayer um Online-"
+"Streams und HD-Videos anzuschauen.|Installiere einen DLNA-Server um deine "
+"Musik an andere Netzwerkgeräte zu streamen.|<b>Personalisiere</b> dieses "
+"Webinterface um deine persönlichen Ansprüche zu erfüllen and installiere <a "
+"href=\"http://www.max2play.com/addons/\" target=\"_blank\">weitere Addons</"
+"a> im Einstellungen-Menü."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:40
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/index.php:40
-#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:49
+#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:80
 msgid "Premium Features with Max2Play"
-msgstr ""
+msgstr "Premium Features mit Max2Play"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:43
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/index.php:43
-#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:52
+#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:83
 msgid "!FEATURE LIST PREMIUM"
 msgstr ""
-"Set up an <b>WiFi-Accesspoint</b> on this device to get a mobile "
-"Musicplayer, controlable by your smartphone.|Install <b>Jivelite</b> as a "
-"visualisation for your Audioplayer (Squeezelite).|Apply further Raspberry PI "
-"specific settings on the HDMI-Output (Sample Rate, Overscan, Resolution).|"
-"<b>Boost your PIs performance</b> by choosing a higher speed level - "
-"especially PI A/B speed can be doubled (CPU-frequency, voltage).|Install a "
-"VNC-Server to access this device's desktop from other computers in your "
-"network (e.g. to configure Jivelite, Browser).|Use the <b>Multisqueeze-"
-"Addon</b> to run multiple Squeeze-Players on this device simultanously on "
-"different soundcards (e.g. HiFiBerry, HDMI).|Set up a <b>SD-Card-Protection</"
-"b> after you configured everything to protect your device from corrupt data "
-"after energy loss (only for use as audioplayer).|Get current Beta-Updates "
-"for Max2Play and be part of the community!|More features can be found here: "
-"<a href=\"http://www.max2play.com/en/addons\" target=\"_blank\">http://www."
-"max2play.com/en/addons</a>."
+"Lege einen <b>WiFi-Accesspoint</b> auf diesem Gerät an um es zu einem "
+"mobilen Musikplayer zu machen, welchen Sie von Ihrem Smartphone bedienen "
+"können.|Installiere <b>Jivelite</b> als Visualisierung für deinen "
+"Audioplayer (Squeezelite).|Ändere weitere Raspberry Pi-spezifische "
+"Einstellungen zum HDMI-Output (Sample Rate, Overscan, Auflösung).|<b>Steiger "
+"die Leistung deines Pi's</b> mit der Wahl einer höheren "
+"Geschwindigkeitsstufe - besonders Pi A und B's Schnelligkeit kann verdoppelt "
+"werden (CPU-Frequenz, Stromspannung).|Installier einen VNC-Server um den "
+"Desktop des Geräts von anderen Computern im Netzwerk zu sehen und zu "
+"bedienen (z.B. um Jivelite und den Browser zu konfigurieren).|Nutze das "
+"<b>Multisqueeze-Addon</b> um mehrere Squeeze-Player gleichzeitig auf diesem "
+"Gerät über verschiedenen Soundkarten (z.B. HiFiBerry, HDMI) laufen zu "
+"lassen.|Stelle einen <b>SD-Karten-Schutz</b> ein, nachdem du alles "
+"eingestellt hast um dein Gerät vor fehlerhaften Daten nach Energieverlust zu "
+"schützen (nur für die Nutzung als Audioplayer geeignet).|Hol dir die "
+"aktuellsten Beta-Updates für Max2Play und werde Teil der Community!|Weitere "
+"Features findest du hier: <a href=\"http://www.max2play.com/en/addons\" "
+"target=\"_blank\">http://www.max2play.com/addons</a>."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:48
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/index.php:48
-#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:57
+#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:88
 msgid ""
 "<b>Max2Play</b> makes the configuration as easy as possible. There is no "
 "need for connecting a monitor, a keyboard or a mouse on the device itself. "
@@ -1846,22 +1923,27 @@ msgid ""
 "webinterface is optimized for smartphones and all actions can also be called "
 "from external HTTP-Requests like Smarthome-Servers."
 msgstr ""
+"<b>Max2Play</b> macht die Konfiguration so einfach wie möglich. Sie müssen "
+"keinen Monitor, Maus oder Tastatur an das Gerät anschließen. Alles läuft "
+"kopflos und ohne spezielle Programme wie Putty! Das Webinterace ist "
+"optimiert für Smartphones und alle Eingaben können auch von externen HTTP-"
+"Anfragen wie Smarthome Servern getätigt werden."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:53
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/index.php:53
-#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:62
+#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:93
 msgid "What is Max2Play?"
 msgstr "Was ist Max2Play und wobei hilft es mir?"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:55
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/index.php:55
-#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:64
+#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:95
 msgid "//www.youtube.com/embed/GjYnHZF2Oek"
-msgstr ""
+msgstr "//www.youtube.com/embed/GjYnHZF2Oek"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/index.php:58
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/index.php:58
-#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:67
+#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:98
 #, fuzzy
 msgid ""
 "Questions concerning this project? Please refer to <a href=\"http://www."
@@ -1909,8 +1991,10 @@ msgstr "Update / Upgrade gestartet"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/AdvancedSetup.php:166
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/AdvancedSetup.php:166
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:470
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:496
 msgid "UPDATE ENDED - CHECK ABOVE LOG FOR ERRORS"
-msgstr ""
+msgstr "Update beendet - check das obige Log bezüglich Fehlern"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/AdvancedSetup.php:207
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/AdvancedSetup.php:207
@@ -1921,7 +2005,7 @@ msgstr "Installiere MiniDLNA"
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:36
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:36
 msgid "Kodi / XBMC"
-msgstr ""
+msgstr "Kodi / XBMC"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:58
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:58
@@ -1929,43 +2013,45 @@ msgstr ""
 msgid "Restart Desktop-Manager completed (initialized Display)"
 msgstr "Neustart des Desktop-Managers abgeschlossen"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:105
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:105
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:106
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:106
 msgid "No Link for download given"
 msgstr "Kein Link zum Download angegeben"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:110
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:110
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:111
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:111
 msgid "Installationspaket: "
 msgstr "Installationspaket: "
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:123
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:123
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:124
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:124
 #, fuzzy
 msgid "Installation abgeschlossen!"
 msgstr "Installationsfortschritt:"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:145
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:148
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:151
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:145
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:148
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:151
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:150
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:153
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:156
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:159
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:150
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:153
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:156
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:159
 msgid "Plugin installed"
 msgstr "Plugin installiert"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:156
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:156
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Xbmc.php:164
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Xbmc.php:164
 msgid "Plugin downloaded to path /opt/max2play/cache"
-msgstr ""
+msgstr "Plugin runtergeladen in Pfad /opt/max2play/cache"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Shairport.php:77
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:192
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:275
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Shairport.php:84
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:201
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:284
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Gmediarender.php:93
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Shairport.php:77
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:192
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:275
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Shairport.php:84
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:201
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:284
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Gmediarender.php:93
 #: y:\projects\svn_max2play\plugins/multisqueeze/controller/Squeezeplayer.php:147
 #: y:\projects\svn_max2play\plugins/multisqueeze/controller/Setup.php:159
@@ -1983,14 +2069,21 @@ msgstr "Audioplayer"
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:109
 msgid "Set Wolfson Audio-Output to play on Line-Out, Headphone and SPDIF"
 msgstr ""
+"Setze Wolfson Audio-Output zum abspielen über Line-Out, Kopfhörer und SPDIF"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:119
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:119
 msgid "Set HiFiBerry DAC Sound to 96% (Optimum value)"
 msgstr "HifiBerry DAC Lautstärke auf 96% (Optimum) gesetzt"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:250
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:250
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:128
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:128
+#, fuzzy
+msgid "Set IQAudIO DAC Sound to 86% (Optimum value)"
+msgstr "HifiBerry DAC Lautstärke auf 96% (Optimum) gesetzt"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:259
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:259
 msgid ""
 "Settings saved! Set Squeezelite options (advanced-button) to use headphones "
 "output with \"-o headphones\""
@@ -1999,20 +2092,20 @@ msgstr ""
 "Einstellungen von Squeezelite den headphones-Output wählen mit \"-o "
 "headphones\" und anschließend Squeezelite neustarten."
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:328
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:328
-#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:130
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:339
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:339
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:154
 #: y:\projects\svn_max2play\plugins/multisqueeze/controller/Setup.php:206
 msgid "Raspberry PI Audio Output set to $VALUE"
 msgstr "Raspberry PI Audio Ausgabe gesetzt auf $VALUE"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:358
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:358
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:369
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:369
 msgid "Help - Audioplayer"
 msgstr "Hilfe - Audioplayer"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:359
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:359
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Squeezeplayer.php:370
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Squeezeplayer.php:370
 msgid ""
 "<ul><li>On this page you may set up and configure all audioplayers. Each "
 "player has the button \"Advanced Settings\" to set up the soundcard and "
@@ -2224,18 +2317,18 @@ msgstr "IP-Adresse auf DHCP (automatisch beziehen) gesetzt"
 msgid "WLAN activated - please reboot device"
 msgstr "WLAN aktiviert - bitte Neustarten"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:141
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:141
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:142
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:142
 msgid "WLAN deactivated - no network choosen - please reboot"
 msgstr "WLAN deaktiviert - kein Netzwerk gewählt - bitte Neustarten"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:240
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:240
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:242
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:242
 msgid "Help - WiFi & LAN"
 msgstr "Hilfe - WLAN & LAN"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:241
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:241
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Wlan.php:243
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Wlan.php:243
 msgid ""
 "<ul><li>On this page you may set up and configure your WiFi and see details "
 "on the connected interfaces and their IP-Address.</li><li><a href=\"https://"
@@ -2271,7 +2364,7 @@ msgstr "REBOOT erfolgreich"
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:117
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:117
 msgid "Please wait..."
-msgstr ""
+msgstr "Bitte warten..."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:131
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:131
@@ -2367,38 +2460,58 @@ msgstr ""
 "Max2Play-Webinterface neu gestartet - Neustart dauert etwa 15 Sekunden - "
 "Bitte 15 Sekunden warten und Seite neu laden, um Änderungen zu sehen"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:405
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:405
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:402
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:402
+msgid "Click here to see what is new (Changelog)!"
+msgstr "Klick hier um zu sehen, was neu ist (Changelog)!"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:406
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:406
 msgid "UPDATE NOT SUCCESSFUL"
 msgstr "Update NICHT erfolgreich"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:411
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:411
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:412
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:412
+msgid ""
+"Max2Play Website not available - maybe no internet connection? Please try a "
+"reboot to fix the internet connection."
+msgstr ""
+"Max2Play Webseite ist nicht erreichbar - vielleicht keine "
+"Internetverbindung? Bitte versuch es mit einem Neustart um die "
+"Internetverbindung wiederherzustellen."
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:414
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:414
 msgid "Max2Play is up to date - no update required"
 msgstr "May2Play ist auf dem aktuellsten Stand - kein Update erforderlich"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:424
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:424
-msgid "Check for Plugin Updates"
-msgstr ""
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:427
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:427
+msgid "Running Check for Plugin Updates and install if available"
+msgstr "Check für Plugin-Updates läuft und installiert diese wenn verfügbar"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:460
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:460
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:463
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:463
 msgid "Update"
-msgstr ""
+msgstr "Update"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:468
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:468
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:471
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:471
 msgid "Plugin update time could not be validated:"
-msgstr ""
+msgstr "Plugin Update Zeit konnte nicht bestätigt werden:"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:491
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:491
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:494
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:494
 msgid "Resize Filesystem"
 msgstr "Expandiere Dateisystem"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:503
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:503
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:505
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:505
+msgid "Please Click here to Reboot Now"
+msgstr "Bitte klick hier um jetzt neuzustarten"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:507
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:507
 msgid ""
 "No Resize possible - no valid partition found to expand. Contact Max2Play-"
 "Support to add support for further file-systems."
@@ -2406,18 +2519,27 @@ msgstr ""
 "Kein Vergrößern des Dateisystems möglich. Keine gültige Partition zum "
 "expandieren gefunden."
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:528
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:528
-msgid "udev-Rules added and reloaded... Completed"
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:508
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:508
+msgid ""
+"Make sure to disconnect all USB-drives and Memory-Cards and do a reboot "
+"before expanding the filesystem!"
 msgstr ""
+"Achte darauf, dass alle USB-Geräte und Speicherkarten getrennt sind und "
+"starte neu bevor das Dateisystem expandiert wird!"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:563
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:563
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:533
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:533
+msgid "udev-Rules added and reloaded... Completed"
+msgstr "udev-Regeln hinzugefügt und neu geladen...Abgeschlossen"
+
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:568
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:568
 msgid "Help - Basic Settings"
 msgstr "Hilfe - Einstellungen"
 
-#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:564
-#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:564
+#: y:\projects\max2play\max2play\application\plugins\max2play_settings/controller/Basic.php:569
+#: y:\projects\max2play\max2play\application/plugins/max2play_settings/controller/Basic.php:569
 msgid ""
 "<ul><li>Use this page to change the devicename, update Max2Play to the "
 "latest version, expand the filesystem on a new installation and install new "
@@ -2485,7 +2607,7 @@ msgstr "Übersicht Funktionen"
 #: y:\projects\max2play\max2play\application\view/footer.php:48
 #: y:\projects\max2play\max2play\application/view/footer.php:48
 msgid "http://www.max2play.com/faq/"
-msgstr ""
+msgstr "http://www.max2play.com/faq/"
 
 #: y:\projects\max2play\max2play\application\view/footer.php:48
 #: y:\projects\max2play\max2play\application/view/footer.php:48
@@ -2506,7 +2628,7 @@ msgstr "Erweiterungen und neue Ideen"
 #: y:\projects\max2play\max2play\application\view/footer.php:54
 #: y:\projects\max2play\max2play\application/view/footer.php:54
 msgid "News"
-msgstr ""
+msgstr "Neuigkeiten"
 
 #: y:\projects\max2play\max2play\application\view/footer.php:64
 #: y:\projects\max2play\max2play\application/view/footer.php:64
@@ -2521,7 +2643,7 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application/plugins/speechcontrol/view/setup.php:28
 msgid "Speech Control Setup"
-msgstr ""
+msgstr "Sprachsteuerung Einrichtung"
 
 #: y:\projects\max2play\max2play\application/plugins/speechcontrol/view/setup.php:63
 #: y:\projects\max2play\max2play\application/plugins/accesspoint/view/setup.php:61
@@ -2537,7 +2659,7 @@ msgstr "Installieren"
 
 #: y:\projects\max2play\max2play\application/plugins/speechcontrol/view/setup.php:63
 msgid "install (Takes ~ 2 hours!)"
-msgstr ""
+msgstr "installiere (dauert ca. 2 Stunden)"
 
 #: y:\projects\max2play\max2play\application/plugins/speechcontrol/view/setup.php:112
 msgid "readtest"
@@ -2559,24 +2681,24 @@ msgstr "Deinstallieren"
 #: y:\projects\max2play\max2play\application/plugins/dlnaserver/view/setup.php:62
 #: y:\projects\max2play\max2play\application/plugins/example/view/setup.php:78
 #: y:\projects\max2play\max2play\application/plugins/kernelmodules_odroid_u3/view/setup.php:59
-#: y:\projects\svn_max2play\plugins/imageburner/view/setup.php:98
+#: y:\projects\svn_max2play\plugins/imageburner/view/setup.php:142
 #: y:\projects\svn_max2play\plugins/fhem/view/setup.php:68
 #: y:\projects\svn_max2play\plugins/callbot/view/setup.php:81
 #: y:\projects\svn_max2play\plugins/clementine/view/setup.php:48
-#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:229
+#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:239
 #: y:\projects\svn_max2play\plugins/homematic/view/setup.php:109
 #: y:\projects\svn_max2play\plugins/homematic/view/ccuhistorian.php:114
-#: y:\projects\svn_max2play\plugins/vnc/view/setup.php:103
+#: y:\projects\svn_max2play\plugins/vnc/view/setup.php:104
 msgid "DEBUG Informations"
 msgstr "DEBUG Info"
 
 #: y:\projects\max2play\max2play\application/plugins/speechcontrol/controller/Setup.php:40
 msgid "Speech Control"
-msgstr ""
+msgstr "Sprachsteuerung"
 
 #: y:\projects\max2play\max2play\application/plugins/accesspoint/controller/Setup.php:40
 msgid "Accesspoint Setup"
-msgstr ""
+msgstr "Accesspoint Einrichtung"
 
 #: y:\projects\max2play\max2play\application/plugins/squeezeplug/view/header_custom.php:63
 msgid "DONATE-BUTTON-SQUEEZEPLUG"
@@ -2592,17 +2714,19 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application/plugins/squeezeplug/controller/Setup.php:34
 msgid "Squeezeplug"
-msgstr ""
+msgstr "Squeezeplug"
 
 #: y:\projects\max2play\max2play\application/plugins/callblocker/view/header_custom.php:45
 msgid "logo"
-msgstr ""
+msgstr "logo"
 
 #: y:\projects\max2play\max2play\application/plugins/callblocker/view/footer_custom.php:32
 msgid ""
 "http://shop.tellows.de/de/lizenzschlussel-fur-tellows-community-sperrliste-"
 "anrufblocker.html"
 msgstr ""
+"http://shop.tellows.de/de/lizenzschlussel-fur-tellows-community-sperrliste-"
+"anrufblocker.html"
 
 #: y:\projects\max2play\max2play\application/plugins/callblocker/view/footer_custom.php:32
 msgid "get API-Key for tellows"
@@ -2610,7 +2734,7 @@ msgstr "tellows Lizenz kaufen / erneuern"
 
 #: y:\projects\max2play\max2play\application/plugins/callblocker/view/footer_custom.php:33
 msgid "http://shop.tellows.de/de/anrufblocker-faq"
-msgstr ""
+msgstr "http://shop.tellows.de/de/anrufblocker-faq"
 
 #: y:\projects\max2play\max2play\application/plugins/callblocker/view/footer_custom.php:42
 msgid "tellows Anrufblocker"
@@ -2627,7 +2751,7 @@ msgstr "tellows Anrufblocker Sperrliste"
 #: y:\projects\max2play\max2play\application/plugins/dlnaserver/view/setup.php:28
 #: y:\projects\max2play\max2play\application/plugins/dlnaserver/controller/Setup.php:39
 msgid "DLNA-Server"
-msgstr ""
+msgstr "DLNA-Server"
 
 #: y:\projects\max2play\max2play\application/plugins/dlnaserver/view/setup.php:46
 msgid "MiniDLNA Service (easy media access for other network devices)"
@@ -2720,7 +2844,7 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application/plugins/example/view/setup.php:49
 msgid "Example Variable: "
-msgstr ""
+msgstr "Beispielvariable:"
 
 #: y:\projects\max2play\max2play\application/plugins/example/view/setup.php:61
 msgid "Example Button"
@@ -2743,8 +2867,8 @@ msgid "Well - explain what this should do..."
 msgstr ""
 
 #: y:\projects\max2play\max2play\application/plugins/example/controller/Setup.php:57
-#: y:\projects\svn_max2play\plugins/imageburner/controller/Setup.php:74
-#: y:\projects\svn_max2play\plugins/imageburner/controller/Setup.php:84
+#: y:\projects\svn_max2play\plugins/imageburner/controller/Setup.php:167
+#: y:\projects\svn_max2play\plugins/imageburner/controller/Setup.php:183
 #: y:\projects\svn_max2play\plugins/fhem/controller/Setup.php:55
 #: y:\projects\svn_max2play\plugins/clementine/controller/Setup.php:50
 msgid "Saved"
@@ -2756,7 +2880,7 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application/plugins/kernelmodules_odroid_u3/view/setup.php:28
 msgid "Enable Kernelmodules for Odroid U3"
-msgstr ""
+msgstr "Aktiviere Kernelmodule für Odroid U3"
 
 #: y:\projects\max2play\max2play\application/plugins/kernelmodules_odroid_u3/view/setup.php:44
 msgid "Hiface USB-DAC: Status="
@@ -2764,7 +2888,7 @@ msgstr ""
 
 #: y:\projects\max2play\max2play\application/plugins/kernelmodules_odroid_u3/view/setup.php:49
 msgid "Load Module to etc/rc.local"
-msgstr ""
+msgstr "Lade Modul von etc/rc.local"
 
 #: y:\projects\max2play\max2play\application/plugins/kernelmodules_odroid_u3/view/setup.php:51
 msgid "Unload Module from etc/rc.local"
@@ -2777,92 +2901,91 @@ msgid ""
 "the latest Kernel-Sources. Takes ~20-30 minutes time! Make sure to install "
 "the latest kernel by using /usr/local/bin/odroid-utility.sh"
 msgstr ""
+"Wenn die normale Aktivierung des pre-build Moduls nicht funktioniert "
+"(meistens wegen anderer Kernel-Versionen), nutzen Sie bitte dieses Modul mit "
+"der aktuellsten Kernel-Quelle. Dauert ca. 20-30 Minuten! Stell sicher, dass "
+"der aktuellste Kernel installiert wird mit Nutzung von /usr/local/bin/odroid-"
+"utility.sh"
 
 #: y:\projects\max2play\max2play\application/plugins/kernelmodules_odroid_u3/view/setup.php:54
 msgid "Build HiFace-Module with latest Kernel"
-msgstr ""
+msgstr "Baue HiFace-Modul mit aktuellstem Kernel"
 
 #: y:\projects\max2play\max2play\application/plugins/kernelmodules_odroid_u3/controller/Setup.php:40
 msgid "Kernelmodules U3"
-msgstr ""
+msgstr "Kernelmodule U3"
 
 #: y:\projects\max2play\max2play\application/plugins/kernelmodules_odroid_u3/controller/Setup.php:86
 msgid "Kernel Build started"
-msgstr ""
+msgstr "Kernel Build gestartet"
 
 #: y:\projects\max2play\max2play\application/plugins/kernelmodules_odroid_u3/controller/Setup.php:109
 msgid "Added HiFace USB-Driver"
-msgstr ""
+msgstr "HiFace USB-Treiber hinzugefügt"
 
 #: y:\projects\max2play\max2play\application/plugins/kernelmodules_odroid_u3/controller/Setup.php:114
 msgid "Removed HiFace USB-Driver"
-msgstr ""
+msgstr "HiFace USB-Treiber entfernt"
 
 #: y:\projects\svn_max2play\plugins/imageburner/view/setup.php:28
-#: y:\projects\svn_max2play\plugins/imageburner/controller/Setup.php:22
+#: y:\projects\svn_max2play\plugins/imageburner/controller/Setup.php:35
 msgid "Imageburner"
-msgstr ""
+msgstr "Imagebrenner"
 
 #: y:\projects\svn_max2play\plugins/imageburner/view/setup.php:44
 msgid "And it burns, burns, burns..."
-msgstr ""
+msgstr "And it burns, burns, burns..."
 
 #: y:\projects\svn_max2play\plugins/imageburner/view/setup.php:44
 msgid "SD-Card device ready for burning: "
-msgstr ""
+msgstr "SD-Kartengerät bereit zum brennen:"
 
 #: y:\projects\svn_max2play\plugins/imageburner/view/setup.php:44
 #: y:\projects\svn_max2play\plugins/imageburner/view/setup.php:91
+#: y:\projects\svn_max2play\plugins/imageburner/view/setup.php:112
 #, fuzzy
 msgid "No SD-Card device found!"
 msgstr "Keine USB-Festplatten oder Speichersticks gefunden"
 
 #: y:\projects\svn_max2play\plugins/imageburner/view/setup.php:62
 msgid "BURN"
-msgstr ""
-
-#: y:\projects\svn_max2play\plugins/imageburner/view/setup.php:71
-#, fuzzy
-msgid "Add new Image"
-msgstr "Neue Sambafreigabe hinzufügen"
-
-#: y:\projects\svn_max2play\plugins/imageburner/view/setup.php:86
-msgid ""
-"To copy SD-Card-Images to the the burning device, set up and use a Samba "
-"Share."
-msgstr ""
+msgstr "BRENN"
 
 #: y:\projects\svn_max2play\plugins/imageburner/view/setup.php:91
 msgid "Create SD-Card-Image from a SD-Card"
-msgstr ""
+msgstr "Erstelle SD-Kartenimage von SD Karte"
 
 #: y:\projects\svn_max2play\plugins/imageburner/view/setup.php:91
 msgid "SD-Card device for image creation: "
-msgstr ""
-
-#: y:\projects\svn_max2play\plugins/imageburner/view/setup.php:92
-msgid "Target Destination for image file (.iso)"
-msgstr ""
+msgstr "SD-Kartengerät für Imageerstellung:"
 
 #: y:\projects\svn_max2play\plugins/imageburner/view/setup.php:92
 msgid "Create ISO from SD-Card"
-msgstr ""
+msgstr "Erstelle ISO für SD Karte"
 
-#: y:\projects\svn_max2play\plugins/imageburner/controller/Setup.php:94
-msgid ""
-"Burning seems to be in progress! At least the progressfile is currently "
-"existing!"
-msgstr ""
+#: y:\projects\svn_max2play\plugins/imageburner/view/setup.php:112
+msgid "Autoconfig SD-Card on first Start"
+msgstr "Automatische Konfiguration der SD Karte beim ersten Start"
+
+#: y:\projects\svn_max2play\plugins/imageburner/view/setup.php:137
+msgid "Save Autoconfig"
+msgstr "Speicher Autokonfiguration"
+
+#: y:\projects\svn_max2play\plugins/imageburner/controller/Setup.php:249
+#, fuzzy
+msgid "Saved to List"
+msgstr "Einstellungen speichern"
 
 #: y:\projects\svn_max2play\plugins/mpd/view/ampache.php:27
 #: y:\projects\svn_max2play\plugins/rpicam/view/setup.php:49
 #: y:\projects\svn_max2play\plugins/rpitouchdisplay/view/setup.php:51
+#: y:\projects\svn_max2play\plugins/rpisensehat/view/setup.php:45
 msgid "$SERVICENAME is installed"
 msgstr "$SERVICENAME ist installiert"
 
 #: y:\projects\svn_max2play\plugins/mpd/view/setup.php:54
 msgid "Autostart"
-msgstr ""
+msgstr "Autostart"
 
 #: y:\projects\svn_max2play\plugins/mpd/view/setup.php:70
 #: y:\projects\svn_max2play\plugins/mpd/view/setup.php:84
@@ -2872,15 +2995,15 @@ msgstr "Speichern"
 
 #: y:\projects\svn_max2play\plugins/mpd/view/setup.php:102
 msgid "Mixer Device"
-msgstr ""
+msgstr "Mixer Gerät"
 
 #: y:\projects\svn_max2play\plugins/mpd/view/setup.php:213
 msgid "Reset"
-msgstr ""
+msgstr "Reset"
 
 #: y:\projects\svn_max2play\plugins/mpd/controller/Setup.php:22
 msgid "Music Player MPD"
-msgstr ""
+msgstr "Music Player MPD"
 
 #: y:\projects\svn_max2play\plugins/mpd/controller/Setup.php:135
 msgid "Help - Music Player"
@@ -2899,10 +3022,21 @@ msgid ""
 "Mount the share to the path /mnt/mpd (using filesystem mount) and you will "
 "find it in your music folder.</li></ul>"
 msgstr ""
+"<ul><li>Schau <a target=\"_blank\" href=\"https://www.youtube.com/channel/"
+"UCu2JHGI142fLrkoUN8dUkRA\"> ein Videotutorial über die Einstellungen auf "
+"dieser Seite</a> und  nutze die verschiedenen Möglichkeiten um deine Musik "
+"zu genießen.</li><li><b>Verbinde ein USB-Gerät</b>: verbinde einfach deinen "
+"USB-Speicher und finde den Inhalt im Musikordner des Musikplayers.</"
+"li><li><b>Zugriff auf den Speicher dieses Geräts</b>: nutze Samba-Share und "
+"verbinde dich von jeglichem Computer (file explorer) in deinem Netzwerk mit "
+"\\\\max2play</li><li><b>Greif auf Netzwerkspeicher mit deiner Musik zu</b> "
+"(z.B. Diskstation): Mounte die Freigabe auf den Pfad /mnt/mpd (nutze "
+"Dateisystem Mount) und du wirst ihn in deinem Musikordner wiederfinden.</"
+"li></ul>"
 
 #: y:\projects\svn_max2play\plugins/fhem/controller/Setup.php:27
 msgid "Fhem Setup"
-msgstr ""
+msgstr "Fhem Setup"
 
 #: y:\projects\svn_max2play\plugins/fhem/controller/Setup.php:92
 msgid "FHEM uninstall started"
@@ -2910,22 +3044,24 @@ msgstr "FHEM Deinstallation gestarted"
 
 #: y:\projects\svn_max2play\plugins/rpicam/controller/Setup.php:21
 msgid "RPi Camera"
-msgstr ""
+msgstr "RPi Camera"
 
-#: y:\projects\svn_max2play\plugins/rpicam/controller/Setup.php:26
-#: y:\projects\svn_max2play\plugins/rpitouchdisplay/controller/Setup.php:25
+#: y:\projects\svn_max2play\plugins/rpicam/controller/Setup.php:27
+#: y:\projects\svn_max2play\plugins/rpitouchdisplay/controller/Setup.php:26
+#: y:\projects\svn_max2play\plugins/rpisensehat/controller/Setup.php:32
 msgid "Only for Raspberry PI!"
-msgstr ""
+msgstr "Nur für Raspberry Pi!"
 
-#: y:\projects\svn_max2play\plugins/rpicam/controller/Setup.php:83
-#: y:\projects\svn_max2play\plugins/rpitouchdisplay/controller/Setup.php:109
-#: y:\projects\svn_max2play\plugins/jivelite/controller/Setup.php:110
+#: y:\projects\svn_max2play\plugins/rpicam/controller/Setup.php:132
+#: y:\projects\svn_max2play\plugins/rpitouchdisplay/controller/Setup.php:146
+#: y:\projects\svn_max2play\plugins/rpisensehat/controller/Setup.php:117
+#: y:\projects\svn_max2play\plugins/jivelite/controller/Setup.php:135
 msgid "INSTALL SUCCESSFUL"
 msgstr "Installation erfolgreich"
 
-#: y:\projects\svn_max2play\plugins/rpitouchdisplay/controller/Setup.php:20
+#: y:\projects\svn_max2play\plugins/rpitouchdisplay/controller/Setup.php:21
 msgid "RPi Display"
-msgstr ""
+msgstr "RPi Display"
 
 #: y:\projects\svn_max2play\plugins/callbot/view/setup.php:75
 msgid "startcall"
@@ -2955,17 +3091,28 @@ msgstr "Installiere Clementine"
 #: y:\projects\svn_max2play\plugins/clementine/view/setup.php:42
 msgid "TODO: Autostart / Start / Stop - Use Desktop to start clementine"
 msgstr ""
+"TODO: Autostart / Start / Stop - Nutze Desktop um Clementine zu starten"
 
 #: y:\projects\svn_max2play\plugins/clementine/controller/Setup.php:65
 msgid "Clemetine install started"
 msgstr "Clemetine Installation gestartet"
 
-#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:32
-#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:73
+#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:33
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:80
 msgid "Raspberry Settings"
 msgstr "Raspberry Einstellungen"
 
-#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:81
+#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:230
+#, fuzzy
+msgid "Upgrade Kernel"
+msgstr "Aktualisiere Pakete"
+
+#: y:\projects\svn_max2play\plugins/raspberrysettings/view/setup.php:233
+#, fuzzy
+msgid "Update Packages"
+msgstr "Aktualisiere Pakete"
+
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:99
 msgid ""
 "This function is for Raspberry PI ONLY! It seems, that you do not have a "
 "Raspberry PI."
@@ -2973,28 +3120,43 @@ msgstr ""
 "Diese Funktion ist nur für den Raspberry PI verfügbar! Es scheint, als wäre "
 "dieses Gerät kein Raspberry PI."
 
-#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:185
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:209
 msgid "ARM-Frequency parameter changed"
-msgstr ""
+msgstr "ARM-Frequenz Parameter verändert"
 
-#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:187
-#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:222
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:211
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:251
 msgid "Reboot needed"
 msgstr "Neustart erforderlich"
 
-#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:221
-#: y:\projects\svn_max2play\plugins/hifiberry/controller/Setup.php:83
-#: y:\projects\svn_max2play\plugins/iqaudio/controller/Setup.php:67
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:250
+#: y:\projects\svn_max2play\plugins/hifiberry/controller/Setup.php:88
+#: y:\projects\svn_max2play\plugins/iqaudio/controller/Setup.php:83
 msgid "Boot config parameters changed"
-msgstr ""
+msgstr "Boot config Parameter verändert"
 
-#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:281
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:311
+#: y:\projects\svn_max2play\plugins/iqaudio/controller/Setup.php:125
 msgid "Updated Alsa Settings"
 msgstr "Alsa Settings aktualisiert"
 
-#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:400
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:430
 msgid "Reboot needed!"
 msgstr "Neustart erforderlich"
+
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:460
+#, fuzzy
+msgid "Update / Upgrade to latest Version started"
+msgstr "Update / Upgrade gestartet"
+
+#: y:\projects\svn_max2play\plugins/raspberrysettings/controller/Setup.php:486
+#, fuzzy
+msgid "Kernel Update started"
+msgstr "Max2Play Update gestartet"
+
+#: y:\projects\svn_max2play\plugins/rpisensehat/controller/Setup.php:22
+msgid "RPi Sense Hat"
+msgstr "RPi Sense Hat"
 
 #: y:\projects\svn_max2play\plugins/homematic/controller/Ccuhistorian.php:82
 msgid "Webserver Port gespeichert"
@@ -3048,60 +3210,91 @@ msgstr "Homematic IP gespeichert"
 msgid "Printserver Setup"
 msgstr ""
 
-#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:67
-msgid "Install further Jivelite Skins (important for small touchscreens)"
-msgstr ""
-
 #: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:69
-msgid "Port for 2.8\" 320x240 Adafruit LCD (QVGATouchSkin by bogdandumitru)"
-msgstr ""
+msgid "Install further Jivelite Skins (important for small touchscreens)"
+msgstr "Installier weitere Jivelite Skins (wichtig für kleine Touchscreens)"
 
 #: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:71
+msgid "Port for 2.8\" 320x240 Adafruit LCD (QVGATouchSkin by bogdandumitru)"
+msgstr "Port für 2.8\" 320x240 Adafruit LCD (QVGATouchSkin von bogdandumitru)"
+
+#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:73
 #, fuzzy
 msgid "Install choosen Skin"
 msgstr "Installiere neues Plugin"
+
+#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:79
+msgid "Reset all Settings - Usefull if Jivelite doesn't start anymore"
+msgstr ""
+"Alle Einstellungen zurücksetzen - nützlich falls Jivelite nicht mehr startet"
+
+#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:80
+#, fuzzy
+msgid "Reset Jivelite Settings"
+msgstr "Einstellungen speichern"
+
+#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:81
+msgid "Disable Power-Off Button (for touchscreen control)"
+msgstr "Power-Off Button deaktivieren (für Touchscreensteuerung)"
+
+#: y:\projects\svn_max2play\plugins/jivelite/view/setup.php:86
+msgid "$NAME Reinstall (Updates to most recent version)"
+msgstr "$NAME Reinstall (Updates to most recent version)"
 
 #: y:\projects\svn_max2play\plugins/jivelite/controller/Setup.php:21
 msgid "Jivelite"
 msgstr "Jivelite"
 
+#: y:\projects\svn_max2play\plugins/jivelite/controller/Setup.php:115
+msgid "RESET SUCCESSFUL - Please restart Jivelite"
+msgstr "RESET ERFOLGREICH - Bitte Jivelite neu starten"
+
+#: y:\projects\svn_max2play\plugins/jivelite/controller/Setup.php:121
+msgid "PATCH SUCCESSFUL - Please restart Jivelite"
+msgstr "PATCH ERFOLGREICH - Bitte Jivelite neustarten"
+
 #: y:\projects\svn_max2play\plugins/vnc/controller/Setup.php:29
 msgid "VNC Server"
-msgstr ""
+msgstr "VNC Server"
 
 #: y:\projects\svn_max2play\plugins/vnc/controller/Setup.php:133
 #, fuzzy
 msgid "VNC uninstall started"
 msgstr "FHEM Deinstallation gestarted"
 
-#: y:\projects\svn_max2play\plugins/hifiberry/controller/Setup.php:34
+#: y:\projects\svn_max2play\plugins/hifiberry/controller/Setup.php:39
 msgid "HiFiBerry"
-msgstr ""
+msgstr "HiFiBerry"
 
-#: y:\projects\svn_max2play\plugins/hifiberry/controller/Setup.php:84
-#: y:\projects\svn_max2play\plugins/iqaudio/controller/Setup.php:68
+#: y:\projects\svn_max2play\plugins/hifiberry/controller/Setup.php:89
+#: y:\projects\svn_max2play\plugins/iqaudio/controller/Setup.php:84
 msgid ""
 "Please restart your device! To restart now <a href=\"http://$SERVERIP/"
 "plugins/max2play_settings/controller/Basic.php?action=reboot&redirecturl="
 msgstr ""
+"Bitte starte das Gerät neu! Um jetzt neuzustarten <a href=\"http://$SERVERIP/"
+"plugins/max2play_settings/controller/Basic.php?action=reboot&redirecturl="
 
-#: y:\projects\svn_max2play\plugins/hifiberry/controller/Setup.php:155
-#: y:\projects\svn_max2play\plugins/iqaudio/controller/Setup.php:76
+#: y:\projects\svn_max2play\plugins/hifiberry/controller/Setup.php:160
+#: y:\projects\svn_max2play\plugins/iqaudio/controller/Setup.php:133
 msgid ""
 "<ul><li>You want to know more about this special Max2Play-Version? You may "
 "watch <a target=\"_blank\" href=\"https://youtu.be/AOlHpEcVEYE\">a video "
 "tutorial about the settings on this page</a>.</li></ul>"
 msgstr ""
+"<ul><li>Du willst mehr über diese besondere Version von Max2Play wissen? "
+"Schau dir das <a target=\"_blank\" href=\"https://youtu.be/AOlHpEcVEYE\"> "
+"Videotutorial über die Konfiguration dieser Seite an</a>.</li></ul>"
 
-#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:2
+#: y:\projects\svn_max2play\plugins/iqaudio/view/setup.php:20
 msgid "Max2Play - IQAudIO Edition"
 msgstr ""
 
-#: y:\projects\svn_max2play\plugins/iqaudio/controller/Setup.php:31
+#: y:\projects\svn_max2play\plugins/iqaudio/controller/Setup.php:33
 msgid "IQAudIO"
 msgstr ""
 
-#: y:\projects\svn_max2play\plugins/iqaudio/controller/Setup.php:75
+#: y:\projects\svn_max2play\plugins/iqaudio/controller/Setup.php:132
 #, fuzzy
 msgid "Help - IQAudIO Edition"
 msgstr "Hilfe - Audioplayer"
@@ -3109,15 +3302,19 @@ msgstr "Hilfe - Audioplayer"
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/squeezeplayer.php:5
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/squeezeplayer.php:9
 msgid "Status Instance"
-msgstr ""
+msgstr "Status Instanz"
 
 #: y:\projects\svn_max2play\plugins/multisqueeze/view/squeezeplayer.php:45
 msgid "Name for instance of Squeezelite."
-msgstr ""
+msgstr "Name für Instanz von Squeezelite."
 
 #: y:\projects\svn_max2play\plugins/multisqueeze/controller/Setup.php:22
 msgid "Multisqueeze"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Add new Image"
+#~ msgstr "Neue Sambafreigabe hinzufügen"
 
 #~ msgid "Max2Play Media Player - Info"
 #~ msgstr "Max2Play Media Player - Informationen"

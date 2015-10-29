@@ -115,18 +115,18 @@ class Squeezeplayer extends Service {
 			$user = $this->getSystemUser();
 			$dtoverlay = $this->getConfigFileParameter('/boot/config.txt', 'dtoverlay');
 			if(in_array($dtoverlay, array('hifiberry-dacplus','hifiberry-dac'))){
-				$this->writeDynamicScript(array('su - '.$user.' -c \'amixer sset "PCM" 96%\'','su - '.$user.' -c \'amixer sset "Playback" 100%\'','su - pi -c \'alsactl store\''));
+				$this->writeDynamicScript(array('su - '.$user.' -c \'amixer sset "PCM" 96%\'','su - '.$user.' -c \'amixer sset "Playback" 100%\'','su - '.$user.' -c \'alsactl store\''));
 				$this->view->message[] = _('Set HiFiBerry DAC Sound to 96% (Optimum value)');
 			}
 		}
-		//IQAudIO Soundcard
-		if(strpos($setsoundcard, 'CARD=IQaudIODAC') !== FALSE){
+		//IQAudIO Soundcard - Do this Only for DAC and NOT for AMP!! Use audioplayer in options.conf
+		if(1 == 2 && strpos($setsoundcard, 'CARD=IQaudIODAC') !== FALSE){
 			$user = $this->getSystemUser();
 			$dtoverlay = $this->getConfigFileParameter('/boot/config.txt', 'dtoverlay');
 			if(in_array($dtoverlay, array('iqaudio-dacplus'))){
-				$this->writeDynamicScript(array('su - '.$user.' -c \'amixer sset "PCM" 86%\'','su - '.$user.' -c \'amixer sset "Playback" 100%\'','su - pi -c \'alsactl store\''));
-				$this->view->message[] = _('Set IQAudIO DAC Sound to 86% (Optimum value)');
-			}
+				$this->writeDynamicScript(array('su - '.$user.' -c \'amixer -c IQaudIODAC sset "Playback" 100%\'','su - '.$user.' -c \'amixer -c IQaudIODAC sset "Analogue Playback Boost" 100%\'','su - '.$user.' -c \'amixer -c IQaudIODAC sset "Digital" 96%\'','su - '.$user.' -c \'alsactl store\''));				
+				$this->view->message[] = _('Set IQAudIO DAC Sound to 96% (Optimum value)');
+			}			
 		}
 		return true;
 	}

@@ -31,6 +31,8 @@ class Shairport extends Service {
 	public function __construct(){								
 		parent::__construct();						
 		
+		$this->getParameters();
+		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'startap'){			
 				$this->view->message[] = $this->start($this->pname, $command = '', $statusname = '', $rootstart = false, $background = '/tmp/shairport.txt');			
@@ -56,13 +58,18 @@ class Shairport extends Service {
 		$this->getShairportCommandline();
 	}
 	
+	private function getParameters(){
+		$this->view->squeezebox_serverip = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'LMSIP');
+		return true;
+	}
+	
 	/**
 	 * Save Command-Line Options from
 	 * shairport_soundcard	 
 	 */
 	public function saveShairportCommandline(){
 		$commandLine = array();		
-		$setsoundcard = $_GET['shairport_soundcard'];		
+		$setsoundcard = $_REQUEST['shairport_soundcard'];		
 		//Sounddevices werden in Squeezeplayer geladen!
 		global $sp;
 		
@@ -70,7 +77,8 @@ class Shairport extends Service {
 			$commandLine[] = '-d '.$setsoundcard;
 		}else{
 			$commandLine[] = '-d plug:plugequal';
-		}	
+		}
+		$commandLine[] = trim($_REQUEST['shairport_commandline']);
 	
 		$value = trim(implode(' ', $commandLine));
 		if($this->saveConfigFileParameter('/opt/max2play/audioplayer.conf', 'SHAIRPORT_PARAMETER', $value)){
@@ -82,7 +90,11 @@ class Shairport extends Service {
 				$this->view->message[] = $this->start($this->pname);
 			}
 		}				
-	
+		//Additional Parameters
+		if($_REQUEST['squeezebox_serverip'] != $this->view->squeezebox_serverip){
+			$this->saveConfigFileParameter('/opt/max2play/audioplayer.conf', 'LMSIP', str_replace('http://', '', $_REQUEST['squeezebox_serverip']));
+			$this->getParameters();
+		}	
 		return true;
 	}
 	
@@ -92,8 +104,9 @@ class Shairport extends Service {
 	 */
 	public function getShairportCommandline(){
 		$output = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'SHAIRPORT_PARAMETER');
-		if(preg_match_all('=-d ([^ ]*)=', $output, $match)){
-			$this->view->shairport_soundcard = trim($match[1][0]);			
+		if(preg_match_all('=-d ([^ ]*)( (.*))?=', $output, $match)){
+			$this->view->shairport_soundcard = trim($match[1][0]);
+			$this->view->shairport_commandline = $match[3][0];
 		}else{
 			return false;
 		}
