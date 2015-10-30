@@ -17,8 +17,9 @@ else
 			tar -xzf kodi-15.tar.gz
 			cd kodi-15
 			./install
+			./install_cec3
 			# get support for PVR-Addons
-			sudo /var/www/max2play/application/plugins/max2play_settings/scripts/buildkodiplatform.sh
+			sudo /var/www/max2play/application/plugins/max2play_settings/scripts/buildkodiplatform.sh			
 		else		
 			echo "Remove old version"
 			dpkg -r xbmc
