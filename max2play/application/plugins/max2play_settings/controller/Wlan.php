@@ -153,7 +153,7 @@ class Wlan extends Service {
 	private function _getWirelessConfig(){		
 		
 		//Allgemeine Interface Config
-		$shellanswer_if = shell_exec("/sbin/ifconfig");
+		$shellanswer_if = shell_exec("LANG=C && /sbin/ifconfig");
 		preg_match('=wlan0=', $shellanswer_if, $match);		
 		$this->view->ifconfig_txt = $shellanswer_if;
 		

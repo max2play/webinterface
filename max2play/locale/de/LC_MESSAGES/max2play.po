@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-27 16:50+0100\n"
-"PO-Revision-Date: 2015-10-28 17:12+0100\n"
+"PO-Revision-Date: 2015-10-29 19:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -1145,7 +1145,8 @@ msgstr ""
 "die nur eine Soundquelle erlauben wie HiFiBerry's DAC's). Alles andere neben "
 "der Squeezebox Server IP wird automatisch eingestellt. Starte einfach "
 "Airplay und der Squeezeplayer wird automatisch temporär ausgeschaltet (Soft-"
-"Power-Off). "
+"Power-Off). Wenn der Squeezebox Server auf diesem Gerät läuft kann diese IP "
+"eingetragen werden: "
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:252
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:252

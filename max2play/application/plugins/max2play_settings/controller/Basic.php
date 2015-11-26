@@ -106,13 +106,18 @@ class Basic extends Service {
 	 * @return boolean
 	 */
 	public function reboot(){
+		if($this->getReadOnlyFS() != FALSE){
+			$path = '/tmp/';
+		}else 
+			$path = '/opt/max2play/cache/';
+		
 		if($_REQUEST['ajax'] == 1){
 			ob_end_clean();
 			//Check for time difference in reboot.txt and set finished only if more than 15 seconds passed since reboot
-			$rebootTime = strtotime(trim(shell_exec('grep -io "[^|]*" /opt/max2play/cache/reboot.txt')));
+			$rebootTime = strtotime(trim(shell_exec('grep -io "[^|]*" '.$path.'reboot.txt')));
 			if($rebootTime < (time() - 10)){			
 				echo _("REBOOT successful"). " - finished";
-				shell_exec('rm /opt/max2play/cache/reboot.txt');				
+				shell_exec('rm '.$path.'reboot.txt');				
 			}else {
 				echo _("Please wait...");
 			}
@@ -128,7 +133,7 @@ class Basic extends Service {
 				$url = false;
 				$reload = 1;
 			}
-			if($this->getProgressWithAjax('/opt/max2play/cache/reboot.txt', 1, $reload, 0, _("REBOOT started"), $url))
+			if($this->getProgressWithAjax($path.'reboot.txt', 1, $reload, 0, _("REBOOT started"), $url))
 				return true;
 			else
 				return false;

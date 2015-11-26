@@ -17,7 +17,9 @@ chmod +x jasper/jasper.py
 #Add Asound-Config
 sudo cp $1asound_jasper_pi.conf /usr/share/alsa/alsa.conf.d
 sudo cp -f $1jasper/client/mic.py /opt/jasper/client/mic.py
+mkdir /home/pi/.jasper
 sudo cp -f $1jasper/profile.yml /home/pi/.jasper/profile.yml
+chmod -R 777 /home/pi/.jasper
 
 # Espeak TTS
 echo "Y" | apt-get install espeak
@@ -63,13 +65,16 @@ cd ..
 
 sudo su -c "echo 'deb http://ftp.debian.org/debian experimental main contrib non-free' > /etc/apt/sources.list.d/experimental.list"
 sudo apt-get update
-echo "Y" | sudo apt-get -t experimental install m2m-aligner mitlm
+echo "Y" | sudo apt-get -t experimental install m2m-aligner mitlm -y
 
 pushd /opt
-wget http://distfiles.macports.org/openfst/openfst-1.3.3.tar.gz
-wget https://phonetisaurus.googlecode.com/files/phonetisaurus-0.7.8.tgz
+#wget http://distfiles.macports.org/openfst/openfst-1.3.3.tar.gz
+wget http://pkgs.fedoraproject.org/repo/pkgs/openfst/openfst-1.3.3.tar.gz/c7ba9e791eba501bb9d5b95ccc6e5231/openfst-1.3.3.tar.gz
+#wget https://phonetisaurus.googlecode.com/files/phonetisaurus-0.7.8.tgz
+wget https://phonetisaurus.googlecode.com/files/is2013-conversion.tgz
 tar -xvf openfst-1.3.3.tar.gz
-tar -xvf phonetisaurus-0.7.8.tgz
+tar -xvf is2013-conversion.tgz
+#tar -xvf phonetisaurus-0.7.8.tgz
 
 pushd /opt
 cd openfst-1.3.3/
@@ -85,7 +90,8 @@ cd ..
 sudo cp phonetisaurus-0.7.8/phonetisaurus-g2p /usr/local/bin/phonetisaurus-g2p
 
 pushd /opt
-wget http://phonetisaurus.googlecode.com/files/g014b2b.tgz
+wget https://www.dropbox.com/s/kfht75czdwucni1/g014b2b.tgz
+#wget http://phonetisaurus.googlecode.com/files/g014b2b.tgz
 tar -xvf g014b2b.tgz
 
 cd g014b2b/

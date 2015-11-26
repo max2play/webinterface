@@ -77,7 +77,7 @@ fi
 
 autoreconnect_wifi=$(cat /opt/max2play/options.conf | grep autoreconnect_wifi=1 | wc -l)
 if [ "$autoreconnect_wifi" -gt "0" ]; then
-   if [ "$(sudo /sbin/ifconfig eth0 | grep 'inet addr:' | wc -l)" -lt "1" -a "$(sudo /sbin/ifconfig wlan0 | grep 'inet addr:' | wc -l)" -lt "1" ]; then
+   if [ "$(LANG=C && sudo /sbin/ifconfig eth0 | grep 'inet addr:' | wc -l)" -lt "1" -a "$(LANG=C && sudo /sbin/ifconfig wlan0 | grep 'inet addr:' | wc -l)" -lt "1" ]; then
       echo "Network connection down! Attempting reconnection."
       #sudo rm /var/run/wpa_supplicant/wlan0
       sudo /sbin/ifup --force wlan0

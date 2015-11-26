@@ -47,6 +47,7 @@ class Squeezeserver extends Service {
 		}
 		
 		$this->getNomysqueezebox();
+		$this->getDelayedStartup();
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'start'){			
@@ -69,7 +70,8 @@ class Squeezeserver extends Service {
 			}
 			
 			if($_GET['action'] == 'save_nomysqueezebox'){
-				$this->saveNomysqueezebox(isset($_GET['nomysqueezebox']) ? 1 : 0);
+				$this->saveNomysqueezebox(isset($_REQUEST['nomysqueezebox']) ? 1 : 0);
+				$this->saveDelayedStartup($_REQUEST['delayedstartup']);
 			}
 			if($_GET['action'] == 'install'){
 				$this->installLMS($_GET['lmsversion']);
@@ -143,8 +145,8 @@ class Squeezeserver extends Service {
 		}
 		$this->getNomysqueezebox();
 		return true;
-	}
-	
+	}		
+		
 	public function getNomysqueezebox(){
 		$this->view->nomysqueezeboxvalue = $this->getConfigFileParameter('/etc/default/logitechmediaserver', 'SLIMOPTIONS');
 		if(strpos($this->view->nomysqueezeboxvalue, '--nomysqueezebox --nomigration') !== FALSE)
@@ -153,6 +155,23 @@ class Squeezeserver extends Service {
 			$this->view->nomysqueezebox = false;
 		return true;
 	}
+	
+	public function getDelayedStartup(){
+		$this->view->delayedStartup = $this->getConfigFileParameter('/opt/max2play/options.conf', 'SQUEEZESERVER_DELAY_START');
+		return true;
+	}
+	
+	public function saveDelayedStartup($seconds = 0){
+		if($seconds != $this->view->delayedStartup){
+			//Check for init.d script
+			if(intval(trim(shell_exec('grep -i "SQUEEZESERVER_DELAY_START" /etc/rc.local | wc -l'))) == 0){
+				$this->writeDynamicScript(array('sed -i "s@^exit 0@SQUEEZESERVER_DELAY_START=\$(grep -a \"SQUEEZESERVER_DELAY_START\" /opt/max2play/options.conf | sed -n -e \'s/^[A-Z_]*\=//p\')\n	if [ \"\$SQUEEZESERVER_DELAY_START\" -gt \"0\" ]; then\n		sleep \$SQUEEZESERVER_DELAY_START;/etc/init.d/logitechmediaserver restart\n	fi\nexit 0@" /etc/rc.local'));
+			}
+			$this->saveConfigFileParameter('/opt/max2play/options.conf', 'SQUEEZESERVER_DELAY_START', intval($seconds));
+			$this->getDelayedStartup();
+		}		
+		return true;
+	}	
 	
 	/**
 	 * This needs the sudoers.d rights for the script /opt/max2play/install_lms.sh

@@ -20,7 +20,7 @@ if [ "$ISZIP" -gt "0" ]; then
 elif [ "$ISTARGZ" -gt "0" ]; then
     echo "Load Plugin from tar.gz"
     wget -O /opt/max2play/cache/plugin.tar.gz "$1$2"
-    tar -xfz /opt/max2play/cache/plugin.tar.gz -C /opt/max2play/cache/newplugin
+    tar -zxf /opt/max2play/cache/plugin.tar.gz -C /opt/max2play/cache/newplugin
     FILETIME=$(date -Is -d @`stat -c %Y /opt/max2play/cache/plugin.tar.gz`)
 elif [ "$ISTAR" -gt "0" ]; then
     echo "Load Plugin from tar"

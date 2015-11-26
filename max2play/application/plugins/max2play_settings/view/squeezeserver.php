@@ -59,7 +59,9 @@
 		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
 		<br /><br />		
 		<b><?php echo _('Run Squeezebox Server without www.mysqueezebox.com') ?>:</b><br />
-		<input type="checkbox" <?php if($sp->view->nomysqueezebox) echo "checked"; ?> value="1" name="nomysqueezebox" /> <?php echo _('Disable services from www.mysqueezebox.com and render thumbnail images locally.') ?><br />		
+		<input type="checkbox" <?php if($sp->view->nomysqueezebox) echo "checked"; ?> value="1" name="nomysqueezebox" /> <?php echo _('Disable services from www.mysqueezebox.com and render thumbnail images locally.') ?><br />
+		<br /><br /><b><?php echo _('Delay Startup of Squeezebox Server on Boot') ?>:</b><br />
+		<input type="text" size="4" <?php if($sp->view->delayedStartup) echo 'value="'.$sp->view->delayedStartup.'"'; ?> name="delayedstartup" /> <?php echo _('Delay time in seconds. If Radiolists are not working your Squeezebox Server might have discovered no internet connection on boot. Delay the start by 30 seconds to solve this problem.') ?><br />
 		<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save_nomysqueezebox';submit();" />
 		<br /><br />
 	<?php } ?>				

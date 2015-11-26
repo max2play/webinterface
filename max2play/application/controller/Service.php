@@ -446,6 +446,20 @@ class Service {
 		return $this->plugins;
 	}
 	
+	public function getReadOnlyFS(){
+		if($this->readonly_fs === 'unset'){
+			if($this->getConfigFileParameter('/opt/max2play/options.conf', 'readonly') == '1'){
+				$this->readonly_fs = true;
+				$this->dynamicScript = '/tmp/dynamic_script.sh';
+				if(!file_exists('/tmp/writemode.txt'))
+					$this->view->message[] = _('SD-Card is Read-Only! Changes on settings will not be saved!');
+			}else{
+				$this->readonly_fs = false;
+			}
+		}
+		return $this->readonly_fs;
+	}
+	
 	/**
 	 * Write to File that has Root Rights to launch specific installations and configs
 	 * $script is an array separated by lines for each task	
@@ -453,16 +467,7 @@ class Service {
 	 * $daemon to run as real daemon - survives even a apache restart. e.g. for update and upgrade
 	 */
 	public function writeDynamicScript($script = '', $background = false, $daemon = false){		
-		if($this->readonly_fs === 'unset'){
-			if($this->getConfigFileParameter('/opt/max2play/options.conf', 'readonly') == '1'){
-				$this->readonly_fs = true;
-				$this->dynamicScript = '/tmp/dynamic_script.sh';				
-				if(!file_exists('/tmp/writemode.txt'))
-					$this->view->message[] = _('SD-Card is Read-Only! Changes on settings will not be saved!');
-			}else{
-				$this->readonly_fs = false;
-			}
-		}
+		$this->getReadOnlyFS();
 		
 		$fp = fopen($this->dynamicScript, 'w+');
 		
