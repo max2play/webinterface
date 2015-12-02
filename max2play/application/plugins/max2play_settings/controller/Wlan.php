@@ -75,8 +75,15 @@ class Wlan extends Service {
 		}
 		
 		$shellanswer = shell_exec("cat ".$this->wpa_config);
+		
+		// Change connection settings to wpa_cli OR use Default Config File if no ssid is set
+		//wpa_cli -iwlan0 set_network 0 key_mgmt WPA-PSK
+		//wpa_cli -iwlan0 set_network 0 psk '"12345678"'
+		//wpa_cli -iwlan0 set_network 0 mode 0
+		//wpa_cli -iwlan0 set_network 0 ssid '"vic_BSS"'
+		
 		$shellanswer = str_replace('ssid="'.$this->view->ssid.'"', 'ssid="'.$ssid.'"', $shellanswer);
-		//$shellanswer = str_replace('group="'.$this->view->groupcipher.'"', 'group="'.$gcipher.'"', $shellanswer);
+		
 		if(strlen(str_replace('*', '', $psk)) > 0 || $psk == ''){
 			$shellanswer = str_replace('psk="'.$this->view->psk.'"', 'psk="'.$psk.'"', $shellanswer);
 		}
@@ -146,6 +153,13 @@ class Wlan extends Service {
 					$shellanswer_eth);
 			$this->writeDynamicScript(array("echo '".$shellanswer_eth."' > ".$this->networkinterfaces.";sudo ifdown wlan0"));
 			$this->saveConfigFileParameter('/opt/max2play/options.conf', 'autoreconnect_wifi', '0');
+		}
+		
+		$wpsenabled = trim(shell_exec('cat /etc/rc.local | grep wps_config | wc -l')) > 0 ? true : false;
+		if(isset($_REQUEST['wpsenabled']) && $wpsenabled == FALSE){
+			$this->writeDynamicScript(array('sed -i "s@exit 0@if [ \"\$(LANG=C && /sbin/ifconfig eth0 | grep \'inet addr:\' | wc -l)\" -lt \"1\" ]; then sudo /opt/max2play/wps_config.sh; fi\nexit 0@" /etc/rc.local'));			
+		}elseif(!isset($_REQUEST['wpsenabled']) && $wpsenabled == TRUE){
+			$this->writeDynamicScript(array('sed -i "s@.*sudo /opt/max2play/wps_config.sh@@" /etc/rc.local'));
 		}
 		return true;
 	}
@@ -234,6 +248,9 @@ class Wlan extends Service {
 				$this->view->bootconfig = true;
 			}
 		}
+		
+		//WPS-Config
+		$this->view->wpsenabled = trim(shell_exec('cat /etc/rc.local | grep wps_config | wc -l')) > 0 ? true : false;
 		return true;
 	}
 	

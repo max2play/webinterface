@@ -107,6 +107,10 @@
 	<?php echo _("Set fixed LAN IP-Address") ?> (<?php echo $wlan->view->fixedinterface ?>): <input type="checkbox" id="lanipfix" name="lanipfix" value="1" <?php if($wlan->view->fixedip) echo 'checked'; ?> /> <?php echo _("Current IP-Address") ?>: <input type="text" id="lanip" name="lanip" value="<?php echo $wlan->view->lanip ?>" />
 	<br /><?php echo _("(Useful, if your router sometimes changes the IP-Address of you Max2Play-device and you need a fixed IP-Address.)") ?>
 	
+	<br /><br />
+	<?php echo _("Activate WPS on Boot") ?>: <input type="checkbox" id="wpsenabled" name="wpsenabled" value="1" <?php if($wlan->view->wpsenabled) echo 'checked'; ?> /> 
+	<?php echo _("(Wifi Protected Setup: Enable WPS in your Router and reboot Max2Play to automatically set up WiFi. Only when no LAN-cable connected!)") ?>
+	
 	<br /><br />	
 	
 	<input type="button" value="<?php echo _("Save all settings") ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />		
