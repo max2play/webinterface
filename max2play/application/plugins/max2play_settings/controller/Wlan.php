@@ -157,7 +157,7 @@ class Wlan extends Service {
 		
 		$wpsenabled = trim(shell_exec('cat /etc/rc.local | grep wps_config | wc -l')) > 0 ? true : false;
 		if(isset($_REQUEST['wpsenabled']) && $wpsenabled == FALSE){
-			$this->writeDynamicScript(array('sed -i "s@exit 0@if [ \"\$(LANG=C && /sbin/ifconfig eth0 | grep \'inet addr:\' | wc -l)\" -lt \"1\" ]; then sudo /opt/max2play/wps_config.sh; fi\nexit 0@" /etc/rc.local'));			
+			$this->writeDynamicScript(array('sed -i "s@^exit 0@if [ \"\$(LANG=C \&\& /sbin/ifconfig eth0 | grep \'inet addr:\' | wc -l)\" -lt \"1\" ]; then sudo /opt/max2play/wps_config.sh; fi\nexit 0@" /etc/rc.local'));			
 		}elseif(!isset($_REQUEST['wpsenabled']) && $wpsenabled == TRUE){
 			$this->writeDynamicScript(array('sed -i "s@.*sudo /opt/max2play/wps_config.sh@@" /etc/rc.local'));
 		}

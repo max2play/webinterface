@@ -13,25 +13,33 @@ if [ "$(LANG=C && /sbin/ifconfig wlan0 | grep 'HWaddr' | wc -l)" -gt "0" -a "$(L
     fi
     
     # Make sure WPA-Supplicant is running with config
-    wpa_supplicant -B w -D wext -i wlan0 -c /opt/max2play/wpa_supplicant.conf
-    sleep 1        
+    wpa_supplicant -B w -D wext -i wlan0 -c /opt/max2play/wpa_supplicant.conf    
+    sleep 3        
+    
+    # Clear network list
+    for i in `wpa_cli -iwlan0 list_networks | grep ^[0-9] | cut -f1`; do wpa_cli -iwlan0 remove_network $i; done
     
     # get Routers supporting WPS, sorted by signal strength        
     SSID=$(/sbin/wpa_cli scan_results | grep "WPS" | sort -r -k3 | awk 'END{print $NF}')
     echo "Using $SSID for WPS"
-    SUCCESS=$(wpa_cli wps_pbc $SSID)
-    sleep 10
+    #SUCCESS=$(wpa_cli wps_pbc $SSID)
+    SUCCESS=$(wpa_cli wps_pbc)
+    sleep 7
     
-    #Check for Entry in wpa_supplicant.conf
+    # Check for Entry in wpa_supplicant.conf
     VALIDENTRY=$(grep -i "^network=" /opt/max2play/wpa_supplicant.conf | wc -l)
-    if [ "$(echo "$SUCCESS" | grep "OK" | wc -l)" -gt "0" -a "$VALIDENTRY" -gt "0" ]; then
+    
+    # wpa_supplicant.conf should be modified in last 20 seconds by WPS Config
+    MODIFIED=$(( `date +%s` - `stat -L --format %Y /opt/max2play/wpa_supplicant.conf` ))
+    
+    if [ "$(echo "$SUCCESS" | grep 'OK' | wc -l)" -gt "0" -a "$VALIDENTRY" -gt "0" -a "$SSID" != "" -a "$MODIFIED" -lt "20" ]; then
     	# Now Config File should be written    	
     	
     	# Stop existing WPA_Supplicant Process with Old Config
     	killall -q wpa_supplicant
     	
     	# Enable wlan0 in /etc/network/interfaces
-    	if [ ! $(grep -i "^auto wlan0" /etc/network/interfaces) ]; then
+    	if [ "$(grep -i '^auto wlan0' /etc/network/interfaces | wc -l)" -lt "1" ]; then
     		sed -i "s/#allow-hotplug wlan0/allow-hotplug wlan0/;s/#iface wlan0 inet dhcp/iface wlan0 inet dhcp/;s/#auto wlan0/auto wlan0/;s/#pre-up wpa_supplicant/pre-up wpa_supplicant/;s/#post-down killall -q wpa_supplicant/post-down killall -q wpa_supplicant/" /etc/network/interfaces  	
 		fi
 		    	
