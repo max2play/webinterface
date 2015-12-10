@@ -24,6 +24,9 @@ cd /opt
 git clone https://github.com/xbmc/kodi-platform.git
 cd kodi-platform
 cmake -DCMAKE_INSTALL_PREFIX=/usr/local
+# Achtung: new p8-platform Files!
+# Change needed
+sed -i "s@-lplatform@-lp8-platform@" /opt/kodi-platform/CMakeFiles/kodiplatform.dir/link.txt
 make && sudo make install
 ldconfig
 

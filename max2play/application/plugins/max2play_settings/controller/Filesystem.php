@@ -99,7 +99,7 @@ class Filesystem extends Service {
 			//richtiges Verzeichnis
 			//Check ob Unterverzeichnis existiert
 			if(!file_exists($m->getPath())){
-				$this->writeDynamicScript(array('mkdir "'.$m->getPath().'"; chmod 777 "'.$m->getPath().'"'));
+				$this->writeDynamicScript(array('mkdir -p "'.$m->getPath().'"; chmod -R 777 "'.$m->getPath().'"'));
 				$this->view->message[] = _("Directory created: ".$m->getPath());
 			}
 		}else{
