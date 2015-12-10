@@ -65,6 +65,41 @@ class Wlan extends Service {
 		}
 		return true;
 	}
+	
+	/**
+	 * New Way to save Network
+	 * @param $ssid
+	 * @param $psk
+	 */
+	private function _saveWiFiNetworkSettings($ssid, $psk){
+		if(1 == 2){
+			//1. Delete empty Network with ssid="" from $this->wpa_config
+			//TODO: get it working... $script = array('sed -i "s@network={.*ssid=\"\".*@@" '. $this->wpa_config);
+			
+			//2. Start WPA_Supplicant
+			$script[] = "killall -q wpa_supplicant;wpa_supplicant -B w -D wext -i wlan0 -c /opt/max2play/wpa_supplicant.conf;sleep 3";			
+			
+			// Change connection settings to wpa_cli OR use Default Config File if no ssid is set
+			$script[] = "wpa_cli -iwlan0 add_network";
+			$script[] = "wpa_cli -iwlan0 set_network 0 key_mgmt WPA-PSK";
+			$script[] = "wpa_cli -iwlan0 set_network 0 mode 0";
+			$script[] = "wpa_cli -iwlan0 set_network 0 psk '\"".$psk."\"'";
+			$script[] = "wpa_cli -iwlan0 set_network 0 ssid '\"".$ssid."\"'";
+			
+			$this->writeDynamicScript($script);
+		}else{
+			$shellanswer = shell_exec("cat ".$this->wpa_config);			
+			
+			$shellanswer = str_replace('ssid="'.$this->view->ssid.'"', 'ssid="'.$ssid.'"', $shellanswer);
+			
+			if(strlen(str_replace('*', '', $psk)) > 0 || $psk == ''){
+				$shellanswer = str_replace('psk="'.$this->view->psk.'"', 'psk="'.$psk.'"', $shellanswer);
+			}
+			shell_exec("echo '".$shellanswer."' > ".$this->wpa_config);
+		}
+		return true;
+	}
+	
 	private function _saveWirelessConfig(){
 		$ssid = $_REQUEST['ssid'];
 		$psk = $_REQUEST['psk'];
@@ -74,19 +109,7 @@ class Wlan extends Service {
 			$gcipher = $this->view->groupcipher;
 		}
 		
-		$shellanswer = shell_exec("cat ".$this->wpa_config);
-		
-		// Change connection settings to wpa_cli OR use Default Config File if no ssid is set
-		//wpa_cli -iwlan0 set_network 0 key_mgmt WPA-PSK
-		//wpa_cli -iwlan0 set_network 0 psk '"12345678"'
-		//wpa_cli -iwlan0 set_network 0 mode 0
-		//wpa_cli -iwlan0 set_network 0 ssid '"vic_BSS"'
-		
-		$shellanswer = str_replace('ssid="'.$this->view->ssid.'"', 'ssid="'.$ssid.'"', $shellanswer);
-		
-		if(strlen(str_replace('*', '', $psk)) > 0 || $psk == ''){
-			$shellanswer = str_replace('psk="'.$this->view->psk.'"', 'psk="'.$psk.'"', $shellanswer);
-		}
+		$this->_saveWiFiNetworkSettings($ssid, $psk);		
 		
 		$shellanswer_eth = $this->writeDynamicScript(array("cat ".$this->networkinterfaces));
 		if($_GET['lanmac'] != '' && $this->view->lanmac != $_GET['lanmac'] && preg_match("=([0-9abcdefABCDEF]{2}:){5}[0-9abcdefABCDEF]{2}=", $_GET['lanmac'], $matches) == true){			
@@ -124,9 +147,7 @@ class Wlan extends Service {
 			$shellanswer_eth = preg_replace('=iface '.$this->view->fixedinterface.' inet static[^#]*netmask .*$=m', 'iface '.$this->view->fixedinterface.' inet dhcp', $shellanswer_eth);
 			$this->writeDynamicScript(array("echo '".$shellanswer_eth."' > ".$this->networkinterfaces."; ifdown ".$this->view->fixedinterface."; ifup ".$this->view->fixedinterface.";"));
 			$this->view->message[] = _('IP-Address set to dynamic DHCP');
-		}
-		
-		shell_exec("echo '".$shellanswer."' > ".$this->wpa_config);
+		}				
 		
 		//Wenn Netzwerk gesetzt muss dieses in der etc/network/interfaces geladen werden				
 		if(strpos($shellanswer_eth, '#pre-up wpa_supplicant') !== FALSE){
