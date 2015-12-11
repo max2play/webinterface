@@ -68,17 +68,16 @@ class Wlan extends Service {
 	
 	/**
 	 * New Way to save Network
+	 * TODO: Testing
 	 * @param $ssid
 	 * @param $psk
 	 */
 	private function _saveWiFiNetworkSettings($ssid, $psk){
 		if(1 == 2){
-			//1. Delete empty Network with ssid="" from $this->wpa_config
-			//TODO: get it working... $script = array('sed -i "s@network={.*ssid=\"\".*@@" '. $this->wpa_config);
-			
+			//1. Delete empty Network with ssid="" from $this->wpa_config			
+			file_put_contents($this->wpa_config, preg_replace('@network={.*ssid="".*}@s','',file_get_contents($this->wpa_config)));
 			//2. Start WPA_Supplicant
 			$script[] = "killall -q wpa_supplicant;wpa_supplicant -B w -D wext -i wlan0 -c /opt/max2play/wpa_supplicant.conf;sleep 3";			
-			
 			// Change connection settings to wpa_cli OR use Default Config File if no ssid is set
 			$script[] = "wpa_cli -iwlan0 add_network";
 			$script[] = "wpa_cli -iwlan0 set_network 0 key_mgmt WPA-PSK";
