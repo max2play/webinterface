@@ -69,7 +69,7 @@
 	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
 		<span class="ui-icon ui-icon-gear" style="float:left; margin:-2px 5px 0 0;"></span>
 		<?php echo str_replace('$NAME', $sp->viewname, _('$NAME start installation')) ?></p>
-	<select name="lmsversion" onclick="copytodownloadurl(this);">
+	<select id="lmsversion" name="lmsversion" onclick="copytodownloadurl(this);">
 	<?php foreach($sp->lmsversions as $key => $value) { ?>
 		<option value="<?php echo $value ?>"><?php echo $key ?></option>
 	<?php } ?>
@@ -78,12 +78,12 @@
 		function copytodownloadurl(item){
 			document.getElementById("downloadurl").value = item.options[item.selectedIndex].value;
 			document.getElementById("downloadurl").style.width = "500px";
-		}
+		}			
 	</script>
 	<input type="button" value="<?php echo _('Show available Versions') ?>" name="fetchLMS" onclick="document.getElementById('action').value='showavailablelms';submit();" /><br /><br />
 	 
 	<?php echo _('Alternative other source from Slimdevices (package must be .deb)') ?>: 
-	<input id="downloadurl" type="text" value="" name="downloadurl" style="" /><br /><br /> 
+	<input id="downloadurl" type="text" value="<?php if($lmslink = reset($sp->lmsversions)){ echo $lmslink; } ?>" name="downloadurl" style="" /><br /><br /> 		
 	
 	<input type="button" value="<?php echo str_replace('$NAME', $sp->viewname, _('$NAME start installation')) ?>" name="install" onclick="document.getElementById('action').value='install';submit();" />
 	<br /><br /> <?php echo _('The installation takes about 5 to 10 minutes depending on your internet connection. At first it downloads the package from http://downloads.slimdevices.com/ and afterwards it installs the package. You may reload this page by clicking the button again to see the status of the install process.')?>			

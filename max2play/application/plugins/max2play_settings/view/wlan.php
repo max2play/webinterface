@@ -44,8 +44,8 @@
 	<input type="hidden" id="action" name="action" value="" />
 		
 	<b><?php echo _("Status") ?>:</b> 
-		<?php echo str_replace('$STATUS', ($wlan->view->wlan_active) ? _('active') : _('not active'), _('WiFi USB connection status is <b>$STATUS</b>')) ?> 
-		<?php echo _("(Only WPA/WPA2-Encryption possible)") ?>
+		<?php echo str_replace(array('$STATUS', '$CONNECTION'), array(($wlan->view->wlan_active) ? _('active') : _('not active'), ($wlan->view->wlan_configured) ? _('active').' (IP: '.$wlan->view->wlan_ip.')' : _('not active')), _('WiFi USB adapter status is <b>$STATUS</b>. WiFi connection status is <b>$CONNECTION</b> ')) ?> 
+		<br /><?php echo _("(Only WPA/WPA2-Encryption possible)") ?>
 		<br /><br />
 	<table>
 	<tr><td><?php echo _("Load WiFi Interface") ?>:</td> 
@@ -109,7 +109,7 @@
 	
 	<br /><br />
 	<?php echo _("Activate WPS on Boot") ?>: <input type="checkbox" id="wpsenabled" name="wpsenabled" value="1" <?php if($wlan->view->wpsenabled) echo 'checked'; ?> /> 
-	<?php echo _("(Wifi Protected Setup: Enable WPS in your Router and reboot Max2Play to automatically set up WiFi. Only when no LAN-cable connected!)") ?>
+	<?php echo _("(Wifi Protected Setup: Enable WPS in your Router and reboot Max2Play to automatically set up WiFi. Starts only, if no LAN-cable connected!)") ?>
 	
 	<br /><br />	
 	

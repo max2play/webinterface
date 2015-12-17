@@ -11,10 +11,15 @@ else
 		apt-get update
 		if [ "$(cat /proc/cpuinfo | grep Hardware | grep BCM270 | wc -l)" -gt "0" ]; then
 			# Fix Download for Raspberry PI Version
-			cd /opt
-			apt-get remove kodi-bin -y
+			cd /opt			
 			wget -O kodi-15.tar.gz $source
+			if [ ! -s kodi-15.tar.gz ]; then
+				echo "ERROR! Given HTTP-Link to Kodi package does not exist! Please check URL $source"
+				echo "finished"
+				exit 
+			fi			
 			tar -xzf kodi-15.tar.gz
+			apt-get remove kodi-bin -y
 			cd kodi-15
 			./install
 			./install_cec3

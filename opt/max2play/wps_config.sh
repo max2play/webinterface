@@ -13,8 +13,8 @@ if [ "$(LANG=C && /sbin/ifconfig wlan0 | grep 'HWaddr' | wc -l)" -gt "0" -a "$(L
     fi
     
     # Make sure WPA-Supplicant is running with config
-    wpa_supplicant -B w -D wext -i wlan0 -c /opt/max2play/wpa_supplicant.conf    
-    sleep 3        
+    wpa_supplicant -B w -D wext -i wlan0 -c /opt/max2play/wpa_supplicant.conf
+    sleep 3
     
     # Clear network list
     for i in `wpa_cli -iwlan0 list_networks | grep ^[0-9] | cut -f1`; do wpa_cli -iwlan0 remove_network $i; done
@@ -24,7 +24,7 @@ if [ "$(LANG=C && /sbin/ifconfig wlan0 | grep 'HWaddr' | wc -l)" -gt "0" -a "$(L
     echo "Using $SSID for WPS"
     #SUCCESS=$(wpa_cli wps_pbc $SSID)
     SUCCESS=$(wpa_cli wps_pbc)
-    sleep 7
+    sleep 10
     
     # Check for Entry in wpa_supplicant.conf
     VALIDENTRY=$(grep -i "^network=" /opt/max2play/wpa_supplicant.conf | wc -l)
