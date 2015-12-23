@@ -238,7 +238,7 @@ $(function() {
 						<td style="width: 25%;">						
 							<select id="gmediarender_soundcard" name="gmediarender_soundcard" style="width: 90%;">
 							<?php foreach($sp->view->soundDevices as $soundDeviceKey => $soundDevice){ ?>
-								<option <?php if($gm->view->gmediarender_soundcard == $soundDevice['name']) echo 'selected'; ?> value='<?php echo $soundDevice['name'] ?>'><?php echo $soundDevice['name'].' - '.$soundDevice['description'].', '.$soundDevice['card']; ?></option>
+								<option <?php if($gm->view->gmediarender_soundcard == $soundDeviceKey) echo 'selected'; ?> value='<?php echo $soundDeviceKey ?>'><?php echo $soundDevice['name'].' - '.$soundDevice['description'].', '.$soundDevice['card']; ?></option>
 							<?php }?>
 							</select>
 						</td>

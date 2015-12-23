@@ -12,7 +12,7 @@ echo $PARTITION
 p2_start=`fdisk -l /dev/mmcblk0 | grep $PARTITION | awk '{print $2}'`
 # Leave 100 MB for Writable Partition
 # get Maximium Size
-maximum=`fdisk -l /dev/mmcblk0 | grep -o -e "total [0-9]*" | awk '{print $2}'`
+maximum=`fdisk -l /dev/mmcblk0 | grep -o -e "[0-9]\{7,\} sectors" | awk '{print $1}'`
 p2_end_current=`fdisk -l /dev/mmcblk0 | grep $PARTITION | awk '{print $3}'`
 p2_end=$(($maximum-400000))
 p3_start=$(($p2_end+1))

@@ -608,6 +608,11 @@ class Service {
 			return true;
 		}elseif(file_exists($progressfile) && $create == 0){
 			//Check for Status finished and return current status and progressfile and reload if neccesary
+			//Set Header Files to NO CACHE
+			header('Expires: Sun, 01 Jan 2014 00:00:00 GMT');
+			header('Cache-Control: no-store, no-cache, must-revalidate');
+			header('Cache-Control: post-check=0, pre-check=0', FALSE);
+			header('Pragma: no-cache');
 			if($lastlines > 0){
 				$shellanswer = shell_exec("tail -$lastlines $progressfile");
 			}else

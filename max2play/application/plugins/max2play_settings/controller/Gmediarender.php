@@ -80,8 +80,8 @@ class Gmediarender extends Service {
 		//Sounddevices werden in Squeezeplayer geladen!
 		global $sp;
 		$soundoutputs = array();
-		foreach($sp->view->soundDevices as $sounddevice){
-			$soundoutputs[]=$sounddevice['name'];
+		foreach($sp->view->soundDevices as $soundkeys => $sounddevice){
+			$soundoutputs[] = $soundkeys;
 		}
 		if(in_array($setsoundcard, $soundoutputs)){
 			$value = $setsoundcard;
