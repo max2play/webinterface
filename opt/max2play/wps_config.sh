@@ -32,7 +32,7 @@ if [ "$(LANG=C && /sbin/ifconfig wlan0 | grep 'HWaddr' | wc -l)" -gt "0" -a "$(L
     # wpa_supplicant.conf should be modified in last 20 seconds by WPS Config
     MODIFIED=$(( `date +%s` - `stat -L --format %Y /opt/max2play/wpa_supplicant.conf` ))
     
-    if [ "$(echo "$SUCCESS" | grep 'OK' | wc -l)" -gt "0" -a "$VALIDENTRY" -gt "0" -a "$SSID" != "" -a "$MODIFIED" -lt "20" ]; then
+    if [ "$(echo "$SUCCESS" | grep 'OK' | wc -l)" -gt "0" -a "$VALIDENTRY" -gt "0" -a "$MODIFIED" -lt "20" ]; then
     	# Now Config File should be written    	
     	
     	# Stop existing WPA_Supplicant Process with Old Config

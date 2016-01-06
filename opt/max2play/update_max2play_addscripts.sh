@@ -148,6 +148,11 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		# Add Start Audioplayer to boot (not wait for crontab)
 		sudo sed -i "s/^exit 0/#Max2Play Start Audioplayer\nsudo -u pi -H -s \/opt\/max2play\/start_audioplayer.sh > \/dev\/null 2>\&1 \&\n\nexit 0/" /etc/rc.local
 	fi
+	
+	# USBMOUNT Charset Umlaute Fix Fat32
+	if [ "$(grep -i "iocharset=iso8859-1" /etc/usbmount/usbmount.conf | wc -l)" -lt "1" ]; then
+		sudo sed -i "s/fstype=vfat,gid=users,uid=pi/fstype=vfat,gid=users,uid=pi,iocharset=iso8859-1/" /etc/usbmount/usbmount.conf
+	fi
 fi
 
 #htaccess Password Protection Overwrite Backup

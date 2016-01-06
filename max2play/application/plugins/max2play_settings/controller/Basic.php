@@ -31,7 +31,7 @@ class Basic extends Service {
 		parent::__construct();
 		$this->pluginname = _('Settings / Reboot');
 		
-		$this->view->locales = array('deutsch / Deutschland' => 'de_DE.UTF-8', 'deutsch / Schweiz' => 'de_CH.UTF-8', 'english' => 'en_GB.UTF-8', 'italiano' => 'it_IT.UTF-8','français' => 'fr_FR.UTF-8', 'türkçe' => 'tr_TR.UTF-8', 'nederlands' => 'nl_NL.UTF-8', 'español' => 'es_ES.UTF-8','português' => 'pt_PT.UTF-8');
+		$this->view->locales = array('deutsch / Deutschland' => 'de_DE.UTF-8', 'deutsch / Schweiz' => 'de_CH.UTF-8', 'english' => 'en_GB.UTF-8', 'italiano' => 'it_IT.UTF-8','français' => 'fr_FR.UTF-8', 'türkçe' => 'tr_TR.UTF-8', 'nederlands' => 'nl_NL.UTF-8', 'español' => 'es_ES.UTF-8','português' => 'pt_PT.UTF-8', 'english / US' => 'en_US.UTF-8');
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'reboot'){
