@@ -143,6 +143,11 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	    echo "Copy custom header files"
 	    cp -f /var/www/max2play/application/plugins/hifiberry/view/header_custom.php /var/www/max2play/application/view/
 	fi
+	if [ -e "/var/www/max2play/application/plugins/iqaudio/view/header_custom.php" ]; then
+	    # Update Plugin Header		
+	    echo "Copy custom header files"
+	    cp -f /var/www/max2play/application/plugins/iqaudio/view/header_custom.php /var/www/max2play/application/view/
+	fi
 	
 	if [ "$(grep -i "start_audioplayer" /etc/rc.local | wc -l)" -lt "1" ]; then
 		# Add Start Audioplayer to boot (not wait for crontab)

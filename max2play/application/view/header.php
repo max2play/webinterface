@@ -62,7 +62,7 @@
 				<span class="headerinfo">
 					<?php if ($service->info->removedonate != 1) echo _('DONATE-BUTTON'); ?>		
 					<br /><?php echo _('Version').' '.$service->info->version ?>
-					<br /><?php echo $service->info->hardware ?>
+					<br /><?php echo ($service->info->boardname) ? $service->info->boardname : $service->info->hardware; ?>
 				</span>
 			</div>
 			

@@ -33,6 +33,7 @@ class Info {
 	public $system_user = false;
 	public $linux = false;
 	public $freespace = false;
+	public $boardname = false;
 	
 	public function __construct(){
 	}

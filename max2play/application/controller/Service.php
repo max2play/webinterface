@@ -697,17 +697,24 @@ class Service {
 	
 	public function getHardwareInfo(){
 		if(!$this->info->hardware){
-			$output = shell_exec("cat /proc/cpuinfo | grep Hardware");
+			$output = shell_exec("cat /proc/cpuinfo | grep 'Hardware\|Revision'");
 			$this->info->hardware = '';
 			if(preg_match('=Hardware.*: ([^ ]*)=', $output, $matches)){
 				if(strpos($output, 'BCM2708') || strpos($output, 'BCM2709')){
 					$this->info->hardware = 'Raspberry PI';
 					$this->info->chipset = trim($matches[1]);
+					// Pi Zero? Check Revision					
+					if(preg_match('=Revision.*: ([^ ]*)=', $output, $matches)){
+						$revision = trim($matches[1]);
+						if($revision[strlen($revision)-2] == 9){
+							$this->info->boardname = 'Raspberry PI Zero';
+						}
+					}
 				}else{			
 					$this->info->hardware = trim($matches[1]);
 					$this->info->chipset = trim($matches[1]);
 				}
-			}
+			}			
 		}
 		return $this->info->hardware;
 	}
