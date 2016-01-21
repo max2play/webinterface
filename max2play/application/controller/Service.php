@@ -699,7 +699,7 @@ class Service {
 		if(!$this->info->hardware){
 			$output = shell_exec("cat /proc/cpuinfo | grep 'Hardware\|Revision'");
 			$this->info->hardware = '';
-			if(preg_match('=Hardware.*: ([^ ]*)=', $output, $matches)){
+			if(preg_match('=Hardware.*: ([^ \n]*)=', $output, $matches)){
 				if(strpos($output, 'BCM2708') || strpos($output, 'BCM2709')){
 					$this->info->hardware = 'Raspberry PI';
 					$this->info->chipset = trim($matches[1]);

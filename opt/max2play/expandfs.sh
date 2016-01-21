@@ -17,6 +17,8 @@ p2_end_current=`fdisk -l /dev/mmcblk0 | grep $PARTITION | awk '{print $3}'`
 p2_end=$(($maximum-400000))
 p3_start=$(($p2_end+1))
 
+# echo "p2start: $p2_start , maximium: $maximum , p2_end_current: $p2_end_current , p2_end: $p2_end , p3_start: $p3_start"
+
 # Shrinking is not allowed!
 if [ -z "$p2_start" -o ! "$p2_end_current" -lt "$p2_end" ]; then
 	echo "Resize not successful"
@@ -54,16 +56,14 @@ cat <<\EOF > /etc/init.d/resize2fs_once
 # Description:
 ### END INIT INFO
 
-. /lib/lsb/init-functions
-
 case "$1" in
   start)
-    log_daemon_msg "Starting resize2fs_once" &&
-    resize2fs /dev/$PARTITION &&
-    rm /etc/init.d/resize2fs_once &&
-    update-rc.d resize2fs_once remove &&
+    echo "Starting resize2fs_once" 
+    resize2fs /dev/$PARTITION
+    rm /etc/init.d/resize2fs_once
+    update-rc.d resize2fs_once remove
     mkfs -t ext4 /dev/mmcblk0p3
-    log_end_msg $?
+    echo "Finished"
     ;;
   *)  
     echo "Usage: $0 start" >&2
@@ -77,7 +77,7 @@ sed -i "s/\$PARTITION/$PARTITION/" /etc/init.d/resize2fs_once
 chmod +x /etc/init.d/resize2fs_once
 update-rc.d resize2fs_once defaults
   
-echo "Rootfs Extended. Please reboot to take effect"
+echo "Filesystem Extended. <b><a href='/plugins/max2play_settings/controller/Basic.php?action=reboot'>Please reboot to take effect</a></b>"
 return 0
 
 

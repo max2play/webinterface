@@ -36,11 +36,14 @@ class Callblocker_Setup extends Service {
 				$this->_updateCallblocker();
 			}elseif($_GET['action'] == 'savemodemsettings'){
 				$this->_saveModemSettings((int)$_GET['hangup_type']);
-			}
+			}			
 		}
 		
 		if(isset($_GET['actionupdate']) && $_GET['actionupdate'] == 'updateCallblocker'){
 			$this->_updateCallblocker();		
+		}
+		if(isset($_GET['actionupdate']) && $_GET['actionupdate'] == 'reboot'){
+			$reboot = $this->reboot();
 		}
 		
 		//SIP Config
@@ -57,6 +60,10 @@ class Callblocker_Setup extends Service {
 		$this->getAllLogs();
 		
 		$this->getCBVersion();
+		
+		if($reboot){
+			$this->writeDynamicScript(array('sleep 2s;sudo /sbin/reboot -n;'), false, true);
+		}
 	}
 	
 	private function _saveTellowsConf(){
@@ -242,6 +249,43 @@ class Callblocker_Setup extends Service {
 		$this->writeDynamicScript(array("sed -i 's/^set hangup = ".$hangup."/set hangup = ".$hangup_type."/' /etc/ncid/ncidd.conf",'sudo /opt/callblocker/tellowsblacklist.sh'));
 		$this->view->message[] = _t('Modem Settings saved');
 		return true;
+	}
+	
+	/**
+	 * Check for Reboot
+	 * @return boolean
+	 */
+	public function reboot(){
+		
+		$path = '/tmp/';		
+	
+		if($_REQUEST['ajax'] == 1){
+			ob_end_clean();
+			//Check for time difference in reboot.txt and set finished only if more than 15 seconds passed since reboot
+			$rebootTime = strtotime(trim(shell_exec('grep -io "[^|]*" '.$path.'reboot.txt')));
+			if($rebootTime < (time() - 15)){
+				echo _("REBOOT successful"). " - finished";
+				shell_exec('rm '.$path.'reboot.txt');
+			}else {
+				echo _("Please wait...");
+			}
+			ob_flush();
+			die();
+			return false;
+		}else{
+			if(isset($_REQUEST['redirecturl'])){
+				$url = $_REQUEST['redirecturl'];
+				$reload = 1;
+			}
+			else{
+				$url = false;
+				$reload = 1;
+			}
+			if($this->getProgressWithAjax($path.'reboot.txt', 1, $reload, 0, _("REBOOT started"), $url))
+				return true;
+			else
+				return false;
+		}
 	}
 		
 }

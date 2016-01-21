@@ -157,6 +157,8 @@
 		<?php echo _t('Current Callblocker Version') ?>: <?php echo $cs->view->version ?>
 		<input type="hidden" id="actionupdate" name="actionupdate" value="" />
 		<input type="button" value="<?php echo _t('Update tellows Callblocker') ?>" name="update" onclick="document.getElementById('actionupdate').value='updateCallblocker';submit();" />
+		&nbsp;&nbsp;
+		<input type="button" value="<?php echo _t('Reboot Callblocker') ?>" name="reboot" onclick="document.getElementById('actionupdate').value='reboot';submit();" />
 	</form>
 
 </div>	

@@ -44,6 +44,7 @@ else
 				sudo /var/www/max2play/application/plugins/max2play_settings/scripts/buildkodiplatform.sh
 				echo "Update for XU4 done"
 			fi
+			rm -R /usr/lib/arm-linux-gnueabihf/mesa-egl/
 		fi
 		echo "<b><a href='/plugins/max2play_settings/controller/Xbmc.php'>Click here to reload Page</a></b>"
 	else
