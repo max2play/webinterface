@@ -11,7 +11,7 @@ else
 		echo `date +"%Y-%m-%d %H:%M|"` > /opt/max2play/cache/install_lms.txt
 		#Uninstall to remove problems with plugins
 		apt-get remove logitechmediaserver
-		wget -O /opt/max2play/lms.deb $source -o /opt/max2play/cache/install_lms.txt
+		wget -O /opt/max2play/lms.deb $source -a /opt/max2play/cache/install_lms.txt
 		echo "| START INSTALL | " >> /opt/max2play/cache/install_lms.txt
 		dpkg -i /opt/max2play/lms.deb >> /opt/max2play/cache/install_lms.txt
 		echo "Installation abgeschlossen"

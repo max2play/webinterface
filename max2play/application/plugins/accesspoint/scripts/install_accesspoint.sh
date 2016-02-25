@@ -64,3 +64,5 @@ sudo sh -c "iptables-save > /etc/hostapd/iptables.ap"
 
 sudo /etc/init.d/hostapd restart
 sudo /etc/init.d/dnsmasq restart
+
+exit 0

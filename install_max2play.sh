@@ -15,7 +15,7 @@ echo ""
 EXPAND_FILESYSTEM="N"
 
 # set to Y if you want default password "max2play"
-CHANGE_PASSWORD="Y" 
+CHANGE_PASSWORD="N" 
 
 # leave empty to keep current hostname
 # CHANGE_HOSTNAME="max2play"
@@ -55,7 +55,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
   # Remove further not wanted packages?
   echo "Y" | sudo apt-get remove wolfram-engine
   
-  FREESPACE=$(df -km /dev/root | tail -1 | awk '{print $4}')
+  FREESPACE=$(df -km | grep /dev/root | tail -1 | awk '{print $4}')
   if [ "$FREESPACE" -lt "500" ]; then
   	echo "Only $FREESPACE MB memory available - Run sudo raspbi-config.sh first to expand filesystem manually and Reboot!"
   	exit 1
@@ -99,7 +99,7 @@ cp max2play/CONFIG_SYSTEM/apache2/sites-enabled/max2play.conf /etc/apache2/sites
 sed -i 's/LogLevel warn/LogLevel error/' /etc/apache2/apache2.conf
 cp -r max2play/max2play/ /var/www/max2play 
 sudo /etc/init.d/apache2 restart
-sudo echo "Y" | apt-get install samba samba-common samba-common-bin mc ntfs-3g cifs-utils nfs-common
+sudo echo "Y" | apt-get install samba samba-common samba-common-bin mc ntfs-3g cifs-utils nfs-common git libconfig-dev smbclient
 
 sudo apt-get install debconf-utils
 if [ "$HW_RASPBERRY" -gt "0" ] || [ "$LINUX" == "Debian" ]; then  	
@@ -145,7 +145,9 @@ cp -R /usr/lib/alsa-lib/* /usr/lib/arm-linux-gnueabihf/alsa-lib/
 echo -e "Y\ny\n" | apt-get install libav-tools cmake
 # Debian Wheezy soxr
 if [ "$HW_RASPBERRY" -gt "0" ] || [ "$LINUX" == "Debian" ]; then	
-	echo -e "Y\ny\n" | apt-get install libavformat-dev ffmpeg libmpg123-dev libfaad-dev libvorbis-dev libmad0-dev libflac-dev libasound2-dev
+	echo -e "Y\ny\n" | apt-get install libavformat-dev libmpg123-dev libfaad-dev libvorbis-dev libmad0-dev libflac-dev libasound2-dev
+	# not neccesary with Jessie
+	echo -e "Y\ny\n" | apt-get install ffmpeg
 	pushd /tmp
 	wget -O soxr.tar.gz --max-redirect=3 "http://downloads.sourceforge.net/project/soxr/soxr-0.1.1-Source.tar.xz"
 	tar -xf soxr.tar.gz
@@ -256,11 +258,11 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	#Raspberry: asound.conf.pi (Equalizer Options)
 	cp -f max2play/CONFIG_SYSTEM/asound.conf.pi /etc/asound.conf
 	
-	#Kodi - http://michael.gorven.za.net/
-	echo "deb http://archive.mene.za.net/raspbian wheezy contrib" >> /etc/apt/sources.list.d/mene.list
-	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key 5243CDED
-	sudo sudo apt-get update
-	echo "Y" | apt-get install kodi
+	#Kodi - http://michael.gorven.za.net/ - Get Kodi from Repository
+	#echo "deb http://archive.mene.za.net/raspbian wheezy contrib" >> /etc/apt/sources.list.d/mene.list
+	#sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key 5243CDED
+	#sudo sudo apt-get update
+	#echo "Y" | apt-get install kodi
 	sudo echo "KERNEL==\"tty[0-9]*\", GROUP=\"tty\", MODE=\"0660\"" >> /etc/udev/rules.d/99-input.rules 
 	sudo usermod -a -G tty pi
 	sudo sh -c "echo \"gpu_mem=128\" >> /boot/config.txt"
@@ -288,7 +290,27 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	history -c
 	
 	echo "TODO: Update to latest Version in Webinterface - Check hd-idle (1.5 might not work)"
-	echo "TODO: Run raspbi-config at least one time AND Reboot!"	
+	echo "TODO: Run raspbi-config at least one time AND Reboot!"
+	
+	#Debian Jessie Lite:
+	if [ "$(lsb_release -r | grep '8.0' | wc -l)" -gt "0" ]; then 
+		# optional: run some fixes when upgrading from wheezy
+		# https://www.raspberrypi.org/forums/viewtopic.php?t=121880
+		
+		echo "Debian Jessie - run fixes for Jessie Lite" 
+		# Install openbox
+		apt-get install xrdp openbox xinit xorg -y
+		
+		#set to anybody for access as user pi 
+		sed -i "s@^allowed_users=.*@allowed_users=anybody@" /etc/X11/Xwrapper.config	
+		
+		# To Get Jivelite Fullscreen Config File
+		su -l pi -c "mkdir -p /home/pi/.config/openbox"
+		su -l pi -c "cp /etc/xdg/openbox/rc.xml /home/pi/.config/openbox/rc.xml"
+		chmod 777 /home/pi/.config/openbox/rc.xml
+		
+		echo "run raspbi-config and choose wait for network at boot"
+	fi
 fi
 
 pushd $CWD

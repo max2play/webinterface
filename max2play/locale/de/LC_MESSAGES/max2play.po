@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-14 15:10+0100\n"
-"PO-Revision-Date: 2015-12-14 15:11+0100\n"
+"PO-Revision-Date: 2016-02-18 16:36+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -1073,7 +1073,8 @@ msgid "Advanced Users may add Start-Parameters here"
 msgstr ""
 "Fortgeschrittene Benutzer können hier Start-Parameter eintragen. Z.B. <i>-n "
 "Name</i> zum Setzen des Namen des Players. Mehr Infos unter  <a href="
-"\"https://code.google.com/p/squeezelite/\">Squeezelite Startoptionen</a>."
+"\"http://manpages.ubuntu.com/manpages/trusty/man1/squeezelite.1.html"
+"\">Squeezelite Startoptionen</a>."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:157
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeplayer.php:157
@@ -1110,9 +1111,9 @@ msgstr "Aktualisiere Squeezelite"
 msgid "Update current version $VERSION to newest available"
 msgstr ""
 "Update der aktuellen Version ($VERSION) auf die neuste verfügbare Version "
-"von <a href=\"https://code.google.com/p/squeezelite/\" target=\"blank"
-"\">https://code.google.com/p/squeezelite/</a> (Compiler Optionen: FFMPEG "
-"RESAMPLE VISEXPORT)"
+"von <a href=\"http://manpages.ubuntu.com/manpages/trusty/man1/squeezelite.1."
+"html\" target=\"blank\">http://manpages.ubuntu.com/manpages/trusty/man1/"
+"squeezelite.1.html</a> (Compiler Optionen: FFMPEG RESAMPLE VISEXPORT)"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:171
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeplayer.php:215

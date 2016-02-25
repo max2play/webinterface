@@ -58,6 +58,10 @@ class Filesystem extends Service {
 				$pos = explode('_', $_GET['action']);
 				$this->removeMount($pos[1]);
 			}
+			if(strpos($_GET['action'],'unmount') !== FALSE){
+				$device = explode('_', $_GET['action']);
+				$this->unMount($device[1]);
+			}
 			if($_REQUEST['action'] == 'setfixmount'){
 				$this->addMountpointSDA();
 			}
@@ -118,6 +122,11 @@ class Filesystem extends Service {
 		$this->view->message[] = _("Mountpoint NOT added! Please refer to the description below!");
 		
 		return false;
+	}
+	
+	public function unMount($device){
+		$this->view->message[] = $this->writeDynamicScript(array("umount ".$device." 2>&1"));
+		return true;
 	}
 	
 	public function removeMount($pos){
@@ -307,11 +316,11 @@ class Filesystem extends Service {
 			$this->view->mountpointsSDA = array();
 			foreach($output as $value){				
 				if(preg_match('@(/dev/sd[^:]*): LABEL="([^"]*)" UUID="([^"]*)" TYPE="([^"]*)"@', $value, $match)){					
-					$this->view->mountpointsSDA[$match[1]] = array('device' => $match[1], 'label' => $match[2], 'uuid' => $match[3], 'type' => $match[4]);
+					$this->view->mountpointsSDA[$match[1]] = array('device' => $match[1], 'label' => $match[2], 'uuid' => $match[3], 'type' => $match[4], 'path' => _('not mounted'));
 					if(isset($this->view->mounts[0])){
 						foreach($this->view->mounts as $mnt){
 							if($mnt->getMountpoint() == 'UUID='.$match[3]){
-								$this->view->mountpointsSDA[$match[1]]['fixmounted'] = true;
+								$this->view->mountpointsSDA[$match[1]]['fixmounted'] = true;								
 							}
 						}
 					}
@@ -320,11 +329,12 @@ class Filesystem extends Service {
 		}else
 			$this->view->mountpointsSDA = false;		
 		
-		$output = explode("\n", shell_exec("mount | grep /dev/sd"));		 
+		$output = explode("\n", shell_exec("mount | grep /dev/sd"));
 		if(isset($output[0])){
 		 	foreach($output as $value){	 		
 		 		if(preg_match('=(/dev/sd[^ ]*) on (/[^ ]*) type =', $value, $match)){
-		 			$this->view->mountpointsSDA[$match[1]]['path'] = $match[2];
+		 			if(isset($this->view->mountpointsSDA[$match[1]]))
+		 				$this->view->mountpointsSDA[$match[1]]['path'] = $match[2];		 			
 		 		}
 		 	}
 		}else

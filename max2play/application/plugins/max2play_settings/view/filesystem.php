@@ -111,6 +111,7 @@
 	 		<br /><?php echo _('Set fixed Mountpoint to prevent directory switching on reboot: ')?>
 	 		<input type="checkbox" name="fixmount[<?php echo $mnt['device'] ?>]" <?php if($mnt['fixmounted']) echo 'checked' ?> />
 	 		<input type="button" value="<?php echo _('Save'); ?>" name="add" onclick="document.getElementById('action').value='setfixmount';submit();" />
+	 		<input type="button" value="<?php echo _('Unmount'); ?>" name="add" onclick="document.getElementById('action').value='unmount_<?php echo $mnt['device']; ?>';submit();" />
 	 		</li>
 		<?php } ?>
 		</ul>

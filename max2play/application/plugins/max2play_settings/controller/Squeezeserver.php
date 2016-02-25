@@ -227,7 +227,9 @@ class Squeezeserver extends Service {
 	}
 	
 	private function getAllLogs(){
-		$out['SQUEEZESERVER LOG'] = shell_exec('cat /var/log/squeezeboxserver/server.log 2>/dev/null');		
+		$out['SQUEEZESERVER LOG'] = shell_exec('cat /var/log/squeezeboxserver/server.log 2>/dev/null');
+		$out['PERL VERSION'] = trim(shell_exec('perl -v | grep -e "v[0-9\.]\{5,\}" -o'));
+		$this->view->perlversion = substr($out['PERL VERSION'], 1, 4);
 		$this->view->debug = $out;
 		return true;
 	}

@@ -160,7 +160,11 @@ class Squeezeplayer extends Service {
 				$dev['name'] = $matches[4][$i]; 
 				$dev['card'] = '';
 				$dev['description'] = $matches[5][$i];
-				$this->view->soundDevices['plug:'.$matches[4][$i]] = $dev;
+				//add without "plug:"
+				if($matches[4][$i] == 'bluetoothspeaker' || $matches[4][$i] == 'pulse')
+					$this->view->soundDevices[$matches[4][$i]] = $dev;
+				else
+					$this->view->soundDevices['plug:'.$matches[4][$i]] = $dev;
 			}elseif($matches[6][$i] !== ''){
 				$dev['name'] = $matches[6][$i];
 				$dev['card'] = '';

@@ -8,10 +8,12 @@ pcm.equal {
 }
 ctl.equal {
    type equal;
+   module "Eq10";
 }
 
 pcm.plugequal {
    type equal;
+   module "Eq10";
    slave {
      pcm "plughw:0,0";
    }

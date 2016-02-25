@@ -13,6 +13,9 @@
 USER=$(grep -a "SYSTEM_USER" /opt/max2play/audioplayer.conf | sed -n -e 's/^[A-Z_]*\=//p')
 if [ "$USER" = "" ]; then
     USER=odroid
+elif [ "$USER" = "pi" ]; then
+	# Environment variable not set in cron or from other user running as sudo -> important for pulseaudio (bluetooth on jessie)
+	export XDG_RUNTIME_DIR=/run/user/1000
 fi 
 
 NAME=$(cat /opt/max2play/playername.txt)

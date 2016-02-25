@@ -12,7 +12,7 @@
 #
 ### BEGIN INIT INFO
 # Provides:          	logitechmediaserver
-# Required-Start:    	$all
+# Required-Start:    	$all $network
 # Required-Stop:     	$all
 # Should-Start:      	$all
 # Should-Stop:       	$all
