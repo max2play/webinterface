@@ -54,7 +54,7 @@ class Wlan extends Service {
 			$this->view->message[] = _("WLAN Device not responding - Reboot and try again.");
 			return false;
 		}
-		preg_match_all('=ESSID:"(.{1,50}?)".*?Group Cipher : (TKIP|CCMP|CCMP TKIP).*?Pairwise Ciphers \(1\) : (TKIP|CCMP|CCMP TKIP).*?Authentication Suites \(1\) : (PSK)=is',$shellanswer, $matches);
+		preg_match_all('=ESSID:"(.{1,50}?)".*?Group Cipher : (TKIP|CCMP|CCMP TKIP).*?Pairwise Ciphers \([0-2]\) : (TKIP|CCMP|CCMP TKIP).*?Authentication Suites \([0-2]\) : (PSK)=is',$shellanswer, $matches);
 		if(count($matches[1]) > 0){
 			$this->view->message[] = _("Networks found and added to dropdown list");
 			for($i = 0; $i < count($matches[1]); $i++){
@@ -199,7 +199,7 @@ class Wlan extends Service {
 		if(isset($_REQUEST['wpsenabled']) && $wpsenabled == FALSE){
 			$this->writeDynamicScript(array('sed -i "s@^exit 0@if [ \"\$(LANG=C \&\& /sbin/ifconfig eth0 | grep \'inet addr:\' | wc -l)\" -lt \"1\" ]; then sudo /opt/max2play/wps_config.sh; fi\nexit 0@" /etc/rc.local'));			
 		}elseif(!isset($_REQUEST['wpsenabled']) && $wpsenabled == TRUE){
-			$this->writeDynamicScript(array('sed -i "s@.*sudo /opt/max2play/wps_config.sh@@" /etc/rc.local'));
+			$this->writeDynamicScript(array('sed -i "s@.*sudo /opt/max2play/wps_config.sh; fi@@" /etc/rc.local'));
 		}
 		return true;
 	}

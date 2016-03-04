@@ -496,6 +496,8 @@ class Basic extends Service {
 		$output = $this->writeDynamicScript($script);
 		$partitions = explode("\n", trim($output, "\n"));
 		$resizePart = substr($partitions[count($partitions) -1], 5, strpos($partitions[count($partitions) -1], ':') - 5);
+		if($resizePart == 'mmcblk0')
+			$resizePart = 'mmcblk0p2';
 		$this->view->message[] = _('Resize Filesystem').': '.$resizePart;
 		
 		//Do the Resize for typical odroid / raspberry Partitioning (normal image) | problem with noobs image!

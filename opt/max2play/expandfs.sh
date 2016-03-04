@@ -59,9 +59,9 @@ cat <<\EOF > /etc/init.d/resize2fs_once
 case "$1" in
   start)
     echo "Starting resize2fs_once" 
-    resize2fs /dev/$PARTITION
-    rm /etc/init.d/resize2fs_once
+    resize2fs /dev/$PARTITION    
     update-rc.d resize2fs_once remove
+    rm /etc/init.d/resize2fs_once
     mkfs -t ext4 /dev/mmcblk0p3
     echo "Finished"
     ;;
@@ -76,7 +76,13 @@ sed -i "s/\$PARTITION/$PARTITION/" /etc/init.d/resize2fs_once
 
 chmod +x /etc/init.d/resize2fs_once
 update-rc.d resize2fs_once defaults
-  
+
+# On Raspbian Jessie just start script...
+if [ "$(lsb_release -r | grep '8.0' | wc -l)" -gt "0" ]; then
+	/etc/init.d/resize2fs_once start
+	sed -i "s@^exit 0@resize2fs /dev/$PARTITION;sed -i \"s=resize.*==\" /etc/rc.local\nexit 0@" /etc/rc.local
+fi
+
 echo "Filesystem Extended. <b><a href='/plugins/max2play_settings/controller/Basic.php?action=reboot'>Please reboot to take effect</a></b>"
 return 0
 

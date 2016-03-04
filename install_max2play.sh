@@ -30,7 +30,7 @@ if [ "$(whoami)" != "root" ]; then
 	exit 1
 fi
 
-HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709" | wc -l)
+HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709\|BCM2837" | wc -l)
 HW_ODROID=$(cat /proc/cpuinfo | grep Hardware | grep -i Odroid | wc -l)
 
 LINUX=$(lsb_release -a 2>/dev/null | grep Distributor | sed "s/Distributor ID:\t//")
@@ -51,7 +51,9 @@ fi
 
 if [ "$HW_RASPBERRY" -gt "0" ]; then
   USER=pi  
-  echo "Hardware is Raspberry"  
+  echo "Hardware is Raspberry"
+  echo "Starting from Raspbian Jessie Lite you should: expand the filesystem to a size little lower than 4 GB before setting up Max2Play"
+   
   # Remove further not wanted packages?
   echo "Y" | sudo apt-get remove wolfram-engine
   
@@ -161,7 +163,7 @@ else
 fi
 
 pushd /tmp
-git clone https://code.google.com/p/squeezelite/
+git clone https://github.com/ralph-irving/squeezelite
 cd squeezelite
 OPTS="-DFFMPEG -DRESAMPLE -DVISEXPORT -DDSD" make
 mkdir /opt/squeezelite
@@ -294,22 +296,29 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	
 	#Debian Jessie Lite:
 	if [ "$(lsb_release -r | grep '8.0' | wc -l)" -gt "0" ]; then 
+		pushd $CWD
 		# optional: run some fixes when upgrading from wheezy
 		# https://www.raspberrypi.org/forums/viewtopic.php?t=121880
 		
 		echo "Debian Jessie - run fixes for Jessie Lite" 
-		# Install openbox
-		apt-get install xrdp openbox xinit xorg -y
+		
+		# install lxde with openbox http://lxlinux.com/		
+		apt-get install openbox xinit xorg lxde-common lxpanel pcmanfm desktop-file-utils -y
 		
 		#set to anybody for access as user pi 
-		sed -i "s@^allowed_users=.*@allowed_users=anybody@" /etc/X11/Xwrapper.config	
+		sed -i "s@^allowed_users=.*@allowed_users=anybody@" /etc/X11/Xwrapper.config		
 		
-		# To Get Jivelite Fullscreen Config File
-		su -l pi -c "mkdir -p /home/pi/.config/openbox"
-		su -l pi -c "cp /etc/xdg/openbox/rc.xml /home/pi/.config/openbox/rc.xml"
-		chmod 777 /home/pi/.config/openbox/rc.xml
+		#Wallpaper
+		cp -f max2play/OTHER/m2p_odroid_desktop.jpg /home/pi/m2p_desktop.jpg
+		sed -i "s@^wallpaper=.*@wallpaper=/home/pi/m2p_desktop.jpg@" /home/pi/.config/pcmanfm/LXDE/desktop-items-0.conf
 		
-		echo "run raspbi-config and choose wait for network at boot"
+		#Disable Screensaver
+		sed -i 's/@xscreensaver.*$//' /etc/xdg/lxsession/LXDE/autostart
+		
+		# Pulseaudio Crackling sound?
+		#sed -i 's/^load-module module-udev-detect$/load-module module-udev-detect tsched=0/' /etc/pulse/default.pa
+		
+		echo "optional: run raspbi-config and choose wait for network at boot"
 	fi
 fi
 

@@ -105,7 +105,7 @@ fi
 #Fix for rc.local file to make Mounting more robust
 sed -i 's/done;\/bin\/mount -a/done;set +e;\/bin\/mount -a;set -e;/' /etc/rc.local
 
-HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709" | wc -l)
+HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709\|BCM2837" | wc -l)
 if [ "$HW_RASPBERRY" -gt "0" ]; then
 	sudo sed -i 's@/var/lib/mpd:/bin/false@/var/lib/mpd:/bin/bash@' /etc/passwd
 	sudo usermod -aG audio mpd

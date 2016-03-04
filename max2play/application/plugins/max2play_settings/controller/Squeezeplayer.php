@@ -274,8 +274,9 @@ class Squeezeplayer extends Service {
 			$user = $this->getSystemUser();
 			$script[] = 'sudo --user '.$user.' amixer -c 1 sset Speaker 100%';
 			$script[] = 'sudo cp /opt/max2play/alsa_max2play_usb.conf /usr/share/alsa/alsa.conf.d';
-			if($this->getHardwareInfo() == 'Raspberry PI'){
-				//Remove Eq10 as Pluginname for USB-Equalizer
+			$this->getLinuxVersion();			
+			if($this->getHardwareInfo() == 'Raspberry PI' && !($this->info->linux[0] == "Raspbian" && $this->info->linux[1] == "jessie")){
+				//Remove Eq10 as Pluginname for USB-Equalizer in Raspbian Wheezy
 				$script[] = 'sed -i "s@module \"Eq10\";@@" /usr/share/alsa/alsa.conf.d/alsa_max2play_usb.conf';
 			}
 			$this->writeDynamicScript($script);			
@@ -323,7 +324,7 @@ class Squeezeplayer extends Service {
 		
 		//$script[] = 'wget http://squeezelite-downloads.googlecode.com/git/squeezelite-armv6hf -O /opt/squeezelite/squeezelite 2>&1; chmod 777 /opt/squeezelite/squeezelite';
 		//libfaad-dev libmpg123-dev libmad0-dev
-		$script[] = 'apt-get update;echo "Y" | apt-get install libav-tools libsoxr-dev;cd /tmp;git clone https://code.google.com/p/squeezelite/;cd squeezelite;OPTS="-DFFMPEG -DRESAMPLE -DVISEXPORT -DDSD" make;cp /tmp/squeezelite/squeezelite /opt/squeezelite/;echo "Finished Update - Restart Device!";';
+		$script[] = 'apt-get update;echo "Y" | apt-get install libav-tools libsoxr-dev;cd /tmp;git clone https://github.com/ralph-irving/squeezelite;cd squeezelite;OPTS="-DFFMPEG -DRESAMPLE -DVISEXPORT -DDSD" make;cp /tmp/squeezelite/squeezelite /opt/squeezelite/;echo "Finished Update - Restart Device!";';
 		$this->view->message[] = nl2br($this->writeDynamicScript($script));
 		$this->view->message[] = $this->start($this->pname);
 		
@@ -351,7 +352,7 @@ class Squeezeplayer extends Service {
 	 */
 	private function getAudioOutputPI(){
 		if($this->getHardwareInfo() == 'Raspberry PI'){
-			$this->view->audioOutputPI = trim($this->writeDynamicScript(array('sudo -u pi amixer -c ALSA cget numid=3 | grep ": values=" | sed "s/.*values=//"')), "\n");
+			$this->view->audioOutputPI = trim($this->writeDynamicScript(array('su -l pi -c \'amixer -c ALSA cget numid=3 | grep ": values=" | sed "s/.*values=//"\'')), "\n");
 			return $this->view->audioOutputPI;
 		}else
 			return false;

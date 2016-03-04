@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ "$1" = "install" ]; then
-	HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709" | wc -l)
+	HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709\|BCM2837" | wc -l)
 	if [ "$HW_RASPBERRY" -gt "0" ]; then
 		echo "Y" | sudo apt-get install minidlna
 	else

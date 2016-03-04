@@ -75,6 +75,37 @@ if [ "0" -lt "$autostart_presence_detection" -a  "1" -gt "$running_presence_dete
      /opt/max2play/fritzbox_devices.sh &
 fi
 
+
+autostart_bluetooth=$(cat /opt/max2play/autostart.conf | grep bluetooth=1 | wc -l)
+if [ "0" -lt "$autostart_bluetooth" ]; then
+	USER=$(grep -a "SYSTEM_USER" /opt/max2play/audioplayer.conf | sed -n -e 's/^[A-Z_]*\=//p')
+	running_xserver=$(ps -Al | grep lxsession | wc -l)	
+	if [ "1" -gt "$running_xserver" ]; then		
+		echo "start X-Server"
+		export DISPLAY=':0'
+		sudo su -l $USER -c startx > /dev/null 2>&1 &
+		sleep 5
+	fi
+	
+	BLUETOOTHSINK=$(grep -a "BLUETOOTHSINK" /opt/max2play/options.conf | sed -n -e 's/^[A-Z_]*\=//p')
+	# TODO: get current default sink and compare
+	if [ ! "" = "$BLUETOOTHSINK" ]; then
+		sudo su -l $USER -c "pactl set-default-sink $BLUETOOTHSINK"
+		echo "set Bluetoothsink to $BLUETOOTHSINK"
+				
+		# Change sink for current playing stream
+		active_index=$(sudo su -l $USER -c "pacmd list-sink-inputs | grep "index" | sed 's/[^0-9]*//'")
+		playing_index=$(sudo su -l $USER -c "pacmd list-sink-inputs | grep $BLUETOOTHSINK | wc -l")
+		if [ ! "" = "$active_index" -a "$playing_index" -lt "1" ]; then
+			sudo su -l $USER -c "pacmd move-sink-input $active_index $BLUETOOTHSINK"
+			echo "Change active Sink index $active_index to $BLUETOOTHSINK"
+			# Crackling Pulseaudio Squeezelite?
+			# FIX: /usr/bin/pacmd move-sink-input $(/usr/bin/pacmd list-sink-inputs | grep "index" | sed 's/[^0-9]*//') 0
+		fi		
+	fi
+fi
+
+
 autoreconnect_wifi=$(cat /opt/max2play/options.conf | grep autoreconnect_wifi=1 | wc -l)
 if [ "$autoreconnect_wifi" -gt "0" ]; then
    if [ "$(LANG=C && sudo /sbin/ifconfig eth0 | grep 'inet addr:' | wc -l)" -lt "1" -a "$(LANG=C && sudo /sbin/ifconfig wlan0 | grep 'inet addr:' | wc -l)" -lt "1" ]; then

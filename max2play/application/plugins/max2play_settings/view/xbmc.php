@@ -80,6 +80,7 @@
 			<option value="https://github.com/XLordKX/kodi/raw/master/zip/repository.xlordkx/repository.xlordkx-1.0.0.zip">Amazon Instant Video (new Kodi version)</option>
 			<option value="http://cdn.max2play.com/kodi-15-pvr/max2play-u3-repository.zip">Kodi 15 PVR-Addons Repository (for ODROID and Kodi version 15 ONLY!)</option>
 			<option value="http://cdn.max2play.com/kodi-15-pvr/max2play-rpi-repository.zip">Kodi 15 PVR-Addons Repository (for Raspberry Pi and Kodi version 15 ONLY!)</option>
+			<option value="https://github.com/kolinger/plugin.video.youtube/archive/master.zip">Update/Install Youtube Addon to fix Error (IMPORTANT first step: click "sign in")</option>
 		</select>
 		<script type="text/javascript">
 			function copytodownloadurl(item){

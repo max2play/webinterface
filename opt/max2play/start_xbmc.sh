@@ -17,8 +17,14 @@ if [ "1" -gt "$xbmcrunning" ]; then
 		/etc/init.d/mpd stop
 	fi
 	
-	# Fix for XU3/XU4 and Ubuntu 15.04
-	killall pulseaudio
+	if [ "$(lsb_release -r | grep '8.0' | wc -l)" -lt "1" ]; then
+		# Fix for XU3/XU4 and Ubuntu 15.04
+		killall pulseaudio
+		# TODO: remove PID Files!
+	fi
+	
+	# Add this also to init-script
+	sudo sh -c "TERM=linux setterm --clear all >/dev/tty0"
 	
 	if [ -e /usr/local/bin/kodi ]; then
 		/usr/local/bin/kodi
