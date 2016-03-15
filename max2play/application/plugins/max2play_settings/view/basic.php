@@ -81,6 +81,13 @@
 		</td>
 		<td><?php echo _("Change Keyboard Layout, Language and Timezone for Desktop (this web-interface detects browser language)") ?></td>
 	  </tr>
+	  <?php if($basic->getHardwareInfo() == 'Raspberry PI') {?>
+		  <tr>
+			<td><?php echo _("Autostart Desktop") ?></td>
+			<td><input type="checkbox" id="autostartx" name="autostartx" <?php if($basic->view->autostartxserver) echo 'checked'; ?> value="1" /></td>
+			<td><?php echo _("Autostart Desktop (X-Server) on Bootup (needed for Bluetooth and Pulseaudio or VNC-Server)") ?></td> 
+		  </tr>
+	  <?php } ?>
 	  <tr>
 		<td><?php echo _("Network Lookup") ?></td>
 		<td><input type="checkbox" id="Max2PlayNetworkLookup" name="Max2PlayNetworkLookup" <?php if($basic->view->Max2PlayNetworkLookup) echo 'checked'; ?> value="1" /></td>

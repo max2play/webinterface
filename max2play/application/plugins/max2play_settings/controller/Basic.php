@@ -81,6 +81,9 @@ class Basic extends Service {
 				$this->updateDisplayResolution($_GET['displayResolution']);
 				$this->updateMax2playNetworkLookup();
 				$this->setHelpOnSidebar($_REQUEST['showhelponsidebar']);
+				if($this->getHardwareInfo() == 'Raspberry PI'){
+					$this->updateAutostartX();
+				}
 			}
 		}
 		$this->getLocale();
@@ -95,11 +98,15 @@ class Basic extends Service {
 		$this->getHelpOnSidebar();
 		$this->showHelpSidebar();
 		
+		if($this->getHardwareInfo() == 'Raspberry PI'){
+			$this->getAutostartX();
+		}
+		
 		if($reboot){		
 			$this->writeDynamicScript(array('sleep 1s;sudo /sbin/reboot -n;'), false, true);
 		}
 		return true;
-	}		
+	}				
 	
 	/**
 	 * Check for Reboot
@@ -567,6 +574,23 @@ class Basic extends Service {
 			$this->view->showHelpOnSidebar = true;
 		else
 			$this->view->showHelpOnSidebar = false;
+		return true;
+	}
+	
+	/**
+	 * Autostart X-Server on Boot
+	 * Set Parameter in Autostart File
+	 */
+	public function updateAutostartX(){
+		$this->selectAutostart(isset($_REQUEST['autostartx']) ? 1 : 0, true, 'autostartxserver');
+		return true;
+	}
+	
+	/**
+	 * Autostart X-Server on Boot
+	 */
+	public function getAutostartX(){
+		$this->view->autostartxserver = $this->checkAutostart('autostartxserver', true);
 		return true;
 	}
 	

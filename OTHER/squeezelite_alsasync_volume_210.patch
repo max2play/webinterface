@@ -1,0 +1,274 @@
+Index: trunk/squeezelite.h
+===================================================================
+--- trunk/squeezelite.h	(revision 210)
++++ trunk/squeezelite.h	(working copy)
+@@ -20,9 +20,12 @@
+  * Additions (c) Paul Hermann, 2015-2016 under the same license terms
+  *   -Control of Raspberry pi GPIO for amplifier power
+  *   -Launch script on power status change from LMS
++ *
++ * Additions (c) Stefan Rick (Max2Play), 2016 under the same license terms
++ *   -Syncing local ALSA-Volume changes to SBS 
+  */
+ 
+-// make may define: PORTAUDIO, SELFPIPE, RESAMPLE, RESAMPLE_MP, VISEXPORT, GPIO, IR, DSD, LINKALL to influence build
++// make may define: PORTAUDIO, SELFPIPE, RESAMPLE, RESAMPLE_MP, VISEXPORT, GPIO, IR, DSD, LINKALL, ALSASYNC to influence build
+ 
+ #define VERSION "v1.8.3-718"
+ 
+@@ -627,6 +630,11 @@
+ void list_devices(void);
+ void list_mixers(const char *output_device);
+ void set_volume(unsigned left, unsigned right);
++#if ALSASYNC
++bool alsasync;
++int sbscliport;
++int get_changed_volume();
++#endif
+ bool test_open(const char *device, unsigned rates[]);
+ void output_init_alsa(log_level level, const char *device, unsigned output_buf_size, char *params, unsigned rates[], 
+ 					  unsigned rate_delay, unsigned rt_priority, unsigned idle, char *volume_mixer, bool mixer_unmute);
+Index: trunk/output_alsa.c
+===================================================================
+--- trunk/output_alsa.c	(revision 210)
++++ trunk/output_alsa.c	(working copy)
+@@ -20,6 +20,9 @@
+  * Additions (c) Paul Hermann, 2015-2016 under the same license terms
+  *   -Control of Raspberry pi GPIO for amplifier power
+  *   -Launch script on power status change from LMS
++ *
++ * Additions (c) Stefan Rick (Max2Play), 2016 under the same license terms
++ *   -Syncing local ALSA-Volume changes to SBS 
+  */
+ 
+ // Output using Alsa
+@@ -76,6 +79,8 @@
+ #define LOCK   mutex_lock(outputbuf->mutex)
+ #define UNLOCK mutex_unlock(outputbuf->mutex)
+ 
++int lmsvolume;
++
+ static char *ctl4device(const char *device) {
+ 	char *ctl = NULL;
+ 	
+@@ -259,12 +264,71 @@
+ 	if ((err = snd_mixer_selem_get_playback_volume(elem, SND_MIXER_SCHN_FRONT_RIGHT, &nright)) < 0) {
+ 		LOG_ERROR("error getting right vol: %s", snd_strerror(err));
+ 	}
+-
++#if ALSASYNC
++	lmsvolume = nleft;
++#endif	
+ 	LOG_DEBUG("%s left: %3.1fdB -> %ld right: %3.1fdB -> %ld", mixer, ldB, nleft, rdB, nright);
+ 
+ 	snd_mixer_close(handle);
+ }
+ 
++#if ALSASYNC
++long get_mixer(const char *device, const char *mixer, int mixer_index) {
++	int err;
++	long nleft;
++	snd_mixer_t *handle;
++	snd_mixer_selem_id_t *sid;
++	snd_mixer_elem_t* elem;
++
++	if ((err = snd_mixer_open(&handle, 0)) < 0) {
++		LOG_ERROR("open error: %s", snd_strerror(err));
++		return 0;
++	}
++	if ((err = snd_mixer_attach(handle, device)) < 0) {
++		LOG_ERROR("attach error: %s", snd_strerror(err));
++		snd_mixer_close(handle);
++		return 0;
++	}
++	if ((err = snd_mixer_selem_register(handle, NULL, NULL)) < 0) {
++		LOG_ERROR("register error: %s", snd_strerror(err));
++		snd_mixer_close(handle);
++		return 0;
++	}
++	if ((err = snd_mixer_load(handle)) < 0) {
++		LOG_ERROR("load error: %s", snd_strerror(err));
++		snd_mixer_close(handle);
++		return 0;
++	}
++	
++	snd_mixer_selem_id_alloca(&sid);
++
++	snd_mixer_selem_id_set_index(sid, mixer_index);
++	snd_mixer_selem_id_set_name(sid, mixer);
++
++	if ((elem = snd_mixer_find_selem(handle, sid)) == NULL) {
++		LOG_ERROR("error find selem %s", mixer);
++		snd_mixer_close(handle);
++		return 0;
++	}
++
++	if ((err = snd_mixer_selem_get_playback_volume(elem, SND_MIXER_SCHN_FRONT_LEFT, &nleft)) < 0) {
++		LOG_ERROR("error getting left vol: %s", snd_strerror(err));
++	}	
++
++	snd_mixer_close(handle);
++	return nleft;
++}
++int get_changed_volume(){
++	if (!alsa.volume_mixer_name)
++		return -1;
++	int alsavolume = get_mixer(alsa.ctl, alsa.volume_mixer_name, alsa.volume_mixer_index);
++	if(alsavolume != lmsvolume) 
++		return (alsavolume - 100);
++	else
++		return -1; 	 
++}
++#endif
++
+ void set_volume(unsigned left, unsigned right) {
+ 	float ldB, rdB;
+ 
+Index: trunk/slimproto.c
+===================================================================
+--- trunk/slimproto.c	(revision 210)
++++ trunk/slimproto.c	(working copy)
+@@ -20,6 +20,9 @@
+  * Additions (c) Paul Hermann, 2015-2016 under the same license terms
+  *   -Control of Raspberry pi GPIO for amplifier power
+  *   -Launch script on power status change from LMS
++ *
++ * Additions (c) Stefan Rick (Max2Play), 2016 under the same license terms
++ *   -Syncing local ALSA-Volume changes to SBS 
+  */
+ 
+ #include "squeezelite.h"
+@@ -245,6 +248,61 @@
+ 	send_packet((u8_t *)name, strlen(name) + 1);
+ }
+ 
++#if ALSASYNC
++// Get current Alsa Volume Level and compare with current squeezelite volume level
++// Update SBS volume level by new Alsa Value if needed - Use SBS-CLI
++// read port for CLI on SBS manually from squeezelite startup as parameter
++// only connect to ALSA-volume if -V Parameter is set and Squeezelite is bound to hardware volume
++static void sendALSAVolumeCLI() {
++	int localvol = 0;
++	int port = 9090;
++	
++	//sbscliport may be set from command line
++	if(sbscliport)
++		port = sbscliport;
++	
++	// Dirty Hack: at least on IQAudIO DAC subtract 8 to fit to the Alsa volume
++	localvol = get_changed_volume() - 8;
++	if(localvol > 0){
++		LOG_INFO("Update SBS-Player Volume from Alsa-Volume");
++		ssize_t n;
++		struct sockaddr_in serv_addr;
++		
++		memset(&serv_addr, 0, sizeof(serv_addr));
++		serv_addr.sin_family = AF_INET;
++		serv_addr.sin_addr.s_addr = slimproto_ip;
++		serv_addr.sin_port = htons(port);
++		
++		int sockcli = socket(AF_INET, SOCK_STREAM, 0);
++	
++		set_nonblock(sockcli);
++		set_nosigpipe(sockcli);
++	
++		if (connect_timeout(sockcli, (struct sockaddr *) &serv_addr, sizeof(serv_addr), 5) != 0) {
++			LOG_DEBUG("Unable to connect to CLI with port %d on SB-Server", port);		
++		}else{
++			LOG_DEBUG("Successful connected to CLI on SB-Server");
++		}
++		char volume[100];
++		
++		u8_t mac[6];
++		get_mac(mac);				
++		
++		sprintf(volume, "%02x:%02x:%02x:%02x:%02x:%02x mixer volume %d\n", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5], localvol);
++		
++		LOG_DEBUG("Set Volume from ALSA: %02x:%02x:%02x:%02x:%02x:%02x mixer volume %d", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5], localvol);	
++		
++		n = send(sockcli,(u8_t *)volume, strlen(volume), MSG_NOSIGNAL);
++		if (n <= 0) {		
++			LOG_DEBUG("Failed writing to CLI-socket: %s", strerror(last_error()));
++		}else{
++			LOG_DEBUG("SUCCESS writing to CLI-socket: %zu", n);
++		}
++		closesocket(sockcli);
++	}
++}
++#endif
++
+ #if IR
+ void sendIR(u32_t code, u32_t ts) {
+ 	struct IR_packet pkt;
+@@ -270,6 +328,10 @@
+ 	switch(strm->command) {
+ 	case 't':
+ 		sendSTAT("STMt", strm->replay_gain); // STMt replay_gain is no longer used to track latency, but support it
++#if ALSASYNC
++		if(alsasync)
++			sendALSAVolumeCLI();
++#endif
+ 		break;
+ 	case 'q':
+ 		decode_flush();
+Index: trunk/main.c
+===================================================================
+--- trunk/main.c	(revision 210)
++++ trunk/main.c	(working copy)
+@@ -20,6 +20,9 @@
+  * Additions (c) Paul Hermann, 2015-2016 under the same license terms
+  *   -Control of Raspberry pi GPIO for amplifier power
+  *   -Launch script on power status change from LMS
++ *
++ * Additions (c) Stefan Rick (Max2Play), 2016 under the same license terms
++ *   -Syncing local ALSA-Volume changes to SBS 
+  */
+ 
+ #include "squeezelite.h"
+@@ -114,6 +117,9 @@
+ 		   "  -U <control>\t\tUnmute ALSA control and set to full volume (not supported with -V)\n"
+ 		   "  -V <control>\t\tUse ALSA control for volume adjustment, otherwise use software volume adjustment\n"
+ #endif
++#if ALSASYNC
++		   "  -Q <port>\t\tSqueezebox Server CLI Port to sync ALSA volume back to SBS when using -V option. Default 9090\n"
++#endif
+ #if LINUX || FREEBSD || SUN
+ 		   "  -z \t\t\tDaemonize\n"
+ #endif
+@@ -182,6 +188,9 @@
+ #if LINKALL
+ 		   " LINKALL"
+ #endif
++#if ALSASYNC
++		   " ALSASYNC"
++#endif
+ 		   "\n\n",
+ 		   argv0);
+ }
+@@ -286,6 +295,9 @@
+ #if ALSA
+ 				   "UV"
+ #endif
++#if ALSASYNC
++				   "Q"
++#endif
+ 				   , opt) && optind < argc - 1) {
+ 			optarg = argv[optind + 1];
+ 			optind += 2;
+@@ -502,8 +514,16 @@
+ 				exit(1);
+ 			}
+ 			output_mixer = optarg;
++#if ALSASYNC
++			alsasync = true;
++#endif			
+ 			break;
+ #endif
++#if ALSASYNC
++		case 'Q':
++			sbscliport = atoi(optarg);
++			break;
++#endif	
+ #if IR
+ 		case 'i':
+ 			if (optind < argc && argv[optind] && argv[optind][0] != '-') {

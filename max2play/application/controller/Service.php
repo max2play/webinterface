@@ -371,6 +371,7 @@ class Service {
 	 */
 	public function getVersion(){
 		$this->info->version = file_get_contents(APPLICATION_PATH.'/config/version.txt');
+		return $this->info->version;
 	}		
 	
 	public function getDonate(){

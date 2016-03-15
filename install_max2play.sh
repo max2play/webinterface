@@ -303,7 +303,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		echo "Debian Jessie - run fixes for Jessie Lite" 
 		
 		# install lxde with openbox http://lxlinux.com/		
-		apt-get install openbox xinit xorg lxde-common lxpanel pcmanfm desktop-file-utils -y
+		apt-get install openbox xinit xorg lxde-common lxpanel pcmanfm desktop-file-utils rpi-update -y
 		
 		#set to anybody for access as user pi 
 		sed -i "s@^allowed_users=.*@allowed_users=anybody@" /etc/X11/Xwrapper.config		
@@ -314,6 +314,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		
 		#Disable Screensaver
 		sed -i 's/@xscreensaver.*$//' /etc/xdg/lxsession/LXDE/autostart
+		apt-get remove xscreensaver -y
 		
 		# Pulseaudio Crackling sound?
 		#sed -i 's/^load-module module-udev-detect$/load-module module-udev-detect tsched=0/' /etc/pulse/default.pa
