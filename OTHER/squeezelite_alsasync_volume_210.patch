@@ -138,11 +138,12 @@ Index: trunk/slimproto.c
   */
  
  #include "squeezelite.h"
-@@ -245,6 +248,61 @@
+@@ -245,6 +248,59 @@
  	send_packet((u8_t *)name, strlen(name) + 1);
  }
  
 +#if ALSASYNC
++u8_t pmac[6];
 +// Get current Alsa Volume Level and compare with current squeezelite volume level
 +// Update SBS volume level by new Alsa Value if needed - Use SBS-CLI
 +// read port for CLI on SBS manually from squeezelite startup as parameter
@@ -177,14 +178,11 @@ Index: trunk/slimproto.c
 +		}else{
 +			LOG_DEBUG("Successful connected to CLI on SB-Server");
 +		}
-+		char volume[100];
++		char volume[100];					
 +		
-+		u8_t mac[6];
-+		get_mac(mac);				
++		sprintf(volume, "%02x:%02x:%02x:%02x:%02x:%02x mixer volume %d\n", pmac[0], pmac[1], pmac[2], pmac[3], pmac[4], pmac[5], localvol);
 +		
-+		sprintf(volume, "%02x:%02x:%02x:%02x:%02x:%02x mixer volume %d\n", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5], localvol);
-+		
-+		LOG_DEBUG("Set Volume from ALSA: %02x:%02x:%02x:%02x:%02x:%02x mixer volume %d", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5], localvol);	
++		LOG_DEBUG("Set Volume from ALSA: %02x:%02x:%02x:%02x:%02x:%02x mixer volume %d", pmac[0], pmac[1], pmac[2], pmac[3], pmac[4], pmac[5], localvol);	
 +		
 +		n = send(sockcli,(u8_t *)volume, strlen(volume), MSG_NOSIGNAL);
 +		if (n <= 0) {		
@@ -200,7 +198,7 @@ Index: trunk/slimproto.c
  #if IR
  void sendIR(u32_t code, u32_t ts) {
  	struct IR_packet pkt;
-@@ -270,6 +328,10 @@
+@@ -270,6 +326,10 @@
  	switch(strm->command) {
  	case 't':
  		sendSTAT("STMt", strm->replay_gain); // STMt replay_gain is no longer used to track latency, but support it
@@ -211,6 +209,17 @@ Index: trunk/slimproto.c
  		break;
  	case 'q':
  		decode_flush();
+@@ -857,7 +917,9 @@
+ 		strncpy(player_name, name, PLAYER_NAME_LEN);
+ 		player_name[PLAYER_NAME_LEN] = '\0';
+ 	}
+-
++#if ALSASYNC
++	memcpy(pmac, mac, 6);
++#endif
+ 	if (namefile) {
+ 		FILE *fp;
+ 		name_file = namefile;
 Index: trunk/main.c
 ===================================================================
 --- trunk/main.c	(revision 210)
