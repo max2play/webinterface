@@ -46,7 +46,8 @@
 					<ul>
 						<li><a href="/" title="Info"><?php echo _('Features') ?></a></li>	
 						<li><a href="<?php echo _('http://www.max2play.com/faq/') ?>" target="_blank" title="FAQ"><?php echo _('FAQ - Questions & Answers') ?></a></li>
-						<li><a href="<?php echo _('http://www.max2play.com/en/addons/') ?>" target="_blank" title="Addons"><?php echo _('Addons and Feature Requests') ?></a></li>					
+						<li><a href="<?php echo _('http://www.max2play.com/en/addons/') ?>" target="_blank" title="Addons"><?php echo _('Addons and Feature Requests') ?></a></li>
+						<li><a href="<?php echo _('http://www.max2play.com/en/forums/') ?>" target="_blank" title="Support"><?php echo _('Technical Support') ?></a></li>
 					</ul>
 				</aside>
 

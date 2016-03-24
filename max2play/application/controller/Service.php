@@ -341,22 +341,22 @@ class Service {
 		
 		if((time() - $reload) > $lastcheck){
 			//Recheck available Devices			
-			shell_exec('/opt/max2play/list_devices.sh');			
-			$devices_txt = shell_exec('cat /opt/max2play/cache/list_devices.txt');
+			$this->writeDynamicScript(array('/opt/max2play/list_devices.sh'), true, true);
 		}
 				
-		//parse Nmap scan report
-		preg_match_all('=report for ((.*?) \(([0-9\.]*)\))=', $devices_txt, $matches);
-		preg_match('=^[0-9\.]*=', $devices_txt, $match);
-		$ipadress = $match[0];
+		//parse Nmap scan report		
+		$devices = explode("\n", $devices_txt);
 		
-		if(isset($matches[2])){
-			for($i=0; $i< count($matches[2]); $i++){
-				$device = array('name' => $matches[2][$i], 'ip' => $matches[3][$i], 'current' => false);
-				if($matches[3][$i] == $ipadress){
-					$device['current'] = true;					
+		if(isset($devices[1])){
+			foreach($devices as $tmp){
+				$dev_array = explode('|', $tmp);
+				if(isset($dev_array[1])){
+					$device = array('name' => $dev_array[0] , 'ip' => $dev_array[1], 'current' => false);
+					if(isset($dev_array[2]) && $dev_array[2] == 'current'){
+						$device['current'] = true;
+					}
+					$this->info->devices[] = $device;
 				}
-				$this->info->devices[] = $device;
 			}
 		}else{
 			$this->info->devices = false;

@@ -78,52 +78,7 @@ fi
 
 autostart_bluetooth=$(cat /opt/max2play/autostart.conf | grep bluetooth=1 | wc -l)
 if [ "0" -lt "$autostart_bluetooth" ]; then
-	# Separate by Debian version!
-	VERSION=$(lsb_release -a 2>/dev/null | grep "Codename" | sed "s/Codename:\t//")
-	if [ "$VERSION" = "jessie" ]; then
-		# Jessie
-		USER=$(grep -a "SYSTEM_USER" /opt/max2play/audioplayer.conf | sed -n -e 's/^[A-Z_]*\=//p')
-		running_xserver=$(ps -Al | grep lxsession | wc -l)	
-		if [ "1" -gt "$running_xserver" ]; then		
-			echo "start X-Server"
-			export DISPLAY=':0'
-			sudo su -l $USER -c startx > /dev/null 2>&1 &
-			sleep 5
-		fi
-		
-		BLUETOOTHSINK=$(grep -a "BLUETOOTHSINK" /opt/max2play/options.conf | sed -n -e 's/^[A-Z_]*\=//p')
-		# TODO: get current default sink and compare
-		if [ ! "" = "$BLUETOOTHSINK" ]; then
-			sudo su -l $USER -c "pactl set-default-sink $BLUETOOTHSINK"
-			echo "set Bluetoothsink to $BLUETOOTHSINK"
-					
-			# Change sink for current playing stream
-			active_index=$(sudo su -l $USER -c "pacmd list-sink-inputs | grep "index" | sed 's/[^0-9]*//'")
-			playing_index=$(sudo su -l $USER -c "pacmd list-sink-inputs | grep $BLUETOOTHSINK | wc -l")
-			if [ ! "" = "$active_index" -a "$playing_index" -lt "1" ]; then
-				sudo su -l $USER -c "pacmd move-sink-input $active_index $BLUETOOTHSINK"
-				echo "Change active Sink index $active_index to $BLUETOOTHSINK"
-				# Crackling Pulseaudio Squeezelite on NOT Bluetooth Sink?
-				# TODO Add FIX: /usr/bin/pacmd move-sink-input $(/usr/bin/pacmd list-sink-inputs | grep "index" | sed 's/[^0-9]*//') 0
-			fi		
-		fi
-	else
-		# Wheezy
-		DEVICEMAC=$(bt-device -l | grep -o -e "([0-9ABCDEF:]\{17\})" | sed 's@(@@;s@)@@')
-		# connected?
-		CONNECTED=$(bt-device -i $DEVICEMAC | grep "Connected: 1" | wc -l)
-		if [ "$CONNECTED" -lt "1" ]; then
-			echo "try to connect to BT-device"
-			bt-audio -c $DEVICEMAC
-			sleep 2
-			CONNECTED=$(bt-device -i $DEVICEMAC | grep "Connected: 1" | wc -l)
-			if [ "$CONNECTED" -gt "0" ]; then
-				/etc/init.d/squeezelite stop
-				sleep 2
-				/etc/init.d/squeezelite start
-			fi			
-		fi
-	fi
+	/var/www/max2play/application/plugins/bluetooth/scripts/autostart.sh
 fi
 
 
@@ -147,4 +102,10 @@ if [ "$autoreconnect_wifi" -gt "0" ]; then
       #sudo rm /var/run/wpa_supplicant/wlan0
       sudo /sbin/ifup --force wlan0
    fi
+fi
+
+#Multisqueeze
+autostart_multisqueeze=$(cat /opt/max2play/autostart.conf | grep multisqueeze=1 | wc -l)
+if [ "$autostart_multisqueeze" -gt "0" -a -e /var/www/max2play/application/plugins/multisqueeze/scripts/autostart.sh ]; then
+	/var/www/max2play/application/plugins/multisqueeze/scripts/autostart.sh
 fi
