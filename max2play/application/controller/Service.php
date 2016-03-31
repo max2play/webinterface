@@ -768,7 +768,7 @@ class Service {
 	 */
 	public function checkLicense($local = false, $silent = false){
 		if($local == true){
-			if($this->getConfigFileParameter('/opt/max2play/options.conf', 'license') == 1){				
+			if($this->getConfigFileParameter('/opt/max2play/options.conf', 'license') != 0){				
 				return true;
 			}else{
 				if(!$silent)
@@ -779,8 +779,8 @@ class Service {
 		$email = $this->getConfigFileParameter('/opt/max2play/options.conf', 'email');
 		
 		include_once '../application/model/CheckLicense.php';
-		if($license == true){
-			$this->saveConfigFileParameter('/opt/max2play/options.conf', 'license', '1');
+		if($license != false){
+			$this->saveConfigFileParameter('/opt/max2play/options.conf', 'license', $license);
 			return true;
 		}else{
 			$this->saveConfigFileParameter('/opt/max2play/options.conf', 'license', '0');

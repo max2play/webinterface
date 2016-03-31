@@ -87,10 +87,15 @@ if [ "0" -lt "$autostart_xserver" ]; then
 	running_xserver=$(ps -Al | grep lxsession | wc -l)	
 	if [ "1" -gt "$running_xserver" ]; then
 		USER=$(grep -a "SYSTEM_USER" /opt/max2play/audioplayer.conf | sed -n -e 's/^[A-Z_]*\=//p')		
+		if [ "$USER" = "pi" ]; then
+			#Connect to correct pulse PID
+			export XDG_RUNTIME_DIR=/run/user/1000
+		fi
 		echo "start X-Server"
 		export DISPLAY=':0'
 		sudo su -l $USER -c startx > /dev/null 2>&1 &
 		sleep 5
+		#Kill start_pulseaudio process
 	fi
 fi
 
