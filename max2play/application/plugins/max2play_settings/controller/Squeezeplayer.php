@@ -27,11 +27,22 @@ class Squeezeplayer extends Service {
 	protected $pname = 'squeezelite';
 	public $viewname = 'Squeezelite';
 	public $soundDevices = array();
-	public $soundDeviceLog = '';		
+	public $soundDeviceLog = '';
+	public $scriptPath = '';
 	
 	public function __construct(){								
 		parent::__construct();
 		$this->pluginname = _('Audioplayer');
+		$this->scriptPath = dirname(__FILE__).'/../scripts/';
+		
+		if($_REQUEST['ajax'] == 1){
+			//Function to get Progress of Installation
+			$this->updateSqueezelite(1);
+			ob_end_clean();
+			echo implode('<br />', $this->view->message);
+			ob_flush();
+			die();
+		}
 		
 		$this->getSoundDevices();
 		
@@ -292,7 +303,8 @@ class Squeezeplayer extends Service {
 	}
 	
 	private function getAllLogs(){
-		$out['SQUEEZELITE VERSION'] = shell_exec('/opt/squeezelite/squeezelite -t | grep ^Squeezelite');		
+		$out['SQUEEZELITE VERSION'] = shell_exec('/opt/squeezelite/squeezelite -t | grep ^Squeezelite');
+		$out['SQUEEZELITE BUILDOPTIONS'] = shell_exec('/opt/squeezelite/squeezelite -? | grep "^Build options"');		
 		$out['AUDIOPLAYER CONFIG'] = shell_exec('cat /opt/max2play/audioplayer.conf');		
 		$out['SQUEEZELITE -l'] = $this->soundDeviceLog;
 		$out['SHAIRPORT VERSION'] = shell_exec('/opt/shairport/shairport -V');
@@ -311,9 +323,9 @@ class Squeezeplayer extends Service {
 	 * 
 	 * @return boolean
 	 */
-	private function updateSqueezelite(){
+	private function updateSqueezelite($ajax = 0){
 		$outfile = '/opt/max2play/cache/update_squeezelite.txt';
-		ignore_user_abort(true);
+		/*ignore_user_abort(true);
 		set_time_limit(3000);	
 		
 		$autostart = $this->checkAutostart($this->pname, true);
@@ -322,15 +334,39 @@ class Squeezeplayer extends Service {
 		}
 		$this->view->message[] = $this->stop($this->pname);
 		
-		//$script[] = 'wget http://squeezelite-downloads.googlecode.com/git/squeezelite-armv6hf -O /opt/squeezelite/squeezelite 2>&1; chmod 777 /opt/squeezelite/squeezelite';
 		//libfaad-dev libmpg123-dev libmad0-dev
-		$script[] = 'apt-get update;echo "Y" | apt-get install libav-tools libsoxr-dev;cd /tmp;git clone https://github.com/ralph-irving/squeezelite;cd squeezelite;OPTS="-DFFMPEG -DRESAMPLE -DVISEXPORT -DDSD" make;cp /tmp/squeezelite/squeezelite /opt/squeezelite/;echo "Finished Update - Restart Device!";';
+		$script[] = 'apt-get update';
+		$script[] = 'echo "Y" | apt-get -y install libav-tools libsoxr-dev lirc liblircclient-dev wiringpi;ldconfig;';
+		$script[] = 'cd /tmp;git clone https://github.com/max2play/squeezelite;cd squeezelite;make -f Makefile.m2p;';
+		$script[] = 'cp /tmp/squeezelite/squeezelite-m2p /opt/squeezelite/squeezelite;cp /tmp/squeezelite/scripts/btcheck.sh /opt/squeezelite/;chmod 777 /opt/squeezelite/btcheck.sh';
+		$script[] = 'echo "Finished Update - Restart Device!";';
 		$this->view->message[] = nl2br($this->writeDynamicScript($script));
 		$this->view->message[] = $this->start($this->pname);
 		
 		if($autostart){
 			$this->selectAutostart(1);
+		}*/
+		
+		
+		if($ajax == 0){
+			$autostart = $this->checkAutostart($this->pname, true);
+			ignore_user_abort(true);
+			set_time_limit(3600);			
+			$this->view->message[] = _t('Update Squeezelite started');
+			$this->view->message[] = $this->stop($this->pname);
+			if($this->getProgressWithAjax($outfile, 1, 1)){
+				$shellanswer = $this->writeDynamicScript(array($this->scriptPath."update_squeezelite.sh ".$autostart." >> ".$outfile." &"), false, true);
+			}
+		}else{
+			//Get only last 20 Lines
+			$status = $this->getProgressWithAjax($outfile,0, 0, 20);
+			$this->view->message[] = nl2br($status);
+			if(strpos($status, 'Finished') !== FALSE){
+				shell_exec('rm '.$outfile);
+				$this->view->message[] = $this->start($this->pname);				
+			}
 		}
+		
 		return true;
 	}
 	

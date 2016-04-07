@@ -62,10 +62,10 @@
 	  <tr>
 		<td><?php echo _("Your eMail-Address / activation code") ?></td> 
 		<td style="width:25%;"><input style="width:95%;" type="text" id="email" name="email" value="<?php echo $basic->view->email; ?>" />
-			<?php if($basic->view->betaEnabled) { ?>
-				<div style="width: 99%; padding: 5px 0px; background: limegreen none repeat scroll 0px 0px;">&nbsp;&nbsp;<?php echo _("Activated")?></div>
+			<?php if($basic->view->license || $basic->view->betaEnabled) { ?>
+				<div style="width: 99%; padding: 0px; background: limegreen none repeat scroll 0px 0px;"><div style="padding:5px;"><?php echo _("Activated"); if ($basic->view->licenseDate != 1) echo '<br>('.$basic->view->licenseDate.')'; ?></div></div>
 			<?php }else { ?>
-				<div style="width: 99%; padding: 5px 0px; background: #ff4500 none repeat scroll 0px 0px;">&nbsp;&nbsp;<?php echo _("Not Activated")?></div>
+				<div style="width: 99%; padding: 0px; background: #ff4500 none repeat scroll 0px 0px;"><div style="padding:5px;"><?php echo _("Not Activated"); if ($basic->view->licenseDate != 0) echo '<br>('.$basic->view->licenseDate.')';?></div></div>
 			<?php } ?>
 		</td>
 		<td><?php echo _("To access all functions and plugins of Max2Play and constantly get new features, you need to be a customer of shop.max2play.com or have a code for activation. This is verified with your eMail-address or activation code. If you are no customer yet, you may buy the <a href='http://shop.max2play.com/en/max2play-full-license.html' target='_blank'>Max2Play-Full-Package here</a>.") ?></td>

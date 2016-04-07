@@ -166,13 +166,16 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		echo "[Unit]\nBindTo=%i.device\nAfter=%i.device\n\n[Service]\nType=oneshot\nTimeoutStartSec=0\nEnvironment=DEVNAME=%I\nExecStart=/usr/share/usbmount/usbmount add\nRemainAfterExit=yes" > /etc/systemd/system/usbmount@.service
 		echo "# Rules for USBmount -*- conf -*-\nKERNEL==\"sd*\", DRIVERS==\"sbp2\",         ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"sd*\", SUBSYSTEMS==\"usb\",       ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"ub*\", SUBSYSTEMS==\"usb\",       ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"sd*\",                          ACTION==\"remove\",       RUN+=\"/usr/share/usbmount/usbmount remove\"\nKERNEL==\"ub*\",                          ACTION==\"remove\",       RUN+=\"/usr/share/usbmount/usbmount remove\"" > /etc/udev/rules.d/usbmount.rules
 		rm /lib/udev/rules.d/usbmount.rules
+		
+		# ifplugd fix for missing eth0
+		sudo sed -i 's/^INTERFACES=""/INTERFACES="eth0"/' /etc/default/ifplugd
 	fi
 	# Fix for NOT JESSIE and deleted usbmount rules
 	if [ "$ISJESSIE" -lt "1" -a ! -e /lib/udev/rules.d/usbmount.rules ]; then
 		echo "Remove Fix for USB-Mount on NON-Jessie"
 		echo "KERNEL==\"sd*\", DRIVERS==\"sbp2\",		ACTION==\"add\",	RUN+=\"/usr/share/usbmount/usbmount add\"\nKERNEL==\"sd*\", SUBSYSTEMS==\"usb\",	ACTION==\"add\",	RUN+=\"/usr/share/usbmount/usbmount add\"\nKERNEL==\"ub*\", SUBSYSTEMS==\"usb\",	ACTION==\"add\",	RUN+=\"/usr/share/usbmount/usbmount add\"\nKERNEL==\"sd*\",				ACTION==\"remove\",	RUN+=\"/usr/share/usbmount/usbmount remove\"\nKERNEL==\"ub*\",				ACTION==\"remove\",	RUN+=\"/usr/share/usbmount/usbmount remove\"" > /lib/udev/rules.d/usbmount.rules
 		rm /etc/systemd/system/usbmount@.service
-		rm /etc/udev/rules.d/usbmount.rules
+		rm /etc/udev/rules.d/usbmount.rules		
 	fi
 fi
 

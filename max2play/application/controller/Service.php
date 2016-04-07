@@ -247,7 +247,7 @@ class Service {
 			}
 			return $isactive;
 		}else{
-			$output = shell_exec('grep -i "'.$name.'=1" '.$this->autostartconf);
+			$output = shell_exec('grep -i "^'.$name.'=1" '.$this->autostartconf);
 			if(strpos($output, $name.'=1') === 0){
 				$isactive = true;
 			}else{
@@ -768,9 +768,13 @@ class Service {
 	 */
 	public function checkLicense($local = false, $silent = false){
 		if($local == true){
-			if($this->getConfigFileParameter('/opt/max2play/options.conf', 'license') != 0){				
+			$license = $this->getConfigFileParameter('/opt/max2play/options.conf', 'license');
+			$this->view->licenseDate = $license;
+			if($license == 1 || ($license != 0 && strtotime($license) > time())){
+				$this->view->license = true;
 				return true;
 			}else{
+				$this->view->license = false;
 				if(!$silent)
 					$this->view->message[] = _('No valid Max2Play-License for additional plugins and features found. Please enter a valid eMail-address on the Settings-page to verify that you are a customer of Max2Play and to access all features.');
 				return false;
@@ -779,10 +783,13 @@ class Service {
 		$email = $this->getConfigFileParameter('/opt/max2play/options.conf', 'email');
 		
 		include_once '../application/model/CheckLicense.php';
-		if($license != false){
+		$this->view->licenseDate = $license;
+		if($license == 1 || ($license != 0 && strtotime($license) > time())){
+			$this->view->license = true;
 			$this->saveConfigFileParameter('/opt/max2play/options.conf', 'license', $license);
 			return true;
 		}else{
+			$this->view->license = false;
 			$this->saveConfigFileParameter('/opt/max2play/options.conf', 'license', '0');
 			return false;
 		}

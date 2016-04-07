@@ -305,6 +305,9 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		# install lxde with openbox http://lxlinux.com/		
 		apt-get install openbox xinit xorg lxde-common lxpanel pcmanfm desktop-file-utils rpi-update -y
 		
+		# eth0 Start by ifplugd 
+		cp -rf max2play/CONFIG_SYSTEM/default/ifplugd /etc/default/ifplugd
+		
 		#set to anybody for access as user pi 
 		sed -i "s@^allowed_users=.*@allowed_users=anybody@" /etc/X11/Xwrapper.config		
 		

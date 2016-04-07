@@ -162,7 +162,7 @@ $(function() {
 				<tr>
 					<td><?php echo _('Update Squeezelite') ?></td>					
 					<td><input type="checkbox" name="update_squeezelite" value="1" /></td>
-					<td><?php echo str_replace('$VERSION', $sp->view->debug['SQUEEZELITE VERSION'] ,_('Update current version $VERSION to newest available')) ?></td>
+					<td><?php echo str_replace(array('$VERSION','$BUILDOPTIONS'), array($sp->view->debug['SQUEEZELITE VERSION'], $sp->view->debug['SQUEEZELITE BUILDOPTIONS']) ,_('Update current version $VERSION to newest available')) ?></td>
 				</tr>
 			</table>
 			<input type="button" name="save" value="<?php echo _('save') ?>" onclick="document.getElementById('action').value='save';submit();" />
