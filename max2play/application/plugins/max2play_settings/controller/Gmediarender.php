@@ -33,7 +33,7 @@ class Gmediarender extends Service {
 		parent::__construct();						
 		//Only Available for Debian - Ubuntu 14.04 has no gmediarenderer
 		$version = $this->getLinuxVersion();
-		if($version[0] != 'Debian'){
+		if($version[0] != 'Debian' && $version[0] != 'Raspbian'){
 			$this->view->isAvailable = false;
 		}else{
 			$this->view->isAvailable = true;
@@ -135,7 +135,6 @@ class Gmediarender extends Service {
 					echo "Y" | sudo apt-get install libupnp-dev libgstreamer0.10-dev \
 					    gstreamer0.10-plugins-base gstreamer0.10-plugins-good \
 					    gstreamer0.10-plugins-bad gstreamer0.10-plugins-ugly \
-					    gstreamer0.10-ffmpeg \
 					    gstreamer0.10-pulseaudio gstreamer0.10-alsa
 					sudo ./autogen.sh
 					sudo ./configure

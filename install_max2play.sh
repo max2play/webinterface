@@ -219,9 +219,9 @@ if [ "$LINUX" == "Debian" ]; then
 	echo "Y" | sudo apt-get install autoconf automake libtool
 	echo "Y" | sudo apt-get install libupnp-dev libgstreamer0.10-dev \
 	    gstreamer0.10-plugins-base gstreamer0.10-plugins-good \
-	    gstreamer0.10-plugins-bad gstreamer0.10-plugins-ugly \
-	    gstreamer0.10-ffmpeg \
+	    gstreamer0.10-plugins-bad gstreamer0.10-plugins-ugly \	    
 	    gstreamer0.10-pulseaudio gstreamer0.10-alsa
+	#gstreamer0.10-ffmpeg -> debian jessie not available
 	sudo ./autogen.sh
 	sudo ./configure
 	sudo make
