@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-09 13:47+0100\n"
-"PO-Revision-Date: 2016-04-07 14:23+0100\n"
+"PO-Revision-Date: 2016-04-19 15:24+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_GB\n"
@@ -990,8 +990,7 @@ msgid "Update current version $VERSION to newest available"
 msgstr ""
 "Update current version $VERSION to newest available. Info on Startup "
 "Parameters: <a target=\"blank\" href=\"http://manpages.ubuntu.com/manpages/"
-"trusty/man1/squeezelite.1.html\">http://manpages.ubuntu.com/manpages/trusty/"
-"man1/squeezelite.1.html</a>. ($BUILDOPTIONS)"
+"trusty/man1/squeezelite.1.html\">More Info</a>. ($BUILDOPTIONS)"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeplayer.php:171
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeplayer.php:203

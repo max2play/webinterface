@@ -36,7 +36,17 @@ sed -i "s/HOSTNAME/$HOSTNAME/" /etc/dnsmasq.conf
 # Enable in Config
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
 
-# Edit Interfaces
+# Separate Jessie and Wheezy!
+if [ "$(lsb_release -r | grep '8.0' | wc -l)" -gt "0" ]; then 
+echo "#Accesspoint start
+up iptables-restore < /etc/hostapd/iptables.ap
+#Accesspoint end" >> /etc/network/interfaces
+echo "#Accesspoint start
+interface wlan0
+static ip_address=192.168.189.1/24
+#Accesspoint end" >> /etc/dhcpcd.conf
+else
+# Edit Interfaces on Debian Wheezy
 echo "#Accesspoint start
 iface wlan0 inet static
 address 192.168.189.1
@@ -45,6 +55,7 @@ netmask 255.255.255.0
 #gateway 192.168.189.1
 up iptables-restore < /etc/hostapd/iptables.ap
 #Accesspoint end" >> /etc/network/interfaces
+fi
 
 cp -f $1hostapd.conf /etc/hostapd/hostapd.conf
 

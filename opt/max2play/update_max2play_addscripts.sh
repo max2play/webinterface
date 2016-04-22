@@ -161,12 +161,13 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	
 	# Jessie Fix USBMOUNT NTFS ONLY ON JESSIE!
 	ISJESSIE=$(lsb_release -r | grep '8.0' | wc -l)	
-	if [ "$ISJESSIE" -gt "0" -a -e /etc/systemd/system -a ! -e /etc/systemd/system/usbmount@.service ]; then
-		echo "Fix USB-Mount on Debian Jessie"
-		echo "[Unit]\nBindTo=%i.device\nAfter=%i.device\n\n[Service]\nType=oneshot\nTimeoutStartSec=0\nEnvironment=DEVNAME=%I\nExecStart=/usr/share/usbmount/usbmount add\nRemainAfterExit=yes" > /etc/systemd/system/usbmount@.service
-		echo "# Rules for USBmount -*- conf -*-\nKERNEL==\"sd*\", DRIVERS==\"sbp2\",         ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"sd*\", SUBSYSTEMS==\"usb\",       ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"ub*\", SUBSYSTEMS==\"usb\",       ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"sd*\",                          ACTION==\"remove\",       RUN+=\"/usr/share/usbmount/usbmount remove\"\nKERNEL==\"ub*\",                          ACTION==\"remove\",       RUN+=\"/usr/share/usbmount/usbmount remove\"" > /etc/udev/rules.d/usbmount.rules
-		rm /lib/udev/rules.d/usbmount.rules
-		
+	if [ "$ISJESSIE" -gt "0" -a -e /etc/systemd/system ]; then
+		if [ ! -e /etc/systemd/system/usbmount@.service]; then
+			echo "Fix USB-Mount on Debian Jessie"
+			echo "[Unit]\nBindTo=%i.device\nAfter=%i.device\n\n[Service]\nType=oneshot\nTimeoutStartSec=0\nEnvironment=DEVNAME=%I\nExecStart=/usr/share/usbmount/usbmount add\nRemainAfterExit=yes" > /etc/systemd/system/usbmount@.service
+			echo "# Rules for USBmount -*- conf -*-\nKERNEL==\"sd*\", DRIVERS==\"sbp2\",         ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"sd*\", SUBSYSTEMS==\"usb\",       ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"ub*\", SUBSYSTEMS==\"usb\",       ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"sd*\",                          ACTION==\"remove\",       RUN+=\"/usr/share/usbmount/usbmount remove\"\nKERNEL==\"ub*\",                          ACTION==\"remove\",       RUN+=\"/usr/share/usbmount/usbmount remove\"" > /etc/udev/rules.d/usbmount.rules
+			rm /lib/udev/rules.d/usbmount.rules
+		fi		
 		# ifplugd fix for missing eth0
 		sudo sed -i 's/^INTERFACES=""/INTERFACES="eth0"/' /etc/default/ifplugd
 	fi
