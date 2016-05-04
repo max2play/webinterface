@@ -120,7 +120,11 @@ class Callblocker_Blacklist extends Service {
 			$whitelist = preg_replace('=[^0-9\*\+\r\na-zA-Z]=', '',$whitelist);
 			$this->writeDynamicScript(array('echo "'.trim(str_replace("\r\n", "\n", $whitelist), "\n").'" > '.$this->local_whitelist));
 		}
-		//2>&1 > /opt/callblocker/cache/tellowsblacklist.txt
+		// IMPORTANT: Prevent Script from running multiple times
+		$count = 0;
+		while($count++ < 20 && trim(shell_exec('ps -Al | grep tellowsblack | wc -l') > 0)){
+			sleep(1);
+		}
 		$this->writeDynamicScript(array('sudo /opt/callblocker/tellowsblacklist.sh local'), true);
 		
 		return true;

@@ -723,7 +723,7 @@ class Service {
 	public function getFreeDiskSpace(){
 		$this->getSystemUser();
 		if($this->info->system_user == 'pi'){			
-			$this->info->freespace = shell_exec("df -km /dev/root | tail -1 | awk '{print $4}'");
+			$this->info->freespace = shell_exec("df -km / | tail -1 | awk '{print $4}'");
 		}			
 		if($this->info->system_user == 'odroid'){			
 			$this->info->freespace = shell_exec("df -km /dev/mmcblk0p2 | tail -1 | awk '{print $4}'");
@@ -1018,6 +1018,19 @@ class Service {
 				preg_match('=\[(.*)\]=', $output, $match);
 				$this->equalvalues[$key] = $match[1];
 			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Enable / Disable Audio Interface on Raspberry Pi
+	 * @param unknown $status
+	 */
+	public function setBuildInAudio($status = true){
+		if($status == true){
+			$this->writeDynamicScript(array('sed -i "s@dtparam=audio=off@dtparam=audio=on@" /boot/config.txt'));
+		}else{
+			$this->writeDynamicScript(array('sed -i "s@dtparam=audio=on@dtparam=audio=off@" /boot/config.txt'));
 		}
 		return true;
 	}

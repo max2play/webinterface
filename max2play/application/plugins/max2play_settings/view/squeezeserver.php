@@ -85,7 +85,7 @@
 	<?php echo _('Alternative other source from Slimdevices (package must be .deb)') ?>: 
 	<input id="downloadurl" type="text" value="<?php if($lmslink = reset($sp->lmsversions)){ echo $lmslink; } ?>" name="downloadurl" style="" /><br /><br /> 		
 	
-	<?php if ($sp->view->perlversion > "5.18" ) echo '<br />'._('IMPORTANT: You must choose 7.9 Nightly as 7.8 is currently not supported for this version of Perl: '.$sp->view->perlversion).'<br />'; ?>
+	<?php if ($sp->view->perlversion > "5.18" ) echo '<br /><span style="color:red;">'._('IMPORTANT: You must choose 7.9 Nightly as 7.8 is currently not supported for this version of Perl: '.$sp->view->perlversion).'</span><br />'; ?>
 	
 	<input type="button" value="<?php echo str_replace('$NAME', $sp->viewname, _('$NAME start installation')) ?>" name="install" onclick="document.getElementById('action').value='install';submit();" />
 	<br /><br /> <?php echo _('The installation takes about 5 to 10 minutes depending on your internet connection. At first it downloads the package from http://downloads.slimdevices.com/ and afterwards it installs the package. You may reload this page by clicking the button again to see the status of the install process.')?>			

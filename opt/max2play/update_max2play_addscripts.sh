@@ -170,6 +170,12 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		fi		
 		# ifplugd fix for missing eth0
 		sudo sed -i 's/^INTERFACES=""/INTERFACES="eth0"/' /etc/default/ifplugd
+		
+		# Update Kodi Settings for Webserver on Port 80 to remote Control
+		if [ -e /home/pi/.kodi/userdata/guisettings.xml ]; then
+		   echo "Update Kodi: Activate Webserver for Remote Control"
+		   sed -i 's@<webserver default="true">false</webserver>@<webserver>true</webserver>@' /home/pi/.kodi/userdata/guisettings.xml
+		fi		
 	fi
 	# Fix for NOT JESSIE and deleted usbmount rules
 	if [ "$ISJESSIE" -lt "1" -a ! -e /lib/udev/rules.d/usbmount.rules ]; then

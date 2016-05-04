@@ -38,7 +38,7 @@ if [ "1" -gt "$xbmcrunning" ]; then
         fi
     fi        
     
-    autostart_mpd=$(cat /opt/max2play/autostart.conf | grep mpd=1 | wc -l)
+    autostart_mpd=$(cat /opt/max2play/autostart.conf | grep "^mpd=1" | wc -l)
     if [ "0" -lt "$autostart_mpd" ]
         then
         running_mpd=$(ps -Al | grep mpd | wc -l)
@@ -58,7 +58,7 @@ if [ "1" -gt "$xbmcrunning" ]; then
           running_xserver=$(ps -Al | grep startx | wc -l)
           if [ "1" -gt "$running_xserver" ]; then
           	sudo su -l pi -c /usr/bin/startx > /dev/null 2>&1 &
-          	sleep 5
+          	sleep 10
           fi         
           sudo -u pi -H /opt/jivelite/jivelite/bin/jivelite > /dev/null 2>&1 &
         else
