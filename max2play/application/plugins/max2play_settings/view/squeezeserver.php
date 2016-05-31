@@ -45,7 +45,7 @@
 	<?php if($sp->view->installed == true) { ?>
 		<?php if ($sp->view->pid) { ?>
 			<b><?php echo _('Status')?>:</b> <?php echo str_replace('$SERVICENAME', $sp->viewname, _('$SERVICENAME is running with processID')) ?> <b><?php echo $sp->view->pid ?></b><br /><br />
-			<a target="_blank" href="http://<?php echo preg_replace('=:.*=','', $_SERVER['HTTP_HOST']).':9000'; ?>" ><?php echo _('Open Squeezebox Server Webadministration')?></a><br /><br />
+			<a target="_blank" href="http://<?php echo preg_replace('=:.*=','', $_SERVER['HTTP_HOST']).':9000'; ?>" class="download-button" style="width:70%;"><?php echo _('Open Squeezebox Server Webadministration')?></a><br /><br />
 			<input type="button" value="<?php echo str_replace('$SERVICENAME', $sp->viewname, _('stop $SERVICENAME')) ?>" name="stop" onclick="document.getElementById('action').value='stop';submit();" />
 			<input type="button" value="<?php echo str_replace('$SERVICENAME', $sp->viewname, _('restart $SERVICENAME')) ?>" name="restart" onclick="document.getElementById('action').value='restart';submit();" />
 			<input type="button" value="<?php echo str_replace('$SERVICENAME', $sp->viewname, _('kill $SERVICENAME')) ?>" name="kill" onclick="document.getElementById('action').value='kill';submit();" />
