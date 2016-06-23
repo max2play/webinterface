@@ -26,5 +26,6 @@
 include_once(APPLICATION_PATH.'/controller/Start.php');
 //$this->pluginname = _('Start');
 $start = new Start();
+$start->easyinstaller = true;
 
 include_once(dirname(__FILE__).'/../view/index.php');

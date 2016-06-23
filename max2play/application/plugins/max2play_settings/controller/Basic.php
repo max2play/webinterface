@@ -400,6 +400,10 @@ class Basic extends Service {
 			$this->info->version = 0; // Reset
 		}
 		
+		//Always Check for Plugin Updates
+		//Do this first to make sure add_scripts sees changes in custom header / css files
+		$this->_checkPluginUpdates($version);
+		
 		//Check auf Update
 		$file = file_get_contents('http://shop.max2play.com/media/downloadable/currentversion/version.txt');
 		if((float)$this->info->version < (float)$file){
@@ -424,10 +428,7 @@ class Basic extends Service {
 			$this->view->message[] = _('Max2Play Website not available - maybe no internet connection? Please try a reboot to fix the internet connection.');
 		}else{
 			$this->view->message[] = _('Max2Play is up to date - no update required');			
-		}
-		
-		//Always Check for Plugin Updates
-		$this->_checkPluginUpdates($version);
+		}				
 		
 		return true;
 	}

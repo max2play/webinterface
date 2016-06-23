@@ -140,13 +140,19 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	fi
 	if [ -e "/var/www/max2play/application/plugins/hifiberry/view/header_custom.php" ]; then
 	    # Update Plugin Header		
-	    echo "Copy custom header files"
+	    echo "Copy custom header files hifiberry"
 	    cp -f /var/www/max2play/application/plugins/hifiberry/view/header_custom.php /var/www/max2play/application/view/
 	fi
 	if [ -e "/var/www/max2play/application/plugins/iqaudio/view/header_custom.php" ]; then
 	    # Update Plugin Header		
-	    echo "Copy custom header files"
+	    echo "Copy custom header files iqaudio"
 	    cp -f /var/www/max2play/application/plugins/iqaudio/view/header_custom.php /var/www/max2play/application/view/
+	fi
+	if [ -e "/var/www/max2play/application/plugins/justboom/view/header_custom.php" ]; then
+	    # Update Plugin Header		
+	    echo "Copy custom header files justboom"
+	    cp -f /var/www/max2play/application/plugins/justboom/view/header_custom.php /var/www/max2play/application/view/
+	    cp -f /var/www/max2play/application/plugins/justboom/scripts/custom.css /var/www/max2play/public/
 	fi
 	
 	if [ "$(grep -i "start_audioplayer" /etc/rc.local | wc -l)" -lt "1" ]; then
@@ -162,7 +168,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	# Jessie Fix USBMOUNT NTFS ONLY ON JESSIE!
 	ISJESSIE=$(lsb_release -r | grep '8.0' | wc -l)	
 	if [ "$ISJESSIE" -gt "0" -a -e /etc/systemd/system ]; then
-		if [ ! -e /etc/systemd/system/usbmount@.service]; then
+		if [ ! -e /etc/systemd/system/usbmount@.service ]; then
 			echo "Fix USB-Mount on Debian Jessie"
 			echo "[Unit]\nBindTo=%i.device\nAfter=%i.device\n\n[Service]\nType=oneshot\nTimeoutStartSec=0\nEnvironment=DEVNAME=%I\nExecStart=/usr/share/usbmount/usbmount add\nRemainAfterExit=yes" > /etc/systemd/system/usbmount@.service
 			echo "# Rules for USBmount -*- conf -*-\nKERNEL==\"sd*\", DRIVERS==\"sbp2\",         ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"sd*\", SUBSYSTEMS==\"usb\",       ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"ub*\", SUBSYSTEMS==\"usb\",       ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"sd*\",                          ACTION==\"remove\",       RUN+=\"/usr/share/usbmount/usbmount remove\"\nKERNEL==\"ub*\",                          ACTION==\"remove\",       RUN+=\"/usr/share/usbmount/usbmount remove\"" > /etc/udev/rules.d/usbmount.rules

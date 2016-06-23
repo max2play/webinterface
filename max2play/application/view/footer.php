@@ -27,7 +27,15 @@
 </div>
 			</div>
 			<div id="secondary" class="widget-area">
-			<?php if (isset($helpOnSidebar) && $helpOnSidebar !== false){ ?>			
+			
+			<?php if (isset($helpOnSidebar) && $helpOnSidebar !== false && isset($helpOnSidebar['toppicture'])){ ?>
+				<script>
+					document.getElementById('toppicture').style.backgroundImage='url("<?php echo $helpOnSidebar['toppicture']?>")';
+					document.getElementById('toppicture').style.display='';
+				</script>
+			<?php }?>
+			
+			<?php if (isset($helpOnSidebar) && $helpOnSidebar !== false && isset($helpOnSidebar['content'])){ ?>			
 				<script>
 					function closeGuide(){
 						$("#guide").display='none';

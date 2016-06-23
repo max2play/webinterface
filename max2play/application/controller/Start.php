@@ -51,10 +51,9 @@ class Start extends Service {
 		
 		//Decide to Show Easy Installer
 		// $this->easyinstaller = true;
-		
-		$this->view->purpose = $this->getConfigFileParameter('/opt/max2play/options.conf', 'purpose');
-
 		$this->showHelpSidebar();
+		
+		$this->view->purpose = $this->getConfigFileParameter('/opt/max2play/options.conf', 'purpose');		
 	}	
 	
 	/**
@@ -140,6 +139,7 @@ class Start extends Service {
 		global $helpSidebar;
 		$helpSidebar['title'] = _('Help - Introduction');
 		$helpSidebar['content'] = _('<ul><li>This is Max2Play - The easiest way to setup a audio and video player! You may watch <a target="_blank" href="https://www.youtube.com/channel/UCu2JHGI142fLrkoUN8dUkRA">our video tutorials about the settings in this web interface</a>.</li></ul>');
+		$helpSidebar['toppicture'] = '/images/start-toppicture.jpg';
 		return true;
 	}
 }

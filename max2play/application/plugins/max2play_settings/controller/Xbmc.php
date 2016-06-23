@@ -27,7 +27,7 @@
 class Xbmc extends Service {
 	
 	protected $pname = 'xbmc';
-	public $viewname = 'Kodi / XBMC';
+	public $viewname = 'Kodi (Video)';
 	private $_autostartfile = '/home/odroid/.config/lxsession/Lubuntu/autostart';
 	//private $_autostartfile = '/home/odroid/.config/autostart_off/XBMC.desktop'; DEBIAN-Version
 	

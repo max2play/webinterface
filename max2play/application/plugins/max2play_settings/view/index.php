@@ -24,7 +24,7 @@
 		<?php if($start->easyinstaller == 1) include_once('easyinstaller.php'); ?>
 		
 	</form>
-		
+	<br /><br />	
 	<?php echo _("Max2Play gives you the best experience with High-Quality Sound together with an easy configuration and control. With the extensions of Max2Play you can easily choose and install new features like the following:")?>	
 	<br /><br />
 	

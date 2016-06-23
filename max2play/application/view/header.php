@@ -85,7 +85,9 @@
 			</nav>
 	
 		</header>
-	
+		
+		<div id="toppicture" style="display:none;"> </div>
+		
 		<div id="main" class="wrapper">
 			<div id="primary" class="site-content">
 				<div id="content" role="main">	

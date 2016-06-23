@@ -131,6 +131,8 @@ class Wlan extends Service {
 		$saveWiFi = $this->_saveWiFiNetworkSettings($ssid, $psk);
 		
 		$shellanswer_eth = $this->writeDynamicScript(array("cat ".$this->networkinterfaces));
+		
+		//TODO: Deactivate on RPI
 		if($_GET['lanmac'] != '' && $this->view->lanmac != $_GET['lanmac'] && preg_match("=([0-9abcdefABCDEF]{2}:){5}[0-9abcdefABCDEF]{2}=", $_GET['lanmac'], $matches) == true){			
 			if($this->view->bootconfig){
 				// XU3
@@ -138,7 +140,10 @@ class Wlan extends Service {
 			}else{
 				//Set rights to update Mac-Address-File
 				shell_exec("sudo /opt/max2play/change_mac_address.sh");
-				shell_exec("echo '".$matches[0]."' > ".$this->mac_address);			
+				shell_exec("echo '".$matches[0]."' > ".$this->mac_address);
+				if($this->getSystemUser() == 'pi'){
+					$this->view->message[] = _('IMPORTANT: do not use the MAC-Address Setup on Raspberry Pi as each device has its own MAC-Address! Leave the MAC-Address empty!');
+				}
 			}			
 			$this->view->message[] = _('MAC-Address changed - please reboot');
 		}
