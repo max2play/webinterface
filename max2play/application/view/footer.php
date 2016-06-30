@@ -66,7 +66,8 @@
 
 			</div>
 		</div>
-	
+		
+		<div class="divider"> </div>
 		<footer>
 			<div class="site-info">
 				<br /><br />

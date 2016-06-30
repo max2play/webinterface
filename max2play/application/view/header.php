@@ -34,7 +34,7 @@
 	<script src="/js/jquery-1.10.2.js"></script>
 	<script src="/js/jquery-ui-1.10.4.custom.min.js"></script>
 	<script type="text/javascript" src="/js/reloadprogress.js?v=<?php echo $service->info->version?>"></script>	
-	<link rel='stylesheet' id=''  href='/style.css?v=<?php echo $service->info->version?>' type='text/css' media='all' />
+	<link rel='stylesheet' id=''  href='/style-new.css?v=<?php echo $service->info->version?>' type='text/css' media='all' />
 	<?php if(file_exists(APPLICATION_PATH.'/../public/custom.css')) { ?>
 		<link rel='stylesheet' id=''  href='/custom.css' type='text/css' media='all' />
 	<?php } ?>
@@ -51,10 +51,10 @@
 			
 			<div class="chooseplayer">
 				<?php if($service->info->devices) { ?>
-					<?php echo _('Choose active Player')?>
-					<select name="chooseplayer" class="chooseplayer" style="margin-bottom:5px;">
+					<?php //echo _('Choose active Player')?>
+					<select name="chooseplayer" class="chooseplayer" style="margin-bottom:5px;" onChange="window.open(this.options[this.selectedIndex].value,'_self');">
 						<?php foreach($service->info->devices as $device) { ?>
-							<option <?php if($device['current'] == 1) echo 'selected'; ?> onclick="window.open('http://<?php echo $device['ip'] ?>');" value="<?php echo $device['ip'] ?>"><?php echo $device['name'] ?> (<?php echo $device['ip'] ?>)</option>
+							<option <?php if($device['current'] == 1) echo 'selected'; ?> value="http://<?php echo $device['ip'] ?>"><?php echo $device['name'] ?> (<?php echo $device['ip'] ?>)</option>
 						<?php }?>		
 					</select>
 					<br />
@@ -64,30 +64,62 @@
 					<br /><?php echo _('Version').' '.$service->info->version ?>
 					<br /><?php echo ($service->info->boardname) ? $service->info->boardname : $service->info->hardware; ?>
 				</span>
-			</div>
-			
-			<nav id="navigation" class="navigation">					
-				<div class="nav-menu">
-					<ul>						
-						<?php if(isset($service->plugins['plugin']) && count($service->plugins['plugin']) > 0) { 							
-							foreach($service->plugins['plugin'] as $plugin){ 
-								if(isset($plugin['navigation']) && $plugin['navigation'] != '' && isset($plugin['active']) && $plugin['active'] == 1){?>
-									<li><a href="<?php echo $plugin['path'] ?>" 
-										   class="<?php if(strpos($_SERVER['REQUEST_URI'], $plugin['path']) !== FALSE || $_SERVER['REQUEST_URI'] == '/' && isset($plugin['default']) && $plugin['default'] == 1) echo 'current';?>"
-										   ><?php echo (isset($plugin['navigation']['translate'])) ? _($plugin['navigation']['translate']) : _($plugin['navigation']) ?></a>
-								    </li>
-						  <?php }
-							}							
-						}?>
-												
-					</ul>
-				</div>
-			</nav>
+			</div>						
 	
 		</header>
+		<nav id="navigation" class="navigation">					
+			<div id="hiddennav" class="nav-menu invisible">
+				<ul id="navlist">						
+					<?php if(isset($service->plugins['plugin']) && count($service->plugins['plugin']) > 0) { 							
+						foreach($service->plugins['plugin'] as $plugin){ 
+							if(isset($plugin['navigation']) && $plugin['navigation'] != '' && isset($plugin['active']) && $plugin['active'] == 1){?>
+								<li><a href="<?php echo $plugin['path'] ?>" 
+									   class="<?php if(strpos($_SERVER['REQUEST_URI'], $plugin['path']) !== FALSE || $_SERVER['REQUEST_URI'] == '/' && isset($plugin['default']) && $plugin['default'] == 1) echo 'current';?>"
+									   ><?php echo (isset($plugin['navigation']['translate'])) ? _($plugin['navigation']['translate']) : _($plugin['navigation']) ?></a>
+							    </li>
+					  <?php }
+						}							
+					}?>
+											
+				</ul>
+			</div>
+			<div id="scrollingnav" class="nav-menu ">
+				<ul id="navlist">						
+					<?php if(isset($service->plugins['plugin']) && count($service->plugins['plugin']) > 0) { 							
+						foreach($service->plugins['plugin'] as $plugin){ 
+							if(isset($plugin['navigation']) && $plugin['navigation'] != '' && isset($plugin['active']) && $plugin['active'] == 1){?>
+								<li><a href="<?php echo $plugin['path'] ?>" 
+									   class="<?php if(strpos($_SERVER['REQUEST_URI'], $plugin['path']) !== FALSE || $_SERVER['REQUEST_URI'] == '/' && isset($plugin['default']) && $plugin['default'] == 1) echo 'current';?>"
+									   ><?php echo (isset($plugin['navigation']['translate'])) ? _($plugin['navigation']['translate']) : _($plugin['navigation']) ?></a>
+							    </li>
+					  <?php }
+						}							
+					}?>
+											
+				</ul>
+			</div>
+			<script>
+			$(function() {			    
+			    var header = $("#scrollingnav");
+			    var hiddennav = $("#hiddennav");
+			    $(window).scroll(function() {
+			        var scroll = $(window).scrollTop();
+			        if (scroll >= 120) {
+			            header.addClass('navfixed');
+			            hiddennav.removeClass('invisible');
+			        }else {
+			            header.removeClass('navfixed');
+			            hiddennav.addClass('invisible');
+			        }			        
+			    });
+			});			
+			</script>
+		</nav>
 		
 		<div id="toppicture" style="display:none;"> </div>
 		
 		<div id="main" class="wrapper">
 			<div id="primary" class="site-content">
 				<div id="content" role="main">	
+				  <a href="<?php echo "//{$_SERVER['HTTP_HOST']}".strtok($_SERVER["REQUEST_URI"],'?'); ?>" class="button-small ui-state-default ui-corner-all" style="float:right;background-image: none;background-color:#fff;" title="Reload Page"><span class="ui-icon ui-icon-refresh"></span></a>
+	

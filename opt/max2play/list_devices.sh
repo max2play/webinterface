@@ -1,5 +1,12 @@
 #!/bin/bash
 # Script listet alle Player im lokalen Netzwerk im Cache-Ordner
+
+# Script darf nur einmal gleichzeitig laufen!
+scriptrunning=$(ps -Al | grep "list_device" | wc -l)
+if [ "$scriptrunning" -gt "2" ]; then
+	exit 0
+fi
+
 IP=`/sbin/ifconfig eth0 | grep "inet" | cut -d ":" -f 2 | cut -d " " -f 1`
 if [ -z "$IP" ]; then
     echo "IP is empty"
@@ -12,19 +19,21 @@ if [ -z "$IP" ]; then
 else        
         SUBNET=${IP%.*}
         OUTPUT=`nmap -p 80 --open $SUBNET.* | grep -o -e "[a-zA-Z0-9\.]\+ ([0-9\.]\+)$" | sed 's/ (/|/;s/)//'`
-        echo `date +"%Y-%m-%d %H:%M"` > /opt/max2play/cache/list_devices.txt
+        FILEWRITE=`date +"%Y-%m-%d %H:%M"`
         # Check for Max2Play Webinterface
         while read -r line ; do
           ADDRESS=$(echo "$line" | sed 's/^.*|//')
-          CHECK=$(wget -T 3 -t 1 -q -O - "$@" $ADDRESS | grep max2play | wc -l)
+          CHECK=$(wget -T 3 -t 1 -q -O - "$@" $ADDRESS/style.css | grep WUoqrET9fUeobQW7jkRT8E0i7KZn-EPnyo3HZu7kw | wc -l)
           if [ "$CHECK" -gt "0" ]; then
                 if [ "$ADDRESS" = "$IP" ]; then
-                	echo "$line|current" >> /opt/max2play/cache/list_devices.txt
+                	FILEWRITE="$FILEWRITE\n$line|current"
                 else
-                	echo "$line" >> /opt/max2play/cache/list_devices.txt
+                	FILEWRITE="$FILEWRITE\n$line"
                 fi
           fi
         done <<<"$OUTPUT"
+        
+        echo -e "$FILEWRITE" > /opt/max2play/cache/list_devices.txt
 fi
 
 exit 0

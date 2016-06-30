@@ -157,7 +157,7 @@
 			<td><input type="text" style="width:95%;" name="path" value="" /><br /><span class="small">/media/usb</span></td>
 			<td><input type="text" style="width:95%;" name="comment" value="" /><br /><span class="small">Max2Play USB</span></td>
 			<td><input type="text" style="width:95%;" size=4 name="writeable" value="" /><br /><span class="small">yes</span></td>
-			<td><input type="text" style="width:95%;" size=4 name="create mode" value="" /><br /><span class="small">664</span></td>
+			<td><input type="text" style="width:95%;" size=4 name="create mode" value="" /><br /><span class="small">666</span></td>
 			<td valign="top"><input type="button" value="<?php echo _('Save'); ?>" name="add" onclick="document.getElementById('sambaaction').value='add';submit();" /></td>
 		</tr>
 		</table>

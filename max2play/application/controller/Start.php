@@ -130,7 +130,7 @@ class Start extends Service {
 		}
 		$this->saveConfigFileParameter('/opt/max2play/options.conf', 'purpose', $purpose);
 	}
-	
+		
 	/**
 	 * Function should be overwritten by special Image File
 	 * @return boolean

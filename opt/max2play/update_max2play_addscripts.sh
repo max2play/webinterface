@@ -138,15 +138,31 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		crontab -u pi /opt/max2play/cache/cronmax2play
 	    rm /opt/max2play/cache/cronmax2play
 	fi
+	
+	#get Version (beta/currentversion)
+	ISBETA=$(grep -i "beta" /var/www/max2play/application/config/version.txt | wc -l)
+	if [ "$ISBETA" -lt "1" ]; then
+	    VERSION="currentversion"
+	else
+		VERSION="beta"
+	fi
 	if [ -e "/var/www/max2play/application/plugins/hifiberry/view/header_custom.php" ]; then
+	    # Workaround for OLDER hifiberry Images - get current Pluginfiles to overwrite CSS	    
+	    /opt/max2play/install_plugin.sh https://shop.max2play.com/media/downloadable/$VERSION/hifiberry.tar
+	    
 	    # Update Plugin Header		
-	    echo "Copy custom header files hifiberry"
+	    echo "Copy custom header files hifiberry"	    
 	    cp -f /var/www/max2play/application/plugins/hifiberry/view/header_custom.php /var/www/max2play/application/view/
+	    cp -f /var/www/max2play/application/plugins/hifiberry/scripts/custom.css /var/www/max2play/public/
 	fi
 	if [ -e "/var/www/max2play/application/plugins/iqaudio/view/header_custom.php" ]; then
+	    # Workaround for OLDER hifiberry Images - get current Pluginfiles to overwrite CSS	    
+	    /opt/max2play/install_plugin.sh https://shop.max2play.com/media/downloadable/$VERSION/iqaudio.tar
+	    
 	    # Update Plugin Header		
 	    echo "Copy custom header files iqaudio"
 	    cp -f /var/www/max2play/application/plugins/iqaudio/view/header_custom.php /var/www/max2play/application/view/
+	    cp -f /var/www/max2play/application/plugins/iqaudio/scripts/custom.css /var/www/max2play/public/
 	fi
 	if [ -e "/var/www/max2play/application/plugins/justboom/view/header_custom.php" ]; then
 	    # Update Plugin Header		
@@ -164,6 +180,9 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	if [ "$(grep -i "iocharset=iso8859-1" /etc/usbmount/usbmount.conf | wc -l)" -lt "1" ]; then
 		sudo sed -i "s/fstype=vfat,gid=users,uid=pi/fstype=vfat,gid=users,uid=pi,iocharset=iso8859-1/" /etc/usbmount/usbmount.conf
 	fi
+	
+	# Fix wrong YMPD Parameter webport
+	sed -i 's/YMPD_PARAMETER=8081/YMPD_PARAMETER=--webport 8081/' /opt/max2play/audioplayer.conf
 	
 	# Jessie Fix USBMOUNT NTFS ONLY ON JESSIE!
 	ISJESSIE=$(lsb_release -r | grep '8.0' | wc -l)	
