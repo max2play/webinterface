@@ -658,7 +658,7 @@ class Service {
 	
 		if(true == $reload){
 			//Clear Output
-			ob_end_clean();
+			ob_clean();
 			$service->loadDefaults(); //Global Scope
 		}
 		if(file_exists(APPLICATION_PATH.'/view/header_custom.php'))
