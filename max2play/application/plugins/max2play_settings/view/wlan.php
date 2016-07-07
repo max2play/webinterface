@@ -40,7 +40,7 @@
 		</div>
 	<?php } ?>
 	
-	<form action="" method="get">
+	<form action="" method="get" id="form1">
 	<input type="hidden" id="action" name="action" value="" />
 		
 	<b><?php echo _("Status") ?>:</b> 
@@ -98,30 +98,64 @@
 	<a href="?action=scanWlanNetworks"><?php echo _("start scan") ?></a> 
 	<?php if(isset($wlan->view->wlanNetworks)) echo '<br /><i>'. _("Choose your network by clicking on it, enter your password and save the settings").'</i>'; ?>
 	<br />
-		
-	<br /><br />
-	<?php echo _("Configure LAN Mac-Address") ?>: <input type="text" id="lanmac" name="lanmac" value="<?php echo $wlan->view->lanmac ?>" />
-	<br /><?php echo _("(Change only if there are more Max2Play-Devices in one network)") ?>	
+	
+	<input type="button" value="<?php echo _("Save all settings") ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
 	
 	<br /><br />
-	<?php echo _("Set fixed LAN IP-Address") ?> (<?php echo $wlan->view->fixedinterface ?>): <input type="checkbox" id="lanipfix" name="lanipfix" value="1" <?php if($wlan->view->fixedip) echo 'checked'; ?> /> <?php echo _("Current IP-Address") ?>: <input type="text" id="lanip" name="lanip" value="<?php echo $wlan->view->lanip ?>" />
-	<br /><?php echo _("(Useful, if your router sometimes changes the IP-Address of you Max2Play-device and you need a fixed IP-Address.)") ?>
+		<div id="wifiadvanced" style="max-height:400px;">
+		  <h3><?php echo _('Automatic WiFi Setup with WPS') ?></h3> 
+		  <div>
+		    <p>
+		    	<?php echo _("Activate WPS on Boot") ?>: <input type="checkbox" id="wpsenabled" name="wpsenabled" value="1" <?php if($wlan->view->wpsenabled) echo 'checked'; ?> /> 
+				<br />
+				<?php echo _("Wifi Protected Setup: Enable WPS in your Router and reboot Max2Play to automatically set up WiFi. Starts only, if no LAN-cable connected!") ?>
+		    	<br />
+		    	<input type="button" value="<?php echo _("Save all settings") ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
+		    	<br /><br />
+		    	<?php echo _("Start WPS Setup now (requires activated WPS on your Router): ") ?>
+		    	<br /><br />
+		    	<a class="button-small clickloading" href="#" onclick="document.getElementById('action').value='start_wps';$('#form1').submit();"><?php echo _("Start Automatic WiFi Setup") ?></a>
+		    </p>
+		  </div>
+		  <h3><?php echo _('Fixed LAN-IP Setup') ?></h3>
+		  <div>
+		    <p>
+		    <?php echo _("Set fixed LAN IP-Address") ?> (<?php echo $wlan->view->fixedinterface ?>): <input type="checkbox" id="lanipfix" name="lanipfix" value="1" <?php if($wlan->view->fixedip) echo 'checked'; ?> /> <?php echo _("Current IP-Address") ?>: <input type="text" id="lanip" name="lanip" value="<?php echo $wlan->view->lanip ?>" />
+			<br /><br /><?php echo _("(Useful, if your router sometimes changes the IP-Address of you Max2Play-device and you need a fixed IP-Address.)") ?>
+		    <br /><br />
+		    <input type="button" value="<?php echo _("Save all settings") ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
+		    
+		    </p>
+		  </div>
+		  <h3><?php echo _('Configure LAN Mac-Address') ?></h3>
+		  <div>
+		    <p>
+		    <?php echo _("This may be neccessary if you have a Minicomputer without a real hardware MAC-Address (some ODROIDs). This function is not available for Raspberry Pis.") ?>
+		    <br />
+		    <?php echo _("Configure LAN Mac-Address") ?>: <input type="text" id="lanmac" name="lanmac" value="<?php echo $wlan->view->lanmac ?>" />
+			<br /><br /><?php echo _("(Change only if there are more Max2Play-Devices in one network)") ?>
+			<br /><br />
+			<input type="button" value="<?php echo _("Save all settings") ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />		    
+		    </p>
+		  </div>
+		</div>	
 	
-	<br /><br />
-	<?php echo _("Activate WPS on Boot") ?>: <input type="checkbox" id="wpsenabled" name="wpsenabled" value="1" <?php if($wlan->view->wpsenabled) echo 'checked'; ?> /> 
-	<?php echo _("(Wifi Protected Setup: Enable WPS in your Router and reboot Max2Play to automatically set up WiFi. Starts only, if no LAN-cable connected!)") ?>
-	
-	<br /><br />	
-	
-	<input type="button" value="<?php echo _("Save all settings") ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />		
-	
+	 <script>
+	  $(function() {
+	    $( "#wifiadvanced" ).accordion({
+	      heightStyle: "content",	     
+	      collapsible: true 
+	    });   
+	  });  
+ 	 </script>	
+
 	</form>
 	
 	<br /><br />
 	<?php echo _("WLAN INFO DESCRIPTION") ?>
 	 
 	<br /><br />
-	<?php echo _("DEBUG Info") ?>:
+	<?php echo _("DEBUG Info") ?>:<br />
 	<textarea rows="5" cols="80" readonly><?php echo $wlan->view->ifconfig_txt ?></textarea>
 </div>	
 															

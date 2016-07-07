@@ -23,8 +23,9 @@ if [ "1" -gt "$xbmcrunning" ]; then
 		# TODO: remove PID Files!
 	fi
 	
-	# Add this also to init-script
-	sudo sh -c "TERM=linux setterm --clear all >/dev/tty0"
+	# Add this also to init-script # also add -foreground black -> remove with -foreground white on stop 
+	# foreground black is specifically needed if desktop is restarting in background or any other console tasks are running
+	sudo sh -c "TERM=linux setterm -foreground black --clear all >/dev/tty0"
 	
 	if [ -e /usr/local/bin/kodi ]; then
 		/usr/local/bin/kodi
@@ -36,6 +37,8 @@ if [ "1" -gt "$xbmcrunning" ]; then
 else
 	killall -9 xbmc.bin
 	killall -9 kodi.bin
+	
+	sudo sh -c "TERM=linux setterm -foreground white >/dev/tty0"
 	
 	autostartsqueeze=$(grep -a squeezelite=1 /opt/max2play/autostart.conf | wc -l)
 	if [ "0" -lt "$autostartsqueeze" ]; then		

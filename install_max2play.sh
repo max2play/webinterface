@@ -358,6 +358,8 @@ if [ "$CHANGE_HOSTNAME" = "" ]; then
 	cat /etc/hostname > /opt/max2play/playername.txt.sav
 else
 	echo "$CHANGE_HOSTNAME" > /etc/hostname
+	# edit hosts file
+	sudo sed -i "s/raspberrypi/$CHANGE_HOSTNAME/;s/odroid/$CHANGE_HOSTNAME/" /etc/hosts
 fi
 chmod 666 /etc/hostname
 

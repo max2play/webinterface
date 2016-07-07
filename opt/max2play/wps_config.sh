@@ -7,13 +7,19 @@
 # only run if there's no current wifi connection and WiFi is enabled
 if [ "$(LANG=C && /sbin/ifconfig wlan0 | grep 'HWaddr' | wc -l)" -gt "0" -a "$(LANG=C && /sbin/ifconfig wlan0 | grep 'inet addr:' | grep -v '169.254' | wc -l)" -lt "1" ]; then
     killall -q wpa_supplicant
+    sleep 1
     # Check if "update_config=1" needed in /opt/max2play/wpa_supplicant.conf for Autoconfig
     if [ "$(grep -i "update_config=1" /opt/max2play/wpa_supplicant.conf | wc -l)" -lt "1" ]; then
     	echo "update_config=1" >> /opt/max2play/wpa_supplicant.conf
     fi
     
     # Make sure WPA-Supplicant is running with config
-    wpa_supplicant -B w -D wext -i wlan0 -c /opt/max2play/wpa_supplicant.conf
+    # separate RPI3 no wext Driver for WPS!
+    if [ "0" -lt "$(wpa_supplicant -h | grep nl80211 | wc -l)" ]; then
+    	wpa_supplicant -B w -i wlan0 -c /opt/max2play/wpa_supplicant.conf
+    else
+    	wpa_supplicant -B w -D wext -i wlan0 -c /opt/max2play/wpa_supplicant.conf
+    fi
     sleep 3
     
     # Clear network list
@@ -37,6 +43,7 @@ if [ "$(LANG=C && /sbin/ifconfig wlan0 | grep 'HWaddr' | wc -l)" -gt "0" -a "$(L
     	
     	# Stop existing WPA_Supplicant Process with Old Config
     	killall -q wpa_supplicant
+    	sleep 3
     	
     	# Enable wlan0 in /etc/network/interfaces
     	if [ "$(grep -i '^auto wlan0' /etc/network/interfaces | wc -l)" -lt "1" ]; then
@@ -44,6 +51,8 @@ if [ "$(LANG=C && /sbin/ifconfig wlan0 | grep 'HWaddr' | wc -l)" -gt "0" -a "$(L
 		fi
 		    	
     	# Startup wlan0 with new Config
+    	wpa_action wlan0 stop
+        wpa_action wlan0 reload        
     	/sbin/ifup wlan0
     	
     	# Activate Auto-Reconnect on Loosing Connection

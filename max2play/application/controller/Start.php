@@ -88,11 +88,13 @@ class Start extends Service {
 				
 			// Disable Squeezebox-Server, Audioplayer, Remove Autostart Audioplayer
 			$this->removePlugins(array ('Audioplayer', 'Squeezebox Server'));
-			$this->saveConfigFileParameter('/opt/max2play/autostart.conf', 'squeezelite', 0);
+			$this->saveConfigFileParameter('/opt/max2play/autostart.conf', 'squeezelite', 0);			
 			$this->saveConfigFileParameter('/opt/max2play/autostart.conf', 'shairport', 0);
 			$this->saveConfigFileParameter('/opt/max2play/autostart.conf', 'mpd', 1);
 			$this->saveConfigFileParameter('/opt/max2play/autostart.conf', 'ympd', 1);
-				
+			$this->stop('squeezelite');
+			$this->stop('shairport');
+			
 			//Create Sambashare for /var/lib/mpd
 			include_once(APPLICATION_PATH.'/model/Samba.php');
 			$smb = new Samba();
@@ -117,6 +119,7 @@ class Start extends Service {
 			$this->saveConfigFileParameter('/opt/max2play/autostart.conf', 'squeezelite', 1);
 			$this->saveConfigFileParameter('/opt/max2play/autostart.conf', 'mpd', 0);
 			$this->saveConfigFileParameter('/opt/max2play/autostart.conf', 'shairport', 0);
+			$this->stop('shairport');
 			$this->view->message[] = _t('Audioplayer Squeezelite is enabled and can be configured on Audioplayer-tab. Install a Squeezebox Server, if you do not already have one running.');
 		}
 
@@ -124,11 +127,13 @@ class Start extends Service {
 			$this->enablePlugin('Audioplayer', 2);
 			$this->removePlugins(array ('Squeezebox Server'));
 			$this->saveConfigFileParameter('/opt/max2play/autostart.conf', 'squeezelite', 0);
+			$this->stop('squeezelite');
 			$this->saveConfigFileParameter('/opt/max2play/autostart.conf', 'shairport', 1);
 			$this->saveConfigFileParameter('/opt/max2play/autostart.conf', 'mpd', 0);
 			$this->view->message[] = _t('Airplay is now enabled by default.');
 		}
 		$this->saveConfigFileParameter('/opt/max2play/options.conf', 'purpose', $purpose);
+		$this->view->message[] = str_replace('$SERVERIP',(strpos($_SERVER['SERVER_ADDR'], ':') !== FALSE) ? '['.$_SERVER['SERVER_ADDR'].']' : $_SERVER['SERVER_ADDR'], _('Please restart your device! To restart now <a href="http://$SERVERIP/plugins/max2play_settings/controller/Basic.php?action=reboot&redirecturl='.urlencode('http://').'$SERVERIP">just click here</a>.'));
 	}
 		
 	/**

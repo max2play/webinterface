@@ -1,0 +1,19 @@
+1. Basic Setup
+ - enable WPS
+ - remove Premium License if set
+ - update to latest version
+ - DO NOT: expand filesystem
+
+2. Setup Images
+
+Default Config Display Image 7"
+ - Install Display 7"
+ - Autostart Jivelite
+ - Remove Autostart Desktop
+ - "-v" Parameter Squeezelite for Jivelite Visualizer
+ - Display Settings: rotate, remove mousepointer, Kodi 1-Click
+ 
+HifiBerry / IQAudIO / JustBoom
+ - Set Default DAC in boot config 
+
+3. Run Script create_image_pre.sh

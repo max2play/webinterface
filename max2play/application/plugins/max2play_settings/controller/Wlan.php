@@ -40,12 +40,20 @@ class Wlan extends Service {
 				$this->view->message[] = _("Data saved");
 				$this->_getWirelessConfig();
 			}
-	
+			if($_GET['action'] == 'start_wps'){
+				$this->_startWPS();
+			}			
 			if($_GET['action'] == 'scanWlanNetworks'){
 				$this->_showWlanNetworks();
 			}
 		}
 		$this->showHelpSidebar();
+	}
+	
+	private function _startWPS(){
+		$this->view->message[] = nl2br($this->writeDynamicScript(array("/opt/max2play/wps_config.sh")));
+		$this->_getWirelessConfig();
+		return true;
 	}
 	
 	private function _showWlanNetworks(){

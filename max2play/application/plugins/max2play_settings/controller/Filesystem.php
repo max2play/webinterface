@@ -314,12 +314,12 @@ class Filesystem extends Service {
 		$output = explode("\n", $this->writeDynamicScript(array("blkid")));
 		if(isset($output[0])){
 			$this->view->mountpointsSDA = array();
-			foreach($output as $value){				
-				if(preg_match('@(/dev/sd[^:]*): LABEL="([^"]*)" UUID="([^"]*)" TYPE="([^"]*)"@', $value, $match)){					
-					$this->view->mountpointsSDA[$match[1]] = array('device' => $match[1], 'label' => $match[2], 'uuid' => $match[3], 'type' => $match[4], 'path' => _('not mounted'));
+			foreach($output as $value){
+				if(preg_match('@(/dev/sd[^:]*):( LABEL="([^"]*)")? UUID="([^"]*)" TYPE="([^"]*)"@', $value, $match)){
+					$this->view->mountpointsSDA[$match[1]] = array('device' => $match[1], 'label' => $match[3], 'uuid' => $match[4], 'type' => $match[5], 'path' => _('not mounted'));
 					if(isset($this->view->mounts[0])){
 						foreach($this->view->mounts as $mnt){
-							if($mnt->getMountpoint() == 'UUID='.$match[3]){
+							if($mnt->getMountpoint() == 'UUID='.$match[4]){
 								$this->view->mountpointsSDA[$match[1]]['fixmounted'] = true;								
 							}
 						}

@@ -130,6 +130,7 @@
 			<b><?php echo _("Force Update to latest Beta for Max2Play (Development)") ?></b></p>
 		<p><?php echo _("READ CAREFULLY: This function is for developers and users that want to test the latest available Max2Play before it is released. This might have some bugs and will not be supported in forums and questions by mails!") ?><br />
 		<input type="button" value="<?php echo _("Update2Beta Max2Play") ?>" name=checkMax2PlayBetaUpdate onclick="document.getElementById('action').value='checkMax2PlayBetaUpdate';submit();" />&nbsp;&nbsp;
+		(Debug Webinterface <input type="checkbox" <?php if($basic->debug) echo "checked"; ?> value="1" name="DEBUG_WEBINTERFACE" onclick="$('body').addClass('loading');document.getElementById('action').value='switchDEBUG_WEBINTERFACE';submit();" />)
 		<br /><br />
 	<?php } ?>	
 	
@@ -234,7 +235,7 @@
 	<br /><br />
 	</form>
 	
-	<?php echo _("DEBUG Info") ?>:
+	<?php echo _("DEBUG Info") ?>:<br />
 	<textarea rows="5" cols="80" readonly><?php foreach ($basic->view->debug as $key => $debug) {
 			echo "#### ". $key. " ####\n"; 
 			 echo $debug." \n\n"; 

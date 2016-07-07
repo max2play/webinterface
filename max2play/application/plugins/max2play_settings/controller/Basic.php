@@ -55,6 +55,10 @@ class Basic extends Service {
 				$this->fixUsbMount();
 			}
 			
+			if($_GET['action'] == 'switchDEBUG_WEBINTERFACE'){
+				$this->switchDebugWebinterface();
+			}
+						
 			if($_GET['action'] == 'checkMax2PlayUpdate'){
 				$this->checkMax2PlayUpdate();
 			}
@@ -289,6 +293,15 @@ class Basic extends Service {
 		}		
 	}
 	
+	/**
+	 * Activate / Deactivate Debug
+	 */
+	public function switchDebugWebinterface(){
+		$this->saveConfigFileParameter('/opt/max2play/options.conf', 'DEBUG_WEBINTERFACE', isset($_REQUEST['DEBUG_WEBINTERFACE']));
+		$this->debug = isset($_REQUEST['DEBUG_WEBINTERFACE']);
+		$this->view->message[] = _("The Debug Output (console commands) is shown in the top right corner on each page.");
+		return true;
+	}
 	
 	/**
 	 * Change Player Name
@@ -306,6 +319,7 @@ class Basic extends Service {
 				
 				//Hosts anpassen
 				$output = $this->writeDynamicScript(array('sed -i \'s/'.$this->getHostname($this->view->playername).' '.$this->view->playername.'/'.$this->getHostname($name).' '.$name.'/\' /etc/hosts'));
+				$output = $this->writeDynamicScript(array('sed -i \'s/'.$this->view->playername.'/'.$name.'/\' /etc/hosts'));
 				
 				$this->view->message[] = _("Changes successful - Reboot needed");
 				return true;

@@ -107,6 +107,15 @@ sed -i 's/done;\/bin\/mount -a/done;set +e;\/bin\/mount -a;set -e;/' /etc/rc.loc
 
 HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709\|BCM2837" | wc -l)
 if [ "$HW_RASPBERRY" -gt "0" ]; then
+	#Fix for wrong hostname in Image 2.31
+	HOSTNAME=$(cat /etc/hostname)
+	if [ ! "$HOSTNAME" = "" ]; then 		
+		sudo sed -i "s/raspberrypi/$HOSTNAME/;s/max2play/$HOSTNAME/" /etc/hosts
+	fi
+	
+	#Timeout fix on Start / Stop (90sec wait)
+	sudo sed -i "s/#DefaultTimeoutStartSec=.*/DefaultTimeoutStartSec=10s/;s/#DefaultTimeoutStopSec=.*/DefaultTimeoutStopSec=10s/" /etc/systemd/system.conf
+	
 	sudo sed -i 's@/var/lib/mpd:/bin/false@/var/lib/mpd:/bin/bash@' /etc/passwd
 	sudo usermod -aG audio mpd
 	sudo sed -i 's/odroid/pi/' /etc/usbmount/usbmount.conf

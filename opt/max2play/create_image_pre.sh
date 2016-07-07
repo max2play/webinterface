@@ -17,6 +17,9 @@ rm /etc/dhcpcd.duid
 rm /etc/dhcpcd.secret
 rm /etc/resolv.conf
 
+# Replace Name of Host
+sed -i "s/raspberrypi/max2play/" /etc/hosts 
+
 #TODO: delete premium-license, set default settings?
 
 su -l pi -c "history -c"

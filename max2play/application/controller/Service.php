@@ -49,15 +49,15 @@ class Service {
 		$this->view = new stdClass();
 		$this->view->message = array(); // Array of Messages for View
 		$this->info = new Info();
-		if(isset($_REQUEST['debug']) && $_REQUEST['debug'] == true){
+		if($this->getConfigFileParameter('/opt/max2play/options.conf','DEBUG_WEBINTERFACE') == true || isset($_REQUEST['debug']) && $_REQUEST['debug'] == true){
 			$this->debug = true;
-		}	
+		}		
 	}
 	
 	/**
 	 * Function for Instance of Serviceclass to load Global Parameters (e.g. for Header)
 	 */
-	public function loadDefaults(){
+	public function loadDefaults(){		
 		$this->getPlayername();
 		$this->getAllNetworkPlayers();
 		$this->getVersion();
@@ -1033,6 +1033,16 @@ class Service {
 			$this->writeDynamicScript(array('sed -i "s@dtparam=audio=on@dtparam=audio=off@" /boot/config.txt'));
 		}
 		return true;
+	}
+	
+	/**
+	 * Needed for IPv6 to get correct URL for Redirects
+	 */
+	public function getServerUrl(){
+		if(strpos($_SERVER['SERVER_ADDR'], ':') !== FALSE)
+			return '['.$_SERVER['SERVER_ADDR'].']'; 
+		else 
+			return $_SERVER['SERVER_ADDR'];
 	}
 }
 
