@@ -15,9 +15,11 @@ if [ -e $pluginname ]; then
 elif [ -z "$name" ]; then
         echo "No valid Name! Not created."
 else
-        cp -R /var/www/max2play/application/plugins/example/ $pluginname        
-        sed -i "s/Exampleclass/$uppercase/g" $pluginname/controller/Setup.php
+        cp -R /var/www/max2play/application/plugins/example/ $pluginname
+        chmod -R 777 $pluginname/
+        sed -i "s/Exampleclass Setup/$uppercase/g" $pluginname/controller/Setup.php
         sed -i "s/exampleclass/$name/g" $pluginname/controller/Setup.php
         sed -i "s/exampleclass/$name/g" $pluginname/view/setup.php
+        echo 'custom=1' > $pluginname/custom.txt
         echo "Plugin $name Created"
 fi

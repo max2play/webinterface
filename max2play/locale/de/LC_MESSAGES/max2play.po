@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-07 14:25+0100\n"
-"PO-Revision-Date: 2016-07-07 14:31+0100\n"
+"POT-Creation-Date: 2016-07-11 12:34+0100\n"
+"PO-Revision-Date: 2016-07-11 12:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -1449,11 +1449,13 @@ msgid ""
 "Disable services from www.mysqueezebox.com and render thumbnail images "
 "locally."
 msgstr ""
+"Deaktiviere Dienste von www.mysqueezebox.com und erstelle Vorschaubilder "
+"lokal."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:63
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:63
 msgid "Delay Startup of Squeezebox Server on Boot"
-msgstr ""
+msgstr "Verzögere Start von Squeezebox Server beim Booten"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:64
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:64
@@ -1462,6 +1464,9 @@ msgid ""
 "might have discovered no internet connection on boot. Delay the start by 30 "
 "seconds to solve this problem."
 msgstr ""
+"Verzögerung in Sekunden. Wenn z.B. Radiolisten nicht angezeigt werden kann "
+"es sein, dass der Squeezebox Server beim Start noch keine Internetverbindung "
+"hatte. Eine Verzögerung des Startens kann dies beheben."
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/squeezeserver.php:83
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/squeezeserver.php:83
@@ -1894,7 +1899,7 @@ msgstr "Automatisches WLAN Setup mit WPS"
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/wlan.php:109
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/wlan.php:109
 msgid "Activate WPS on Boot"
-msgstr ""
+msgstr "Aktiviere WPS beim Booten"
 
 #: y:\projects\max2play\max2play\application\plugins\max2play_settings/view/wlan.php:111
 #: y:\projects\max2play\max2play\application/plugins/max2play_settings/view/wlan.php:111
@@ -2797,50 +2802,55 @@ msgstr "Hilfebox kann in den Einstellungen wieder aktiviert werden."
 msgid "Topics"
 msgstr "Themen"
 
-#: y:\projects\max2play\max2play\application\view/footer.php:55
-#: y:\projects\max2play\max2play\application/view/footer.php:55
+#: y:\projects\max2play\max2play\application\view/footer.php:56
+#: y:\projects\max2play\max2play\application/view/footer.php:56
+msgid "Wiki for this page"
+msgstr "Wiki für diese Seite"
+
+#: y:\projects\max2play\max2play\application\view/footer.php:58
+#: y:\projects\max2play\max2play\application/view/footer.php:58
 msgid "Features"
 msgstr "Übersicht Funktionen"
 
-#: y:\projects\max2play\max2play\application\view/footer.php:56
-#: y:\projects\max2play\max2play\application/view/footer.php:56
+#: y:\projects\max2play\max2play\application\view/footer.php:59
+#: y:\projects\max2play\max2play\application/view/footer.php:59
 msgid "http://www.max2play.com/faq/"
 msgstr "http://www.max2play.com/faq/"
 
-#: y:\projects\max2play\max2play\application\view/footer.php:56
-#: y:\projects\max2play\max2play\application/view/footer.php:56
+#: y:\projects\max2play\max2play\application\view/footer.php:59
+#: y:\projects\max2play\max2play\application/view/footer.php:59
 #: y:\projects\max2play\max2play\application/plugins/callblocker/view/footer_custom.php:33
 msgid "FAQ - Questions & Answers"
 msgstr "FAQ - Fragen & Antworten"
 
-#: y:\projects\max2play\max2play\application\view/footer.php:57
-#: y:\projects\max2play\max2play\application/view/footer.php:57
+#: y:\projects\max2play\max2play\application\view/footer.php:60
+#: y:\projects\max2play\max2play\application/view/footer.php:60
 msgid "http://www.max2play.com/en/addons/"
 msgstr "http://www.max2play.com/addons/"
 
-#: y:\projects\max2play\max2play\application\view/footer.php:57
-#: y:\projects\max2play\max2play\application/view/footer.php:57
+#: y:\projects\max2play\max2play\application\view/footer.php:60
+#: y:\projects\max2play\max2play\application/view/footer.php:60
 msgid "Addons and Feature Requests"
 msgstr "Erweiterungen und neue Ideen"
 
-#: y:\projects\max2play\max2play\application\view/footer.php:58
-#: y:\projects\max2play\max2play\application/view/footer.php:58
+#: y:\projects\max2play\max2play\application\view/footer.php:61
+#: y:\projects\max2play\max2play\application/view/footer.php:61
 #, fuzzy
 msgid "http://www.max2play.com/en/forums/"
 msgstr "http://www.max2play.com/addons/"
 
-#: y:\projects\max2play\max2play\application\view/footer.php:58
-#: y:\projects\max2play\max2play\application/view/footer.php:58
+#: y:\projects\max2play\max2play\application\view/footer.php:61
+#: y:\projects\max2play\max2play\application/view/footer.php:61
 msgid "Technical Support"
 msgstr ""
 
-#: y:\projects\max2play\max2play\application\view/footer.php:63
-#: y:\projects\max2play\max2play\application/view/footer.php:63
+#: y:\projects\max2play\max2play\application\view/footer.php:66
+#: y:\projects\max2play\max2play\application/view/footer.php:66
 msgid "News"
 msgstr "Neuigkeiten"
 
-#: y:\projects\max2play\max2play\application\view/footer.php:74
-#: y:\projects\max2play\max2play\application/view/footer.php:74
+#: y:\projects\max2play\max2play\application\view/footer.php:77
+#: y:\projects\max2play\max2play\application/view/footer.php:77
 msgid ""
 "Max2Play - <a target=\"_blank\" href=\"http://www.max2play.com/en/features/"
 "\" title=\"Powered by Max2Play\">the <i>easy to use</i> webinterface and "

@@ -52,9 +52,12 @@
 				<aside class="widget">
 					<h3 class="widget-title"><?php echo _('Topics') ?></h3>
 					<ul>
+						<?php if (isset($helpOnSidebar) && $helpOnSidebar !== false && isset($helpOnSidebar['wikilink'])){ ?>
+							<li><a href="<?php echo $helpOnSidebar['wikilink']; ?>" target="_blank" title="Wiki"><?php echo _('Wiki for this page') ?></a></li>
+						<?php }?>
 						<li><a href="/" title="Info"><?php echo _('Features') ?></a></li>	
 						<li><a href="<?php echo _('http://www.max2play.com/faq/') ?>" target="_blank" title="FAQ"><?php echo _('FAQ - Questions & Answers') ?></a></li>
-						<li><a href="<?php echo _('http://www.max2play.com/en/addons/') ?>" target="_blank" title="Addons"><?php echo _('Addons and Feature Requests') ?></a></li>
+						<li><a href="<?php echo _('http://www.max2play.com/en/addons/') ?>" target="_blank" title="Addons"><?php echo _('Addons and Feature Requests') ?></a></li>						
 						<li><a href="<?php echo _('http://www.max2play.com/en/forums/') ?>" target="_blank" title="Support"><?php echo _('Technical Support') ?></a></li>
 					</ul>
 				</aside>

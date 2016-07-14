@@ -876,13 +876,19 @@ class Service {
 									$updateURL = $lastUpdate = '';
 									if(file_exists(APPLICATION_PATH.'/plugins/'.$file.'/config.txt')){
 										$updateURL = $this->getConfigFileParameter(APPLICATION_PATH.'/plugins/'.$file.'/config.txt', 'UPDATEURL');
-										$lastUpdate = $this->getConfigFileParameter(APPLICATION_PATH.'/plugins/'.$file.'/config.txt', 'LASTUPDATE');
+										$lastUpdate = $this->getConfigFileParameter(APPLICATION_PATH.'/plugins/'.$file.'/config.txt', 'LASTUPDATE');										
 									}
+									if(file_exists(APPLICATION_PATH.'/plugins/'.$file.'/custom.txt')){
+										$customPlugin = true;
+									}else
+										$customPlugin = false;
+									
 									$plugins_avail[$match[1]] = array('name' => $match[1],
 											'navigation' => array('translate' => $match[1]),
 											'path' => $path,
 											'updateurl' => $updateURL,
 											'lastupdate' => $lastUpdate,
+											'custom' => $customPlugin
 									);
 								}
 							}
@@ -916,9 +922,9 @@ class Service {
 				}
 			}
 			if($active)
-				$pluginselect[$position] = array('name' => $pa['name'], 'active' => $active, 'default' => $default);
+				$pluginselect[$position] = array('name' => $pa['name'], 'active' => $active, 'default' => $default, 'custom' => $pa['custom']);
 			else
-				$pluginselect[$pos++] = array('name' => $pa['name'], 'active' => $active, 'default' => $default);
+				$pluginselect[$pos++] = array('name' => $pa['name'], 'active' => $active, 'default' => $default, 'custom' => $pa['custom']);
 		}
 		ksort($pluginselect);
 		$this->view->pluginselect = $pluginselect;

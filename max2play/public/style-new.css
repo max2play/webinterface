@@ -212,6 +212,11 @@ input[type="submit"], input[type="button"], input[type="reset"] {
     line-height: 1.4;
     padding: 0.4rem 0.7rem;    
 }
+input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
+	background-color: #d3d3d3;
+	background-image: -moz-linear-gradient(center top , #E6E6E6, #d3d3d3);
+}
+
 .entry-content {
 	line-height: 1.3em;
 }

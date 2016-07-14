@@ -160,12 +160,16 @@ class Xbmc extends Service {
 			}elseif(strpos($url, 'plugin.video.youtube') !== FALSE){
 					$this->writeDynamicScript(array('curl -L https://github.com/kolinger/plugin.video.youtube/archive/master.zip > /opt/max2play/cache/plugin.video.youtube-master.zip;if [ -e "/home/'.$this->getSystemUser().'/.kodi" ]; then rm -r /home/'.$this->getSystemUser().'/.kodi/userdata/addon_data/plugin.video.youtube;rm -r /home/'.$this->getSystemUser().'/.kodi/addons/plugin.video.youtube;sudo -u '.$this->getSystemUser().' unzip /opt/max2play/cache/plugin.video.youtube-master.zip -d /home/'.$this->getSystemUser().'/.kodi/addons; else unzip /opt/max2play/cache/plugin.video.youtube-master.zip -d /home/'.$this->getSystemUser().'/.xbmc/addons;fi;'));
 					$this->view->message[] = _('Plugin installed');
+			}elseif(strpos($url, 'kodi-platform-pi-jessie') !== FALSE){
+				$this->view->message[] = nl2br($this->writeDynamicScript(array('sudo /var/www/max2play/application/plugins/max2play_settings/scripts/installkodiplatform-jessie-pi.sh')));
 			}		
 			else{
 				shell_exec('wget -P /opt/max2play/cache "'.$url.'" -o /opt/max2play/cache/download.txt');
 				$this->view->message[] = nl2br(shell_exec('cat /opt/max2play/cache/download.txt'));
 				$this->view->message[] = _('Plugin downloaded to path /opt/max2play/cache');
 			}
+			// TODO Check for Kodi Plattform Files - No PVR Plugins working if Kodi Platform not present
+						
 		}
 					
 		return true;
