@@ -405,3 +405,29 @@ body.loading .modal {
     padding: 12% 0 0 !important;    
     width: 100%;
 }
+#tabs-min, #systemselect {
+    color: #444444;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 1rem;		    
+    font-family: "Open Sans",Helvetica,Arial,sans-serif;
+}
+#tabs-min { 
+    background: transparent; 
+    border: none; 
+} 
+#tabs-min .ui-widget-header { 
+    background: transparent; 
+    border: none; 
+    border-bottom: 1px solid #c0c0c0; 
+    -moz-border-radius: 0px; 
+    -webkit-border-radius: 0px; 
+    border-radius: 0px; 
+} 
+#tabs-min .ui-tabs-nav .ui-state-default { 
+    background: transparent; 
+    border: none; 
+} 
+#tabs-min .ui-tabs-nav .ui-state-active { 
+    background: transparent url(/css/ui-lightness/images/uiTabsArrow.png) no-repeat bottom center; 
+    border: none; 
+} 		

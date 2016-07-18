@@ -30,59 +30,60 @@ class Basic extends Service {
 	public function __construct(){										
 		parent::__construct();
 		$this->pluginname = _('Settings / Reboot');
+		$reboot = false;
 		
 		$this->view->locales = array('deutsch / Deutschland' => 'de_DE.UTF-8', 'deutsch / Schweiz' => 'de_CH.UTF-8', 'english' => 'en_GB.UTF-8', 'italiano' => 'it_IT.UTF-8','français' => 'fr_FR.UTF-8', 'türkçe' => 'tr_TR.UTF-8', 'nederlands' => 'nl_NL.UTF-8', 'español' => 'es_ES.UTF-8','português' => 'pt_PT.UTF-8', 'english / US' => 'en_US.UTF-8');
 		
-		if(isset($_GET['action'])){
-			if($_GET['action'] == 'reboot'){
+		if(isset($_REQUEST['action'])){
+			if($_REQUEST['action'] == 'reboot'){
 				$reboot = $this->reboot();			
 			}
 			
-			if($_GET['action'] == 'reset'){
+			if($_REQUEST['action'] == 'reset'){
 				$this->view->message[] = $this->resetFactoryDefaults();
 			}
 			
-			if($_GET['action'] == 'shutdown'){
+			if($_REQUEST['action'] == 'shutdown'){
 				$this->view->message[] = _("Shutdown initiated - press the power button on device to start it again");
 				$this->view->message[] = $this->writeDynamicScript(array('poweroff'));				
 			}
 			
-			if($_GET['action'] == 'expandfs'){
+			if($_REQUEST['action'] == 'expandfs'){
 				$this->resizeFS();
 			}
 			
-			if($_GET['action'] == 'fixusbmount'){
+			if($_REQUEST['action'] == 'fixusbmount'){
 				$this->fixUsbMount();
 			}
 			
-			if($_GET['action'] == 'switchDEBUG_WEBINTERFACE'){
+			if($_REQUEST['action'] == 'switchDEBUG_WEBINTERFACE'){
 				$this->switchDebugWebinterface();
 			}
 						
-			if($_GET['action'] == 'checkMax2PlayUpdate'){
+			if($_REQUEST['action'] == 'checkMax2PlayUpdate'){
 				$this->checkMax2PlayUpdate();
 			}
-			if($_GET['action'] == 'checkMax2PlayBetaUpdate'){
+			if($_REQUEST['action'] == 'checkMax2PlayBetaUpdate'){
 				$this->checkMax2PlayUpdate('beta');
 			}
 			
-			if($_GET['action'] == 'pluginconfig'){
-				$this->view->message[] = $this->pluginConfig($_GET['activeplugin'], $_GET['defaultplugin']);
+			if($_REQUEST['action'] == 'pluginconfig'){
+				$this->view->message[] = $this->pluginConfig($_REQUEST['activeplugin'], $_REQUEST['defaultplugin']);
 				$this->loadViewHeader(true);
 			}
-			if($_GET['action'] == 'installplugin'){				
-				$this->installPlugin($_GET['installplugin'], true);
+			if($_REQUEST['action'] == 'installplugin'){				
+				$this->installPlugin($_REQUEST['installplugin'], true);
 			}
 			
-			if($_GET['action'] == 'save'){
-				if(isset($_GET['playername']))
-					$this->updatePlayername($_GET['playername']);
-				if(isset($_GET['locale']))
-					$this->updateLocale($_GET['timezone'], $_GET['locale']);
+			if($_REQUEST['action'] == 'save'){
+				if(isset($_REQUEST['playername']))
+					$this->updatePlayername($_REQUEST['playername']);
+				if(isset($_REQUEST['locale']))
+					$this->updateLocale($_REQUEST['timezone'], $_REQUEST['locale']);
 				
-				$this->setDonateButton((isset($_GET['removedonate']) ? 1 : 0));
-				$this->updateEmail($_GET['email']);
-				$this->updateDisplayResolution($_GET['displayResolution']);
+				$this->setDonateButton((isset($_REQUEST['removedonate']) ? 1 : 0));
+				$this->updateEmail($_REQUEST['email']);
+				$this->updateDisplayResolution($_REQUEST['displayResolution']);
 				$this->updateMax2playNetworkLookup();
 				$this->setHelpOnSidebar($_REQUEST['showhelponsidebar']);
 				if($this->getHardwareInfo() == 'Raspberry PI'){
@@ -360,7 +361,7 @@ class Basic extends Service {
 	}
 	
 	public function updateMax2playNetworkLookup(){
-		if($this->updateAutostart('Max2PlayNetworkLookup', (bool)$_GET['Max2PlayNetworkLookup'], true)){
+		if($this->updateAutostart('Max2PlayNetworkLookup', (bool)$_REQUEST['Max2PlayNetworkLookup'], true)){
 			$this->view->message[] = _('Max2Play Network Player Lookup saved');
 			$this->loadViewHeader(true);
 		}

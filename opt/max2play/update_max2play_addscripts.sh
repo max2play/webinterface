@@ -218,6 +218,17 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		rm /etc/systemd/system/usbmount@.service
 		rm /etc/udev/rules.d/usbmount.rules		
 	fi
+	
+	EXFATINSTALLED=$(dpkg -s exfat-fuse | grep "Status: install ok" | wc -l)	
+	if [ "$EXFATINSTALLED" -lt "1" ]; then
+		apt-get update
+		echo "Y" | apt-get install exfat-fuse exfat-utils --yes
+		# fix USB-Mount filesystem Options
+		EXFATUSBMOUNT=$(grep -i "exfat" /etc/usbmount/usbmount.conf | wc -l)
+		if [ "$EXFATUSBMOUNT" -lt "1" ]; then
+			sed -i 's/hfsplus/hfsplus exfat/' /etc/usbmount/usbmount.conf
+		fi
+	fi	
 fi
 
 #htaccess Password Protection Overwrite Backup

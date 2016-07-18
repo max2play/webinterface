@@ -802,8 +802,19 @@ class Service {
 	 * @param position at position X
 	 */
 	public function installPlugin($pathToPlugin = '', $autoenable = false, $position = false, $default = false){
+		$uploadsuccess = false;
+		if($pathToPlugin == '' && isset($_FILES['uploadedfile']) && $_FILES['uploadedfile']['tmp_name']){
+			$uploaddir = '/var/www/max2play/public/';
+			$uploadfile = $uploaddir . basename($_FILES['uploadedfile']['name']);
+			$this->view->message[] = _("File Uploaded");
+			if (move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $uploadfile)) {
+				$pathToPlugin = "http://{$_SERVER['HTTP_HOST']}".'/'.basename($_FILES['uploadedfile']['name']);
+				$uploadsuccess = true;
+				$this->view->message[] = _("File moved successful");
+			}
+		}
 		$this->getEmail();
-		if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$pathToPlugin)) {
+		if (!$uploadsuccess && !preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$pathToPlugin)) {
 			$this->view->message[] = _("Invalid Plugin-URL");
 		}else{
 			$linux = $this->getLinuxVersion();
@@ -886,6 +897,7 @@ class Service {
 									$plugins_avail[$match[1]] = array('name' => $match[1],
 											'navigation' => array('translate' => $match[1]),
 											'path' => $path,
+											'folder' => $file,
 											'updateurl' => $updateURL,
 											'lastupdate' => $lastUpdate,
 											'custom' => $customPlugin
@@ -922,9 +934,9 @@ class Service {
 				}
 			}
 			if($active)
-				$pluginselect[$position] = array('name' => $pa['name'], 'active' => $active, 'default' => $default, 'custom' => $pa['custom']);
+				$pluginselect[$position] = array('name' => $pa['name'], 'active' => $active, 'default' => $default, 'custom' => $pa['custom'], 'folder' => $pa['folder']);
 			else
-				$pluginselect[$pos++] = array('name' => $pa['name'], 'active' => $active, 'default' => $default, 'custom' => $pa['custom']);
+				$pluginselect[$pos++] = array('name' => $pa['name'], 'active' => $active, 'default' => $default, 'custom' => $pa['custom'], 'folder' => $pa['folder']);
 		}
 		ksort($pluginselect);
 		$this->view->pluginselect = $pluginselect;

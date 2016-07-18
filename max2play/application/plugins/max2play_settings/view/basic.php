@@ -40,7 +40,7 @@
 		</div>
 	<?php } ?>	
 	
-	<form id="settings" action="" method="get">
+	<form id="settings" action="" enctype="multipart/form-data" method="POST">
 	<input type="hidden" id="action" name="action" value="" />
 		
 	<table class="settings">
@@ -230,11 +230,37 @@
 	<br /><br />
 	<?php echo _('You may install new Plugins by entering the http-link to the Pluginfile (zip/tar/tar.gz).<br /><a class="download-button" href="http://www.max2play.com/features/plugins/" target="_blank"> A list of Max2Play-Extensions can be found here</a>') ?>
 	<br />
-	<?php echo _('Enter http-URL')?> <input type="text" id="installplugin" name="installplugin" value="" />	
-	<input type="button" value="<?php echo _("Install new Plugin") ?>" name="installplugin" onclick="document.getElementById('action').value='installplugin';submit();" /><br />	
-	<br /><br />
+	<div id="tabs-min">
+	  <ul>
+	    <li><a href="#tabs-1"><?php echo _('Install from Max2Play Website') ?></a></li>
+	    <li><a href="#tabs-2"><?php echo _('Install from local file') ?></a></li>	    
+	  </ul>
+	  <div id="tabs-1">
+	    <p>
+	    	<?php echo _('Enter http-URL')?> <input type="text" id="installplugin" name="installplugin" value="" />	
+			<input type="button" value="<?php echo _("Install new Plugin") ?>" name="installplugin" onclick="document.getElementById('action').value='installplugin';submit();" /><br />	    	 
+	 	</p>
+	  </div>
+	  <div id="tabs-2">
+	    <p>
+	      <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+		  <?php echo _('Custom Max2Play-Plugin Upload');?>: 
+		  <input name="uploadedfile" type="file" />
+		  <input type="button" value="<?php echo _("Install new Plugin") ?>" name="installplugin" onclick="document.getElementById('action').value='installplugin';submit();" /><br />
+	     
+	    </p>
+	  </div>	  
+	</div>
+	
+	  <script>
+	  $(function() {
+	    $( "#tabs-min" ).tabs();
+	  });
+	  </script>
+	  <br /><br />
 	</form>
 	
+	<br />
 	<?php echo _("DEBUG Info") ?>:<br />
 	<textarea rows="5" cols="80" readonly><?php foreach ($basic->view->debug as $key => $debug) {
 			echo "#### ". $key. " ####\n"; 
