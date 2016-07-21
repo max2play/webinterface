@@ -804,11 +804,13 @@ class Service {
 	public function installPlugin($pathToPlugin = '', $autoenable = false, $position = false, $default = false){
 		$uploadsuccess = false;
 		if($pathToPlugin == '' && isset($_FILES['uploadedfile']) && $_FILES['uploadedfile']['tmp_name']){
-			$uploaddir = '/var/www/max2play/public/';
+			$uploaddir = '/var/www/max2play/public/addons/';
 			$uploadfile = $uploaddir . basename($_FILES['uploadedfile']['name']);
 			$this->view->message[] = _("File Uploaded");
+			// make sure File write access for www-data: save in Addon Folder
+			$this->writeDynamicScript(array('chmod 777 '.$uploaddir));
 			if (move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $uploadfile)) {
-				$pathToPlugin = "http://{$_SERVER['HTTP_HOST']}".'/'.basename($_FILES['uploadedfile']['name']);
+				$pathToPlugin = "http://{$_SERVER['HTTP_HOST']}".'/addons/'.basename($_FILES['uploadedfile']['name']);
 				$uploadsuccess = true;
 				$this->view->message[] = _("File moved successful");
 			}

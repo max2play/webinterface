@@ -19,10 +19,13 @@ apt-get update
 echo "Y" | apt-get install hostapd dnsmasq
 
 # Check for Realtek Chipset (Edimax) and switch hostapd binary
+# ONLY for Debian Wheezy...
 IS_EDIMAX=$(sudo lsusb | grep "Wireless\|Edimax" | grep "RTL8188CUS\|Edimax" | wc -l)
-if [ "$IS_EDIMAX" -gt "0" ]; then 
-    echo "Change hostapd-Binary to Edimax RTL8188CUS Chipset"
+if [ "$IS_EDIMAX" -gt "0" -a "$(lsb_release -r | grep '8.0' | wc -l)" -lt "1" ]; then 
+    echo "Change hostapd-Binary to Edimax RTL8188CUS Chipset for Debian Wheezy"
     sudo cp /usr/sbin/hostapd /usr/sbin/hostapd-old;sudo cp -f /opt/max2play/hostapd-rtl /usr/sbin/hostapd
+elif [ -e /usr/sbin/hostapd-old ]; then
+	sudo cp /usr/sbin/hostapd-old /usr/sbin/hostapd
 fi
 
 # Copy config file for DHCP Server

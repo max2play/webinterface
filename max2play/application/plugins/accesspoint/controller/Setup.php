@@ -77,6 +77,7 @@ class Accesspoint_Setup extends Service {
 	private function _getSettings(){		
 		$this->config->passphrase = $this->getConfigFileParameter('/etc/hostapd/hostapd.conf', 'wpa_passphrase');
 		$this->config->ssid = $this->getConfigFileParameter('/etc/hostapd/hostapd.conf', 'ssid');
+		$this->config->driver = $this->getConfigFileParameter('/etc/hostapd/hostapd.conf', 'driver');
 		$this->config->standalone = trim(shell_exec('cat /etc/dnsmasq.conf | grep ^address=/#/192.168.189.1 | wc -l'));
 		
 		return true;
@@ -95,6 +96,14 @@ class Accesspoint_Setup extends Service {
 		}
 		if($_GET['ssid'] != $this->config->ssid){
 			$this->saveConfigFileParameter('/etc/hostapd/hostapd.conf', 'ssid', $_GET['ssid']);
+			$reload = true;
+		}
+		if($_GET['driver'] != $this->config->driver){			
+			if($_GET['driver'] == false)
+				$this->deleteConfigFileParameter('/etc/hostapd/hostapd.conf', 'driver');
+			else{
+				$this->saveConfigFileParameter('/etc/hostapd/hostapd.conf', 'driver', $_GET['driver']);
+			}
 			$reload = true;
 		}
 		if($reload){

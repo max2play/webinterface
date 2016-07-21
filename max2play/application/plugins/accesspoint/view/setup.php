@@ -87,6 +87,15 @@
 					<td><?php echo _t("The WiFi passphrase for this network"); ?></td> 
 				  </tr>
 				  <tr>
+					<td><?php echo _t("WiFi Driver") ?></td>
+					<td><select name="driver">
+						<option value="">Default</option>
+						<option value="nl80211" <?php if($accesspoint->config->driver == 'nl80211') echo 'selected'?>>nl80211</option>
+						</select></td>
+					<td><?php echo _t("The Driver for WiFi. For the Raspberry Pi 3 you should choose <i>nl80211</i>, if something is not working. Otherwise leave empty."); ?></td> 
+				  </tr>
+				  <tr>
+				  <tr>
 					<td><?php echo _t("Standalone") ?></td>
 					<td>
 						<input type="checkbox" id="standalone" name="standalone" value="1" <?php if ($accesspoint->config->standalone) echo "checked"; ?> />
