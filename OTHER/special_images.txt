@@ -3,6 +3,7 @@
  - remove Premium License if set
  - update to latest version
  - DO NOT: expand filesystem
+ - Delete Log Files in /var/log
 
 2. Setup Images
 

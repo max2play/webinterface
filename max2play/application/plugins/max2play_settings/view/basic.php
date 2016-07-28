@@ -60,7 +60,11 @@
 		  </tr>
 	  <?php } ?>
 	  <tr>
-		<td><?php echo _("Your eMail-Address / activation code") ?></td> 
+		<td><?php echo _("Your eMail-Address / activation code") ?><br />
+			<a class="button-small ui-state-default ui-corner-all clickloading" title="Refresh License Info" style="float:left;background-image: none; background-color: rgb(255, 255, 255);padding: 0;" href="#javascript" onclick="document.getElementById('action').value='reloadLicense';document.getElementById('settings').submit();">
+				<span class="ui-icon ui-icon-refresh"></span>
+			</a>
+		</td> 
 		<td style="width:25%;"><input style="width:95%;" type="text" id="email" name="email" value="<?php echo $basic->view->email; ?>" />
 			<?php if($basic->view->license || $basic->view->betaEnabled) { ?>
 				<div style="width: 99%; padding: 0px; background: limegreen none repeat scroll 0px 0px;"><div style="padding:5px;"><?php echo _("Activated"); if ($basic->view->licenseDate != 1) echo '<br>('.$basic->view->licenseDate.')'; ?></div></div>

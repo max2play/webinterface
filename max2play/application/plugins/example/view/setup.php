@@ -21,11 +21,15 @@
 	 with this program; if not, write to the Free Software Foundation, Inc.,
 	 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */ 
+
+/**
+ *   Put HTML and Javascript Content here
+ */
 ?>											
 
 
 <h1 class="entry-header">
-	<?php echo _("Exampleclass Setup") ?>
+	<?php echo _t("Exampleclass Setup") ?>
 </h1>
 <div class="entry-content">
 	<?php if(isset($exampleclass->view->message[0])){ ?>
@@ -41,12 +45,10 @@
 	
 	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
 			<span class="ui-icon ui-icon-wrench" style="float:left; margin:-2px 5px 0 0;"></span>
-			<b><?php echo _("This is the Example Setup Page. Configure and Test your own Plugin :)") ?></b></p>
-		
-	<br />
-	<br />
+			<b><?php echo _("This is the Example Setup Page. Configure and Test your own Plugin :)") ?></b></p>		
 	
-	<?php echo _("Example Variable: ") ?><?php echo $exampleclass->view->example ?>
+	<br />
+	<?php echo _t("Example Variable: ") ?><?php echo $exampleclass->view->example ?>
 	
 	<form id="form1" action="" method="get">
 		<input type="hidden" id="action" name="action" value="" />
@@ -59,14 +61,14 @@
 		<div class="optiondetails"> 
 			<table class="settings">
 			  <tr>
-				<td><?php echo _("Example Button") ?></td>
+				<td><?php echo _t("Example Button") ?></td>
 				<td><input type="button" id="doSomething" name="doSomething" onclick="document.getElementById('action').value='doSomething';submit();" value="<?php echo _("Do Something") ?>" /></td>
 				<td><?php echo _("Do something to get things done ...") ?></td> 
 			  </tr>	 
 			  <tr>
-				<td><?php echo _("Example Input") ?></td>
+				<td><?php echo _t("Example Input") ?></td>
 				<td><input type="text" id="inputtext" name="inputtext" value="<?php echo $exampleclass->inputtext ?>" /></td>
-				<td><?php echo _("Well - explain what this should do...") ?></td> 
+				<td><?php echo _t("Well - explain what this should do...") ?></td> 
 			  </tr>	 
 			</table>
 			
@@ -89,13 +91,13 @@
 		  <div id="tabs-1">
 		    <p>
 		    	<?php echo _t('Enter something here')?> <input type="text" id="installpath" name="installpath" value="" />	
-				<input type="button" value="<?php echo _("Install or do something") ?>" name="installplugin" onclick="document.getElementById('action').value='installplugin';submit();" /><br />	    	 
+				<input type="button" value="<?php echo _t("Complex Installer with Ajax") ?>" name="install1" onclick="document.getElementById('action').value='install';submit();" /><br />	    	 
 		 	</p>
 		  </div>
 		  <div id="tabs-2">
 		    <p>
 		      <?php echo _('Custom tab content 2');?>: 			  
-			  <input type="button" value="<?php echo _t("Do something else...") ?>" name="installplugin" onclick="document.getElementById('action').value='installplugin';submit();" /><br />		     
+			  <input type="button" value="<?php echo _t("Simple Script Start") ?>" name="install2" onclick="document.getElementById('action').value='runMyScript';submit();" /><br />		     
 		    </p>
 		  </div>	  
 		</div>
@@ -106,11 +108,13 @@
 		  });
 		  </script>
 		  
-		  
+		<br /> 
 		<?php /*
 			Accordion Example	
 			*/?>
-		
+		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+			<span class="ui-icon ui-icon-wrench" style="float:left; margin:-2px 5px 0 0;"></span>
+			<b><?php echo _t('This is an accordion element:') ?></b></p>		
 		<div id="accordion" style="max-height:500px;">
 		  <h3><?php echo _t('First Row in Accordion') ?></h3> 
 		  <div>
@@ -119,7 +123,7 @@
 		    	<a class="button-small clickloading" href="#" onclick="document.getElementById('action').value='save_purpose';$('#form1').submit();"><?php echo _("Push the button") ?></a>
 		    </p>
 		  </div>
-		  <h3><?php echo _t('Second Row ') ?></h3>
+		  <h3><?php echo _t('Second Row') ?></h3>
 		  <div>
 		    <p>
 		    	<?php echo _('This is easy - isn\'t it?') ?>
@@ -134,7 +138,16 @@
 		  <h3><?php echo _t('Third Row') ?></h3>
 		  <div>
 		    <p>
-		    <?php echo _t('Running out of ideas...') ?>		    			   
+			    <p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+					<span class="ui-icon ui-icon-volume-on" style="float:left; margin:-2px 5px 0 0;"></span>					
+					<?php if ($exampleclass->view->pid) { ?>
+						<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $exampleclass->viewname, _('$SERVICENAME is running with processID')) ?> <b><?php echo $exampleclass->view->pid ?></b></p>
+						<input type="button" value="<?php echo str_replace('$SERVICENAME', $exampleclass->viewname, _('stop $SERVICENAME')) ?>" name="stop" onclick="document.getElementById('action').value='stop';submit();" />
+						<input type="button" value="<?php echo str_replace('$SERVICENAME', $exampleclass->viewname, _('kill $SERVICENAME')) ?>" name="kill" onclick="document.getElementById('action').value='kill';submit();" />
+					<?php }else { ?>
+						<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $exampleclass->viewname, _('$SERVICENAME not running')) ?></p>
+						<input type="button" value="<?php echo str_replace('$SERVICENAME', $exampleclass->viewname, _('start $SERVICENAME')) ?>" name="start" onclick="document.getElementById('action').value='start';submit();" />	
+					<?php } ?> 
 		    </p>
 		  </div>
 		</div>	

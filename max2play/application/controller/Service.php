@@ -1064,6 +1064,29 @@ class Service {
 		else 
 			return $_SERVER['SERVER_ADDR'];
 	}
+	
+	/**
+	 * Ajax Message output
+	 * @param sting $action Function to call
+	 * @return boolean
+	 */
+	public function checkAjaxCall($action){
+		// Check for Ajax-Variable in HTTP-GET and custom action
+		if($_REQUEST['ajax'] == 1 && $_REQUEST['action'] == $action){
+			//Function to get Progress of Installation
+			if(method_exists ( $this , $action )){
+				// Call Action with Ajax Parameter 1
+				$this->$action(1);
+			}else{
+				$this->view->message[] = str_replace('$action', $action, _('Function $action not found for Ajax-Call'));
+			}
+			ob_end_clean();
+			echo implode('<br />', $this->view->message);
+			ob_flush();
+			die();
+		}
+		return true;
+	}
 }
 
 //Create Instance of Service Class

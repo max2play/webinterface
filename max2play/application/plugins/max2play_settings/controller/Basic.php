@@ -56,6 +56,10 @@ class Basic extends Service {
 				$this->fixUsbMount();
 			}
 			
+			if($_REQUEST['action'] == 'reloadLicense'){
+				$this->checkLicense();
+			}
+			
 			if($_REQUEST['action'] == 'switchDEBUG_WEBINTERFACE'){
 				$this->switchDebugWebinterface();
 			}
