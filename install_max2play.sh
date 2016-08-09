@@ -94,7 +94,13 @@ sudo echo "* * * * * /opt/max2play/start_audioplayer.sh > /dev/null 2>&1" >> cro
 crontab -u $USER cronmax2play
 rm cronmax2play
 
-sudo echo "Y" | apt-get install apache2 php5 php5-json
+if [ "$RELEASE" == "xenial" ]; then
+	# on ODROID Ubuntu 16.04
+	sudo echo "Y" | apt-get install apache2 php libapache2-mod-php php7.0-xml -y
+else
+	sudo echo "Y" | apt-get install apache2 php5 php5-json -y
+fi
+
 sudo a2enmod rewrite
 rm /etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-enabled/000-default
 cp max2play/CONFIG_SYSTEM/apache2/sites-enabled/max2play.conf /etc/apache2/sites-enabled/
@@ -105,12 +111,12 @@ sudo echo "Y" | apt-get install samba samba-common samba-common-bin mc ntfs-3g c
 
 sudo apt-get install debconf-utils
 if [ "$HW_RASPBERRY" -gt "0" ] || [ "$LINUX" == "Debian" ]; then  	
-  	sed -i 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/;s/# it_IT.UTF-8 UTF-8/it_IT.UTF-8 UTF-8/;s/# fr_FR.UFT-8 UTF-8/fr_FR.UFT-8 UTF-8/;s/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/;s/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/' /etc/locale.gen
+  	sed -i 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/;s/# it_IT.UTF-8 UTF-8/it_IT.UTF-8 UTF-8/;s/# fr_FR.UTF-8 UTF-8/fr_FR.UTF-8 UTF-8/;s/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/;s/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/' /etc/locale.gen
   	locale-gen
 else	
 	locale-gen ru_RU.UTF-8 
 	locale-gen it_IT.UTF-8
-	locale-gen fr_FR.UFT-8
+	locale-gen fr_FR.UTF-8
 	locale-gen de_DE.UTF-8 
 fi
 
@@ -321,6 +327,9 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		
 		# Pulseaudio Crackling sound?
 		#sed -i 's/^load-module module-udev-detect$/load-module module-udev-detect tsched=0/' /etc/pulse/default.pa
+		
+		#Disable IPv6 for Apache
+		sed -i 's/Listen 80/Listen 0.0.0.0:80/' /etc/apache2/ports.conf
 		
 		echo "optional: run raspbi-config and choose wait for network at boot"
 	fi
