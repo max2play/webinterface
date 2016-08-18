@@ -3,21 +3,19 @@ msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-17 17:42+0100\n"
-"PO-Revision-Date: 2016-08-18 09:51+0000\n"
-"Last-Translator: stefan <stefan@netzberater.de>\n"
+"PO-Revision-Date: 2016-08-17 17:43+0100\n"
+"Last-Translator: \n"
 "Language-Team: \n"
-"Language: en\n"
+"Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.8\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;translate\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: y:\\projects\\max2play\n"
 "X-Poedit-SearchPath-1: y:\\projects\\svn_max2play\n"
-"X-POOTLE-MTIME: 1471513917.000000\n"
 
 #: y:\projects\max2play/max2play/application/view/header.php:63
 #: y:\projects\svn_max2play/plugins/justboom/view/header_custom.php:63
@@ -26,14 +24,6 @@ msgstr ""
 #: y:\projects\svn_max2play/plugins/frankenmatic/view/header_custom.php:63
 msgid "DONATE-BUTTON"
 msgstr ""
-"<form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\" "
-"target=\"_top\"><input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\"><"
-"input type=\"hidden\" name=\"hosted_button_id\" value=\"Y89SJ9MMLEBRQ\"><"
-"input type=\"image\" src=\""
-"https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif\" border=\"0\" "
-"name=\"submit\" alt=\"PayPal – The safer, easier way to pay online.\"><img "
-"alt=\"\" border=\"0\" src=\"https://www.paypalobjects.com/de_DE/i/scr/pixel."
-"gif\" width=\"1\" height=\"1\"></form>"
 
 #: y:\projects\max2play/max2play/application/view/header.php:64
 #: y:\projects\max2play/max2play/application/plugins/squeezeplug/view/header_custom.php:64
@@ -69,7 +59,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/view/footer.php:59
 msgid "http://www.max2play.com/faq/"
-msgstr "http://www.max2play.com/en/faq-2/"
+msgstr ""
 
 #: y:\projects\max2play/max2play/application/view/footer.php:59
 #: y:\projects\max2play/max2play/application/plugins/callblocker/view/footer_custom.php:33
@@ -507,15 +497,6 @@ msgstr ""
 #: y:\projects\max2play/max2play/application/plugins/squeezeplug/view/header_custom.php:63
 msgid "DONATE-BUTTON-SQUEEZEPLUG"
 msgstr ""
-"<form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\" "
-"target=\"_top\"><input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\"><"
-"input type=\"hidden\" name=\"hosted_button_id\" value=\"FCG8BS6B6J8XW\"><"
-"input type=\"image\" src=\""
-"https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif\" border=\""
-"0\" name=\"submit\" alt=\"PayPal – The safer, easier way to pay online.\"><"
-"img alt=\"\" border=\"0\" src=\""
-"https://www.paypalobjects.com/de_DE/i/scr/pixel.gif\" width=\"1\" height=\""
-"1\"></form>"
 
 #: y:\projects\max2play/max2play/application/plugins/squeezeplug/controller/Setup.php:34
 msgid "Squeezeplug"
@@ -523,14 +504,13 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/callblocker/view/header_custom.php:45
 msgid "logo"
-msgstr "logo-en"
+msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/callblocker/view/footer_custom.php:32
 msgid ""
 "http://shop.tellows.de/de/lizenzschlussel-fur-tellows-community-sperrliste-"
 "anrufblocker.html"
 msgstr ""
-"http://shop.tellows.de/en/licence-key-for-tellows-blocklist-callblocker.html"
 
 #: y:\projects\max2play/max2play/application/plugins/callblocker/view/footer_custom.php:32
 msgid "get API-Key for tellows"
@@ -538,11 +518,11 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/callblocker/view/footer_custom.php:33
 msgid "http://shop.tellows.de/de/anrufblocker-faq"
-msgstr "http://shop.tellows.de/en/anrufblocker-faq"
+msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/callblocker/view/footer_custom.php:42
 msgid "tellows Anrufblocker"
-msgstr "tellows Callblocker"
+msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/callblocker/controller/Setup.php:18
 msgid "tellows Callblocker Setup"
@@ -751,7 +731,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/filesystem.php:27
 msgid "Filesystem - mount network paths (e.g. NFS) "
-msgstr "Filesystem - mount network paths (Samba or NFS) "
+msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/filesystem.php:47
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/filesystem.php:131
@@ -794,20 +774,6 @@ msgstr ""
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/filesystem.php:87
 msgid "Important Information Filesystem Description"
 msgstr ""
-"Network Shares (e.g. shares on Synology Diskstation with SMB/CIFS) are "
-"mounted following the example:<br /><b>Path (IP or hostname and Path):</b> "
-"for type cifs: <i>//IP-ADDRESS/PATH</i><br /><b>Mountpoint on Max2Play (for "
-"usage in Squeezebox Server or XBMC):</b> <i>/mnt/mountdir/</i> Mountpoint "
-"must be a subdirectory in <i>/mnt/</i> OR <i>/media/</i> and will be "
-"generated, if it is not existing. <br /><b>Type:</b> mostly <i>cifs</i> (in "
-"special NFS setups <i>nfs</i>) <br /><b>Options (user, password and other "
-"options for network share):</b> e.g. "
-"<i>user=name,password=pass,sec=ntlm,iocharset=utf8</i><br />important: "
-"always add to the options <i>sec=ntlm</i>!<br><b>Note on NFS-Shares</b>: you "
-"must use another Path and no user credentials in options! Example: <i>IP-"
-"ADDRESS:PATH</i> or <i>*:PATH</i>  <br /><br />If encountering problems with "
-"setting up shares you may reset the configuration file on Settings-Page (\""
-"Reset configs to Max2Play delivery configuration\")."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/filesystem.php:91
 msgid "Show Help"
@@ -833,10 +799,6 @@ msgid ""
 "This list shows all external storages and their mountpoints. You may access "
 "the devices by their path in Squeezeboxserver or XBMC/Kodi."
 msgstr ""
-"This list shows all external storages and their mountpoints. You may access "
-"the devices by their path in Squeezeboxserver or XBMC/Kodi. Important: the "
-"maximum partition size is 2TB. If using larger disks you need to divide the "
-"disk space into partitions smaller than 2TB."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/filesystem.php:111
 msgid "Set fixed Mountpoint to prevent directory switching on reboot: "
@@ -898,16 +860,6 @@ msgstr ""
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/filesystem.php:180
 msgid "Important Information Samba Description"
 msgstr ""
-"Samba is used to set up network shares for other devices to access the "
-"Players filesystem. If, for example a USB-disk is connected to the Player, "
-"this USB-disk may contain media data that should be accessed by other "
-"computers.<br /><b>Example #1 - Share USB-drive to local network:</b> <br "
-"/>Name: max2play-usb<br />Path: /media/usb<br />Writeable: yes<br /><br /><b>"
-"Access the Share from Windows Systems</b>: Rightclick \"Computer\" &gt; \""
-"Connect to Network Drive\" &gt; choose a free driveletter and enter \"\\\\"
-"max2play\\max2play-usb\". Login with username \"root\" and your choosen "
-"password. You may also just enter \"\\\\max2play\" in the file-explorer URL "
-"to access the share."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/advancedsetup.php:28
 msgid "Advanced Max2Play Setup for Odroid U3"
@@ -1070,14 +1022,10 @@ msgstr ""
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/easyinstaller.php:10
 msgid "!PURPOSESELECT_SIMPLE_MPD_POSITIVE"
 msgstr ""
-"Easy and fast set up, no music server needed|Choose from YMPD and Ampache as "
-"frontend, to control the music player|Some Radiostations are preconfigured|A "
-"network Share on this device will be automatically set up. You can connect "
-"to it from any network device to add local music and radio stations."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/easyinstaller.php:13
 msgid "!PURPOSESELECT_SIMPLE_MPD_NEGATIVE"
-msgstr "No synchronized audioplayers|No airplay with soundcards like HiFiBerry"
+msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/easyinstaller.php:15
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/easyinstaller.php:28
@@ -1101,17 +1049,10 @@ msgstr ""
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/easyinstaller.php:23
 msgid "!PURPOSESELECT_SIMPLE_SQUEEEZE_POSITIVE"
 msgstr ""
-"Supports a lot of audio-formats|Tons of features and Plug-Ins for Squeezebox-"
-"Server (controls Audioplayer)|Sleep-Timer and Alarmclock modes|Synchronized "
-"players|Airplay enabled by installing Shairtunes Plugin for Squeezebox-Server"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/easyinstaller.php:26
 msgid "!PURPOSESELECT_SIMPLE_SQUEEEZE_NEGATIVE"
 msgstr ""
-"Little more difficult to set up first time: Squeezebox-Server needed (easy "
-"installation on Squeezebox Server tab)|Squeezebox-Server webinterface is a "
-"little old-fashioned, but Apps for smarphones like iPeng and Squeezer are up "
-"to date."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/easyinstaller.php:32
 msgid ""
@@ -1126,12 +1067,10 @@ msgstr ""
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/easyinstaller.php:37
 msgid "!PURPOSESELECT_SIMPLE_SHAIRPORT_POSITIVE"
 msgstr ""
-"Very simple. Nothing to do than activating Shairport player on Audioplayer "
-"tab"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/easyinstaller.php:40
 msgid "!PURPOSESELECT_SIMPLE_SHAIRPORT_NEGATIVE"
-msgstr "Just Airplay..."
+msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeplayer.php:84
 msgid "Mediaplayer Squeezelite & Airplay - Status, Start / Stop"
@@ -1169,11 +1108,6 @@ msgid ""
 "This parameter defines buffer, period count and sample format. It is set "
 "automatically when soundcard is changed."
 msgstr ""
-"This parameter defines buffer, period count and sample format. It is set "
-"automatically when soundcard is changed. See <a href=\""
-"http://manpages.ubuntu.com/manpages/trusty/man1/squeezelite.1.html\" target="
-"\"_blank\">Squeezelite Startoptions</a> for detailled infos on this "
-"parameters."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeplayer.php:151
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeplayer.php:201
@@ -1185,9 +1119,6 @@ msgstr ""
 #: y:\projects\svn_max2play/plugins/multisqueeze/view/squeezeplayer.php:57
 msgid "Advanced Users may add Start-Parameters here"
 msgstr ""
-"Advanced Users may add Start-Parameters here. See <a href=\""
-"https://www.max2play.com/en/wiki/command-line-options-for-squeezelite/\">"
-"Squeezelite Startoptions</a> for detailled infos on this parameters."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeplayer.php:157
 msgid "Use USB-DAC"
@@ -1211,10 +1142,6 @@ msgstr ""
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeplayer.php:165
 msgid "Update current version $VERSION to newest available"
 msgstr ""
-"Update current version $VERSION to newest available. Info on Startup "
-"Parameters: <a target=\"blank\" href=\""
-"http://manpages.ubuntu.com/manpages/trusty/man1/squeezelite.1.html\">More "
-"Info</a>. ($BUILDOPTIONS)"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeplayer.php:171
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeplayer.php:215
@@ -1336,12 +1263,6 @@ msgstr ""
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeplayer.php:332
 msgid "SQUEEZEPLAYER INFO DESCRIPTION"
 msgstr ""
-"Squeezelite is a software designed for the Squeezebox player, which works "
-"with the Logitech Media Server (Squeezebox Server) and is similar to a "
-"Squeezebox Receiver and how it is controllable via the server.<br />"
-"Shairport is a service of Airplay. <br />Both services of ODROID will start "
-"with a slight delay to load (less than a minute) to avoid conflict with the "
-"sound drivers.  "
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/xbmc.php:28
 msgid "Kodi / XBMC - Status, Start & Stop"
@@ -1407,16 +1328,6 @@ msgstr ""
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/xbmc.php:97
 msgid "XBMC INFO DESCRIPTION"
 msgstr ""
-"Kodi/XBMC is a Media-Center for videos, Music and more.<br /><br "
-"/><sup>#1</sup>Autostart Kodi/XBMC: if activted, the device boots directly "
-"into Kodi/XBMC. This option is suggested if you use the Player mostly for "
-"videos. If the device is not connected to a TV or the video playback is "
-"seldom used remove the Kodi/XBMC from autostart. Therefore it uses less "
-"resources.<br /><br /><b>IMPORTANT:</b><br />If Kodi/XBMC is running "
-"Squeezelite will be deactivated! This is neccessary to get Audio in Kodi/"
-"XBMC working. Kodi/XBMC uses pulseaudio and Squeezelite as well as Shairplay "
-"use Alsa to play sounds/music at the same time. When Kodi/XBMC is closed, "
-"Squeezelite will start again if it is set to autostart."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeserver.php:27
 msgid "Status, Start & Stop"
@@ -1496,10 +1407,6 @@ msgstr ""
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeserver.php:106
 msgid "SQUEEZESERVER INFO DESCRIPTION"
 msgstr ""
-"Squeezebox Server (Logitech Media Server) is the server used for Squeezebox "
-"and is responsible for the control of the player. At least one such network "
-"server should be running. The server can be installed on the Start Setup on "
-"Max2Play."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/basic.php:27
 msgid "Basic settings for Max2Play"
@@ -1686,10 +1593,6 @@ msgid ""
 "com/features/plugins/\" target=\"_blank\"> A list of Max2Play-Extensions can "
 "be found here</a>"
 msgstr ""
-"You may install new Plugins by entering the http-link to the Pluginfile "
-"(zip/tar/tar.gz).<br /><a class=\"download-button\" href=\""
-"http://www.max2play.com/en/addons/\" target=\"_blank\"> A list of Max2Play-"
-"Extensions can be found here</a>"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/basic.php:239
 msgid "Install from Max2Play Website"
@@ -1829,10 +1732,6 @@ msgstr ""
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/wlan.php:155
 msgid "WLAN INFO DESCRIPTION"
 msgstr ""
-"Info: Please restart the device after changing the network parameters! When "
-"operating several Max2Play devices, the MAC address for LAN must be "
-"different in each case on the devices. <br /> Keep in mind the network name "
-"upper and lower case."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/index.php:2
 msgid "Max2Play - Start"
@@ -1854,12 +1753,6 @@ msgid ""
 "set up monitor, keyboard and mouse on the device itsself or login by ssh."
 "<br />All settings are directly written to the players config files."
 msgstr ""
-"The Max2Play Interface is used to configure the device without having to set "
-"up monitor, keyboard and mouse on the device itsself or login by ssh.<br />"
-"All settings are directly written to the players config files. <a href=\""
-"/plugins/max2play_settings/controller/Basic.php\">The Basic settings "
-"configuration can be found here.</a> Your first action should be to expand "
-"the filesystem to have more space on your SD-Card!"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/index.php:28
 #: y:\projects\svn_max2play/plugins/justboom/view/setup.php:73
@@ -1883,16 +1776,6 @@ msgstr ""
 #: y:\projects\svn_max2play/plugins/iqaudio/view/setup.php:150
 msgid "!FEATURE LIST"
 msgstr ""
-"Tweak your Audio-Setup with Advanced Audio-Settings like an <b>Equalizer</b> "
-"or optimization of Audioplayer settings.|Install a <b>Squeezebox Server</b> "
-"with one click and get Airplay working on Squeezebox Players with the Addon "
-"Shairtunes2 on Squeezebox Server Tab of this webinterface.|Set up <b>network-"
-"shares</b> to access your music and videos in your local network.|Use "
-"<b>Kodi</b> as mediaplayer to watch Online-Streams and HD-videos.|Install a "
-"DLNA-Server to stream your Music to other network devices.|<b>Personalize</b>"
-" this webinterface to fit your personal needs and install <a href=\""
-"www.max2play.com/en/addons\" target=\"_blank\">further addons</a> on the "
-"Settings-tab."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/index.php:40
 #: y:\projects\svn_max2play/plugins/justboom/view/setup.php:85
@@ -1907,21 +1790,6 @@ msgstr ""
 #: y:\projects\svn_max2play/plugins/iqaudio/view/setup.php:158
 msgid "!FEATURE LIST PREMIUM"
 msgstr ""
-"Set up an <b>WiFi-Accesspoint</b> on this device to get a mobile "
-"Musicplayer, controlable by your smartphone.|Install <b>Jivelite</b> as a "
-"visualisation for your Audioplayer (Squeezelite).|Apply further Raspberry PI "
-"specific settings on the HDMI-Output (Sample Rate, Overscan, Resolution).|<b>"
-"Boost your PIs performance</b> by choosing a higher speed level - especially "
-"PI A/B speed can be doubled (CPU-frequency, voltage).|Install a VNC-Server "
-"to access this device's desktop from other computers in your network (e.g. "
-"to configure Jivelite, Browser).|Use the <b>Multisqueeze-Addon</b> to run "
-"multiple Squeeze-Players on this device simultanously on different "
-"soundcards (e.g. HiFiBerry, HDMI).|Set up a <b>SD-Card-Protection</b> after "
-"you configured everything to protect your device from corrupt data after "
-"energy loss (only for use as audioplayer).|Get current Beta-Updates for "
-"Max2Play and be part of the community!|More features can be found here: <a "
-"href=\"http://www.max2play.com/en/addons\" target=\"_blank\""
-">http://www.max2play.com/en/addons</a>."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/index.php:48
 #: y:\projects\svn_max2play/plugins/justboom/view/setup.php:93
@@ -1943,7 +1811,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/index.php:55
 msgid "http://www.youtube.com/embed/pZB4aSiW4c0"
-msgstr "http://www.youtube.com/embed/pZB4aSiW4c0"
+msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/index.php:58
 #: y:\projects\svn_max2play/plugins/justboom/view/setup.php:103
@@ -2652,7 +2520,7 @@ msgstr ""
 #: y:\projects\svn_max2play/plugins/justboom/view/setup.php:100
 #: y:\projects\svn_max2play/plugins/iqaudio/view/setup.php:170
 msgid "//www.youtube.com/embed/GjYnHZF2Oek"
-msgstr "//www.youtube.com/embed/wMunsRtFQ6M"
+msgstr ""
 
 #: y:\projects\svn_max2play/plugins/justboom/controller/Setup.php:35
 msgid "JustBoom"

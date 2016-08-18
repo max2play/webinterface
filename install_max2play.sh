@@ -97,6 +97,9 @@ rm cronmax2play
 if [ "$RELEASE" == "xenial" ]; then
 	# on ODROID Ubuntu 16.04
 	sudo echo "Y" | apt-get install apache2 php libapache2-mod-php php7.0-xml -y
+	# Make sure eth0 is named correctly	
+	# TODO: double Check this entry!
+	sudo echo 'SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="*", ATTR{dev_id}=="0x0", ATTR{type}=="1", KERNEL=="eth*", NAME="eth0"' >> /etc/udev/rules.d/70-persistent-net.rules
 else
 	sudo echo "Y" | apt-get install apache2 php5 php5-json -y
 fi
@@ -456,6 +459,7 @@ if [ "$HW_ODROID" -gt "0" ]; then
 	
 	echo "TODO: Remove LAN-Address before saving Image (generates new one on first start): rm /etc/smsc95xx_mac_addr"
 	echo "TODO: ODROID C1: use asound.conf.c1, udev persistant net rules eth0, install iw, nano /etc/default/autogetty -> remove "
+	echo "TODO: ODROID XU4 Ubuntu 16: setup Desktop: Background, disable Screensaver and Power-Management, hide Panels, install fan silencer"
 	echo "TODO: Update to latest Version in Webinterface! IMPORTANT - otherwise some Scripts are missing!"
 	echo "ON XU4: set kodi sound to always on"
 	echo "TODO: REBOOT !!!"

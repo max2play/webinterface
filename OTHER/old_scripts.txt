@@ -25,11 +25,15 @@
 #chmod 777 /opt/shairplay/log
 #cp scr/shairplay /opt/shairplay
 
-# Build Squeezeboxserver
+# Build Squeezeboxserver CPAN
+#apt-get install yasm
 #symlinks auf libgif.* in build/lib/libungif.la,a,so
 #cd /tmp
 #mkdir lms
 #cd lms 
-#git clone -b public/7.8 https://github.com/Logitech/slimserver-vendor.git
+#git clone -b public/7.9 https://github.com/Logitech/slimserver-vendor.git
 #buildme.sh -> tests raus
-#tar -pczf Image-Scale-0.08.tar.gz Image-Scale-0.08 adc -> add in fixes header	
+#tar -pczf Image-Scale-0.08.tar.gz Image-Scale-0.08 adc -> add in fixes header
+#save complete folder slimserver-vendor/CPAN/build/5.22/lib/perl5/arm-linux-gnueabihf-thread-multi-64int/
+#add compress libraries
+#tar -zcf CPAN_PERL_ALL.tar.gz CPAN/

@@ -746,6 +746,7 @@ class Service {
 	 * get Linux Version of System
 	 * e.g. Ubuntu
 	 * @return array 0=> Ubuntu 1=> trusty
+	 *   	   array 0=> Ubuntu 1=> xenial
 	 */
 	public function getLinuxVersion(){
 		if($this->info->linux)
@@ -755,7 +756,7 @@ class Service {
 			$this->info->linux = explode("\n", $output);			 
 		}
 		if(!isset($this->info->linux[0]) || $this->info->linux[0] == ''){
-			$this->info->linux[0] = 'Unknown';
+			$this->info->linux[0] = 'Unknown';			
 		}			
 		return $this->info->linux;
 	}

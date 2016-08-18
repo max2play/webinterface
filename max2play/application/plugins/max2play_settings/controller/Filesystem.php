@@ -291,6 +291,7 @@ class Filesystem extends Service {
 	public function addMountpointSDA(){
 		$this->getMountsFstab();
 		$this->getMountpointsSDA();
+		$version = $this->getLinuxVersion();
 		foreach($_REQUEST['fixmount'] as $device => $value){
 			if(!isset($this->view->mountpointsSDA[$device]['fixmounted']) || $this->view->mountpointsSDA[$device]['fixmounted'] == false){
 				$m = new Mount();
@@ -298,7 +299,13 @@ class Filesystem extends Service {
 				$test1 = $m->setMountpoint('UUID='.$this->view->mountpointsSDA[$device]['uuid']);
 				$test2 = $m->setPath($this->view->mountpointsSDA[$device]['path']);
 				$test3 = $m->setType($this->view->mountpointsSDA[$device]['type']);
-				$test4 = $m->setOptions('defaults,nobootwait');
+				//Skip nobootwait on Debian Jessie! Use nofail instead
+				if(isset($version[1]) && $version[1] == 'jessie'){
+					$bootoption = 'nofail';
+				}else{
+					$bootoption = 'nobootwait';
+				}
+				$test4 = $m->setOptions('defaults,'.$bootoption);
 				
 				$this->addMount($m);
 			}

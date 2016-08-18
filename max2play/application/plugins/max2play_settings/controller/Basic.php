@@ -264,8 +264,13 @@ class Basic extends Service {
 			if($this->view->currentTimezone == $timezone){
 				//No changes!				
 			}else{			
-				//Timezone setzen			
-				$script[] = 'echo "'.$timezone.'" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata';			
+				//Timezone setzen	
+				$script[] = 'echo "'.$timezone.'" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata';
+				$linux = $this->getLinuxVersion();
+				if(isset($linux[1]) && $linux[1] == 'xenial'){
+					// Ubuntu 16.04: timedatectl set-timezone $timezone
+					$script[] = 'timedatectl set-timezone "'.$timezone.'"';
+				}
 			}
 			
 			if($this->view->currentLocale == $locale){

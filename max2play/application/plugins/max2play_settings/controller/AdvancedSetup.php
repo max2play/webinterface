@@ -202,6 +202,8 @@ class Advanced_Max2play_Setup extends Service {
 	
 	private function _installFanXU4(){
 		$script[] = 'pushd /opt/max2play/; rm -R /opt/max2play/odroid-xu3-fan-control;git clone https://github.com/max2play/odroid-xu3-fan-control.git;cd odroid-xu3-fan-control;';
+		$script[] = 'sed -i "s@./odroid-xu3-fan-control.sh@/opt/max2play/odroid-xu3-fan-control/odroid-xu3-fan-control.sh@" /opt/max2play/odroid-xu3-fan-control/odroid-fan-controller;';
+		$script[] = 'if [ -e /sys/devices/odroid_fan.14 ]; then sed -i "s@odroid_fan.13@odroid_fan.14@" odroid-xu3-fan-control.sh; fi;';
 		$script[] = 'ln -s /opt/max2play/odroid-xu3-fan-control/odroid-fan-controller /etc/init.d/odroid-fan-controller;update-rc.d odroid-fan-controller defaults;/etc/init.d/odroid-fan-controller start';
 		$this->writeDynamicScript($script);
 		$this->view->message[] = _('Install finished');

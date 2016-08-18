@@ -32,8 +32,24 @@ else
    					echo "Linking CPAN to Latest"
    				fi;;
    			* ) 
-   				ln -sf /opt/CPAN/arm-linux-gnueabihf-thread-multi-64int/ /usr/share/squeezeboxserver/CPAN/arch/5.18/
-   				echo "Linking CPAN to Latest";;
+   				# Get compiled CPAN for current Perl Version and Link it if not existing
+   				PERLV=$(perl -v | grep -o "(v[0-9]\.[0-9]\+" | sed "s/(v//;s/)//")
+   				var=$(awk 'BEGIN{ print "'$PERLV'"<"'5.20'" }')
+   				if [ "$var" -eq 0 -a ! -e /usr/share/squeezeboxserver/CPAN/arch/$PERLV/arm-linux-gnueabihf-thread-multi-64int/ ]; then
+   					# get CPAN if not existing
+   					if [ ! -e /opt/CPAN/$PERLV/arm-linux-gnueabihf-thread-multi-64int/ ]; then
+   						wget -O /opt/max2play/cache/CPAN_PERL_ALL.tar.gz cdn.max2play.com/CPAN_PERL_ALL.tar.gz
+   						tar -xvzf /opt/max2play/cache/CPAN_PERL_ALL.tar.gz -C /opt/
+   						echo "Download CPAN for Perl $PERLV"
+   					fi
+   					ln -sf /opt/CPAN/$PERLV/arm-linux-gnueabihf-thread-multi-64int/ /usr/share/squeezeboxserver/CPAN/arch/$PERLV/arm-linux-gnueabihf-thread-multi-64int
+   					echo "Linking CPAN to Perl $PERLV"
+   					sleep 4
+   				else
+   					ln -sf /opt/CPAN/arm-linux-gnueabihf-thread-multi-64int/ /usr/share/squeezeboxserver/CPAN/arch/5.18/
+   					echo "Linking CPAN to Latest"
+   				fi
+   				;;
 		esac	
 				
 		(echo "y") | apt-get install lame		

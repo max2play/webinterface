@@ -228,7 +228,16 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		if [ "$EXFATUSBMOUNT" -lt "1" ]; then
 			sed -i 's/hfsplus/hfsplus exfat/' /etc/usbmount/usbmount.conf
 		fi
-	fi	
+	fi
+	
+	#Add Further Languages here
+	if [ -e /etc/locale.gen ]; then
+		if [ "5" -gt "$(grep -e "^de_DE\|^fr_FR\|^it_IT\|^en_GB\|^ru_RU" /etc/locale.gen | wc -l)" ]; then
+			sudo sed -i 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/;s/# it_IT.UTF-8 UTF-8/it_IT.UTF-8 UTF-8/;s/# fr_FR.UTF-8 UTF-8/fr_FR.UTF-8 UTF-8/;s/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/;s/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/' /etc/locale.gen
+  			sudo locale-gen
+  			echo "Updated Locales"
+  		fi
+  	fi
 fi
 
 #htaccess Password Protection Overwrite Backup

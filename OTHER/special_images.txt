@@ -4,6 +4,8 @@
  - update to latest version
  - DO NOT: expand filesystem
  - Delete Log Files in /var/log
+ - Disable IPv6 on Raspberry Settings
+ - Install apt-get install firefox-esr
 
 2. Setup Images
 
