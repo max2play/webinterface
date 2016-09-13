@@ -714,6 +714,11 @@ class Service {
 				}else{			
 					$this->info->hardware = trim($matches[1]);
 					$this->info->chipset = trim($matches[1]);
+					
+					// Custom Names for special Chipsets
+					if($this->info->chipset == 'gs705a'){
+						$this->info->hardware = 'vana Player';
+					}
 				}
 			}			
 		}
@@ -1059,9 +1064,15 @@ class Service {
 	/**
 	 * Needed for IPv6 to get correct URL for Redirects
 	 */
-	public function getServerUrl(){
-		if(strpos($_SERVER['SERVER_ADDR'], ':') !== FALSE)
+	public function getServerUrl($forceIPv4 = false){
+		// is IPv6? Look for at least 2 ":"
+		if(preg_match('=.*:.*:.*=', $_SERVER['SERVER_ADDR'], $match) != 0){
+			if(TRUE == $forceIPv4){
+				// return Name
+				return $this->getPlayername();	
+			}
 			return '['.$_SERVER['SERVER_ADDR'].']'; 
+		}
 		else 
 			return $_SERVER['SERVER_ADDR'];
 	}

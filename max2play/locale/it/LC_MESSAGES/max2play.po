@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-17 17:42+0100\n"
-"PO-Revision-Date: 2016-08-18 12:50+0000\n"
-"Last-Translator: stefan <stefan@netzberater.de>\n"
+"PO-Revision-Date: 2016-08-24 06:57+0000\n"
+"Last-Translator: Jessica <jessica.braasch@netzberater.de>\n"
 "Language-Team: \n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Poedit-SearchPath-2: y:\\projects\\max2play\\max2play\\application\\view\n"
 "X-Poedit-SearchPath-3: y:\\projects\\max2play\\max2play\\application\\"
 "config\n"
-"X-POOTLE-MTIME: 1471524609.000000\n"
+"X-POOTLE-MTIME: 1472021857.000000\n"
 "X-Poedit-SearchPath-4: y:\\projects\\max2play\\max2play\\application\n"
 
 #: y:\projects\max2play/max2play/application/view/header.php:63
@@ -78,7 +78,7 @@ msgstr "http://www.max2play.com/en/faq-2/"
 #: y:\projects\max2play/max2play/application/view/footer.php:59
 #: y:\projects\max2play/max2play/application/plugins/callblocker/view/footer_custom.php:33
 msgid "FAQ - Questions & Answers"
-msgstr "FAQ - Domande Frequenti"
+msgstr "FAQ - Domande & Risposte"
 
 #: y:\projects\max2play/max2play/application/view/footer.php:60
 #, fuzzy
@@ -96,7 +96,7 @@ msgstr "http://www.max2play.com/en/forums/"
 
 #: y:\projects\max2play/max2play/application/view/footer.php:61
 msgid "Technical Support"
-msgstr ""
+msgstr "Supporto tecnico"
 
 #: y:\projects\max2play/max2play/application/view/footer.php:66
 msgid "News"
@@ -120,6 +120,8 @@ msgid ""
 "Only $FREESPACE MB of free space left on the device! Did you already expand "
 "the filesystem?"
 msgstr ""
+"Solo $FREESPACE MB di spazio libero rimasto sul dispositivo! Vuoi procedere "
+"per espandere il filesystem?"
 
 #: y:\projects\max2play/max2play/application/controller/Start.php:75
 msgid "Created View-Files"
@@ -136,7 +138,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/controller/Start.php:145
 msgid "Help - Introduction"
-msgstr ""
+msgstr "Aiuto - Introduzione"
 
 #: y:\projects\max2play/max2play/application/controller/Start.php:146
 msgid ""
@@ -145,6 +147,10 @@ msgid ""
 "channel/UCu2JHGI142fLrkoUN8dUkRA\">our video tutorials about the settings in "
 "this web interface</a>.</li></ul>"
 msgstr ""
+"<ul><li>Questo è Max2Play - Il metodo più semplice per installare un lettore "
+"audio-video! Puoi guardare <a target=\"_blank\" href=\""
+"https://www.youtube.com/channel/UCu2JHGI142fLrkoUN8dUkRA\"> la nostra video "
+"guida sulle impostazioni dell'interfaccia web</a>.</li></ul>"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:96
 #: y:\projects\svn_max2play/plugins/multisqueeze/controller/Squeezeplayer.php:48
@@ -154,17 +160,17 @@ msgstr "Il servizio è già in esecuzione"
 #: y:\projects\max2play/max2play/application/controller/Service.php:116
 #: y:\projects\svn_max2play/plugins/multisqueeze/controller/Squeezeplayer.php:58
 msgid "Trying to launch"
-msgstr "Tentativi di avvio"
+msgstr "Tentativo di avvio"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:124
 #: y:\projects\svn_max2play/plugins/multisqueeze/controller/Squeezeplayer.php:63
 msgid "successful with ID"
-msgstr "Efficace con ID"
+msgstr "Riuscito con ID"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:126
 #: y:\projects\svn_max2play/plugins/multisqueeze/controller/Squeezeplayer.php:65
 msgid "NOT successful"
-msgstr "NON efficace"
+msgstr "NON riuscito"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:145
 #: y:\projects\max2play/max2play/application/controller/Service.php:220
@@ -206,7 +212,7 @@ msgstr "NON arrestato con successo"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:227
 msgid "restarted"
-msgstr ""
+msgstr "riavviato"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:271
 msgid "successfully removed from autostart"
@@ -222,10 +228,12 @@ msgid ""
 "You need at least Max2Play Version $MINVERSION to run this addon. Please "
 "update Max2Play on Settings tab!"
 msgstr ""
+"Questo addon necessita almeno della versione $MINVERSION di Max2Play. "
+"Aggiorna Max2Play nel tab Settings!"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:401
 msgid "You are running a Beta-Version of Max2Play!"
-msgstr ""
+msgstr "E' in esecuzione la versione Beta di Max2Play!"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:403
 msgid "Max2Play update is available - start update on tab Settings / Reboot"
@@ -240,16 +248,18 @@ msgstr ""
 #: y:\projects\max2play/max2play/application/controller/Service.php:456
 msgid "SD-Card is Read-Only! Changes on settings will not be saved!"
 msgstr ""
+"La SD-Card è di sola lettura! Cambiamenti nelle impostazioni non saranno "
+"salvati!"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:540
 #: y:\projects\svn_max2play/plugins/raspberrysettings/controller/Setup.php:649
 msgid "Update Configfile - existing Entry changed"
-msgstr "Aggiorna Configfile - l´esistente Entry é stata cambiata"
+msgstr "Aggiornato file di configurazione - la voce esistente é stata cambiata"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:548
 #: y:\projects\svn_max2play/plugins/raspberrysettings/controller/Setup.php:645
 msgid "Update Configfile - new Entry created"
-msgstr "Aggiorna Configfile - nuova Entry creata"
+msgstr "Aggiornato file di configurazione - nuova voce creata"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:553
 msgid "Update Configfile - new Configfile created"
@@ -410,7 +420,7 @@ msgstr "$SERVICENAME non è in esecuzione"
 #: y:\projects\svn_max2play/plugins/vnc/view/setup.php:57
 #: y:\projects\svn_max2play/plugins/multisqueeze/view/squeezeplayer.php:10
 msgid "start $SERVICENAME"
-msgstr "inizia $SERVICENAME "
+msgstr "inizia $SERVICENAME"
 
 #: y:\projects\max2play/max2play/application/plugins/speechcontrol/view/setup.php:112
 msgid "readtest"
@@ -882,7 +892,7 @@ msgstr ""
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/filesystem.php:123
 msgid "Sambashares on Max2Play - setup network share paths"
 msgstr ""
-"Configurare condivisioni Samba su Max2Play  - condivisioni di rete per "
+"Configurare condivisioni Samba su Max2Play - condivisioni di rete per "
 "l'accesso esterno"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/filesystem.php:130
@@ -2421,7 +2431,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:454
 msgid "Max2Play is up to date - no update required"
-msgstr " May2Play è aggiornato- nessun aggiornamento disponibile"
+msgstr " Max2Play è aggiornato- nessun aggiornamento disponibile"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:464
 msgid "Running Check for Plugin Updates and install if available"

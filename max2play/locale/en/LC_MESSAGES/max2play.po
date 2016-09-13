@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-17 17:42+0100\n"
-"PO-Revision-Date: 2016-08-18 09:51+0000\n"
-"Last-Translator: stefan <stefan@netzberater.de>\n"
+"PO-Revision-Date: 2016-09-12 06:59+0000\n"
+"Last-Translator: Jessica <jessica.braasch@netzberater.de>\n"
 "Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: y:\\projects\\max2play\n"
 "X-Poedit-SearchPath-1: y:\\projects\\svn_max2play\n"
-"X-POOTLE-MTIME: 1471513917.000000\n"
+"X-POOTLE-MTIME: 1473663586.000000\n"
 
 #: y:\projects\max2play/max2play/application/view/header.php:63
 #: y:\projects\svn_max2play/plugins/justboom/view/header_custom.php:63
@@ -114,6 +114,8 @@ msgid ""
 "Only $FREESPACE MB of free space left on the device! Did you already expand "
 "the filesystem?"
 msgstr ""
+"Only $FREESPACE MB of free space left on the device! Have you already "
+"expanded the filesystem?"
 
 #: y:\projects\max2play/max2play/application/controller/Start.php:75
 msgid "Created View-Files"
@@ -139,6 +141,10 @@ msgid ""
 "channel/UCu2JHGI142fLrkoUN8dUkRA\">our video tutorials about the settings in "
 "this web interface</a>.</li></ul>"
 msgstr ""
+"<ul><li>This is Max2Play - The easiest way to setup an audio and video "
+"player! You may watch <a target=\"_blank\" href=\""
+"https://www.youtube.com/channel/UCu2JHGI142fLrkoUN8dUkRA\">our video "
+"tutorials about the settings in this web interface</a>.</li></ul>"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:96
 #: y:\projects\svn_max2play/plugins/multisqueeze/controller/Squeezeplayer.php:48
@@ -231,7 +237,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:456
 msgid "SD-Card is Read-Only! Changes on settings will not be saved!"
-msgstr ""
+msgstr "SD-Card is Read-Only! Changes to settings will not be saved!"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:540
 #: y:\projects\svn_max2play/plugins/raspberrysettings/controller/Setup.php:649
@@ -253,6 +259,8 @@ msgid ""
 "Installation startet - This Messages refreshes every 3 seconds to show "
 "current status of installation. If finished this message disappears."
 msgstr ""
+"Installation started - This Messages refreshes every 3 seconds to show "
+"current installation status. When finished this message disappears."
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:626
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeserver.php:109
@@ -276,7 +284,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:816
 msgid "File moved successful"
-msgstr ""
+msgstr "File move successful"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:821
 msgid "Invalid Plugin-URL"
@@ -488,7 +496,7 @@ msgstr ""
 #: y:\projects\svn_max2play/plugins/bluetooth/view/setup.php:121
 #: y:\projects\svn_max2play/plugins/remotecontrol/view/setup.php:69
 msgid "DEBUG Informations"
-msgstr ""
+msgstr "DEBUG Information"
 
 #: y:\projects\max2play/max2play/application/plugins/speechcontrol/controller/Setup.php:40
 msgid "Speech Control"
@@ -1118,6 +1126,8 @@ msgid ""
 "Simple Airplay: Apple Airplay Device, that plays music streamed from iPhone, "
 "iPad or Mac."
 msgstr ""
+"Simple Airplay: Apple Airplay Device that plays music streamed from iPhone, "
+"iPad or Mac."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/easyinstaller.php:35
 msgid "Just one player (shairport) is running. No additional setup needed."
@@ -1302,7 +1312,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeplayer.php:297
 msgid "Zurücksetzen"
-msgstr ""
+msgstr "Reset"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeplayer.php:308
 msgid "Lowpassfilter and Crossfeed Level Adjuster for Headphones"
@@ -1380,6 +1390,9 @@ msgid ""
 "At first it downloads the package from given source and afterwards it "
 "installs the package."
 msgstr ""
+"The installation may take some time depending on your internet connection. "
+"Initially it downloads the package from given source and subsequently it "
+"installs the package."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/xbmc.php:73
 msgid ""
@@ -1450,6 +1463,9 @@ msgid ""
 "might have discovered no internet connection on boot. Delay the start by 30 "
 "seconds to solve this problem."
 msgstr ""
+"Delay time in seconds. If Radiolists are not working, your Squeezebox Server "
+"might not have discovered an internet connection on boot. Delay the start by "
+"30 seconds to solve this problem."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeserver.php:83
 msgid "Show available Versions"
@@ -1457,7 +1473,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeserver.php:85
 msgid "Alternative other source from Slimdevices (package must be .deb)"
-msgstr ""
+msgstr "Alternative source from Slimdevices (package must be .deb)"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeserver.php:88
 msgid ""
@@ -1472,6 +1488,11 @@ msgid ""
 "slimdevices.com/ and afterwards it installs the package. You may reload this "
 "page by clicking the button again to see the status of the install process."
 msgstr ""
+"The installation takes about 5 to 10 minutes depending on your internet "
+"connection. Initially it downloads the package from "
+"http://downloads.slimdevices.com/ and subsequently it installs the package. "
+"You may reload this page by clicking the button again to see the status of "
+"the install process."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeserver.php:96
 msgid "Install special Plugins for Squeezebox Server"
@@ -1543,6 +1564,12 @@ msgid ""
 "en/max2play-full-license.html' target='_blank'>Max2Play-Full-Package here</"
 "a>."
 msgstr ""
+"To access all functions and plugins of Max2Play and constantly get new "
+"features, you need to be a customer of shop.max2play.com or have a code for "
+"activation. This is verified with your eMail-address or activation code. If "
+"you are not a customer yet, you may buy the <a "
+"href='http://shop.max2play.com/en/max2play-full-license.html' target='_blank"
+"'>Max2Play-Full-Package here</a>."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/basic.php:78
 msgid "Language"
@@ -1624,6 +1651,9 @@ msgid ""
 "the latest available Max2Play before it is released. This might have some "
 "bugs and will not be supported in forums and questions by mails!"
 msgstr ""
+"READ CAREFULLY: This function is for developers and users that want to test "
+"the latest available Max2Play before it is released. This might have some "
+"bugs and will not be supported in forums and questions by mail!"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/basic.php:136
 msgid "Update2Beta Max2Play"
@@ -1821,10 +1851,12 @@ msgid ""
 "This may be neccessary if you have a Minicomputer without a real hardware "
 "MAC-Address (some ODROIDs). This function is not available for Raspberry Pis."
 msgstr ""
+"This may be neccessary if you have a Minicomputer without a real hardware "
+"MAC-Address (some ODROIDs). This function is not available for Raspberry Pi."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/wlan.php:136
 msgid "(Change only if there are more Max2Play-Devices in one network)"
-msgstr ""
+msgstr "(Change only if there is more than one Max2Play-Device in one network)"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/wlan.php:155
 msgid "WLAN INFO DESCRIPTION"
@@ -1869,6 +1901,9 @@ msgid ""
 "an easy configuration and control. With the extensions of Max2Play you can "
 "easily choose and install new features like the following:"
 msgstr ""
+"Max2Play gives you High-Quality Sound with simple configuration and control. "
+"With Max2Play extensions, you can easily select and install new features "
+"such as:"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/index.php:32
 #: y:\projects\svn_max2play/plugins/justboom/view/setup.php:77
@@ -1934,6 +1969,11 @@ msgid ""
 "webinterface is optimized for smartphones and all actions can also be called "
 "from external HTTP-Requests like Smarthome-Servers."
 msgstr ""
+"<b>Max2Play</b> makes the configuration as easy as possible. There is no "
+"need to connect a monitor, a keyboard or a mouse on the device itself. It "
+"all runs headless and no special tools like Putty are needed! This "
+"webinterface is optimized for smartphones and all actions can also be called "
+"from external HTTP-Requests like Smarthome-Servers."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/index.php:53
 #: y:\projects\svn_max2play/plugins/justboom/view/setup.php:98
@@ -1994,11 +2034,11 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Xbmc.php:111
 msgid "Installationspaket: "
-msgstr ""
+msgstr "Installations package: "
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Xbmc.php:124
 msgid "Installation abgeschlossen!"
-msgstr ""
+msgstr "Installation complete!"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Xbmc.php:150
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Xbmc.php:153
@@ -2065,6 +2105,15 @@ msgid ""
 "Airplay device. This is useful if a soundcard supports only one connected "
 "player.</li></ul>"
 msgstr ""
+"<ul><li>On this page you may set up and configure all audioplayers. Each "
+"player has the button \"Advanced Settings\" to set up the soundcard and for "
+"further options.</li><li>Some soundcards like HifiBerry need to be activated "
+"before you can assign them to a player. This can be done with the addon \""
+"Raspberry PI Settings\".</li><li>To use Airplay you may choose the Shairport "
+"player OR the plugin Shairtunes (install on Squeezebox Server tab), that "
+"enables all Squeezeplayers (such as Squeezelite) to act as an Airplay "
+"device. This is useful if a soundcard supports only one connected "
+"player.</li></ul>"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeserver.php:36
 msgid "Squeezebox Server"
@@ -2076,7 +2125,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeserver.php:118
 msgid "LMS-Version not existing"
-msgstr ""
+msgstr "LMS-Version does not exist"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeserver.php:129
 msgid "Installation Package: "
@@ -2286,6 +2335,8 @@ msgid ""
 "Thank you so much for your donation! We will keep up the work on the project "
 "to make it even better!"
 msgstr ""
+"Thank you very much for your donation! We will continue to work on the "
+"project to make it even better!"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:390
 msgid "Your eMail-address / activation code is saved."
@@ -2302,6 +2353,9 @@ msgid ""
 "that is registered as a customer at www.max2play.com? If you have a key for "
 "activation please recheck, that the key is entered correctly."
 msgstr ""
+"Your license could not be validated. Did you use the same eMail-Address that "
+"is registered as a customer at www.max2play.com? If you have a key for "
+"activation, please recheck that the key has been entered correctly."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:434
 msgid "Max2Play update started"
@@ -2407,6 +2461,10 @@ msgid ""
 "the latest Kernel-Sources. Takes ~20-30 minutes time! Make sure to install "
 "the latest kernel by using /usr/local/bin/odroid-utility.sh"
 msgstr ""
+"If normal activation of Pre-Build Module does not work (mostly because of "
+"different Kernel-Version), please use this option to build the module with "
+"the latest Kernel-Sources. Takes ~20-30 minutes! Make sure to install the "
+"latest kernel by using /usr/local/bin/odroid-utility.sh"
 
 #: y:\projects\max2play/max2play/application/plugins/kernelmodules_odroid_u3/view/setup.php:54
 msgid "Build HiFace-Module with latest Kernel"
@@ -2549,6 +2607,8 @@ msgid ""
 "This function is for Raspberry PI ONLY! It seems, that you do not have a "
 "Raspberry PI."
 msgstr ""
+"This function is for Raspberry Pi ONLY! It seems, that you do not have a "
+"Raspberry PI."
 
 #: y:\projects\svn_max2play/plugins/raspberrysettings/controller/Setup.php:251
 #: y:\projects\svn_max2play/plugins/raspberrysettings/controller/Setup.php:299
@@ -2599,19 +2659,19 @@ msgstr ""
 
 #: y:\projects\svn_max2play/plugins/homematic/controller/Ccuhistorian.php:87
 msgid "Webserver Port gespeichert"
-msgstr ""
+msgstr "Webserver Port saved"
 
 #: y:\projects\svn_max2play/plugins/homematic/controller/Ccuhistorian.php:90
 msgid "Device Type gespeichert"
-msgstr ""
+msgstr "Device Type saved"
 
 #: y:\projects\svn_max2play/plugins/homematic/controller/Ccuhistorian.php:93
 msgid "Device Adresse gespeichert"
-msgstr ""
+msgstr "Device Address saved"
 
 #: y:\projects\svn_max2play/plugins/homematic/controller/Ccuhistorian.php:96
 msgid "Plugin Type gespeichert"
-msgstr ""
+msgstr "Plugin Type saved"
 
 #: y:\projects\svn_max2play/plugins/homematic/controller/Setup.php:28
 msgid "Homematic Setup"

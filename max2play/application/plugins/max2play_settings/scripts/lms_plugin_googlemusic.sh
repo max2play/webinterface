@@ -1,0 +1,26 @@
+#!/bin/bash
+# Installer Script for Plugin Googlemusic on Raspberry Pi
+# base info can be found here: https://github.com/squeezebox-googlemusic/squeezebox-googlemusic
+
+# Setup Environment
+apt-get update
+apt-get install python-pip python-dev
+pip install gmusicapi==10.0.1 
+echo -e "yes\n" | cpan App::cpanminus
+cpanm --notest Inline
+cpanm --notest Inline::Python
+
+
+# Install Plugin
+
+pushd /var/lib/squeezeboxserver/Plugins
+mkdir GoogleMusic
+pushd /var/lib/squeezeboxserver/Plugins/GoogleMusic
+git clone https://github.com/squeezebox-googlemusic/squeezebox-googlemusic.git .
+chown -R squeezeboxserver /var/lib/squeezeboxserver/Plugins/GoogleMusic
+chmod -R g+wx /var/lib/squeezeboxserver/Plugins/GoogleMusic
+
+
+/etc/init.d/logitechmediaserver restart
+
+echo "Finished installing Google Music Plugin"

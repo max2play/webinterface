@@ -221,8 +221,14 @@ class Squeezeserver extends Service {
 		if($_GET['lmsplugin'] == 'shairtunes')
 			$this->view->message[] = $this->formatMessageOutput($this->writeDynamicScript(array($this->scriptPath.'lms_plugin_shairtunes.sh')));
 		if($_GET['lmsplugin'] == 'shairtunes2')
-			$this->view->message[] = $this->formatMessageOutput($this->writeDynamicScript(array($this->scriptPath.'lms_plugin_shairtunes.sh ShairTunes2')));
-		$this->view->message[] = _('Next steps: Reboot the device (in settings -> reboot) and you are ready to use your Squeezeplayers as Airplay device.');
+			$this->view->message[] = $this->formatMessageOutput($this->writeDynamicScript(array($this->scriptPath.'lms_plugin_shairtunes.sh ShairTunes2')));		
+		if($_GET['lmsplugin'] == 'shairtunes' || $_GET['lmsplugin'] == 'shairtunes2')
+			$this->view->message[] = _('Next steps: Reboot the device (in settings -> reboot) and you are ready to use your Squeezeplayers as Airplay device.');
+		
+		if($_GET['lmsplugin'] == 'googlemusic'){
+			$this->view->message[] = _('GoogleMusic Plugin installed. Now edit the settings of the Plugin within Squeezebox Server Settings, add your GoogleMusic credentials and you are ready to go.'); 
+			$this->view->message[] = $this->formatMessageOutput($this->writeDynamicScript(array($this->scriptPath.'lms_plugin_googlemusic.sh')));
+		}
 		return true;
 	}
 	

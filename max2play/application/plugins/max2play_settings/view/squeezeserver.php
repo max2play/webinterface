@@ -45,7 +45,8 @@
 	<?php if($sp->view->installed == true) { ?>
 		<?php if ($sp->view->pid) { ?>
 			<b><?php echo _('Status')?>:</b> <?php echo str_replace('$SERVICENAME', $sp->viewname, _('$SERVICENAME is running with processID')) ?> <b><?php echo $sp->view->pid ?></b><br /><br />
-			<a target="_blank" href="http://<?php echo preg_replace('=:.*=','', $_SERVER['HTTP_HOST']).':9000'; ?>" class="download-button" style="width:70%;"><?php echo _('Open Squeezebox Server Webadministration')?></a><br /><br />
+			<?php //Build correct URL to Squeezeboxserver (no ipv6 possible) ?>
+			<a target="_blank" href="//<?php echo $sp->getServerUrl($ipv4=true).':9000'; ?>" class="download-button" style="width:70%;"><?php echo _('Open Squeezebox Server Webadministration')?></a><br /><br />
 			<input type="button" value="<?php echo str_replace('$SERVICENAME', $sp->viewname, _('stop $SERVICENAME')) ?>" name="stop" onclick="document.getElementById('action').value='stop';submit();" />
 			<input type="button" value="<?php echo str_replace('$SERVICENAME', $sp->viewname, _('restart $SERVICENAME')) ?>" name="restart" onclick="document.getElementById('action').value='restart';submit();" />
 			<input type="button" value="<?php echo str_replace('$SERVICENAME', $sp->viewname, _('kill $SERVICENAME')) ?>" name="kill" onclick="document.getElementById('action').value='kill';submit();" />
@@ -96,7 +97,8 @@
 		<?php echo _('Install special Plugins for Squeezebox Server') ?></p>
 	<select name="lmsplugin" style="width: 90%;">	
 		<option value="shairtunes2"><?php echo _('Install Shairtunes2 (NEW) Plugin (Optimized version for ODROID and Raspberry by disaster123 - All connected Squeezeplayers can be used as Airplay Devices)') ?></option>
-		<option value="shairtunes"><?php echo _('Install Shairtunes Plugin (All connected Squeezeplayers can be used as Airplay Devices)') ?></option>		
+		<option value="shairtunes"><?php echo _('Install Shairtunes Plugin (All connected Squeezeplayers can be used as Airplay Devices)') ?></option>
+		<option value="googlemusic"><?php echo _('Install GoogleMusic Plugin (Use your GoogleMusic Account and connect it with your Squeezebox Server)') ?></option>				
 	</select>
 	<input type="button" value="<?php echo _('Install choosen Plugin (takes some time)') ?>" name="plugininstall" onclick="document.getElementById('action').value='plugininstall';submit();" />
 	
