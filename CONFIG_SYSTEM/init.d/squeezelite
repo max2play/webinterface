@@ -20,6 +20,9 @@ fi
 
 NAME=$(cat /opt/max2play/playername.txt)
 SQUEEZELITE_PARAMETER=$(grep -a "SQUEEZELITE_PARAMETER" /opt/max2play/audioplayer.conf | sed -n -e 's/^[A-Z_]*\=//p')
+if [ $(echo $SQUEEZELITE_PARAMETER | grep " -G " | wc -l) -gt "0" ]; then
+    USER=root
+fi
 ETH0=$(cat /sys/class/net/eth0/operstate)
 if [ "$ETH0" = "up" ]; then
     INTERFACE=eth0
