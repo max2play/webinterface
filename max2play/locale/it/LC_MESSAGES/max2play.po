@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-17 17:42+0100\n"
-"PO-Revision-Date: 2016-08-24 06:57+0000\n"
+"PO-Revision-Date: 2016-09-17 14:01+0000\n"
 "Last-Translator: Jessica <jessica.braasch@netzberater.de>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Poedit-SearchPath-2: y:\\projects\\max2play\\max2play\\application\\view\n"
 "X-Poedit-SearchPath-3: y:\\projects\\max2play\\max2play\\application\\"
 "config\n"
-"X-POOTLE-MTIME: 1472021857.000000\n"
+"X-POOTLE-MTIME: 1474120904.000000\n"
 "X-Poedit-SearchPath-4: y:\\projects\\max2play\\max2play\\application\n"
 
 #: y:\projects\max2play/max2play/application/view/header.php:63
@@ -57,6 +57,8 @@ msgstr "FAQ - Domande frequenti"
 #: y:\projects\max2play/max2play/application/view/footer.php:42
 msgid "Help on Sidebar can be reactivated on Settings-Page."
 msgstr ""
+"L'Aiuto sulla colonna laterale può essere riattivato dalla pagina "
+"Impostazioni"
 
 #: y:\projects\max2play/max2play/application/view/footer.php:53
 #: y:\projects\max2play/max2play/application/plugins/callblocker/view/footer_custom.php:30
@@ -65,7 +67,7 @@ msgstr "Links"
 
 #: y:\projects\max2play/max2play/application/view/footer.php:56
 msgid "Wiki for this page"
-msgstr ""
+msgstr "Wiki per questa pagina"
 
 #: y:\projects\max2play/max2play/application/view/footer.php:58
 msgid "Features"
@@ -295,15 +297,15 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:810
 msgid "File Uploaded"
-msgstr ""
+msgstr "File Caricato"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:816
 msgid "File moved successful"
-msgstr ""
+msgstr "File spostato con successo"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:821
 msgid "Invalid Plugin-URL"
-msgstr ""
+msgstr "URL del plugin non valido"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:835
 msgid ""
@@ -312,6 +314,10 @@ msgid ""
 "plugins/max2play_settings/controller/Basic.php#pluginconfigblock\">settings "
 "page</a>."
 msgstr ""
+"Plugin $PLUGINNAME attivato e aggiunto alla navigazione. Puoi cambiare la "
+"posizione e la visibilità nella configurazione addon nella <a href=\""
+"/plugins/max2play_settings/controller/Basic.php#pluginconfigblock\">pagina "
+"impostazioni</a>."
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:914
 msgid "Plugin Error"
@@ -319,7 +325,7 @@ msgstr "Errore Plugin"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:985
 msgid "Plugin configuration updated"
-msgstr ""
+msgstr "Configurazione plugin aggiornata"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:1025
 msgid "Updated Equalizer Settings"
@@ -327,11 +333,11 @@ msgstr "Opzioni aggiornate memorizzate"
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:1082
 msgid "Function $action not found for Ajax-Call"
-msgstr ""
+msgstr "Funzione $action non trovata per la chiamata Ajax"
 
 #: y:\projects\max2play/max2play/application/plugins/speechcontrol/view/setup.php:28
 msgid "Speech Control Setup"
-msgstr ""
+msgstr "Speech Control Setup"
 
 #: y:\projects\max2play/max2play/application/plugins/speechcontrol/view/setup.php:63
 #: y:\projects\max2play/max2play/application/plugins/accesspoint/view/setup.php:61
@@ -428,7 +434,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/speechcontrol/view/setup.php:112
 msgid "start read test"
-msgstr ""
+msgstr "inzia test lettura"
 
 #: y:\projects\max2play/max2play/application/plugins/speechcontrol/view/setup.php:130
 #: y:\projects\max2play/max2play/application/plugins/accesspoint/view/setup.php:107
@@ -491,9 +497,8 @@ msgstr "salvare"
 #: y:\projects\max2play/max2play/application/plugins/accesspoint/view/setup.php:69
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:61
 #: y:\projects\svn_max2play/plugins/sdcardprotection/view/setup.php:54
-#, fuzzy
 msgid "uninstall"
-msgstr "Installa"
+msgstr "disinstalla"
 
 #: y:\projects\max2play/max2play/application/plugins/speechcontrol/view/setup.php:144
 #: y:\projects\max2play/max2play/application/plugins/accesspoint/view/setup.php:114
@@ -518,7 +523,7 @@ msgstr "DEBUG Info"
 
 #: y:\projects\max2play/max2play/application/plugins/speechcontrol/controller/Setup.php:40
 msgid "Speech Control"
-msgstr ""
+msgstr "Speech Control"
 
 #: y:\projects\max2play/max2play/application/plugins/accesspoint/controller/Setup.php:40
 msgid "Accesspoint Setup"
@@ -545,7 +550,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/squeezeplug/controller/Setup.php:34
 msgid "Squeezeplug"
-msgstr ""
+msgstr "Squeezeplug"
 
 #: y:\projects\max2play/max2play/application/plugins/callblocker/view/header_custom.php:45
 #, fuzzy
@@ -580,9 +585,8 @@ msgstr "Configura tellows il Blocca Chiamate"
 
 #: y:\projects\max2play/max2play/application/plugins/callblocker/controller/Setup.php:267
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:135
-#, fuzzy
 msgid "REBOOT successful"
-msgstr "NON efficace"
+msgstr "REBOOT effettuato con successo"
 
 #: y:\projects\max2play/max2play/application/plugins/callblocker/controller/Setup.php:270
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:138
@@ -602,11 +606,13 @@ msgstr "lista chiamate bloccate tellows"
 #: y:\projects\max2play/max2play/application/plugins/dlnaserver/view/setup.php:28
 #: y:\projects\max2play/max2play/application/plugins/dlnaserver/controller/Setup.php:39
 msgid "DLNA-Server"
-msgstr ""
+msgstr "DLNA-Server"
 
 #: y:\projects\max2play/max2play/application/plugins/dlnaserver/view/setup.php:46
 msgid "MiniDLNA Service (easy media access for other network devices)"
 msgstr ""
+"MiniDLNA è il servizio per la condivisione dei dati multimediali da Max2Play "
+"con altri dispositivi nella tua rete."
 
 #: y:\projects\max2play/max2play/application/plugins/dlnaserver/view/setup.php:48
 msgid ""
@@ -626,7 +632,7 @@ msgstr "Installa"
 
 #: y:\projects\max2play/max2play/application/plugins/dlnaserver/view/setup.php:53
 msgid "Media Path"
-msgstr ""
+msgstr "Percorso file multimediali"
 
 #: y:\projects\max2play/max2play/application/plugins/dlnaserver/view/setup.php:54
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/filesystem.php:73
@@ -674,7 +680,7 @@ msgstr ""
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:70
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:73
 msgid "save password"
-msgstr ""
+msgstr "salva la password"
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:73
 msgid "savepassworduser"
@@ -703,11 +709,11 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/example/view/setup.php:123
 msgid "Push the button"
-msgstr ""
+msgstr "Premi il bottone"
 
 #: y:\projects\max2play/max2play/application/plugins/example/view/setup.php:129
 msgid "This is easy - isn't it?"
-msgstr ""
+msgstr "E' facile, no?"
 
 #: y:\projects\max2play/max2play/application/plugins/example/view/setup.php:134
 msgid "Let's do it!"
@@ -765,9 +771,8 @@ msgstr ""
 #: y:\projects\svn_max2play/plugins/imageburner/controller/Setup.php:215
 #: y:\projects\svn_max2play/plugins/fhem/controller/Setup.php:55
 #: y:\projects\svn_max2play/plugins/clementine/controller/Setup.php:50
-#, fuzzy
 msgid "Saved"
-msgstr "Salvare"
+msgstr "Salvato"
 
 #: y:\projects\max2play/max2play/application/plugins/example/controller/Setup.php:138
 msgid "Do Something started"
@@ -854,7 +859,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/filesystem.php:92
 msgid "Show Network Devices"
-msgstr ""
+msgstr "Mostra dispositivi della rete"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/filesystem.php:99
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/advancedsetup.php:124
@@ -887,7 +892,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/filesystem.php:118
 msgid "No external devices found."
-msgstr ""
+msgstr "Nessun dispositivo esterno trovato"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/filesystem.php:123
 msgid "Sambashares on Max2Play - setup network share paths"

@@ -36,6 +36,14 @@ class Squeezeserver extends Service {
 		$this->pluginname = _('Squeezebox Server');
 		$this->scriptPath = dirname(__FILE__).'/../scripts/';
 		
+		if($_GET['ajax'] == 1 && $_GET['action'] == 'plugininstall'){
+			$this->_pluginInstall($ajax = 1);
+			ob_end_clean();
+			echo implode('<br />', $this->view->message);
+			ob_flush();
+			die();
+		}
+		
 		if($_GET['ajax'] == 1 && $_GET['action'] == 'install'){
 			//Function to get Progress of Installation
 			$_GET['downloadurl'] = '';
@@ -215,7 +223,7 @@ class Squeezeserver extends Service {
 	/**
 	 * 1-Click-Installer for rather complicated Shairtunes installer
 	 */
-	private function _pluginInstall(){
+	private function _pluginInstall($ajax = 0){
 		ignore_user_abort(true);
 		set_time_limit(1800);
 		if($_GET['lmsplugin'] == 'shairtunes')
@@ -225,9 +233,20 @@ class Squeezeserver extends Service {
 		if($_GET['lmsplugin'] == 'shairtunes' || $_GET['lmsplugin'] == 'shairtunes2')
 			$this->view->message[] = _('Next steps: Reboot the device (in settings -> reboot) and you are ready to use your Squeezeplayers as Airplay device.');
 		
-		if($_GET['lmsplugin'] == 'googlemusic'){
-			$this->view->message[] = _('GoogleMusic Plugin installed. Now edit the settings of the Plugin within Squeezebox Server Settings, add your GoogleMusic credentials and you are ready to go.'); 
-			$this->view->message[] = $this->formatMessageOutput($this->writeDynamicScript(array($this->scriptPath.'lms_plugin_googlemusic.sh')));
+		if($_REQUEST['lmsplugin'] == 'googlemusic'){
+			if($ajax == 0){
+				if($this->getProgressWithAjax('/opt/max2play/cache/install_googlemusic.txt', 1, 1)){					
+					$shellanswer = $this->writeDynamicScript(array($this->scriptPath."lms_plugin_googlemusic.sh >> /opt/max2play/cache/install_googlemusic.txt 2>&1 &"), false, true);					
+				}
+			}else{
+				$status = $this->getProgressWithAjax('/opt/max2play/cache/install_googlemusic.txt', 0, 1, 30);
+				$this->view->message[] = nl2br($status);
+				if(strpos($status, 'Finished') !== FALSE){
+					//Finished Progress - did not delete progressfile yet
+					$this->view->message[] = _('GoogleMusic Plugin installed.<br><b>Important:</b> Now edit the settings of the Plugin within Squeezebox Server Settings, add your GoogleMusic credentials (including a mobile device ID!) and you are ready to go.');
+					shell_exec('rm /opt/max2play/cache/install_googlemusic.txt');
+				}
+			}					
 		}
 		return true;
 	}

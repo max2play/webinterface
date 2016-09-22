@@ -119,3 +119,9 @@ autostart_multisqueeze=$(cat /opt/max2play/autostart.conf | grep multisqueeze=1 
 if [ "$autostart_multisqueeze" -gt "0" -a -e /var/www/max2play/application/plugins/multisqueeze/scripts/autostart.sh ]; then
 	/var/www/max2play/application/plugins/multisqueeze/scripts/autostart.sh
 fi
+
+#Multishairport
+autostart_multishairport=$(cat /opt/max2play/autostart.conf | grep multishairport=1 | wc -l)
+if [ "$autostart_multishairport" -gt "0" -a -e /var/www/max2play/application/plugins/multishairport/scripts/autostart.sh ]; then
+	/var/www/max2play/application/plugins/multishairport/scripts/autostart.sh
+fi
