@@ -51,8 +51,12 @@ else
    				fi
    				;;
 		esac	
-				
-		(echo "y") | apt-get install lame		
+		
+		apt-get update
+		# Needed for SSL connections e.g. Github Repositories
+		apt-get install libio-socket-ssl-perl -y
+		
+		(echo "y") | apt-get install lame -y
 		
 		#(echo "y") | apt-get install flac		
 		#(echo "y") | apt-get install faad
