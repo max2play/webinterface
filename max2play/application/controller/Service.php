@@ -717,7 +717,7 @@ class Service {
 					
 					// Custom Names for special Chipsets
 					if($this->info->chipset == 'gs705a'){
-						$this->info->hardware = 'vana Player';
+						$this->info->hardware = 'Allo Sparky';
 					}
 				}
 			}			
