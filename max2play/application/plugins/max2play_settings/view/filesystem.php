@@ -28,16 +28,9 @@
 </h1>
 	
 <div class="entry-content">
-	<?php if(isset($fs->view->message[0])){ ?>
-		<div class="ui-widget">
-			<div class="ui-state-highlight ui-corner-all" style="margin-bottom: 10px; padding: 0.4em .7em;">
-				<p>
-					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-					<?php echo implode('<br />', $fs->view->message); ?>					
-				</p>
-			</div>
-		</div>
-	<?php } ?>	
+	<?php $message=$fs->view->message;
+    	  $error=$fs->view->error; 
+    	  include(APPLICATION_PATH.'/view/messages.php');?>	
 	
 	<form action="" method="get">
 		<input type="hidden" id="action" name="action" value="" />	

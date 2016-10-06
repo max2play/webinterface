@@ -29,16 +29,9 @@
 </h1>
 	
 <div class="entry-content">
-	<?php if(isset($wlan->view->message[0])){ ?>
-		<div class="ui-widget">
-			<div class="ui-state-highlight ui-corner-all" style="margin-bottom: 10px; padding: 0.4em .7em;">
-				<p>
-					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-					<?php echo implode('<br />', $wlan->view->message); ?>					
-				</p>
-			</div>
-		</div>
-	<?php } ?>
+	<?php $message=$wlan->view->message;
+    	  $error=$wlan->view->error; 
+    	  include(APPLICATION_PATH.'/view/messages.php');?>	
 	
 	<form action="" method="get" id="form1">
 	<input type="hidden" id="action" name="action" value="" />

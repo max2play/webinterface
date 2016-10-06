@@ -53,7 +53,7 @@ class News extends Service {
 			$this->newslocation = $this->getConfigFileParameter('/opt/max2play/options.conf', 'newslocation');
 			if(!$this->newslocation){
 				//Set to Default
-				$this->newslocation = 'http://www.max2play.com/wp-content/uploads/max2play/news/news.php';
+				$this->newslocation = 'https://www.max2play.com/wp-content/uploads/max2play/news/news.php';
 				$this->saveConfigFileParameter('/opt/max2play/options.conf', 'newslocation', $this->newslocation);
 			}
 			$lang = substr(setlocale( LC_MESSAGES, 0), 0,2);

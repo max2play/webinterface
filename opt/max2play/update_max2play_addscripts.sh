@@ -155,6 +155,13 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	else
 		VERSION="beta"
 	fi
+	
+	if [ -e "/var/www/max2play/application/plugins/allo/view/header_custom.php" ]; then
+	    # Update Plugin Header		
+	    echo "Copy custom header files Allo"
+	    cp -f /var/www/max2play/application/plugins/allo/view/header_custom.php /var/www/max2play/application/view/
+	    cp -f /var/www/max2play/application/plugins/allo/scripts/custom.css /var/www/max2play/public/
+	fi
 	if [ -e "/var/www/max2play/application/plugins/hifiberry/view/header_custom.php" ]; then
 	    # Workaround for OLDER hifiberry Images - get current Pluginfiles to overwrite CSS	    
 	    /opt/max2play/install_plugin.sh https://shop.max2play.com/media/downloadable/$VERSION/hifiberry.tar
@@ -178,7 +185,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	    echo "Copy custom header files justboom"
 	    cp -f /var/www/max2play/application/plugins/justboom/view/header_custom.php /var/www/max2play/application/view/
 	    cp -f /var/www/max2play/application/plugins/justboom/scripts/custom.css /var/www/max2play/public/
-	fi
+	fi	
 	
 	if [ "$(grep -i "start_audioplayer" /etc/rc.local | wc -l)" -lt "1" ]; then
 		# Add Start Audioplayer to boot (not wait for crontab)
@@ -249,4 +256,9 @@ showHelpOnSidebar=$(grep -a "showHelpOnSidebar" /opt/max2play/options.conf | wc 
 if [ "$showHelpOnSidebar" -lt "1" ]; then
     echo "showHelpOnSidebar=1" >> /opt/max2play/options.conf
     echo "Added Help on Sidebar"
+fi
+
+# Delete News Sidebar -> force Reload News
+if [ -e /tmp/0.html ]; then
+	rm /tmp/0.html
 fi

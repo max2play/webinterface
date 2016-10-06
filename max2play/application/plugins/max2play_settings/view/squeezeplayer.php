@@ -85,19 +85,9 @@ $(function() {
 </h1>
 	
 <div class="entry-content">
-	
-	<?php if(isset($sp->view->message[0]) || isset($ap->view->message[0]) || isset($gm->view->message[0])){ ?>
-		<div class="ui-widget">
-			<div class="ui-state-highlight ui-corner-all" style="margin-bottom: 10px; padding: 0.4em .7em;">
-				<p>
-					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-					<?php if(isset($sp->view->message[0])) echo implode('<br /><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>', $sp->view->message); ?>
-					<?php if(isset($ap->view->message[0])) echo implode('<br /><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>', $ap->view->message); ?>
-					<?php if(isset($gm->view->message[0])) echo implode('<br /><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>', $gm->view->message); ?>
-				</p>
-			</div>
-		</div>
-	<?php } ?>
+	<?php $message=array_merge($sp->view->message,$ap->view->message,$gm->view->message);
+    	  $error=array_merge($sp->view->error,$ap->view->error,$gm->view->error); 
+    	  include(APPLICATION_PATH.'/view/messages.php');?>	
 	
 	<form action="" method="get">
 		<input type="hidden" id="action" name="action" value="" />

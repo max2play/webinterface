@@ -3,16 +3,9 @@
 </h1>
 	
 <div class="entry-content">
-    <?php if(isset($start->view->message[0])){ ?>
-		<div class="ui-widget">
-			<div class="ui-state-highlight ui-corner-all" style="margin-bottom: 10px; padding: 0.4em .7em;">
-				<p>
-					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-					<?php echo implode('<br /><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>', $start->view->message); ?>					
-				</p>
-			</div>
-		</div>
-	<?php } ?>	
+    <?php $message=$start->view->message;
+    	  $error=$start->view->error; 
+    	  include(APPLICATION_PATH.'/view/messages.php');?>
 	
 	<h2><?php echo _("Welcome to Max2Play - Your easy to use Interface for Multiroom-Audio and Video!")?></h2>	
 	<br />

@@ -390,6 +390,9 @@ class Basic extends Service {
 			$this->view->message[] = _('Your eMail-address / activation code is saved.');
 			if($this->checkLicense() != false){
 				$this->view->message[] = _('Your license is validated. Now you have access to all features and plugins.');
+				// Remove any Messages from Service Class (e.g. not activated License)
+				global $service;
+				if(is_object($service) && isset($service->view->error)) $service->view->error = array(); 
 				
 				//Rasbperry PI Settings load Plugin and activate
 				if($this->getHardwareInfo() == 'Raspberry PI'){

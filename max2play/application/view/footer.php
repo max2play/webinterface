@@ -66,7 +66,10 @@
 					<h3 class="widget-title"><?php echo _('News') ?></h3>
 					<?php include_once(APPLICATION_PATH.'/controller/News.php'); echo $news->getNews(0); ?>
 				</aside>
-
+				
+				<aside class="widget">
+					<?php if ($service->info->removedonate != 1) echo _('DONATE-BUTTON'); ?>
+				</aside>
 			</div>
 		</div>
 		

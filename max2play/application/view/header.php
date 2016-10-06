@@ -57,12 +57,24 @@
 							<option <?php if($device['current'] == 1) echo 'selected'; ?> value="http://<?php echo $device['ip'] ?>"><?php echo $device['name'] ?> (<?php echo $device['ip'] ?>)</option>
 						<?php }?>		
 					</select>
-					<br />
 				<?php }?>				
-				<span class="headerinfo">
-					<?php if ($service->info->removedonate != 1) echo _('DONATE-BUTTON'); ?>		
-					<br /><?php echo _('Version').' '.$service->info->version ?>
+				<span class="headerinfo">					
+					<?php echo _('Version').' '.$service->info->version ?>
 					<br /><?php echo ($service->info->boardname) ? $service->info->boardname : $service->info->hardware; ?>
+					
+					<?php if($service->checkLicense(true, true) == true){ ?>
+						<div class="ui-state-disabled ui-corner-all" style="margin-top:5px">				
+							<span class="ui-icon ui-icon-circle-check" style="float: left; margin-right: .3em;"></span>
+								<?php echo _('License Activated'); ?>
+						</div>
+					<?php } else { ?>
+						<a href="/plugins/max2play_settings/controller/Basic.php" style="text-decoration:none;">
+							<div class="ui-state-error ui-corner-all" style="margin-top:5px">				
+								<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+									<?php echo _('Not Activated'); ?>
+							</div>
+						</a>
+					<?php } ?>
 				</span>
 			</div>						
 	

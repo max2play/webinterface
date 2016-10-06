@@ -48,11 +48,12 @@ class Service {
 	public function __construct(){
 		$this->view = new stdClass();
 		$this->view->message = array(); // Array of Messages for View
+		$this->view->error = array();
 		$this->info = new Info();
 		if($this->getConfigFileParameter('/opt/max2play/options.conf','DEBUG_WEBINTERFACE') == true || isset($_REQUEST['debug']) && $_REQUEST['debug'] == true){
 			$this->debug = true;
-		}		
-	}
+		}
+	}		
 	
 	/**
 	 * Function for Instance of Serviceclass to load Global Parameters (e.g. for Header)
@@ -66,6 +67,7 @@ class Service {
 		if(isset($_REQUEST['closeguide']) && $_REQUEST['closeguide'] == 1){
 			$this->setHelpOnSidebar(false);
 		}
+		$this->showLicenseMessage();
 		return true;
 	}
 	
@@ -1059,6 +1061,29 @@ class Service {
 			$this->writeDynamicScript(array('sed -i "s@dtparam=audio=on@dtparam=audio=off@" /boot/config.txt'));
 		}
 		return true;
+	}
+	
+	/**
+	 * Show License Message every X requests if not activated
+	 * @param $every X Requests show Message
+	 */
+	public function showLicenseMessage($every = 3){
+		if($this->checkLicense(true, true) == true)
+			return false;
+		$name = 'Max2Play-Interface-Requests';
+		if (isset($_COOKIE[$name])) {
+			$req = intval($_COOKIE[$name]);
+			if($req >= $every){
+				setcookie($name, 1, 0, '/');
+				if(!isset($this->view->error[0]))
+					$this->view->error[] = _("Max2Play-License <a href='/plugins/max2play_settings/controller/Basic.php'>is not activated</a>. Not all functions available!");
+			}else{
+				setcookie($name, $req + 1, 0, '/');
+			}
+		}else
+			// Set Cookie to save Requests
+			setcookie($name, 2, 0, '/');
+		return false;
 	}
 	
 	/**

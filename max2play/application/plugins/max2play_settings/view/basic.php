@@ -28,17 +28,9 @@
 </h1>
 	
 <div class="entry-content">
-	
-	<?php if(isset($basic->view->message[0])){ ?>
-		<div class="ui-widget">
-			<div class="ui-state-highlight ui-corner-all" style="margin-bottom: 10px; padding: 0.4em .7em;">
-				<p>
-					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-					<?php echo implode('<br /><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>', $basic->view->message); ?>					
-				</p>
-			</div>
-		</div>
-	<?php } ?>	
+	<?php $message=$basic->view->message;
+    	  $error=$basic->view->error; 
+    	  include(APPLICATION_PATH.'/view/messages.php');?>	
 	
 	<form id="settings" action="" enctype="multipart/form-data" method="POST">
 	<input type="hidden" id="action" name="action" value="" />
@@ -69,7 +61,7 @@
 			<?php if($basic->view->license || $basic->view->betaEnabled) { ?>
 				<div style="width: 99%; padding: 0px; background: limegreen none repeat scroll 0px 0px;"><div style="padding:5px;"><?php echo _("Activated"); if ($basic->view->licenseDate != 1) echo '<br>('.$basic->view->licenseDate.')'; ?></div></div>
 			<?php }else { ?>
-				<div style="width: 99%; padding: 0px; background: #ff4500 none repeat scroll 0px 0px;"><div style="padding:5px;"><?php echo _("Not Activated"); if ($basic->view->licenseDate != 0) echo '<br>('.$basic->view->licenseDate.')';?></div></div>
+				<div class="ui-state-error" style="width: 99%; padding: 0px;border:none;"><div style="padding:5px;"><?php echo _("Not Activated"); if ($basic->view->licenseDate != 0) echo '<br>('.$basic->view->licenseDate.')';?></div></div>
 			<?php } ?>
 		</td>
 		<td><?php echo _("To access all functions and plugins of Max2Play and constantly get new features, you need to be a customer of shop.max2play.com or have a code for activation. This is verified with your eMail-address or activation code. If you are no customer yet, you may buy the <a href='http://shop.max2play.com/en/max2play-full-license.html' target='_blank'>Max2Play-Full-Package here</a>.") ?></td>
