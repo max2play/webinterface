@@ -39,7 +39,7 @@
 				<script>
 					function closeGuide(){
 						$("#guide").display='none';
-						window.alert('<?php echo _('Help on Sidebar can be reactivated on Settings-Page.') ?>');
+						window.alert('<?php echo str_replace("'","\'",_('Help on Sidebar can be reactivated on Settings-Page.')) ?>');
 						window.open(document.URL+'?closeguide=1&closeguide=1');
 					}
 				</script>
