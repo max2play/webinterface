@@ -1093,8 +1093,16 @@ class Service {
 		// is IPv6? Look for at least 2 ":"
 		if(preg_match('=.*:.*:.*=', $_SERVER['SERVER_ADDR'], $match) != 0){
 			if(TRUE == $forceIPv4){
-				// return Name
-				return $this->getPlayername();	
+				if($this->info->ipv4)
+					return $this->info->ipv4;
+				// return Name OR get IPv4 Address if possible
+				$output=shell_exec("LANG=C && /sbin/ifconfig | grep -o 'inet addr:[0-9\.]\+' | grep -v '127.0.0.1'");
+				if(strpos($output, 'inet addr:') !== FALSE){
+					$this->info->ipv4 = str_replace($output, 'inet addr:', '');
+					return $this->info->ipv4;
+				}else{
+					return $this->getPlayername();
+				}	
 			}
 			return '['.$_SERVER['SERVER_ADDR'].']'; 
 		}

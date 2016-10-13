@@ -430,4 +430,15 @@ body.loading .modal {
 #tabs-min .ui-tabs-nav .ui-state-active { 
     background: transparent url(/css/ui-lightness/images/uiTabsArrow.png) no-repeat bottom center; 
     border: none; 
-} 		
+}
+code {
+	background: #f7f7f7 none repeat scroll 0 0;
+    border: 1px dashed #e4e4e4;
+    border-radius: 2px;
+    color: #666;
+    font: 12px Consolas,"Andale Mono",Courier,"Courier New",monospace;
+    overflow-wrap: break-word;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: pre-wrap;
+}

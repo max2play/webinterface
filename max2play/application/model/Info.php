@@ -34,6 +34,7 @@ class Info {
 	public $linux = false;
 	public $freespace = false;
 	public $boardname = false;
+	public $ipv4 = false;
 	
 	public function __construct(){
 	}
