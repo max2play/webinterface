@@ -1098,7 +1098,7 @@ class Service {
 				// return Name OR get IPv4 Address if possible
 				$output=shell_exec("LANG=C && /sbin/ifconfig | grep -o 'inet addr:[0-9\.]\+' | grep -v '127.0.0.1'");
 				if(strpos($output, 'inet addr:') !== FALSE){
-					$this->info->ipv4 = mb_substr($output, 10);
+					$this->info->ipv4 = trim(mb_substr($output, 10));
 					return $this->info->ipv4;
 				}else{
 					return $this->getPlayername();
