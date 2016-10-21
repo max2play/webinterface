@@ -68,7 +68,7 @@ class Squeezeplayer extends Service {
 			}
 			
 			if($_GET['action'] == 'resetEqualizer'){
-				$this->updateEqualizer(0, (strpos($this->view->squeezelite_soundcard, 'equalUSB') !== FALSE) ? $card = 'equalUSB' : $card = 'equal');
+				$this->updateEqualizer(0, false, (strpos($this->view->squeezelite_soundcard, 'equalUSB') !== FALSE) ? $card = 'equalUSB' : $card = 'equal');
 			}
 			if($_GET['action'] == 'saveEqualizer'){
 				$this->getSqueezeliteCommandline();

@@ -1053,8 +1053,11 @@ class Service {
 	/**
 	 * Enable / Disable Audio Interface on Raspberry Pi
 	 * @param unknown $status
+	 * TODO: save dtparm Parameter like saveDTOverlayConfig in RaspberrySettings
 	 */
 	public function setBuildInAudio($status = true){
+		// Replace commented dtparm - make sure only one line is active
+		$this->writeDynamicScript(array('if [ $(grep "^dtparam=audio=" /boot/config.txt | wc -l) -lt 1 ]; then sed -i "s@.*dtparam=audio=@dtparam=audio=@" /boot/config.txt; fi'));
 		if($status == true){
 			$this->writeDynamicScript(array('sed -i "s@dtparam=audio=off@dtparam=audio=on@" /boot/config.txt'));
 		}else{
