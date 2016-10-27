@@ -55,7 +55,7 @@ if [ "1" -gt "$xbmcrunning" ]; then
         USER=$(grep -a "SYSTEM_USER" /opt/max2play/audioplayer.conf | sed -n -e 's/^[A-Z_]*\=//p')
         if [ "$USER" = "pi" ]; then
           export DISPLAY=':0'
-          running_xserver=$(ps -Al | grep startx | wc -l)
+          running_xserver=$(ps -Al | grep "lxsession\|startx\|Xorg" | wc -l)
           if [ "1" -gt "$running_xserver" ]; then
           	sudo su -l pi -c /usr/bin/startx > /dev/null 2>&1 &
           	sleep 10
@@ -84,7 +84,7 @@ fi
 
 autostart_xserver=$(cat /opt/max2play/autostart.conf | grep autostartxserver=1 | wc -l)
 if [ "0" -lt "$autostart_xserver" ]; then	
-	running_xserver=$(ps -Al | grep lxsession | wc -l)	
+	running_xserver=$(ps -Al | grep "lxsession\|startx\|Xorg" | wc -l)	
 	if [ "1" -gt "$running_xserver" ]; then
 		USER=$(grep -a "SYSTEM_USER" /opt/max2play/audioplayer.conf | sed -n -e 's/^[A-Z_]*\=//p')		
 		if [ "$USER" = "pi" ]; then
@@ -124,4 +124,9 @@ fi
 autostart_multishairport=$(cat /opt/max2play/autostart.conf | grep multishairport=1 | wc -l)
 if [ "$autostart_multishairport" -gt "0" -a -e /var/www/max2play/application/plugins/multishairport/scripts/autostart.sh ]; then
 	/var/www/max2play/application/plugins/multishairport/scripts/autostart.sh
+fi
+
+#Custom Autostart
+if [ -e /opt/max2play/custom_autostart.sh ]; then
+	/opt/max2play/custom_autostart.sh
 fi

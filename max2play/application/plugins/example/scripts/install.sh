@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Path to current Directory
+CURRENTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 echo "Install-Script"
 
 echo "Update sources"

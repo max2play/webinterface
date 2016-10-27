@@ -21,7 +21,7 @@ p3_start=$(($p2_end+1))
 
 # Shrinking is not allowed!
 if [ -z "$p2_start" -o ! "$p2_end_current" -lt "$p2_end" ]; then
-	echo "Resize not successful"
+	echo "Resize not successful! Maybe already expanded? Make sure no USB-drives are attached when trying to expand."
 	exit 0;
 fi 
 

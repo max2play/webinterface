@@ -132,12 +132,15 @@ class Filesystem extends Service {
 	public function removeMount($pos){
 		//Komplette Zeile entfernen
 		$this->getMountsFstab();
-				
+		
+		//Unmount
+		$this->unMount($this->view->mounts[$pos]->getPath());
+		
 		$content = str_replace(array('/'), array('\/'), $this->view->mounts[$pos]->getMountpoint(true, true)." ".$this->view->mounts[$pos]->getPath()." ".$this->view->mounts[$pos]->getType()." ".$this->view->mounts[$pos]->getOptions());
 		
 		shell_exec("sed -n '/".$content."/!p' ".$this->_fstabPath."fstab > /tmp/fstab && cp /tmp/fstab ".$this->_fstabPath."fstab");	
 		
-		$this->view->message[] = _('Entry deleted');
+		$this->view->message[] = _('Entry deleted');		
 		
 		$this->reloadMount();
 		return true;
@@ -145,7 +148,7 @@ class Filesystem extends Service {
 	
 	public function reloadMount(){
 		$reload = shell_exec("sudo mount -a 2>&1");
-		if($reload != ''){
+		if(strpos($reload, 'error' ) !== FALSE){
 			$this->view->message[] = $reload;
 			return false;
 		}
@@ -297,10 +300,13 @@ class Filesystem extends Service {
 				$m = new Mount();
 					
 				$test1 = $m->setMountpoint('UUID='.$this->view->mountpointsSDA[$device]['uuid']);
-				$test2 = $m->setPath($this->view->mountpointsSDA[$device]['path']);
+				if($this->view->mountpointsSDA[$device]['path'] != _('not mounted'))
+					$test2 = $m->setPath($this->view->mountpointsSDA[$device]['path']);
+				else 
+					$test2 = $m->setPath('/mnt/extdrive');
 				$test3 = $m->setType($this->view->mountpointsSDA[$device]['type']);
 				//Skip nobootwait on Debian Jessie! Use nofail instead
-				if(isset($version[1]) && $version[1] == 'jessie'){
+				if(isset($version[1]) && ($version[1] == 'jessie' || $version[1] == 'xenial')){
 					$bootoption = 'nofail';
 				}else{
 					$bootoption = 'nobootwait';
@@ -322,11 +328,13 @@ class Filesystem extends Service {
 		if(isset($output[0])){
 			$this->view->mountpointsSDA = array();
 			foreach($output as $value){
-				if(preg_match('@(/dev/sd[^:]*):( LABEL="([^"]*)")? UUID="([^"]*)" TYPE="([^"]*)"@', $value, $match)){
-					$this->view->mountpointsSDA[$match[1]] = array('device' => $match[1], 'label' => $match[3], 'uuid' => $match[4], 'type' => $match[5], 'path' => _('not mounted'));
+				if(preg_match('@(/dev/sd[^:]*):( SEC_TYPE="[^"]*")?( LABEL="([^"]*)")? UUID="([^"]*)" TYPE="([^"]*)"@', $value, $match)){
+					$this->view->mountpointsSDA[$match[1]] = array('device' => $match[1], 'label' => $match[4], 'uuid' => $match[5], 'type' => $match[6], 'path' => _('not mounted'));
+					if(!$this->view->mountpointsSDA[$match[1]]['label'])
+						$this->view->mountpointsSDA[$match[1]]['label'] = 'NO_LABEL';
 					if(isset($this->view->mounts[0])){
 						foreach($this->view->mounts as $mnt){
-							if($mnt->getMountpoint() == 'UUID='.$match[4]){
+							if($mnt->getMountpoint() == 'UUID='.$match[5]){
 								$this->view->mountpointsSDA[$match[1]]['fixmounted'] = true;								
 							}
 						}

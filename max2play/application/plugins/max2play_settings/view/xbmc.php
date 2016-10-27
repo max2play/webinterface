@@ -58,6 +58,9 @@
 		<?php echo _('Choose Kodi/XBMC-Package by http-link (package must be .deb) for Update') ?>: 
 		<input id="downloadurl" type="text" value="" name="downloadurl" style="width:200px;" /><br /><br /> 	
 		<input type="button" value="<?php echo str_replace('$NAME', $sp->viewname, _('$NAME start installation')) ?>" name="install" onclick="document.getElementById('action').value='install';submit();" />
+		<?php if($sp->getSystemUser() == 'pi'){ ?>
+			&nbsp;&nbsp;<input type="button" value="<?php echo _('Upgrade Kodi to latest version') ?>" name="upgrade" onclick="document.getElementById('downloadurl').value='kodiupgradepi';document.getElementById('action').value='install';submit();" />
+		<?php } ?>
 		<br /><br /> <?php echo _('The installation may take some time depending on your internet connection. At first it downloads the package from given source and afterwards it installs the package.')?>			
 		<br /><br />
 		

@@ -52,6 +52,9 @@ class Service {
 		$this->info = new Info();
 		if($this->getConfigFileParameter('/opt/max2play/options.conf','DEBUG_WEBINTERFACE') == true || isset($_REQUEST['debug']) && $_REQUEST['debug'] == true){
 			$this->debug = true;
+			//activate Error Reporting
+			error_reporting(E_ERROR | E_WARNING | E_PARSE);
+			ini_set("display_errors", "stdout");
 		}
 	}		
 	

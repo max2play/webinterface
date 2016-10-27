@@ -172,6 +172,7 @@ else
 fi
 
 pushd /tmp
+# Optional: Replace with modified Squeezelite from Max2Play (Bluetoothsync, Alsasync)
 git clone https://github.com/ralph-irving/squeezelite
 cd squeezelite
 OPTS="-DFFMPEG -DRESAMPLE -DVISEXPORT -DDSD" make
