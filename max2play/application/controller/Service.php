@@ -701,7 +701,18 @@ class Service {
 		return false;
 	}
 	
+	/**
+	 * Get Hardware Information
+	 */
 	public function getHardwareInfo(){
+		$hwByRevisionRegex = array('a.2082' => 'Raspberry PI 3', 
+								   'a.[12]04[12]' => 'Raspberry PI 2',
+								   '900092' => 'Raspberry PI Zero', 
+								   '000[23456def]' => 'Raspberry PI B',
+								   '001[03]' => 'Raspberry PI B+',
+								   '000[789]' => 'Raspberry PI A',
+								   '0012' => 'Raspberry PI A+');
+		
 		if(!$this->info->hardware){
 			$output = shell_exec("cat /proc/cpuinfo | grep 'Hardware\|Revision'");
 			$this->info->hardware = '';
@@ -709,12 +720,15 @@ class Service {
 				if(strpos($output, 'BCM2708') || strpos($output, 'BCM2709') || strpos($output, 'BCM2837')){
 					$this->info->hardware = 'Raspberry PI';
 					$this->info->chipset = trim($matches[1]);
-					// Pi Zero? Check Revision					
+					// Pi Version? Check Revision					
 					if(preg_match('=Revision.*: ([^ ]*)=', $output, $matches)){
 						$revision = trim($matches[1]);
-						if($revision[strlen($revision)-2] == 9){
-							$this->info->boardname = 'Raspberry PI Zero';
-						}
+						foreach($hwByRevisionRegex as $key => $value){
+							if(preg_match('='.$key.'=', $revision, $test)){
+								$this->info->boardname = $value;
+								break;
+							}
+						}						
 					}
 				}else{			
 					$this->info->hardware = trim($matches[1]);
@@ -1104,7 +1118,8 @@ class Service {
 				// return Name OR get IPv4 Address if possible
 				$output=shell_exec("LANG=C && /sbin/ifconfig | grep -o 'inet addr:[0-9\.]\+' | grep -v '127.0.0.1'");
 				if(strpos($output, 'inet addr:') !== FALSE){
-					$this->info->ipv4 = trim(mb_substr($output, 10));
+					$address = explode("\n", trim(mb_substr($output, 10)));
+					$this->info->ipv4 = $address[0];
 					return $this->info->ipv4;
 				}else{
 					return $this->getPlayername();

@@ -1,5 +1,6 @@
 #!/bin/bash
 #Installer Script for Plugin Shairtunes
+apt-get update
 apt-get install libcrypt-openssl-rsa-perl libio-socket-inet6-perl libwww-perl avahi-utils libio-socket-ssl-perl --yes --force-yes
 wget -O /opt/max2play/cache/libnet-sdp-perl.deb http://www.inf.udec.cl/~diegocaro/rpi/libnet-sdp-perl_0.07-1_all.deb
 dpkg -i /opt/max2play/cache/libnet-sdp-perl.deb
