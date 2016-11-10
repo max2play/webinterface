@@ -264,10 +264,10 @@ if [ -e /tmp/0.html ]; then
 fi
 
 # Custom Allo Sparky usbmount for user "vana"
-#USERNAME=$(grep -aP "^[ \t]*SYSTEM_USER" /opt/max2play/audioplayer.conf | sed -n -e "s/^[ \t]*[A-Za-z_0-9\.]*=//p")
-#if [ "$USERNAME" = "vana" ]; then
-	#sudo sed -i "s/^FS_MOUNTOPTIONS=.*/FS_MOUNTOPTIONS=\" \"/" /etc/usbmount/usbmount.conf
-#fi
+USERNAME=$(grep -aP "^[ \t]*SYSTEM_USER" /opt/max2play/audioplayer.conf | sed -n -e "s/^[ \t]*[A-Za-z_0-9\.]*=//p")
+if [ "$USERNAME" = "vana" ]; then
+	sudo sed -i "s/odroid/vana/" /etc/usbmount/usbmount.conf
+fi
 
 if [ ! -e /opt/max2play/custom_autostart.sh ]; then
 	echo '#!/bin/bash\n#Custom Autostart File\n' > /opt/max2play/custom_autostart.sh
