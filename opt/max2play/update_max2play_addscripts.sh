@@ -129,7 +129,12 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		sed -i 's/SHAIRPORT_PARAMETER.*/SHAIRPORT_PARAMETER=-d default:CARD=ALSA/' /opt/max2play/audioplayer.conf.sav
 	fi
 	
-	echo "Y" | apt-get install ntfs-3g lsb-release
+	EXPECTINSTALLED=$(dpkg -s expect | grep "Status: install ok" | wc -l)
+	if [ "$EXPECTINSTALLED" -lt "1" ]; then
+		apt-get update
+		echo "Y" | apt-get install ntfs-3g lsb-release expect -y
+	fi
+	
 	#Remove "-a 120::16:" from squeezelite_parameter due to fixed sample rate
 	sed -i 's/\-a 120::16:/\-a 120:::/' /opt/max2play/audioplayer.conf
 	#Copy Squeezeplug custom.css and Header Files if Existing

@@ -33,6 +33,7 @@ setlocale( LC_MESSAGES, $locale);
 bindtextdomain($domain, $directory);
 textdomain($domain);
 bind_textdomain_codeset($domain, 'UTF-8');
+putenv('LC_ALL=en_GB.UTF-8');
 
 
 function setTimezone($default) {
