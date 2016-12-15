@@ -42,7 +42,7 @@ class Squeezeplayer extends Service {
 			echo implode('<br />', $this->view->message);
 			ob_flush();
 			die();
-		}
+		}				
 		
 		$this->getSoundDevices();
 		
@@ -102,6 +102,8 @@ class Squeezeplayer extends Service {
 		$this->view->autostart = $this->checkAutostart($this->pname, true);
 		
 		$this->showHelpSidebar();
+		
+		$this->loadAPIHandler();
 	}
 	
 	/**
@@ -325,29 +327,7 @@ class Squeezeplayer extends Service {
 	 */
 	private function updateSqueezelite($ajax = 0){
 		$outfile = '/opt/max2play/cache/update_squeezelite.txt';
-		/*ignore_user_abort(true);
-		set_time_limit(3000);	
-		
-		$autostart = $this->checkAutostart($this->pname, true);
-		if($autostart){
-			$this->selectAutostart(0);
-		}
-		$this->view->message[] = $this->stop($this->pname);
-		
-		//libfaad-dev libmpg123-dev libmad0-dev
-		$script[] = 'apt-get update';
-		$script[] = 'echo "Y" | apt-get -y install libav-tools libsoxr-dev lirc liblircclient-dev wiringpi;ldconfig;';
-		$script[] = 'cd /tmp;git clone https://github.com/max2play/squeezelite;cd squeezelite;make -f Makefile.m2p;';
-		$script[] = 'cp /tmp/squeezelite/squeezelite-m2p /opt/squeezelite/squeezelite;cp /tmp/squeezelite/scripts/btcheck.sh /opt/squeezelite/;chmod 777 /opt/squeezelite/btcheck.sh';
-		$script[] = 'echo "Finished Update - Restart Device!";';
-		$this->view->message[] = nl2br($this->writeDynamicScript($script));
-		$this->view->message[] = $this->start($this->pname);
-		
-		if($autostart){
-			$this->selectAutostart(1);
-		}*/
-		
-		
+				
 		if($ajax == 0){
 			$autostart = $this->checkAutostart($this->pname, true);
 			ignore_user_abort(true);
@@ -412,7 +392,54 @@ class Squeezeplayer extends Service {
 		$helpSidebar['wikilink'] = 'https://www.max2play.com/en/wiki/audioplayer-squeezelites-shairport/';		
 		return true;
 	}
-		
+
+	/**
+	 * APIDOC Settings Equalizer
+	 *
+	 * @api {post} /plugins/max2play_settings/controller/Squeezeplayer.php Equalizer Settings
+	 * @apiName Equalizer Settings
+	 * @apiGroup Audioplayer API
+	 * @apiVersion 1.0.0
+	 * @apiDescription Fetch / Update / Reset Equalizer Settings on Max2Play Device.<br />
+	 *
+	 * @apiParam {String} apijson Always set to "1" when using the API
+	 * @apiParam {String} action Define what to do: may be empty or "saveEqualizer" or "resetEqualizer"
+	 * @apiParam {String} use_equalizer Override Max2Play Setting wether to read Equalizer settings: must be set to "1", if Equalizer is disabled in web interface
+	 * @apiParam {Array} settingsEqualizer Array to set new Equalizer Values for each frequency: Key => Value: [01.+31+Hz]=54
+	 * @apiSuccess {Array} equalvalues Object of Type Equalizer
+	 *
+	 *
+	 * @apiExample {json} Example get Equalizer Values:
+	 * curl -v -X GET "http://max2play/plugins/max2play_settings/controller/Squeezeplayer.php?apijson=1&use_equalizer=1"
+	 *
+	 * @apiExample {json} Example change Equalizer Values (GET):
+	 * curl -v -X GET "http://max2play/plugins/max2play_settings/controller/Squeezeplayer.php?apijson=1&use_equalizer=1&action=saveEqualizer&settingsEqualizer[01.+31+Hz]=54&settingsEqualizer[02.+63+Hz]=66%25&settingsEqualizer[03.+125+Hz]=66%25&settingsEqualizer[04.+250+Hz]=66%25&settingsEqualizer[05.+500+Hz]=66%25&settingsEqualizer[06.+1+kHz]=66%25&settingsEqualizer[07.+2+kHz]=66%25&settingsEqualizer[08.+4+kHz]=66%25&settingsEqualizer[09.+8+kHz]=66%25&settingsEqualizer[10.+16+kHz]=66%25
+	 *
+	 * @apiExample {json} Example reset Equalizer Values (GET):
+	 * curl -v -X GET "http://max2play/plugins/max2play_settings/controller/Squeezeplayer.php?apijson=1&use_equalizer=1&action=resetEqualizer"
+	 *
+	 * @apiSuccessExample Success-Response:
+	 * HTTP/1.1 200 OK
+	 * Content-Type: application/json; charset=utf-8
+	 * X-API-Version: 1.0.0
+	 * {
+	 *   ...
+	 *   "equalvalues":{
+	 *		"01. 31 Hz":"55%",
+	 *		"02. 63 Hz":"60%",
+	 *		"03. 125 Hz":"66%",
+	 *		"04. 250 Hz":"66%",
+	 *		"05. 500 Hz":"66%",
+	 *		"06. 1 kHz":"70%",
+	 *		"07. 2 kHz":"66%",
+	 *		"08. 4 kHz":"66%",
+	 * 		"09. 8 kHz":"66%",
+	 *		"10. 16 kHz":"66%"
+	 *	 },
+	 *   ...
+	 * }
+	 *
+	 */
 }
 
 $sp = new Squeezeplayer();

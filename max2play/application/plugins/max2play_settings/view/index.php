@@ -49,5 +49,38 @@
 	
 	<br /><br />
 	<?php echo _('Questions concerning this project? Please refer to <a href="http://www.max2play.com" target="_blank">www.Max2Play.com</a>') ?><br />	
+	
+	<?php if($start->view->setupstartpage == 1){ ?>
+		<script>
+		  $( function() {
+		    $( "#dialog-setupstartpage" ).dialog({
+		      minWidth: 400,
+			  modal: true,
+		      buttons: {
+		          "<?php echo _('Remind me again');?>": function() {
+		              $( this ).dialog( "close" );
+		            },
+		          "<?php echo _('Skip this');?>": function() {
+					  $.get('/plugins/max2play_settings/controller/Index.php','action=skipsetupstartpage');
+		              $( this ).dialog( "close" );
+		            }
+		      }
+		    });
+		  } );
+	    </script>
 		
+		<div id="dialog-setupstartpage" title="<?php echo _('Customize Max2Play for a special audio card?');?>">
+	  		<p><span class="ui-icon ui-icon-check" style="float:left; margin:12px 12px 20px 0;"></span><?php echo _('Get the most out of your audio card with the specialized setup page. Just click on the manufacturer below to install the plugin.');?></p>
+	  		<p style="margin-top:10px;"><?php echo _('The custom startpage offers an easy installer for sound cards (choose optimal setup for audioplayers), volume control and other options.');?></p>
+	  		 
+	  		 <ul>
+	    	 	<li><a style="color:#fff;" class="download-button clickloading" href="?action=installstartpageplugin&hardware=justboom" >JustBoom</a></li>
+	    	 	<li><a style="color:#fff;" class="download-button clickloading" href="?action=installstartpageplugin&hardware=hifiberry">HifiBerry</a></li>
+	    	 	<li><a style="color:#fff;" class="download-button clickloading" href="?action=installstartpageplugin&hardware=iqaudio">IQAudIO</a></li>	    	 	
+	    	 	<li><a style="color:#fff;" class="download-button clickloading" href="?action=installstartpageplugin&hardware=allo">ALLO</a></li>
+	    	 </ul>
+	  		<p><?php echo _('If you have another audiocard or none at all, just skip this step.');?></p>
+	  		
+		</div>
+	<?php } ?>
 </div>	

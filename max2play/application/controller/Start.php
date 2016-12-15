@@ -41,6 +41,18 @@ class Start extends Service {
 			if($_REQUEST['action'] == 'save_purpose'){
 				$this->_savePurpose($_REQUEST['purpose']);
 			}
+			if($_REQUEST['action'] == 'skipsetupstartpage'){
+				$this->saveConfigFileParameter('/opt/max2play/options.conf', 'setupstartpage', 0);
+			}
+			if($_REQUEST['action'] == 'installstartpageplugin'){				
+				if($this->installPlugin('https://shop.max2play.com/media/downloadable/currentversion/'.$_REQUEST['hardware'].'.tar', true, 1, true)){
+					$this->saveConfigFileParameter('/opt/max2play/options.conf', 'setupstartpage', 0);
+					$this->removePlugins(array ('Start'));
+					// Redirect to new Plugin
+					header('Location: /plugins/'.$_REQUEST['hardware'].'/controller/Setup.php');
+					exit;
+				}
+			}
 		}
 
 		if($this->getFreeDiskSpace()){
@@ -53,7 +65,9 @@ class Start extends Service {
 		// $this->easyinstaller = true;
 		$this->showHelpSidebar();
 		
-		$this->view->purpose = $this->getConfigFileParameter('/opt/max2play/options.conf', 'purpose');		
+		$this->view->purpose = $this->getConfigFileParameter('/opt/max2play/options.conf', 'purpose');
+		
+		$this->view->setupstartpage = $this->getConfigFileParameter('/opt/max2play/options.conf', 'setupstartpage');
 	}	
 	
 	/**

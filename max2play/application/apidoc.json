@@ -1,0 +1,25 @@
+{
+  "hint": "Create with ~/projects/max2play/max2play/public/apidoc$ sudo apidoc -i ../../application/ -o .",
+  "name": "Max2Play API",
+  "version": "1.0.0",
+  "description": "Max2Play JSON API for web interface functions",
+  "title": "Max2Play API",
+  "url" : "https://max2play",
+  "header": {
+    "title": "Max2Play API",
+    "filename": "header.md"
+  },
+  "footer": {
+    "title": "Questions / Remarks?",
+    "filename": "footer.md"
+  },
+  "template": {
+  	"withGenerator" : false,
+  	"withCompare" : false
+  },
+  "order": [
+	  
+  ]
+  
+}
+

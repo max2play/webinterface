@@ -707,7 +707,7 @@ class Service {
 	public function getHardwareInfo(){
 		$hwByRevisionRegex = array('a.2082' => 'Raspberry PI 3', 
 								   'a.[12]04[12]' => 'Raspberry PI 2',
-								   '900092' => 'Raspberry PI Zero', 
+								   '90009[23]' => 'Raspberry PI Zero', 
 								   '000[23456def]' => 'Raspberry PI B',
 								   '001[03]' => 'Raspberry PI B+',
 								   '000[789]' => 'Raspberry PI A',
@@ -843,6 +843,7 @@ class Service {
 		$this->getEmail();
 		if (!$uploadsuccess && !preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$pathToPlugin)) {
 			$this->view->message[] = _("Invalid Plugin-URL");
+			return false;
 		}else{
 			$linux = $this->getLinuxVersion();
 			$add_params = '"?email='.$this->view->email.'&premium='.$this->checkLicense(true, true).'&hardware='.urlencode($this->getHardwareInfo()).'&linux='.urlencode($linux[0]).'"';
@@ -1051,10 +1052,11 @@ class Service {
 	
 	/**
 	 * get Alsaequal Settings
+	 * 
 	 */
 	public function getEqualizer($user = false, $card = 'equal'){
 		$this->view->use_equalizer = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'USE_EQUALIZER');
-		if($this->view->use_equalizer){
+		if($this->view->use_equalizer || $_REQUEST['use_equalizer']){
 			if(!$user)
 				$user = $this->getSystemUser();
 			foreach($this->equal as $key){
@@ -1148,6 +1150,25 @@ class Service {
 			}
 			ob_end_clean();
 			echo implode('<br />', $this->view->message);
+			ob_flush();
+			die();
+		}
+		return true;
+	}
+	
+	/**
+	 * API Function to print JSON Encoded Output if Parameter "apijson=1" is set
+	 * Load this at the End of the Construct Function
+	 * Optional: Use API-DOC to specify POST / GET Parameters for each function
+	 * @return boolean
+	 */
+	public function loadAPIHandler(){
+		if($_REQUEST['apijson'] == 1){
+			//API for JSON formatted Output
+			ob_end_clean();
+			header('API-Type: Max2Play API');
+			header('Content-Type: application/json; charset=utf-8', false);			
+			echo json_encode(get_object_vars($this));
 			ob_flush();
 			die();
 		}
