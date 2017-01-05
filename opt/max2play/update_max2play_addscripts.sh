@@ -185,6 +185,12 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	    cp -f /var/www/max2play/application/plugins/iqaudio/view/header_custom.php /var/www/max2play/application/view/
 	    cp -f /var/www/max2play/application/plugins/iqaudio/scripts/custom.css /var/www/max2play/public/
 	fi
+	if [ -e "/var/www/max2play/application/plugins/audiophonics/view/header_custom.php" ]; then
+	    # Update Plugin Header		
+	    echo "Copy custom header files audiophonics"
+	    cp -f /var/www/max2play/application/plugins/audiophonics/view/header_custom.php /var/www/max2play/application/view/
+	    cp -f /var/www/max2play/application/plugins/audiophonics/scripts/custom.css /var/www/max2play/public/
+	fi	
 	if [ -e "/var/www/max2play/application/plugins/justboom/view/header_custom.php" ]; then
 	    # Update Plugin Header		
 	    echo "Copy custom header files justboom"

@@ -2,6 +2,13 @@
 echo "Squeezelite und Shairport starten, falls XBMC nicht läuft entsprechend autostart.conf"
 echo "Check auf laufenden XBMC - Pulseaudio VS Alsa bringt Probleme - Alternativ Check auf USB-DAC (Nur Squeezelite)"
 
+# Never Run this script more than once -> check for running instances! - Process Search is already 1 process
+SCRIPTRUNNING=$(ps -Al | grep "start_audioplay" | wc -l)
+if [ "2" -lt "$SCRIPTRUNNING" ]; then
+   echo "Script Already Running: Exit"
+   exit 0
+fi
+
 xbmcrunning=$(ps -Al | grep "xbmc.bin\|kodi.bin" | wc -l)
 
 useusbdac=$(grep -a USE_USB_DAC=1 /opt/max2play/audioplayer.conf | wc -l)
@@ -65,6 +72,8 @@ if [ "1" -gt "$xbmcrunning" ]; then
           export DISPLAY=':0'
           sudo -u odroid -H /opt/jivelite/jivelite/bin/jivelite > /dev/null 2>&1 &
         fi
+        # Wait for jivelite to Start
+        sleep 5
     fi
 fi
 

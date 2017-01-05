@@ -538,10 +538,10 @@ class Service {
 				//No changes
 				return false;
 			}
-			//Check for empty entry
-			$param_exists = shell_exec('grep -aP "^[ \t]*'.$parameter.'" '.$configfile.' | wc -l');
+			//Check for empty entry			
+			$param_exists = shell_exec('grep -aP "^[ \t]*'.$parameter.'[ \t]*'.$seperator.'" '.$configfile.' | wc -l');
 			if($old_parameter != '' || $param_exists > 0){
-				$this->writeDynamicScript(array('sed -i "s/^[ \t]*'.$parameter.'.*$/'.$parameter.$separator.str_replace(array('/'),array('\/'),$value).'/g" '.$configfile));
+				$this->writeDynamicScript(array('sed -i "s/^[ \t]*'.$parameter.'[ \t]*'.$separator.'.*$/'.$parameter.$separator.str_replace(array('/'),array('\/'),$value).'/g" '.$configfile));				
 				$this->view->message[] = _("Update Configfile - existing Entry changed");
 			}else{
 				//check for Newline in Last Line in config file
@@ -565,13 +565,13 @@ class Service {
 	 * @param string $configfile
 	 * @param string $parameter
 	 */
-	public function deleteConfigFileParameter($configfile = '', $parameter = ''){
+	public function deleteConfigFileParameter($configfile = '', $parameter = '', $separator = '\='){
 		if(!file_exists($configfile))
 			return false;
-		$param_exists = shell_exec('grep -aP "^[ \t]*'.$parameter.'" '.$configfile.' | wc -l');
-		if($param_exists > 0){
-			$this->writeDynamicScript(array('sed -i "s/^[ \t]*'.$parameter.'.*$//g" '.$configfile));
-		}
+		$param_exists = shell_exec('grep -aP "^[ \t]*'.$parameter.'[ \t]*'.$seperator.'" '.$configfile.' | wc -l');
+		if($param_exists > 0){			
+			$this->writeDynamicScript(array('sed -i "s/^[ \t]*'.$parameter.'[ \t]*'.$separator.'.*$//g" '.$configfile));
+		}		
 		return true;
 	}
 	
@@ -581,8 +581,8 @@ class Service {
 	 */
 	public function getConfigFileParameter($configfile = '', $parameter = '', $separator = '\='){
 		if(!file_exists($configfile))
-			return false;
-		$output = trim(shell_exec('grep -aP "^[ \t]*'.$parameter.'" '.$configfile.' | sed -n -e "s/^[ \t]*[A-Za-z_0-9\.]*'.$separator.'//p"'));
+			return false;		
+		$output = trim(shell_exec('grep -aP "^[ \t]*'.$parameter.'[ \t]*'.$separator.'" '.$configfile.' | sed -n -e "s/^[ \t]*[A-Za-z_0-9\.]*'.$separator.'//p"'));
 		return $output;
 	}
 	
@@ -1035,6 +1035,9 @@ class Service {
 	public function updateEqualizer($equalvalue, $user = false, $card='equal' ){
 		if(!$user)
 			$user = $this->getSystemUser();
+		
+		$this->getEqualizer($user, $card);
+		
 		//if($_GET['use_equalizer'] == 1 && $this->checkLicense(true) == false)
 		//	return true;
 		if($this->saveConfigFileParameter('/opt/max2play/audioplayer.conf', 'USE_EQUALIZER', ($_REQUEST['use_equalizer'] == 1) ? 1 : 0)){
@@ -1043,7 +1046,9 @@ class Service {
 	
 		foreach($this->equal as $key){
 			$value = (isset($equalvalue[$key])) ? (int)$equalvalue[$key] : 66;
-			$script[] = 'su - '.$user.' -c \'amixer -D '.$card.' -q set "'.$key.'" '.$value.'\'';
+			// Only update changes values 
+			if(str_replace('%','', $this->equalvalues[$key]) != $value)
+				$script[] = 'su - '.$user.' -c \'amixer -D '.$card.' -q set "'.$key.'" '.$value.'\'';
 		}
 	
 		$this->view->message[] = $this->writeDynamicScript($script);
@@ -1059,11 +1064,15 @@ class Service {
 		if($this->view->use_equalizer || $_REQUEST['use_equalizer']){
 			if(!$user)
 				$user = $this->getSystemUser();
+			$script = array('su - '.$user.' -c \'amixer -D '.$card.'\'');
+			$output = $this->writeDynamicScript($script);
+			preg_match_all('=\'([0-9\. kHz]+)\'.*?\[([0-9%]+)\]=is', $output, $matches);
+			// $matches: 1 => Keys, 2 => Values
+			for($i=0; $i<count($matches[1]); $i++){
+				$tmpequal[$matches[1][$i]] = $matches[2][$i];
+			}
 			foreach($this->equal as $key){
-				$script = array('su - '.$user.' -c \'amixer -D '.$card.' sget "'.$key.'"\'');
-				$output = $this->writeDynamicScript($script);
-				preg_match('=\[(.*)\]=', $output, $match);
-				$this->equalvalues[$key] = $match[1];
+				$this->equalvalues[$key] = $tmpequal[$key];
 			}
 		}
 		return true;
