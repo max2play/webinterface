@@ -68,11 +68,11 @@ class Dlnaserver_Setup extends Service {
 		set_time_limit(3000);
 		if($uninstall){
 			$script[] = '/opt/max2play/install_minidlna.sh';
-			$this->writeDynamicScript($script);
+			$this->view->message[] = $this->writeDynamicScript($script);
 			$this->view->message[] = _('MiniDLNA Installation removed');
 		}else{
 			$script[] = '/opt/max2play/install_minidlna.sh install';
-			$this->writeDynamicScript($script);
+			$this->view->message[] = $this->writeDynamicScript($script);
 			$this->view->message[] = _('MiniDLNA Installation completed - you may now edit detailed settings');
 		}
 		return true;

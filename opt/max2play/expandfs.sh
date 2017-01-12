@@ -83,6 +83,12 @@ if [ "$(lsb_release -r | grep '8.0' | wc -l)" -gt "0" ]; then
 	sed -i "s@^exit 0@resize2fs /dev/$PARTITION;sed -i \"s=resize.*==\" /etc/rc.local\nexit 0@" /etc/rc.local
 fi
 
+# Autoreboot if REBOOT is set
+if [ "$2" = "REBOOT" ]; then
+	sleep 2;
+	reboot
+fi
+
 echo "Filesystem Extended. <b><a href='/plugins/max2play_settings/controller/Basic.php?action=reboot'>Please reboot to take effect</a></b>"
 return 0
 

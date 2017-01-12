@@ -20,7 +20,13 @@ rm /etc/resolv.conf
 # Replace Name of Host
 sed -i "s/raspberrypi/max2play/" /etc/hosts 
 
+# Add Autoresize to rc.local
+sed -i "s@^exit 0@if [ \"\$(grep -a 'AUTORESIZE=1' /boot/config.txt)\" ]; then \n  sed -i 's/AUTORESIZE=1//' /boot/config.txt\n  /opt/max2play/expandfs.sh mmcblk0p2 REBOOT\nfi\nexit 0@" /etc/rc.local
+echo "AUTORESIZE=1" >> /boot/config.txt
+
 #TODO: delete premium-license, set default settings?
+# Deactivate ipv6
+# Activate Soundcard Selector
 
 su -l pi -c "history -c"
 rm /root/.bash_history

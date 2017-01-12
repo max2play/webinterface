@@ -57,7 +57,9 @@ class Basic extends Service {
 			}
 			
 			if($_REQUEST['action'] == 'reloadLicense'){
-				$this->checkLicense();
+				if(!$this->updateEmail($_REQUEST['email'])){
+					$this->checkLicense();
+				}
 			}
 			
 			if($_REQUEST['action'] == 'switchDEBUG_WEBINTERFACE'){
@@ -85,9 +87,9 @@ class Basic extends Service {
 				if(isset($_REQUEST['locale']))
 					$this->updateLocale($_REQUEST['timezone'], $_REQUEST['locale']);
 				
-				$this->setDonateButton((isset($_REQUEST['removedonate']) ? 1 : 0));
-				$this->updateEmail($_REQUEST['email']);
+				$this->setDonateButton((isset($_REQUEST['removedonate']) ? 1 : 0));				
 				$this->updateDisplayResolution($_REQUEST['displayResolution']);
+				$this->updateEmail($_REQUEST['email']);
 				$this->updateMax2playNetworkLookup();
 				$this->setHelpOnSidebar($_REQUEST['showhelponsidebar']);
 				if($this->getHardwareInfo() == 'Raspberry PI'){
@@ -396,16 +398,19 @@ class Basic extends Service {
 				
 				//Rasbperry PI Settings load Plugin and activate
 				if($this->getHardwareInfo() == 'Raspberry PI'){
-					$this->installPlugin('http://shop.max2play.com/media/downloadable/currentversion/raspberrysettings.tar');
-					$this->parsePlugins();
-					foreach($this->view->pluginselect as $key => $value){
-						if($value['active'] == 1)
-							$activeplugins[$key] = $value['name'];
-						if($value['default'] == 1)
-							$defaultplugin = $value['name'];
-					}					
-					$activeplugins[] = 'Raspberry Settings';
-					$this->pluginConfig($activeplugins, $defaultplugin);
+					// Not Needed anymore
+// 					$this->installPlugin('http://shop.max2play.com/media/downloadable/currentversion/raspberrysettings.tar');
+// 					$this->parsePlugins();
+// 					foreach($this->view->pluginselect as $key => $value){
+// 						if($value['active'] == 1)
+// 							$activeplugins[$key] = $value['name'];
+// 						if($value['default'] == 1)
+// 							$defaultplugin = $value['name'];
+// 					}					
+// 					$activeplugins[] = 'Raspberry Settings';
+// 					$this->pluginConfig($activeplugins, $defaultplugin);
+					if(strpos($email, '@') === FALSE)
+						$this->view->message[] = _('<b>For premium indication in the Max2Play Forum</b>, you may <a href="https://www.max2play.com/en/getting-started/connect-your-license-code-to-your-email-address/" target="_blank">connect your premium-code with your email-address</a>. This is also useful if you lose your code or want to receive the Max2Play Magazine with tips on Setup and Hardware.');
 					$this->loadViewHeader(true);
 				}
 				
@@ -414,7 +419,7 @@ class Basic extends Service {
 			}
 			return true;
 		}
-		return true;
+		return false;
 	}	
 	
 	/**
