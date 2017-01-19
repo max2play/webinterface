@@ -151,7 +151,7 @@ class Basic extends Service {
 				$url = false;
 				$reload = 1;
 			}
-			if($this->getProgressWithAjax($path.'reboot.txt', 1, $reload, 0, _("REBOOT started"), $url))
+			if($this->getProgressWithAjax($path.'reboot.txt', 1, $reload, 0, _("REBOOT started"), $url, $failmessage = _('Previous Reboot status unknown - click Reboot again to force Reboot.')))
 				return true;
 			else
 				return false;
@@ -550,6 +550,8 @@ class Basic extends Service {
 				$this->writeDynamicScript(array('echo -e "[Unit]\nDescription=Resize FS\n[Service]\nType=simple\nExecStart=/etc/init.d/resize2fs_once start\n[Install]\nWantedBy=multi-user.target" >> /etc/systemd/system/multi-user.target.wants/fsresize.service'));
 			}
 			$this->view->message[] = "<b><a href='/plugins/max2play_settings/controller/Basic.php?action=reboot'>"._("Please Click here to Reboot Now")."!</a></b>";
+		}elseif(in_array($resizePart, array('mmcblk0p3'))){
+			$this->view->message[] = _('Filesystem already expanded - Nothing to do!');
 		}else {
 			$this->view->message[] = _('No Resize possible - no valid partition found to expand. Contact Max2Play-Support to add support for further file-systems.');
 			$this->view->message[] = _('Make sure to disconnect all USB-drives and Memory-Cards and do a reboot before expanding the filesystem!');

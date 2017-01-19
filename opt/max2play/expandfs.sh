@@ -21,7 +21,12 @@ p3_start=$(($p2_end+1))
 
 # Shrinking is not allowed!
 if [ -z "$p2_start" -o ! "$p2_end_current" -lt "$p2_end" ]; then
-	echo "Resize not successful! Maybe already expanded? Make sure no USB-drives are attached when trying to expand."
+	unusedDisk=$(parted /dev/mmcblk0 unit GB print free | grep 'Free Space' | tail -n1 | awk '{print $3}')
+	if [[ ! $unusedDisk == "0.00GB" ]];then
+	    echo "Resize not successful! Maybe already expanded? Make sure no USB-drives are attached when trying to expand."
+	else
+	    echo "SD card already resized - Nothing to do."
+	fi	
 	exit 0;
 fi 
 

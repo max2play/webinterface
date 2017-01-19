@@ -599,7 +599,7 @@ class Service {
 	 * @param $url Redirect URL after finished
 	 * @return Message for Ajax-Output
 	 */
-	public function getProgressWithAjax($progressfile = '', $create = 0, $reloadWhenFinished = 0, $lastlines = 0, $message = false, $url = false){
+	public function getProgressWithAjax($progressfile = '', $create = 0, $reloadWhenFinished = 0, $lastlines = 0, $message = false, $url = false, $failmessage = false){
 		if(!file_exists($progressfile) && $create == 1){		
 			//Create File and set Message Output for Ajax-Call
 			shell_exec('echo `date +"%Y-%m-%d %H:%M:%S|"` > '.$progressfile);
@@ -628,7 +628,10 @@ class Service {
 			//File should not be existing - show error and delete file!
 			$shellanswer = shell_exec("cat $progressfile");
 			preg_match('=[0-9\: -]*=', $shellanswer, $started);					
-			$this->view->message[] = _('Something went wrong in last Install Attempt - Deleting Progressfile');
+			if(!$failmessage)
+				$this->view->message[] = _('Something went wrong in last Install Attempt - Deleting Progressfile');
+			else
+				$this->view->message[] = $failmessage;
 			$this->writeDynamicScript(array("rm $progressfile"));
 			return false;
 		}else{

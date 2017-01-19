@@ -65,7 +65,7 @@
 		<?php echo str_replace('$NAME', $sp->viewname, _('$NAME start installation')) ?></p>
 	<select id="lmsversion" name="lmsversion" onclick="copytodownloadurl(this);">
 	<?php foreach($sp->lmsversions as $key => $value) { ?>
-		<option value="<?php echo $value ?>"><?php echo $key ?></option>
+		<option value="<?php echo $value ?>" <?php if(strpos($value, '7.9') !== FALSE) {echo "selected"; $lmsdefault = $value; } ?>><?php echo $key ?></option>
 	<?php } ?>
 	</select>
 	<script type="text/javascript">
@@ -77,7 +77,7 @@
 	<input type="button" value="<?php echo _('Show available Versions') ?>" name="fetchLMS" onclick="document.getElementById('action').value='showavailablelms';submit();" /><br /><br />
 	 
 	<?php echo _('Alternative other source from Slimdevices (package must be .deb)') ?>: 
-	<input id="downloadurl" type="text" value="<?php if($lmslink = reset($sp->lmsversions)){ echo $lmslink; } ?>" name="downloadurl" style="" /><br /><br /> 		
+	<input id="downloadurl" type="text" value="<?php echo $lmsdefault;?>" name="downloadurl" style="" /><br /><br /> 		
 	
 	<?php if ($sp->view->perlversion > "5.18" ) echo '<br /><span style="color:red;">'._('IMPORTANT: You must choose 7.9 Nightly as 7.8 is currently not supported for this version of Perl: '.$sp->view->perlversion).'</span><br />'; ?>
 	

@@ -78,6 +78,7 @@
 	    	 	<li><a style="color:#fff;" class="download-button clickloading" href="?action=installstartpageplugin&hardware=hifiberry">HifiBerry</a></li>
 	    	 	<li><a style="color:#fff;" class="download-button clickloading" href="?action=installstartpageplugin&hardware=iqaudio">IQAudIO</a></li>	    	 	
 	    	 	<li><a style="color:#fff;" class="download-button clickloading" href="?action=installstartpageplugin&hardware=allo">ALLO</a></li>
+	    	 	<li><a style="color:#fff;" class="download-button clickloading" href="?action=installstartpageplugin&hardware=audiophonics">Audiophonics</a></li>
 	    	 </ul>
 	  		<p><?php echo _('If you have another audiocard or none at all, just skip this step.');?></p>
 	  		

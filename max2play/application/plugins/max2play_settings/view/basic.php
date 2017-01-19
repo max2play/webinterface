@@ -239,7 +239,7 @@
 	  </div>
 	  <div id="tabs-2">
 	    <p>
-	      <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+	      <input type="hidden" name="MAX_FILE_SIZE" value="4000000" />
 		  <?php echo _('Custom Max2Play-Plugin Upload');?>: 
 		  <input name="uploadedfile" type="file" />
 		  <input type="button" value="<?php echo _("Install new Plugin") ?>" name="installplugin" onclick="document.getElementById('action').value='installplugin';submit();" /><br />
