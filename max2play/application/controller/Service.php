@@ -78,7 +78,7 @@ class Service {
 		if($name == '')
 			return false;
 		
-		$shellanswer = shell_exec("ps -Al | grep ".$name);		
+		$shellanswer = $this->shell_exec("ps -Al | grep ".$name);		
 		if($shellanswer != ''){
 			preg_match('=([ ]*)([0-9]*)=', substr($shellanswer, 10,5), $match);
 			if($match[2]){
@@ -108,7 +108,7 @@ class Service {
 		}
 		
 		if(!$rootstart){
-			$answer = shell_exec($startcom);
+			$answer = $this->shell_exec($startcom);
 		}else{
 			if($background)
 				$answer = $this->writeDynamicScript(array($startcom), $background);
@@ -130,7 +130,7 @@ class Service {
 		}else{
 			$shellanswer .= ' ... '._('NOT successful');
 			if($background)
-				$shellanswer .= ' '.$this->formatMessageOutput(shell_exec('cat '.$background));
+				$shellanswer .= ' '.$this->formatMessageOutput($this->shell_exec('cat '.$background));
 			else 
 				$shellanswer .= ' '.$this->formatMessageOutput($answer);
 		}
@@ -158,7 +158,7 @@ class Service {
 		}
 		
 		if(!$rootstop){
-			shell_exec($stopcom);
+			$this->shell_exec($stopcom);
 		}else{
 			$this->writeDynamicScript(array($stopcom));
 		}			
@@ -194,7 +194,7 @@ class Service {
 			return $shellanswer;
 		}
 		
-		shell_exec("sudo kill -9 ".$pid);
+		$this->shell_exec("sudo kill -9 ".$pid);
 		
 		sleep(3);
 		
@@ -244,7 +244,7 @@ class Service {
 		if($name == '')
 			return false;
 		if(!$autostartconf){
-			$isactive = shell_exec("ls /etc/rc2.d | grep ".$name);
+			$isactive = $this->shell_exec("ls /etc/rc2.d | grep ".$name);
 			if(strpos($isactive, $name) !== FALSE){
 				$isactive = true;
 			}else{
@@ -252,7 +252,7 @@ class Service {
 			}
 			return $isactive;
 		}else{
-			$output = shell_exec('grep -i "^'.$name.'=1" '.$this->autostartconf);
+			$output = $this->shell_exec('grep -i "^'.$name.'=1" '.$this->autostartconf);
 			if(strpos($output, $name.'=1') === 0){
 				$isactive = true;
 			}else{
@@ -289,25 +289,23 @@ class Service {
 	 */
 	public function updateAutostart($name = '', $active = false, $autostartconf = true){
 		
-		$output = preg_replace('=[\r\n ]*$=','',shell_exec('cat '.$this->autostartconf));
+		$output = preg_replace('=[\r\n ]*$=','',$this->shell_exec('cat '.$this->autostartconf));
 		
 		if($name == '')
 			return false;
 		if($active == false){			
 			if(!$autostartconf){
-				shell_exec("sudo update-rc.d -f ".$name." remove");
+				$this->shell_exec("sudo update-rc.d -f ".$name." remove");
 			}else{
 				//Write Config-file
-				return $this->saveConfigFileParameter($this->autostartconf, $name, 0);
-				//shell_exec("echo '".str_replace($name.'=1', $name.'=0', $output)."' > ".$this->autostartconf);
+				return $this->saveConfigFileParameter($this->autostartconf, $name, 0);				
 			}
 		}else{
 			if(!$autostartconf){
-				shell_exec("sudo update-rc.d ".$name." defaults");
+				$this->shell_exec("sudo update-rc.d ".$name." defaults");
 			}else{
 				//Write Config-file
-				return $this->saveConfigFileParameter($this->autostartconf, $name, 1);
-				//shell_exec("echo '".str_replace($name.'=0', $name.'=1', $output)."' > ".$this->autostartconf);
+				return $this->saveConfigFileParameter($this->autostartconf, $name, 1);				
 			}
 		}
 		return true;
@@ -318,7 +316,7 @@ class Service {
 	 * @return string
 	 */
 	public function getPlayername(){
-		$output = shell_exec('cat /opt/max2play/playername.txt');
+		$output = $this->shell_exec('cat /opt/max2play/playername.txt');
 		$this->info->playername = $output;
 		return $output;
 	}
@@ -336,7 +334,7 @@ class Service {
 		//Caching in txt-file - reload every $reload
 		$reload = 3600; // 1 hour
 		
-		$devices_txt = shell_exec('cat /opt/max2play/cache/list_devices.txt');
+		$devices_txt = $this->shell_exec('cat /opt/max2play/cache/list_devices.txt');
 		
 		if(preg_match('=([0-9\-: ]{15,})=', $devices_txt, $matches)){
 			$lastcheck = strtotime($matches[0]);
@@ -474,6 +472,9 @@ class Service {
 	 */
 	public function writeDynamicScript($script = '', $background = false, $daemon = false){		
 		$this->getReadOnlyFS();
+		if($this->debug){
+			$time_start = microtime(true);
+		}		
 		
 		$fp = fopen($this->dynamicScript, 'w+');
 		
@@ -485,12 +486,7 @@ class Service {
 		fclose($fp);				
 		
 		if($this->readonly_fs)
-			shell_exec('chmod 777 '.$this->dynamicScript);
-		
-		if($this->debug){
-			global $debuglog;			
-			$debuglog[] = get_class($this).' '. shell_exec('cat '.$this->dynamicScript);			
-		}
+			shell_exec('chmod 777 '.$this->dynamicScript);				
 		
 		$backgroundfile = '/dev/null';
 		if(strpos($background,'/tmp') !== FALSE){
@@ -508,6 +504,12 @@ class Service {
 				sleep(1);
 			}
 		}		
+		
+		if($this->debug){
+			$time = microtime(true) - $time_start;
+			global $debuglog;
+			$debuglog[] = get_class($this).'_dynamic_script ('.$time.' sec): '. shell_exec('cat '.$this->dynamicScript);
+		}
 		
 		return $output;
 	}
@@ -539,13 +541,13 @@ class Service {
 				return false;
 			}
 			//Check for empty entry			
-			$param_exists = shell_exec('grep -aP "^[ \t]*'.$parameter.'[ \t]*'.$seperator.'" '.$configfile.' | wc -l');
+			$param_exists = $this->shell_exec('grep -aP "^[ \t]*'.$parameter.'[ \t]*'.$seperator.'" '.$configfile.' | wc -l');
 			if($old_parameter != '' || $param_exists > 0){
 				$this->writeDynamicScript(array('sed -i "s/^[ \t]*'.$parameter.'[ \t]*'.$separator.'.*$/'.$parameter.$separator.str_replace(array('/'),array('\/'),$value).'/g" '.$configfile));				
 				$this->view->message[] = _("Update Configfile - existing Entry changed");
 			}else{
 				//check for Newline in Last Line in config file
-				if(strpos(shell_exec('xxd -p '.$configfile.' | tail -c 3'), '0a') === FALSE){
+				if(strpos($this->shell_exec('xxd -p '.$configfile.' | tail -c 3'), '0a') === FALSE){
 					//Newline missing -> add one
 					$parameter = "\n".$parameter;
 				}
@@ -568,7 +570,7 @@ class Service {
 	public function deleteConfigFileParameter($configfile = '', $parameter = '', $separator = '\='){
 		if(!file_exists($configfile))
 			return false;
-		$param_exists = shell_exec('grep -aP "^[ \t]*'.$parameter.'[ \t]*'.$seperator.'" '.$configfile.' | wc -l');
+		$param_exists = $this->shell_exec('grep -aP "^[ \t]*'.$parameter.'[ \t]*'.$seperator.'" '.$configfile.' | wc -l');
 		if($param_exists > 0){			
 			$this->writeDynamicScript(array('sed -i "s/^[ \t]*'.$parameter.'[ \t]*'.$separator.'.*$//g" '.$configfile));
 		}		
@@ -582,7 +584,7 @@ class Service {
 	public function getConfigFileParameter($configfile = '', $parameter = '', $separator = '\='){
 		if(!file_exists($configfile))
 			return false;		
-		$output = trim(shell_exec('grep -aP "^[ \t]*'.$parameter.'[ \t]*'.$separator.'" '.$configfile.' | sed -n -e "s/^[ \t]*[A-Za-z_0-9\.]*'.$separator.'//p"'));
+		$output = trim($this->shell_exec('grep -aP "^[ \t]*'.$parameter.'[ \t]*'.$separator.'" '.$configfile.' | sed -n -e "s/^[ \t]*[A-Za-z_0-9\.]*'.$separator.'//p"'));
 		return $output;
 	}
 	
@@ -602,7 +604,7 @@ class Service {
 	public function getProgressWithAjax($progressfile = '', $create = 0, $reloadWhenFinished = 0, $lastlines = 0, $message = false, $url = false, $failmessage = false){
 		if(!file_exists($progressfile) && $create == 1){		
 			//Create File and set Message Output for Ajax-Call
-			shell_exec('echo `date +"%Y-%m-%d %H:%M:%S|"` > '.$progressfile);
+			$this->shell_exec('echo `date +"%Y-%m-%d %H:%M:%S|"` > '.$progressfile);
 			if($message)
 				$this->view->message[] = $message;
 			else
@@ -620,13 +622,13 @@ class Service {
 			header('Cache-Control: post-check=0, pre-check=0', FALSE);
 			header('Pragma: no-cache');
 			if($lastlines > 0){
-				$shellanswer = shell_exec("tail -$lastlines $progressfile");
+				$shellanswer = $this->shell_exec("tail -$lastlines $progressfile");
 			}else
-				$shellanswer = shell_exec("cat $progressfile");			
+				$shellanswer = $this->shell_exec("cat $progressfile");			
 			return $shellanswer;
 		}elseif(file_exists($progressfile) && $create == 1){
 			//File should not be existing - show error and delete file!
-			$shellanswer = shell_exec("cat $progressfile");
+			$shellanswer = $this->shell_exec("cat $progressfile");
 			preg_match('=[0-9\: -]*=', $shellanswer, $started);					
 			if(!$failmessage)
 				$this->view->message[] = _('Something went wrong in last Install Attempt - Deleting Progressfile');
@@ -717,7 +719,7 @@ class Service {
 								   '0012' => 'Raspberry PI A+');
 		
 		if(!$this->info->hardware){
-			$output = shell_exec("cat /proc/cpuinfo | grep 'Hardware\|Revision'");
+			$output = $this->shell_exec("cat /proc/cpuinfo | grep 'Hardware\|Revision'");
 			$this->info->hardware = '';
 			if(preg_match('=Hardware.*: ([^ \n]*)=', $output, $matches)){
 				if(strpos($output, 'BCM2708') || strpos($output, 'BCM2709') || strpos($output, 'BCM2837')){
@@ -750,10 +752,10 @@ class Service {
 	public function getFreeDiskSpace(){
 		$this->getSystemUser();
 		if($this->info->system_user == 'pi'){			
-			$this->info->freespace = shell_exec("df -km / | tail -1 | awk '{print $4}'");
+			$this->info->freespace = $this->shell_exec("df -km / | tail -1 | awk '{print $4}'");
 		}			
 		if($this->info->system_user == 'odroid'){			
-			$this->info->freespace = shell_exec("df -km /dev/mmcblk0p2 | tail -1 | awk '{print $4}'");
+			$this->info->freespace = $this->shell_exec("df -km /dev/mmcblk0p2 | tail -1 | awk '{print $4}'");
 		}
 		return $this->info->freespace;
 	}
@@ -778,7 +780,7 @@ class Service {
 	public function getLinuxVersion(){
 		if($this->info->linux)
 			return $this->info->linux;
-		$output = trim(shell_exec('lsb_release -a 2>/dev/null | grep "Distributor\|Codename" | sed "s/Distributor ID:\t//;s/Codename:\t//"'), "\n");
+		$output = trim($this->shell_exec('lsb_release -a 2>/dev/null | grep "Distributor\|Codename" | sed "s/Distributor ID:\t//;s/Codename:\t//"'), "\n");
 		if($output){
 			$this->info->linux = explode("\n", $output);			 
 		}
@@ -855,7 +857,7 @@ class Service {
 				
 			if($autoenable == true){
 				if(preg_match("=Installing Plugin ([a-zA-Z0-9 _-]*)=", $output, $match)){
-					if(preg_match('=\$this-\>pluginname \= \_\(\'(.*)\'=', shell_exec('grep -i \'$this->pluginname\' /opt/max2play/cache/newplugin/'.$match[1].'/controller/Setup.php'), $namematch)){
+					if(preg_match('=\$this-\>pluginname \= \_\(\'(.*)\'=', $this->shell_exec('grep -i \'$this->pluginname\' /opt/max2play/cache/newplugin/'.$match[1].'/controller/Setup.php'), $namematch)){
 						$pluginname = $namematch[1];
 	
 						$this->enablePlugin($pluginname, $position, $default);
@@ -910,7 +912,7 @@ class Service {
 							if ($action != "." && $action != "..") {
 								$path = '/plugins/'.$file.'/controller/'.$action;
 								//Parse Pluginname
-								$output = shell_exec('cat '.APPLICATION_PATH.$path.' | grep "this->pluginname"');
+								$output = $this->shell_exec('cat '.APPLICATION_PATH.$path.' | grep "this->pluginname"');
 	
 								if(preg_match('=\$this-\>pluginname \= \_\(\'(.*)\'=', $output, $match)){
 									//only activate plugin if name is set (class of plugin may just be part of another class)
@@ -1130,7 +1132,7 @@ class Service {
 				if($this->info->ipv4)
 					return $this->info->ipv4;
 				// return Name OR get IPv4 Address if possible
-				$output=shell_exec("LANG=C && /sbin/ifconfig | grep -o 'inet addr:[0-9\.]\+' | grep -v '127.0.0.1'");
+				$output = $this->shell_exec("LANG=C && /sbin/ifconfig | grep -o 'inet addr:[0-9\.]\+' | grep -v '127.0.0.1'");
 				if(strpos($output, 'inet addr:') !== FALSE){
 					$address = explode("\n", trim(mb_substr($output, 10)));
 					$this->info->ipv4 = $address[0];
@@ -1185,6 +1187,36 @@ class Service {
 			die();
 		}
 		return true;
+	}
+	
+	/**
+	 * Shell Exec Handler with Logging and Time measurement
+	 * @param string $code
+	 * @return string output
+	 */
+	public function shell_exec($code = ''){
+		if($this->debug){
+			$time_start = microtime(true);
+		}
+		$output = shell_exec($code);
+		if($this->debug){
+			$time = microtime(true) - $time_start;
+			global $debuglog;
+			$debuglog[] = get_class($this).'_shell_exec ('.$time.' sec): '. $code;
+		}
+		return $output;
+	}
+	
+	/**
+	 * get Instance of RPI_Functions
+	 * @param class $Rpi_functions
+	 */
+	public function Rpi_functions(){
+		if(!$this->Rpi_functions){
+			include_once 'Rpi_functions.php';
+			$this->Rpi_functions = new Rpi_functions(); 
+		}
+		return $this->Rpi_functions;
 	}
 }
 
