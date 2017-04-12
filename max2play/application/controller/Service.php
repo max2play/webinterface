@@ -443,8 +443,8 @@ class Service {
 	/**
 	 * Parse Plugin Configuration
 	 */
-	public function getActivePlugins(){
-		$xml = simplexml_load_file(APPLICATION_PATH.'/config/plugins.xml');
+	public function getActivePlugins($basedir = ''){
+		$xml = simplexml_load_file($basedir.APPLICATION_PATH.'/config/plugins.xml');
 		$json = json_encode($xml);
 		$this->plugins = json_decode($json,TRUE);
 		return $this->plugins;
@@ -722,7 +722,7 @@ class Service {
 			$output = $this->shell_exec("cat /proc/cpuinfo | grep 'Hardware\|Revision'");
 			$this->info->hardware = '';
 			if(preg_match('=Hardware.*: ([^ \n]*)=', $output, $matches)){
-				if(strpos($output, 'BCM2708') || strpos($output, 'BCM2709') || strpos($output, 'BCM2837')){
+				if(strpos($output, 'BCM2708') || strpos($output, 'BCM2709') || strpos($output, 'BCM2837') || strpos($output, 'BCM2835')){
 					$this->info->hardware = 'Raspberry PI';
 					$this->info->chipset = trim($matches[1]);
 					// Pi Version? Check Revision					
@@ -830,8 +830,10 @@ class Service {
 	 * @param string $pathToPlugin
 	 * @param autoenable add to navigation 
 	 * @param position at position X
+	 * @param default Set this Plugin as new Default
+	 * @param basedir Install Plugin to different Folder (for Imageburner Setup)
 	 */
-	public function installPlugin($pathToPlugin = '', $autoenable = false, $position = false, $default = false){
+	public function installPlugin($pathToPlugin = '', $autoenable = false, $position = false, $default = false, $basedir = ''){
 		$uploadsuccess = false;
 		if($pathToPlugin == '' && isset($_FILES['uploadedfile']) && $_FILES['uploadedfile']['tmp_name']){
 			$uploaddir = '/var/www/max2play/public/addons/';
@@ -852,18 +854,24 @@ class Service {
 		}else{
 			$linux = $this->getLinuxVersion();
 			$add_params = '"?email='.$this->view->email.'&premium='.$this->checkLicense(true, true).'&hardware='.urlencode($this->getHardwareInfo()).'&linux='.urlencode($linux[0]).'"';
-			$output = nl2br($this->writeDynamicScript(array('/opt/max2play/install_plugin.sh '.$pathToPlugin.' '.$add_params)));
+			$output = nl2br($this->writeDynamicScript(array('/opt/max2play/install_plugin.sh '.$pathToPlugin.' '.$add_params.' '.$basedir)));
 			$this->view->message[] = $output;
+			
+			if(strpos($output, 'Install successful') === FALSE){				
+				$this->view->message[] = _("Plugin Installer ERROR! Maybe missing internet connection or write error on filesystem.");
+				return false;
+			}			
 				
 			if($autoenable == true){
 				if(preg_match("=Installing Plugin ([a-zA-Z0-9 _-]*)=", $output, $match)){
 					if(preg_match('=\$this-\>pluginname \= \_\(\'(.*)\'=', $this->shell_exec('grep -i \'$this->pluginname\' /opt/max2play/cache/newplugin/'.$match[1].'/controller/Setup.php'), $namematch)){
 						$pluginname = $namematch[1];
 	
-						$this->enablePlugin($pluginname, $position, $default);
+						$this->enablePlugin($pluginname, $position, $default, $basedir);
 
 						$this->view->message[] = str_replace('$PLUGINNAME', _($pluginname),_('Plugin $PLUGINNAME activated and added to main navigation. You may change the position and visibility in the addon configuration on the <a href="/plugins/max2play_settings/controller/Basic.php#pluginconfigblock">settings page</a>.'));
-						$this->loadViewHeader(true);
+						if($basedir == '')
+							$this->loadViewHeader(true);
 					}
 				}
 			}
@@ -875,8 +883,8 @@ class Service {
 	 * 
 	 * @param array $pluginnames
 	 */
-	public function enablePlugin($pluginname = '', $position = false, $default = false){
-		$this->parsePlugins();
+	public function enablePlugin($pluginname = '', $position = false, $default = false, $basedir = ''){
+		$this->parsePlugins($basedir);
 		foreach($this->view->pluginselect as $key => $value){
 			if($value['active'] == 1){
 				if($position !== false && $key >= $position) $key++;
@@ -891,38 +899,39 @@ class Service {
 			$activeplugins[] = $pluginname;
 		if($default != false)
 			$defaultplugin = $pluginname;
-		$this->pluginConfig($activeplugins, $defaultplugin);
+		$this->pluginConfig($activeplugins, $defaultplugin, $basedir);
 		return true;
 	}
 	
 	/**
 	 * get all plugins
 	 * user may activate plugins and add them to the navigation
+	 * @param $basedir Set Alternative Install Folder
 	 */
-	public function parsePlugins(){
+	public function parsePlugins($basedir = ''){
 		$plugins_avail = array();
 		//Parse Folder
-		$handle = opendir(APPLICATION_PATH.'/plugins');
+		$handle = opendir($basedir.APPLICATION_PATH.'/plugins');
 		while (false !== ($file = readdir($handle))) {
 			if ($file != "." && $file != "..") {
 				try {
-					$handle_controller = opendir(APPLICATION_PATH.'/plugins/'.$file.'/controller');
+					$handle_controller = opendir($basedir.APPLICATION_PATH.'/plugins/'.$file.'/controller');
 					if($handle_controller){
 						while (false !== ($action = readdir($handle_controller))) {
 							if ($action != "." && $action != "..") {
 								$path = '/plugins/'.$file.'/controller/'.$action;
 								//Parse Pluginname
-								$output = $this->shell_exec('cat '.APPLICATION_PATH.$path.' | grep "this->pluginname"');
+								$output = $this->shell_exec('cat '.$basedir.APPLICATION_PATH.$path.' | grep "this->pluginname"');
 	
 								if(preg_match('=\$this-\>pluginname \= \_\(\'(.*)\'=', $output, $match)){
 									//only activate plugin if name is set (class of plugin may just be part of another class)
 									//add version / timestamp to plugin to get later updates from config.txt if existing
 									$updateURL = $lastUpdate = '';
-									if(file_exists(APPLICATION_PATH.'/plugins/'.$file.'/config.txt')){
-										$updateURL = $this->getConfigFileParameter(APPLICATION_PATH.'/plugins/'.$file.'/config.txt', 'UPDATEURL');
-										$lastUpdate = $this->getConfigFileParameter(APPLICATION_PATH.'/plugins/'.$file.'/config.txt', 'LASTUPDATE');										
+									if(file_exists($basedir.APPLICATION_PATH.'/plugins/'.$file.'/config.txt')){
+										$updateURL = $this->getConfigFileParameter($basedir.APPLICATION_PATH.'/plugins/'.$file.'/config.txt', 'UPDATEURL');
+										$lastUpdate = $this->getConfigFileParameter($basedir.APPLICATION_PATH.'/plugins/'.$file.'/config.txt', 'LASTUPDATE');										
 									}
-									if(file_exists(APPLICATION_PATH.'/plugins/'.$file.'/custom.txt')){
+									if(file_exists($workdir.'/plugins/'.$file.'/custom.txt')){
 										$customPlugin = true;
 									}else
 										$customPlugin = false;
@@ -948,7 +957,7 @@ class Service {
 		closedir($handle);
 	
 		// get current Configuration from XML
-		$pluginConf = $this->getActivePlugins();
+		$pluginConf = $this->getActivePlugins($basedir);
 	
 		$plugins['configuration'] = $pluginConf['plugin'];
 		$plugins['available'] = $plugins_avail;
@@ -980,12 +989,12 @@ class Service {
 	 * Save Plugin Configuration to XML
 	 * @param string $plugins
 	 */
-	public function pluginConfig($pluginchoose = false, $defaultplugin = false){
+	public function pluginConfig($pluginchoose = false, $defaultplugin = false, $basedir = ''){
 		//Make config Folder and Plugin Config File writeable
-		$this->writeDynamicScript(array('chmod -R 777 '.APPLICATION_PATH.'/config'));
+		$this->writeDynamicScript(array('chmod -R 777 '.$basedir.APPLICATION_PATH.'/config'));
 	
 		//Check active Plugins
-		$plugins = $this->parsePlugins();
+		$plugins = $this->parsePlugins($basedir);
 		$pos = 100;
 		foreach($plugins['available'] as $pa){
 			$pa['active'] = 0;
@@ -1006,11 +1015,11 @@ class Service {
 		include_once(APPLICATION_PATH.'/library/array2xml.php');
 		$xml = Array2XML::createXML('config', $newconfig);
 	
-		$xml->save(APPLICATION_PATH.'/config/plugins.xml');
+		$xml->save($basedir.APPLICATION_PATH.'/config/plugins.xml');
 	
 		//Reload Plugins
 		global $service;
-		$service->plugins = $this->getActivePlugins();
+		$service->plugins = $this->getActivePlugins($basedir);
 	
 		return _('Plugin configuration updated');
 	
@@ -1021,16 +1030,17 @@ class Service {
 		return $this->view->email;
 	}
 	
-	public function removePlugins($plugins = array()){		
-		$this->parsePlugins();
+	public function removePlugins($plugins = array(), $basedir = ''){		
+		$this->parsePlugins($basedir);
 		foreach($this->view->pluginselect as $key => $value){
 			if($value['active'] == 1 && !in_array($value['name'], $plugins))
 				$activeplugins[$key] = $value['name'];
 			if($value['default'] == 1)
 				$defaultplugin = $value['name'];
 		}
-		$this->pluginConfig($activeplugins, $defaultplugin);
-		$this->loadViewHeader(true);
+		$this->pluginConfig($activeplugins, $defaultplugin, $basedir);
+		if($basedir == '')
+			$this->loadViewHeader(true);
 		return true;
 	}
 	
@@ -1076,8 +1086,14 @@ class Service {
 			for($i=0; $i<count($matches[1]); $i++){
 				$tmpequal[$matches[1][$i]] = $matches[2][$i];
 			}
-			foreach($this->equal as $key){
-				$this->equalvalues[$key] = $tmpequal[$key];
+			// Use Mapping only for Pi as Odroid has other Frequencies
+			if($user == pi){
+				foreach($this->equal as $key){
+					$this->equalvalues[$key] = $tmpequal[$key];
+				}
+			}else{
+				$this->equal = array_keys($tmpequal);
+				$this->equalvalues = $tmpequal;
 			}
 		}
 		return true;

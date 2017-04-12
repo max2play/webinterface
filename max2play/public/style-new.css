@@ -442,3 +442,9 @@ code {
     overflow-y: hidden;
     white-space: pre-wrap;
 }
+
+.infobox {margin-bottom: 10px; padding: 0.4em .7em;border:none;}
+.infobox .noerror {background:#98ff90;}
+.infobox .headline {font-weight:bold;color:#636363;}
+.infobox .error li {color:#fff;}
+.error .headline {color:#fff !important;}

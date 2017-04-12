@@ -1,7 +1,7 @@
 <input type="hidden" id="purpose" name="purpose" value="" />
 		<h1 class="entry-header"><?php echo _('Choose your preferred setup and purpose of Max2Play'); ?></h1>
 		<?php echo _('You may change all settings later, but for the first start, it is suggested to select something. The mediacenter Kodi is available and preinstalled in every setup.') ?><br /><br />
-		<div id="purposeselect" style="max-height:500px;">
+		<div id="purposeselect">
 		  <h3><?php echo _('Starter: A simple audioplayer for internet radio and local music (mp3)') ?></h3> 
 		  <div>
 		    <p>

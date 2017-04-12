@@ -201,10 +201,10 @@ class Squeezeserver extends Service {
 		$html = file_get_contents($slimdevices_download);
 		
 		//get Regular Builds
-		$count = preg_match_all('/<td><a href="(LogitechMediaServer_v7.8[^"]+)">([^<]*)<\/a><\/td>/i', $html, $files);		
+		$count = preg_match_all('/<td><a href="(LogitechMediaServer_v7.[9]+[^"]+)">([^<]*)<\/a><\/td>/i', $html, $files);
 		for ($i = 0; $i < $count; ++$i) {
 			$name = str_replace('_v','_',substr($files[1][$i], 0, strlen($files[1][$i]) -1));
-			$this->lmsversions[substr($files[2][$i], 0, strlen($files[2][$i]) -1)] = $slimdevices_download.$files[1][$i].strtolower($name).'_all.deb';
+			$this->lmsversions[substr($files[2][$i], 0, strlen($files[2][$i]) -1)] = $slimdevices_download.$files[1][$i].strtolower($name).'_arm.deb';
 		}
 		
 		//get Nightly Builds
@@ -212,7 +212,7 @@ class Squeezeserver extends Service {
 		$count = preg_match_all('/<a href=([^>]+(7\.8|7\.9))>([^<]*)<\/a><br>/i', $html, $versions);
 		for ($i = 0; $i < $count; ++$i) {			
 			$html_version = file_get_contents($slimdevices_download.'nightly/'.$versions[1][$i]);			
-			$found = preg_match_all('/<a href="(.*_all\.deb)">[^<]*<\/a>/i', $html_version, $html_link);
+			$found = preg_match_all('/<a href="(.*_arm\.deb)">[^<]*<\/a>/i', $html_version, $html_link);
 			if($found){
 				$this->lmsversions['Nightly '.$versions[2][$i]] = $slimdevices_download.'nightly/'.$html_link[1][0];
 			}

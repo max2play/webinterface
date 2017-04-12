@@ -563,11 +563,57 @@ class Basic extends Service {
 	 * get Debuginformation
 	 */
 	private function getDebug(){
-		$out['FILESYSTEM'] = shell_exec('df');
-		$out['LOAD AVERAGE'] = shell_exec('cat /proc/loadavg');	
-		$out['KERNEL'] = shell_exec('uname -a');
-		$out['LINUX-VERSION'] = shell_exec('lsb_release -a');
+		$out['FILESYSTEM'] = $this->shell_exec('df');
+		$out['LOAD AVERAGE'] = $this->shell_exec('cat /proc/loadavg');	
+		$out['KERNEL'] = $this->shell_exec('uname -a');
+		$out['LINUX-VERSION'] = $this->shell_exec('lsb_release -a');
 		
+		if($this->getHardwareInfo() == 'Raspberry PI'){
+			$this->hints = array('Internet' => array('name' => 'Internet', 'min' => 1, 'error' => _('NO Connection'), 'message' => _('Connected') ,'shellcommand' => 'export LANG=C && ping -W 1 -c 1 www.max2play.com | grep "1 received" | wc -l'),
+						         'CPU Load' => array('name' => 'CPU Load', 'max' => 2, 'variable' => 'LOAD AVERAGE', 'regex' => '=[^ ]+='),
+								 'SD Card Usage' => array('name' => 'SD Card Usage', 'max' => '90%', 'variable' => 'FILESYSTEM', 'regex' => '=/dev/root.*?([0-9]+[%]+)='),
+								 'Temp CPU' => array('name' => 'Temp CPU', 'max' => 80, 'superuser_shellcommand' => 'vcgencmd measure_temp', 'regex' => '@temp=([0-9\.]+)@'),
+								 'Power Supply' => array('name' => 'Power Supply', 'min' => 1 /* means higher than 4.65V */, 'validvalues' => array("0","1"), 'error' => _('Low Voltage (< 4.65V)'), 'message' => _('OK'), 'superuser_shellcommand' => 'if [ ! -e /sys/class/gpio/gpio35/value ]; then echo 35 > /sys/class/gpio/export;fi; cat /sys/class/gpio/gpio35/value'));
+			
+			foreach($this->hints as $hint){
+				$hintalert = false;
+				if(isset($hint['shellcommand'])){
+					$var = trim($this->shell_exec($hint['shellcommand']));
+				}elseif(isset($hint['superuser_shellcommand'])){
+					$var = trim($this->writedynamicscript(array($hint['superuser_shellcommand'])));
+				}elseif(isset($hint['variable'])){
+					$var = $out[$hint['variable']];
+				}
+				if(isset($hint['regex'])){
+					if(preg_match($hint['regex'], $var, $match))
+						if(isset($match[1]))
+							$var = $match[1];
+						else
+							$var = $match[0];
+				}
+				
+				if(!isset($hint['validvalues']) || isset($hint['validvalues']) && in_array($var, $hint['validvalues'])){
+					if(isset($hint['min'])){
+						if($var < $hint['min'])
+							$hintalert = true;
+					}
+					if(isset($hint['max'])){
+						if($var > $hint['max'])
+							$hintalert = true;
+					}
+					if($hintalert && isset($hint['error']))
+						$this->view->hints[$hint['name']] = $hint['error'];
+					elseif(!$hintalert && isset($hint['message']))
+						$this->view->hints[$hint['name']] = $hint['message'];
+					else
+						$this->view->hints[$hint['name']] = $var;
+				}
+				if($hintalert){
+					$this->view->hints[$hint['name']] .= '<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;margin-top:2px;"></span>';
+					$this->view->hintalert = true;
+				}
+			}
+		}
 		$this->view->debug = $out;
 	}
 	
@@ -633,6 +679,12 @@ class Basic extends Service {
 		global $helpSidebar;
 		$helpSidebar['title'] = _('Help - Basic Settings');
 		$helpSidebar['content'] = _('<ul><li>Use this page to change the devicename, update Max2Play to the latest version, expand the filesystem on a new installation and install new addons.</li><li>To install and activate a new addon on the buttom of this page, you have to take 2 steps: first install the addon and second enable it.</li></ul>');
+		if($this->view->hints){
+			$helpSidebar['content'] .= '<div class="ui-widget"><div class="ui-state-'.(($this->view->hintalert) ? 'error' : 'highlight').' ui-corner-all infobox '.(($this->view->hintalert) ? 'error' : 'noerror').'" style="'.(($this->view->hintalert) ? '' : 'background:#98ff90;').'">';	
+			$helpSidebar['content'] .= '<span class="headline '.(($this->view->hintalert) ? 'error' : '').'">'._('Health Checker').'</span><ul style="clear:left;list-style:none;" class="description '.(($this->view->hintalert) ? 'error' : '').'">';
+			foreach($this->view->hints as $name => $hint) $helpSidebar['content'] .= "<li>".$name.': '.$hint.'</li>';
+			$helpSidebar['content'] .= '</ul></div></div>';
+		}
 		return true;
 	}
 }

@@ -59,7 +59,7 @@
 		</td> 
 		<td style="width:25%;"><input style="width:95%;" type="text" id="email" name="email" value="<?php echo $basic->view->email; ?>" />
 			<?php if($basic->view->license || $basic->view->betaEnabled) { ?>
-				<div style="width: 99%; padding: 0px; background: limegreen none repeat scroll 0px 0px;"><div style="padding:5px;"><?php echo _("Activated"); if ($basic->view->licenseDate != 1) echo '<br>('.$basic->view->licenseDate.')'; ?></div></div>
+				<div style="width: 99%; padding: 0px; background: #98ff90 none repeat scroll 0px 0px;"><div style="padding:5px;"><?php echo _("Activated"); if ($basic->view->licenseDate != 1) echo '<br>('.$basic->view->licenseDate.')'; ?></div></div>
 			<?php }else { ?>
 				<div class="ui-state-error" style="width: 99%; padding: 0px;border:none;"><div style="padding:5px;"><?php echo _("Not Activated"); if ($basic->view->licenseDate != 0) echo '<br>('.$basic->view->licenseDate.')';?></div></div>
 			<?php } ?>
@@ -257,8 +257,8 @@
 	</form>
 	
 	<br />
-	<?php echo _("DEBUG Info") ?>:<br />
-	<textarea rows="5" cols="80" readonly><?php foreach ($basic->view->debug as $key => $debug) {
+	<a href="#javascript" onclick="document.getElementById('debug').style.display='';return false;"><?php echo _("DEBUG Info") ?></a><br />	
+	<textarea id="debug" style="display:none;" rows="5" cols="80" readonly><?php foreach ($basic->view->debug as $key => $debug) {
 			echo "#### ". $key. " ####\n"; 
 			 echo $debug." \n\n"; 
 		 }?></textarea>
