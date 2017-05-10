@@ -37,6 +37,10 @@ class Xbmc extends Service {
 		
 		if (file_exists('/usr/local/bin/kodi') || file_exists('/usr/bin/kodi'))
 			$this->pname = 'kodi';		
+		$this->binaryname = '';
+		if(file_exists('/usr/lib/arm-linux-gnueabihf/kodi/kodi_v7.bin')){
+			$this->binaryname = '_v7';
+		}
 		
 		if($_REQUEST['ajax'] == 1 && strpos($_REQUEST['action'], 'install') !== FALSE){
 			//Function to get Progress of Installation
@@ -75,7 +79,7 @@ class Xbmc extends Service {
 			
 			if($_GET['action'] == 'stop'){
 				$this->stop('kodi-standalone', 'sudo kill -9 $PID');
-				$this->view->message[] = $this->stop($this->pname.'.bin', 'sudo kill -9 $PID');
+				$this->view->message[] = $this->stop($this->pname.$this->binaryname.'.bin', 'sudo kill -9 $PID');
 				/*if($this->getHardwareInfo() == 'ODROID-XU3'){
 					//on XU reinitX after stopping Kodi - TODO: Ubuntu 15.4 special?
 					$script = array('/etc/init.d/lightdm stop > /dev/null 2>&1 &','sleep 2', '/etc/init.d/lightdm start > /dev/null 2>&1 &');
@@ -96,7 +100,7 @@ class Xbmc extends Service {
 			}
 		}
 		$this->view->autostart = $this->checkAutostart($this->pname, true);
-		$this->view->pid = $this->status($this->pname.'.bin');
+		$this->view->pid = $this->status($this->pname.$this->binaryname.'.bin');
 		$this->getXbmcVersion();
 		$this->getAllLogs();	
 	}

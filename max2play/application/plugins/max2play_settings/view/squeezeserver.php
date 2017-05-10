@@ -32,7 +32,7 @@
     	  $error=$sp->view->error; 
     	  include(APPLICATION_PATH.'/view/messages.php');?>
 	
-	<form action="" method="get">
+	<form action="" method="post" enctype="multipart/form-data">
 	<input type="hidden" id="action" name="action" value="" />
 	
 	<?php if($sp->view->installed == true) { ?>
@@ -94,6 +94,43 @@
 		<option value="googlemusic"><?php echo _('Install GoogleMusic Plugin (Use your GoogleMusic Account and connect it with your Squeezebox Server)') ?></option>				
 	</select>
 	<input type="button" value="<?php echo _('Install choosen Plugin (takes some time)') ?>" name="plugininstall" onclick="document.getElementById('action').value='plugininstall';submit();" />
+	
+	<br /><br />
+	<br />
+	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
+		<span class="ui-icon ui-icon-gear" style="float:left; margin:-2px 5px 0 0;"></span>
+		<?php echo _('Save / Restore Squeezebox Server Settings') ?></p>
+	
+	<div id="tabs-min">
+	  <ul>
+	    <li><a href="#tabs-1"><?php echo _('Save Settings to File') ?></a></li>
+	    <li><a href="#tabs-2"><?php echo _('Restore Settings from File') ?></a></li>	    
+	  </ul>
+	  <div id="tabs-1">
+	    <p>
+	    	<?php echo _('This saves the preferences directory of your Squeezebox Server to a single file, that can be used to restore settings later.') ?>	
+			<input type="button" value="<?php echo _('Save Settings to File') ?>" name="savesettings" onclick="document.getElementById('action').value='savesettings';submit();" /><br />	    	 
+	 	</p>
+	  </div>
+	  <div id="tabs-2">
+	    <p>
+	      <input type="hidden" name="MAX_FILE_SIZE" value="50000000" />
+		  <?php echo _('Upload Settings File (created with the Max2Play export Settings tool) and Restore/Overwrite existing Settings');?>: 
+		  <input name="restoresettingsfile" type="file" />
+		  <input type="button" value="<?php echo _("Restore Settings") ?>" name="restoresettings" onclick="document.getElementById('action').value='restoresettings';submit();" /><br />
+	     
+	    </p>
+	  </div>	  
+	</div>
+	
+	  <script>
+	  $(function() {
+	    $( "#tabs-min" ).tabs();
+	  });
+	  </script>
+	  <br />	
+	
+	<br />	
 	
 	</form>
 	

@@ -81,8 +81,13 @@
 	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
 			<span class="ui-icon ui-icon-wrench" style="float:left; margin:-2px 5px 0 0;"></span>
 			<b><?php echo _t("Modify Blacklist") ?></b></p>	
-	<?php echo _t('To block Callers that do not transfer their Caller ID enter "PRIVATE" in a separate row.') ?>
+	<?php echo _t('To block Callers that do not transfer their Caller ID enter "PRIVATE" in a separate row.') ?>&nbsp;
+	<a href="#javascript" onclick="document.getElementById('helpwildcards').style.display='';return false;"><?php echo _t('Show Info on Wildcards.') ?></a>
 	<br />
+	<div id="helpwildcards" style="display:none;float:right;width: 300px;padding: 12px;border: 1px dotted;margin: 10px;">
+		<?php echo _t('If using SIP for connection, wildcards are "." for one digit, ".*" for multiple digits and ".?" for one or none random digit in the phonenumber.') ?><br />
+		<?php echo _t('If using an analogue modem, numbers are automatically matched partitially from the beginning - without the need of wildcards at the end of the number.') ?>
+	</div>
 	<textarea rows="20" cols="20" name="blacklist"><?php echo $cb->view->blacklist ?></textarea>	
 	<input type="button" value="<?php echo _('save') ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
 	<br /><br />

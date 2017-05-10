@@ -36,7 +36,7 @@ class Squeezeserver extends Service {
 		$this->pluginname = _('Squeezebox Server');
 		$this->scriptPath = dirname(__FILE__).'/../scripts/';
 		
-		if($_GET['ajax'] == 1 && $_GET['action'] == 'plugininstall'){
+		if($_REQUEST['ajax'] == 1 && $_REQUEST['action'] == 'plugininstall'){
 			$this->_pluginInstall($ajax = 1);
 			ob_end_clean();
 			echo implode('<br />', $this->view->message);
@@ -44,9 +44,9 @@ class Squeezeserver extends Service {
 			die();
 		}
 		
-		if($_GET['ajax'] == 1 && $_GET['action'] == 'install'){
+		if($_REQUEST['ajax'] == 1 && $_REQUEST['action'] == 'install'){
 			//Function to get Progress of Installation
-			$_GET['downloadurl'] = '';
+			$_REQUEST['downloadurl'] = '';
 			$this->installLMS();
 			ob_end_clean();
 			echo implode('<br />', $this->view->message);
@@ -57,38 +57,45 @@ class Squeezeserver extends Service {
 		$this->getNomysqueezebox();
 		$this->getDelayedStartup();
 		
-		if(isset($_GET['action'])){
-			if($_GET['action'] == 'start'){			
+		if(isset($_REQUEST['action'])){
+			if($_REQUEST['action'] == 'start'){			
 				$this->view->message[] = $this->start($this->pname, '', $this->prozessname);	
 				sleep(10); //Timeout to get process in processlist
 			}
 			
-			if($_GET['action'] == 'stop'){			
+			if($_REQUEST['action'] == 'stop'){			
 				$this->view->message[] = $this->stop($this->pname, '', $this->prozessname);
 				sleep(10); //Timeout to get process off processlist
 			}
 			
-			if($_GET['action'] == 'restart'){
+			if($_REQUEST['action'] == 'restart'){
 				$this->view->message[] = $this->restart($this->pname, '', $this->prozessname);
 				sleep(10); //Timeout to get process off processlist
 			}
 			
-			if($_GET['action'] == 'save'){
-				$this->selectAutostart(isset($_GET['autostart']) ? 1 : 0, false);
+			if($_REQUEST['action'] == 'save'){
+				$this->selectAutostart(isset($_REQUEST['autostart']) ? 1 : 0, false);
 			}
 			
-			if($_GET['action'] == 'save_nomysqueezebox'){
+			if($_REQUEST['action'] == 'savesettings'){
+				$this->_saveSettings();
+			}
+			if($_REQUEST['action'] == 'restoresettings'){
+				$this->_restoreSettings();
+			}			
+			
+			if($_REQUEST['action'] == 'save_nomysqueezebox'){
 				$this->saveNomysqueezebox(isset($_REQUEST['nomysqueezebox']) ? 1 : 0);
 				$this->saveDelayedStartup($_REQUEST['delayedstartup']);
 			}
-			if($_GET['action'] == 'install'){
-				$this->installLMS($_GET['lmsversion']);
+			if($_REQUEST['action'] == 'install'){
+				$this->installLMS($_REQUEST['lmsversion']);
 			}
 			
-			if($_GET['action'] == 'showavailablelms'){
+			if($_REQUEST['action'] == 'showavailablelms'){
 				$this->getLMSVersions();
 			}
-			if($_GET['action'] == 'plugininstall'){
+			if($_REQUEST['action'] == 'plugininstall'){
 				$this->_pluginInstall();
 			}
 		}
@@ -122,13 +129,13 @@ class Squeezeserver extends Service {
 			$this->view->message[] = nl2br(_('Installation Progress: ')."(startet ".$started[0].") ". $shellanswer);			
 			return false;
 		}else{
-			if(!isset($this->lmsversions[$lmsversion]) && $_GET['downloadurl'] == ''){
+			if(!isset($this->lmsversions[$lmsversion]) && $_REQUEST['downloadurl'] == ''){
 				$this->view->message[] = _('LMS-Version not existing');
 				$this->view->message[] = '<!-- finished -->';
 				return false;
 			}
-			if($_GET['downloadurl'] != '' && strpos($_GET['downloadurl'], 'http://downloads.slimdevices.com') === 0){
-				$downurl = $_GET['downloadurl'];
+			if($_REQUEST['downloadurl'] != '' && strpos($_REQUEST['downloadurl'], 'http://downloads.slimdevices.com') === 0){
+				$downurl = $_REQUEST['downloadurl'];
 			}else{
 				$downurl = $this->lmsversions[$lmsversion];
 			}
@@ -226,11 +233,11 @@ class Squeezeserver extends Service {
 	private function _pluginInstall($ajax = 0){
 		ignore_user_abort(true);
 		set_time_limit(1800);
-		if($_GET['lmsplugin'] == 'shairtunes')
+		if($_REQUEST['lmsplugin'] == 'shairtunes')
 			$this->view->message[] = $this->formatMessageOutput($this->writeDynamicScript(array($this->scriptPath.'lms_plugin_shairtunes.sh')));
-		if($_GET['lmsplugin'] == 'shairtunes2')
+		if($_REQUEST['lmsplugin'] == 'shairtunes2')
 			$this->view->message[] = $this->formatMessageOutput($this->writeDynamicScript(array($this->scriptPath.'lms_plugin_shairtunes.sh ShairTunes2')));		
-		if($_GET['lmsplugin'] == 'shairtunes' || $_GET['lmsplugin'] == 'shairtunes2')
+		if($_REQUEST['lmsplugin'] == 'shairtunes' || $_REQUEST['lmsplugin'] == 'shairtunes2')
 			$this->view->message[] = _('Next steps: Reboot the device (in settings -> reboot) and you are ready to use your Squeezeplayers as Airplay device.');
 		
 		if($_REQUEST['lmsplugin'] == 'googlemusic'){
@@ -258,7 +265,47 @@ class Squeezeserver extends Service {
 		$this->view->debug = $out;
 		return true;
 	}
+	
+	/**
+	 * Save Prefereneces Folder
+	 * /var/
+	 */
+	private function _saveSettings(){
+		//check for tar Folder with access rights
+		if(!file_exists('/var/www/max2play/public/cache')){
+			$this->writeDynamicScript(array('mkdir /var/www/max2play/public/cache; chmod 777 /var/www/max2play/public/cache;'));
+			$this->view->message[] = _('Cachefolder created');
+		}
 		
+		// Folders: tar -cf /opt/max2play/cache/squeezebox_server_settings.tar -C /var/lib/squeezeboxserver/ . --exclude=updates --exclude=templates -p
+		$shellanswer = $this->writeDynamicScript(array("tar -cf /var/www/max2play/public/cache/squeezebox_server_settings.tar -C /var/lib/squeezeboxserver/ . --exclude=updates --exclude=templates -p"));		
+		
+		$this->view->message[] = _('Download Settings File: <a href="/cache/squeezebox_server_settings.tar">squeezebox_server_settings.tar</a>');
+		return true;
+	}
+	
+	private function _restoreSettings(){
+		$this->view->message[] = _("Trying to Restore Squeezebox Server Settings...");
+		$uploadsuccess = false;
+		if(isset($_FILES['restoresettingsfile']) && $_FILES['restoresettingsfile']['tmp_name']){
+			$uploaddir = '/opt/max2play/cache/';
+			$uploadfile = $uploaddir . 'squeezebox_server_settings.tar'; //basename($_FILES['restoresettingsfile']['name']);
+			$this->view->message[] = _("File Uploaded");					
+			if (move_uploaded_file($_FILES['restoresettingsfile']['tmp_name'], $uploadfile)) {
+				// Restore the infos -> untar to squeezebox Server directory
+				$uploadsuccess = true;
+				$this->view->message[] = _("File moved successful");
+				$shellanswer = $this->writeDynamicScript(array("tar -xf ".$uploadfile." -C /var/lib/squeezeboxserver/"));
+				$this->view->message[] = $shellanswer;
+				$this->view->message[] = _("Settings successfully restored! Please restart Squeezebox Server now.");
+			}else{
+				$this->view->message[] = _("Upload NOT successful!");
+			}
+		}else{
+			$this->view->message[] = _("Upload NOT successful!");
+		}
+		return true;
+	}
 }
 
 $sp = new Squeezeserver();

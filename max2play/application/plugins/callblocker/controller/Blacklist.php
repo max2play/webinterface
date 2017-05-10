@@ -70,6 +70,11 @@ class Callblocker_Blacklist extends Service {
 					if(in_array($call['number'], $this->blacklist_array)){
 						$call['blacklist_type'] = _t('local');
 					}
+					//Go through Blacklist_Array and find possible Regular Expressions
+					foreach($this->blacklist_array as $entry)
+						if(strlen($entry) > 3 && preg_match('='.$entry.'=', $call['number']))
+							$call['blacklist_type'] = _t('local');
+					
 					if(in_array($call['name'], $this->blacklist_array) && strlen($call['name']) > 2){
 						//Block by Name
 						$call['blacklist_type'] = _t('local');
@@ -113,11 +118,11 @@ class Callblocker_Blacklist extends Service {
 		$this->view->message[_t('Updated local Blacklist / Whitlist for Callblocker')] = _t('Updated local Blacklist / Whitlist for Callblocker');
 		
 		if($blacklist !== false){
-			$blacklist = preg_replace('=[^0-9\*\+\r\na-zA-Z]=', '', $blacklist);
+			$blacklist = preg_replace('=[^0-9\*\+\r\na-zA-Z\.\?]=', '', $blacklist);
 			$this->writeDynamicScript(array('echo "'.trim(str_replace("\r\n", "\n", $blacklist), "\n").'" > '.$this->local_blacklist));
 		}
 		if($whitelist !== false){
-			$whitelist = preg_replace('=[^0-9\*\+\r\na-zA-Z]=', '',$whitelist);
+			$whitelist = preg_replace('=[^0-9\*\+\r\na-zA-Z\.\?]=', '',$whitelist);
 			$this->writeDynamicScript(array('echo "'.trim(str_replace("\r\n", "\n", $whitelist), "\n").'" > '.$this->local_whitelist));
 		}
 		// IMPORTANT: Prevent Script from running multiple times
