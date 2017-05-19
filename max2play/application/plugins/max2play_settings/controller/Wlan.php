@@ -226,7 +226,7 @@ class Wlan extends Service {
 		
 		//Get Current IP-address from first interface OR any other interface but not lo		
 		//Old Regex: '=inet addr:(([0-9]{1,3}\.){3}[0-9]{1,3})(?<!127\.0\.0\.1).*Mask:(([0-9]{1,3}\.){3}[0-9]{1,3})='
-		if(preg_match('/(?=(eth0|wlan0).*)((?!packets).)+inet addr:(([0-9]{1,3}\.){3}[0-9]{1,3})(?<!127\.0\.0\.1).*?Mask:(([0-9]{1,3}\.){3}[0-9]{1,3})/si', $shellanswer_if, $currip)){
+		if(preg_match('/(?=(eth0|wlan0).*?)((?!packets).)+inet addr:(([0-9]{1,3}\.){3}[0-9]{1,3})(?<!127\.0\.0\.1).*?Mask:(([0-9]{1,3}\.){3}[0-9]{1,3})/si', $shellanswer_if, $currip)){
 			$this->view->fixedinterface = $currip[1]; // this interface will get a fixed IP if set
 			$this->view->lanip = $currip[3];
 			$this->view->networkmask = $currip[5];
