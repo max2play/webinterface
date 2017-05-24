@@ -931,7 +931,7 @@ class Service {
 										$updateURL = $this->getConfigFileParameter($basedir.APPLICATION_PATH.'/plugins/'.$file.'/config.txt', 'UPDATEURL');
 										$lastUpdate = $this->getConfigFileParameter($basedir.APPLICATION_PATH.'/plugins/'.$file.'/config.txt', 'LASTUPDATE');										
 									}
-									if(file_exists($workdir.'/plugins/'.$file.'/custom.txt')){
+									if(file_exists($basedir.APPLICATION_PATH.'/plugins/'.$file.'/custom.txt')){
 										$customPlugin = true;
 									}else
 										$customPlugin = false;

@@ -3,21 +3,21 @@ msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-13 15:22+0100\n"
-"PO-Revision-Date: 2016-12-21 14:58+0000\n"
-"Last-Translator: Jessica <jessica.braasch@netzberater.de>\n"
+"PO-Revision-Date: 2017-05-23 10:39+0000\n"
+"Last-Translator: stefan <stefan@netzberater.de>\n"
 "Language-Team: \n"
-"Language: en_GB\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Pootle 2.8\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;translate\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: y:\\projects\\max2play\n"
 "X-Poedit-SearchPath-1: y:\\projects\\svn_max2play\n"
-"X-POOTLE-MTIME: 1482332329.000000\n"
+"X-POOTLE-MTIME: 1495535983.000000\n"
 "X-Poedit-SearchPath-2: y:\\projects\\max2play\\max2play\\application\\view\n"
 "X-Poedit-SearchPath-3: y:\\projects\\max2play\\max2play\\application\\"
 "config\n"
@@ -1578,7 +1578,7 @@ msgstr "Wähle HTTP-Link für Kodi/XBMC-Update (muss ein .deb Paket sein) "
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/xbmc.php:62
 msgid "Upgrade Kodi to latest version"
-msgstr ""
+msgstr "Aktualisiere Kodi zur neueste Version"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/xbmc.php:64
 msgid ""
@@ -1740,6 +1740,8 @@ msgid ""
 "Install GoogleMusic Plugin (Use your GoogleMusic Account and connect it with "
 "your Squeezebox Server)"
 msgstr ""
+"Installiere GoogleMusic Plugin (Nutze GoogleMusic Account und verbinde "
+"diesen mit deinem Squeezebox Server)"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeserver.php:96
 msgid "Install choosen Plugin (takes some time)"
@@ -2280,19 +2282,25 @@ msgstr "Überspringen"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/index.php:72
 msgid "Customize Max2Play for a special audio card?"
-msgstr ""
+msgstr "Richte Max2Play für eine spezielle Soundkarte ein?"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/index.php:73
 msgid ""
 "Get the most out of your audio card with the specialized setup page. Just "
 "click on the manufacturer below to install the plugin."
 msgstr ""
+"Hol das Beste aus deiner Audiokarte mit den spezialisierten "
+"Einrichtungsseiten. Klicke einfach unten auf den Hersteller um das richtige "
+"Plugin zu installieren."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/index.php:74
 msgid ""
 "The custom startpage offers an easy installer for sound cards (choose "
 "optimal setup for audioplayers), volume control and other options."
 msgstr ""
+"Die benutzerdefinierte Startseite bietet einen einfachen Installer für die "
+"Soundkarte (wähle dein optimales Setup für Audioplayer), "
+"Lautstärkeeinstellungen und andere Optionen."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/index.php:82
 msgid "If you have another audiocard or none at all, just skip this step."
@@ -2459,6 +2467,9 @@ msgid ""
 "the Plugin within Squeezebox Server Settings, add your GoogleMusic "
 "credentials (including a mobile device ID!) and you are ready to go."
 msgstr ""
+"GoogleMusic Plugin installiert. <br><b>Wichtig:</b> Jetzt die Einstellungen "
+"des Plugins in den Squeezebox Server Einstellungen anpassen, GoogleMusic "
+"Logindaten eingeben (inklusive einer Mobilgerät ID!) und du kannst loslegen!"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Filesystem.php:44
 msgid "Filesystem Mount"
@@ -2914,7 +2925,7 @@ msgstr "Status Instanz"
 
 #: y:\projects\svn_max2play/plugins/multishairport/view/shairport.php:45
 msgid "Name for instance of Shairport."
-msgstr ""
+msgstr "Name des Shairport-Players."
 
 #: y:\projects\svn_max2play/plugins/multishairport/controller/Setup.php:22
 msgid "Multishairport"
@@ -2923,7 +2934,7 @@ msgstr "Multishairport"
 #: y:\projects\svn_max2play/plugins/rpicam/view/setup.php:93
 #: y:\projects\svn_max2play/plugins/rpicam/view/setup.php:94
 msgid "Uninstall $NAME"
-msgstr ""
+msgstr "Deinstalliere $NAME"
 
 #: y:\projects\svn_max2play/plugins/rpicam/controller/Setup.php:21
 msgid "RPi Camera"
@@ -2976,7 +2987,7 @@ msgstr "Erweiterte Einstellungen"
 
 #: y:\projects\svn_max2play/plugins/autostartbrowser/controller/Setup.php:42
 msgid "Autstartbrowser"
-msgstr ""
+msgstr "Autostartbrowser"
 
 #: y:\projects\svn_max2play/plugins/clementine/view/setup.php:15
 #: y:\projects\svn_max2play/plugins/clementine/controller/Setup.php:30
@@ -3148,13 +3159,12 @@ msgid "Voice Control Setup for Smartphones and Tablets"
 msgstr "Sprachsteuerungseinstellungen für Smartphones und Tablets"
 
 #: y:\projects\svn_max2play/plugins/voicecontrol/view/setup.php:58
-#, fuzzy
 msgid "Uninstall $SERVICENAME"
-msgstr "$SERVICENAME installieren"
+msgstr "Deinstalliere $SERVICENAME"
 
 #: y:\projects\svn_max2play/plugins/voicecontrol/view/setup.php:59
 msgid "Edit Homebridge Config"
-msgstr ""
+msgstr "Bearbeite Homebridge Config"
 
 #: y:\projects\svn_max2play/plugins/voicecontrol/controller/Setup.php:22
 msgid "Voice Control"
@@ -3174,7 +3184,7 @@ msgstr "Max2Play - Allo Edition"
 
 #: y:\projects\svn_max2play/plugins/allo/view/setup.php:69
 msgid "Reset to Default"
-msgstr ""
+msgstr "Reset zum Standard"
 
 #: y:\projects\svn_max2play/plugins/allo/controller/Setup.php:52
 msgid "ALLO"

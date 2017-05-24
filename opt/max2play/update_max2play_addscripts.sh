@@ -252,6 +252,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	if [ -e /etc/locale.gen ]; then
 		if [ "5" -gt "$(grep -e "^de_DE\|^fr_FR\|^it_IT\|^en_GB\|^ru_RU" /etc/locale.gen | wc -l)" ]; then
 			sudo sed -i 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/;s/# it_IT.UTF-8 UTF-8/it_IT.UTF-8 UTF-8/;s/# fr_FR.UTF-8 UTF-8/fr_FR.UTF-8 UTF-8/;s/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/;s/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/' /etc/locale.gen
+  			# FOR TESTSERVER DEMO LANGUAGES (activate all): sudo sed -i 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/;s/# it_IT.UTF-8 UTF-8/it_IT.UTF-8 UTF-8/;s/# fr_FR.UTF-8 UTF-8/fr_FR.UTF-8 UTF-8/;s/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/;s/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/;s/# hu_HU.UTF-8 UTF-8/hu_HU.UTF-8 UTF-8/;s/# es_ES.UTF-8 UTF-8/es_ES.UTF-8 UTF-8/' /etc/locale.gen
   			sudo locale-gen
   			echo "Updated Locales"
   		fi
