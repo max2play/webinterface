@@ -35,7 +35,7 @@ case "$1" in
     then
 	  # -d plug:plugequal for Equalizer Options
 	  # /sbin/start-stop-daemon --start --quiet -b -m -p /opt/shairport/log/shairport.pid --chuid $USER --exec /opt/shairport/shairport -- --name "$NAME" -o alsa -- $SHAIRPORT_PARAMETER
-      /sbin/start-stop-daemon --start -b -m -p /opt/shairport/log/shairport.pid --chuid $USER --startas /bin/bash -- -c "exec /opt/shairport/shairport --name \"$NAME\" -o alsa $SHAIRPORT_OPTIONS -- $SHAIRPORT_PARAMETER > /tmp/shairport.txt 2>&1"      
+      /sbin/start-stop-daemon --start -b -m -p /tmp/shairport.pid --chuid $USER --startas /bin/bash -- -c "exec /opt/shairport/shairport --name \"$NAME\" -o alsa $SHAIRPORT_OPTIONS -- $SHAIRPORT_PARAMETER > /tmp/shairport.txt 2>&1"      
     fi
   ;;
   stop)

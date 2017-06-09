@@ -47,7 +47,7 @@ case "$1" in
     then
         # /sbin/start-stop-daemon --start --quiet -b -m -p /opt/squeezelite/log/squeezelite.pid --chuid $USER --exec /opt/squeezelite/squeezelite -- -n $NAME $LMS $MAC $SQUEEZELITE_PARAMETER
         chmod 777 /tmp/squeezelite.txt
-        /sbin/start-stop-daemon --start -b -m -p /opt/squeezelite/log/squeezelite.pid --chuid $USER --startas /bin/bash -- -c "exec /opt/squeezelite/squeezelite -n $NAME $LMS $MAC $SQUEEZELITE_PARAMETER > /tmp/squeezelite.txt 2>&1"
+        /sbin/start-stop-daemon --start -b -m -p /tmp/squeezelite.pid --chuid $USER --startas /bin/bash -- -c "exec /opt/squeezelite/squeezelite -n $NAME $LMS $MAC $SQUEEZELITE_PARAMETER > /tmp/squeezelite.txt 2>&1"
     else
     	echo "Kodi running! Cannot Start Squeezelite! Close Kodi first and/or remove Autostart for Kodi or use a different audio output for Kodi and activate 'Use USB-Soundcard' on this page." > /tmp/squeezelite.txt
     fi
