@@ -1,8 +1,17 @@
 #!/bin/bash
 
+# Parameter $1 for Accesspoint Setup First Start (fast switch between AP and WiFi Mode)
 # Check for WiFi Adapter!
-echo "Y" | apt-get remove hostapd dnsmasq
-echo "Y" | apt-get purge dnsmasq
+/etc/init.d/hostapd stop
+/etc/init.d/dnsmasq stop
+
+if [ ! "$1" == "1" ]; then
+	echo "Y" | apt-get remove hostapd dnsmasq
+	echo "Y" | apt-get purge dnsmasq
+else
+	update-rc.d hostapd remove
+	update-rc.d dnsmasq remove
+fi
 
 # Disable Forwarding in Config
 sed -i 's/^net.ipv4.ip_forward=1/#net.ipv4.ip_forward=1/' /etc/sysctl.conf
@@ -19,5 +28,7 @@ awk -v NEWTEXT="" 'BEGIN{n=0} /#Accesspoint start/ {n=1} {if (n==0) {print $0}} 
 cp /etc/dhcpcd.conf.new /etc/dhcpcd.conf
 rm /etc/dhcpcd.conf.new
 
-echo "finished"
+if [ ! "$1" == "1" ]; then
+	echo "finished"
+fi
 exit 0

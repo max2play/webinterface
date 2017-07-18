@@ -405,6 +405,10 @@ class Service {
 		}elseif((float)$this->info->version < (float)$file){
 			$this->view->message[] = _('Max2Play update is available - start update on tab Settings / Reboot');
 		}
+		if($file === false){
+			$this->view->message[] = _('No internet connection available!');
+			return false;
+		}
 		return true;
 	}
 	
@@ -433,7 +437,7 @@ class Service {
 				}
 			}else{				
 				$ctx = stream_context_create(array('http'=>	array('timeout' => $timeout)));
-				$content = file_get_contents($file, false, $ctx);				
+				$content = @file_get_contents($file, false, $ctx);				
 				return $content;
 			}
 		}
@@ -722,7 +726,7 @@ class Service {
 			$output = $this->shell_exec("cat /proc/cpuinfo | grep 'Hardware\|Revision'");
 			$this->info->hardware = '';
 			if(preg_match('=Hardware.*: ([^ \n]*)=', $output, $matches)){
-				if(strpos($output, 'BCM2708') || strpos($output, 'BCM2709') || strpos($output, 'BCM2837') || strpos($output, 'BCM2835')){
+				if(strpos($output, 'BCM2708') || strpos($output, 'BCM2709') || strpos($output, 'BCM2837') || strpos($output, 'BCM2835') || strpos($output, 'BCM2836')){
 					$this->info->hardware = 'Raspberry PI';
 					$this->info->chipset = trim($matches[1]);
 					// Pi Version? Check Revision					

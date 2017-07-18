@@ -39,6 +39,7 @@ class Accesspoint_Setup extends Service {
 		$this->scriptPath = dirname(__FILE__).'/../scripts/';
 		$this->pluginname = _('Accesspoint Setup');
 		$this->registerLocale(dirname(__FILE__).'/../locale', 'accesspoint');
+		$this->config = new stdClass();
 		
 		if($this->checkLicense(true) == false)
 			return true;

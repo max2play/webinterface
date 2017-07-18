@@ -3,7 +3,7 @@
 /**
  Lan / Wlan Administration
 
- @Copyright 2014 Stefan Rick
+ @Copyright 2017 Stefan Rick
  @author Stefan Rick
  Mail: stefan@rick-software.de
  Web: http://www.netzberater.de
@@ -32,8 +32,13 @@ class Wlan extends Service {
 	public function __construct(){								
 		parent::__construct();
 		$this->pluginname = _('WiFi / LAN');
-		
+		$this->scriptPath = dirname(__FILE__).'/../scripts/';
 		$this->_getWirelessConfig();
+		
+		if($_REQUEST['ajax'] == 1)
+			$_REQUEST['action'] = 'setupAjaxWifi'; // TODO: change this Hack later...
+		$this->checkAjaxCall('setupAjaxWifi');
+		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'save'){
 				$this->_saveWirelessConfig();
@@ -50,6 +55,33 @@ class Wlan extends Service {
 		$this->showHelpSidebar();
 	}
 	
+	/**
+	 * Complex installer with Ajax Calls to get updates from running script
+	 * @param int $ajax
+	 * @return boolean
+	 */
+	public function setupAjaxWifi($ajax = 0, $ssid, $psk){
+		$progressfile = '/tmp/wifi_install_progress.txt';
+		if($ajax == 0){
+			// First run - start Script and create temporary file for Output
+			if($this->getProgressWithAjax($progressfile, $create = 1, $reloadWhenFinished = 1, $lastlines = 0, $message = _("Setup WiFi Started"))){
+				$shellanswer = $this->writeDynamicScript(array($this->scriptPath."setup_wifi_ajax.sh \"".$ssid."\" \"".$psk."\" >> ".$progressfile." 2>&1 &"), $background = false, $daemon = true);
+			}
+		}else{
+			// Ajax Call every 3 seconds to get progression
+			$status = $this->getProgressWithAjax($progressfile, $create = 0, $reloadWhenFinished = 1, $lastlines = 30);
+			$this->view->message[] = nl2br($status);
+			// Parse Output for String "finished"
+			if(strpos($status, 'finished') !== FALSE){
+				//Finished Progress - did not delete progressfile yet
+				$this->view->message[] = _('Setup finished');
+				//Delete Progressfile
+				shell_exec('rm '.$progressfile);
+			}
+		}
+		return true;
+	}
+	
 	private function _startWPS(){
 		$this->view->message[] = nl2br($this->writeDynamicScript(array("/opt/max2play/wps_config.sh")));
 		$this->_getWirelessConfig();
@@ -57,11 +89,17 @@ class Wlan extends Service {
 	}
 	
 	private function _showWlanNetworks(){
-		$shellanswer = shell_exec("sudo iwlist scan");
+		$shellanswer = shell_exec("LANG=C && sudo iwlist scan 2>&1");
+		if(preg_match('=wlan0.*Network is down=',$shellanswer) == 1){
+			$this->view->message[] = _("Restarting Interface WLAN0...");
+			$this->writeDynamicScript(array("wpa_supplicant -B w -D wext -i wlan0 -c /opt/max2play/wpa_supplicant.conf; sleep 3;"));
+			$shellanswer = shell_exec("LANG=C && sudo iwlist scan 2>&1");
+		}
 		if(strpos($shellanswer, 'Device or resource busy') !== false){
 			$this->view->message[] = _("WLAN Device not responding - Reboot and try again.");
 			return false;
 		}
+		
 		preg_match_all('=ESSID:"(.{1,50}?)".*?Group Cipher : (TKIP|CCMP|CCMP TKIP).*?Pairwise Ciphers \([0-2]\) : (TKIP|CCMP|CCMP TKIP).*?Authentication Suites \([0-2]\) : (PSK)=is',$shellanswer, $matches);
 		if(count($matches[1]) > 0){
 			$this->view->message[] = _("Networks found and added to dropdown list");
@@ -76,20 +114,26 @@ class Wlan extends Service {
 	
 	/**
 	 * New Way to save Network
-	 * TODO: Testing
 	 * @param $ssid
 	 * @param $psk
 	 */
 	private function _saveWiFiNetworkSettings($ssid, $psk){
-		if(1 == 1){
-			//1. Delete empty Network with ssid="" from $this->wpa_config			
+		if(1 == 1){			
+			
+			//1. Delete empty Network with ssid="" from $this->wpa_config	
 			$save = false;
 			file_put_contents($this->wpa_config, preg_replace('@network={.*ssid="".*}@s','',file_get_contents($this->wpa_config)));
-			if(trim(shell_exec('cat /opt/max2play/wpa_supplicant.conf | grep "update_config" | wc -l')) == 0){
+			if(trim(shell_exec('cat '.$this->wpa_config.' | grep "update_config" | wc -l')) == 0){
 				$script[] = 'echo "update_config=1" >> '.$this->wpa_config;
 			}
 			//2. Start WPA_Supplicant
-			$script[] = "killall -q wpa_supplicant;wpa_supplicant -B w -D wext -i wlan0 -c ".$this->wpa_config.";sleep 3";		
+			// stop hostapd if running! DNSMASQ ??
+			$hostapd_running = trim($this->shell_exec('ps -Al | grep hostapd | wc -l'));
+			if($hostapd_running > 0 && !isset($this->view->eth0)){
+				$script[] = "/etc/init.d/hostapd stop;";
+			}
+			// TODO: move everything to Background with AJAX Call -> show loading -> prevent connection error			
+			$script[] = "ifdown wlan0; killall -q wpa_supplicant && sleep 3;wpa_supplicant -B w -D wext -i wlan0 -c ".$this->wpa_config.";";		
 			// Change connection settings to wpa_cli OR use Default Config File if no ssid is set
 			if(strlen(str_replace('*', '', $psk)) > 0 && strlen($ssid) > 0){							
 				$script[] = "wpa_cli -iwlan0 add_network";
@@ -103,12 +147,25 @@ class Wlan extends Service {
 				$script[] = "wpa_cli -iwlan0 remove_network 0";
 				$save = true;
 			}
-			if($save){				
+			if($save){		
 				ignore_user_abort(true);
 				set_time_limit(400);
 				$script[] = "wpa_cli -iwlan0 save_config";
-				$script[] = "ifdown wlan0 && killall -q wpa_supplicant && sleep 3";	
-				$this->view->message[] = 'Debug: Saving WPA-Supplicant ('.$this->writeDynamicScript($script).')';
+				$script[] = "killall -q wpa_supplicant && sleep 3";	// moved ifdown wlan0 to start of script
+				
+				
+				// new: Disable Accesspoint when hostapd is running and no eth0 is connected to allows WiFi Connection
+				if($hostapd_running > 0 && !isset($this->view->eth0)){
+					$this->setupAjaxWifi($ajax = 0, $ssid, $psk);
+					return 9;
+				}
+				
+				$outputSave = $this->writeDynamicScript($script);				
+				$this->view->message[] = 'Debug: Saving WPA-Supplicant ('.$outputSave.')';
+				if(strlen($ssid) > 0 && strpos($outputSave, 'FAIL') !== FALSE){
+					$this->view->message[] = _('NetworkID or Passphrase are WRONG - WiFi Login not saved!');
+					return false;
+				}
 				return true;
 			}else{
 				return false;
@@ -137,6 +194,8 @@ class Wlan extends Service {
 		}
 		
 		$saveWiFi = $this->_saveWiFiNetworkSettings($ssid, $psk);
+		if(intval($saveWiFi) == 9) // Save with Ajax!
+			return true;
 		
 		$shellanswer_eth = $this->writeDynamicScript(array("cat ".$this->networkinterfaces));
 		
@@ -166,10 +225,11 @@ class Wlan extends Service {
 					$this->view->lanip = $fixedIP;
 					//set fixed IP
 					// $this->view->fixedinterface is set to eth0 / wlan0
-					//TODO: Set dnsserver?
+					//Set dnsserver to fixed Google DNS
 					$shellanswer_eth = str_replace('iface '.$this->view->fixedinterface.' inet dhcp', "iface ".$this->view->fixedinterface." inet static\n  address ".$fixedIP."\n  gateway ".$gateway."\n  dns-nameservers 8.8.8.8\n  netmask ".$this->view->networkmask, $shellanswer_eth);
-					$this->writeDynamicScript(array("echo '".$shellanswer_eth."' > ".$this->networkinterfaces."; ifdown ".$this->view->fixedinterface."; ifup ".$this->view->fixedinterface.";"));
+					$this->writeDynamicScript(array("sleep 3;echo '".$shellanswer_eth."' > ".$this->networkinterfaces."; ifdown ".$this->view->fixedinterface."; ifup ".$this->view->fixedinterface.";"), $background = false, $deamon = true);
 					$this->view->message[] = str_replace('$FIXEDIP',$fixedIP, _('IP-Address set to $FIXEDIP'));
+					$this->view->message[] = _('Restarting Interface (especially WLAN0) might take some time (up to 1 minute)!');
 				}else{
 					$this->view->message[] = _('No network route found.');
 				}
@@ -189,7 +249,7 @@ class Wlan extends Service {
 			$wlanstatus = true;
 		}
 		
-		if($ssid != '' && ($wlanstatus == false || $saveWiFi == true)&& $_GET['wlan_configured'] != false){
+		if($ssid != '' && ($wlanstatus == false || $saveWiFi == true) && $_GET['wlan_configured'] != false){
 			//WLAN aktivieren
 			$this->view->message[] = _('WLAN activated - please reboot device');
 			$shellanswer_eth = str_replace(
@@ -197,15 +257,22 @@ class Wlan extends Service {
 					array('pre-up wpa_supplicant','allow-hotplug wlan0','auto wlan0','iface wlan0 inet dhcp','post-down killall'), 
 					$shellanswer_eth);
 			$this->writeDynamicScript(array("echo '".$shellanswer_eth."' > ".$this->networkinterfaces.";sudo ifup wlan0"));
-			$this->saveConfigFileParameter('/opt/max2play/options.conf', 'autoreconnect_wifi', '1');
+			$this->saveConfigFileParameter('/opt/max2play/options.conf', 'autoreconnect_wifi', '1');			
 		}elseif(($ssid == '' || $_GET['wlan_configured'] == false) && $wlanstatus == true){
 			$this->view->message[] = _('WLAN deactivated - no network choosen - please reboot');
 			$shellanswer_eth = str_replace(
 					array('pre-up wpa_supplicant','allow-hotplug wlan0','auto wlan0','iface wlan0 inet dhcp','post-down killall'),  
 					array('#pre-up wpa_supplicant','#allow-hotplug wlan0','#auto wlan0','#iface wlan0 inet dhcp','#post-down killall'),
 					$shellanswer_eth);
-			$this->writeDynamicScript(array("echo '".$shellanswer_eth."' > ".$this->networkinterfaces.";sudo ifdown wlan0"));
+			$this->writeDynamicScript(array("sleep 3; echo '".$shellanswer_eth."' > ".$this->networkinterfaces.";sudo ifdown wlan0"), false, true);
 			$this->saveConfigFileParameter('/opt/max2play/options.conf', 'autoreconnect_wifi', '0');
+			
+			// optional reenable Accesspoint if no ETH0 connected and Accesspoint enabled as config option
+			if(!isset($this->view->eth0) && ($this->view->auto_accesspoint_mode == 1 || $_REQUEST['auto_accesspoint_mode'] == 1)){
+				$this->view->message[] = _('No connection available anymore - Starting Accesspoint mode!');
+				// ifdown wlan0 - start wpa_supplicant - restart hostapd
+				$this->writeDynamicScript(array("sleep 3;/var/www/max2play/application/plugins/accesspoint/scripts/install_accesspoint.sh /var/www/max2play/application/plugins/accesspoint/scripts/ 1"), false, true);
+			}
 		}
 		
 		$wpsenabled = trim(shell_exec('cat /etc/rc.local | grep wps_config | wc -l')) > 0 ? true : false;
@@ -214,22 +281,34 @@ class Wlan extends Service {
 		}elseif(!isset($_REQUEST['wpsenabled']) && $wpsenabled == TRUE){
 			$this->writeDynamicScript(array('sed -i "s@.*sudo /opt/max2play/wps_config.sh; fi@@" /etc/rc.local'));
 		}
+		
+		// Automatic Accesspoint Mode
+		if(isset($_REQUEST['auto_accesspoint_mode']) && $this->view->auto_accesspoint_mode != $_REQUEST['auto_accesspoint_mode']){
+			$this->saveConfigFileParameter('/opt/max2play/options.conf', 'auto_accesspoint_mode', 1);
+			// Check and Install hostapd and dnsmasq
+			$this->view->message[] = nl2br($this->writeDynamicScript(array("/var/www/max2play/application/plugins/accesspoint/scripts/install_accesspoint.sh /var/www/max2play/application/plugins/accesspoint/scripts/ 1 onlyinstall")));
+		}elseif(!isset($_REQUEST['auto_accesspoint_mode']) && $this->view->auto_accesspoint_mode == 1){
+			$this->saveConfigFileParameter('/opt/max2play/options.conf', 'auto_accesspoint_mode', 0);
+		}
 		return true;
 	}
 	
 	private function _getWirelessConfig(){		
 		
-		//Allgemeine Interface Config
+		// Allgemeine Interface Config
 		$shellanswer_if = shell_exec("LANG=C && /sbin/ifconfig");
 		preg_match('=wlan0=', $shellanswer_if, $match);		
 		$this->view->ifconfig_txt = $shellanswer_if;
 		
-		//Get Current IP-address from first interface OR any other interface but not lo		
-		//Old Regex: '=inet addr:(([0-9]{1,3}\.){3}[0-9]{1,3})(?<!127\.0\.0\.1).*Mask:(([0-9]{1,3}\.){3}[0-9]{1,3})='
-		if(preg_match('/(?=(eth0|wlan0).*?)((?!packets).)+inet addr:(([0-9]{1,3}\.){3}[0-9]{1,3})(?<!127\.0\.0\.1).*?Mask:(([0-9]{1,3}\.){3}[0-9]{1,3})/si', $shellanswer_if, $currip)){
-			$this->view->fixedinterface = $currip[1]; // this interface will get a fixed IP if set
-			$this->view->lanip = $currip[3];
-			$this->view->networkmask = $currip[5];
+		// Get Current IP-address from first interface OR any other interface but not lo		
+		// Also check if more than one Interface is configured and set eth0_active and wlan0_active
+		if(preg_match_all('/(?=(eth0|wlan0).*?)((?!packets).)+inet addr:(([0-9]{1,3}\.){3}[0-9]{1,3})(?<!127\.0\.0\.1).*?Mask:(([0-9]{1,3}\.){3}[0-9]{1,3})/si', $shellanswer_if, $currip)){
+			for($i = 0; $i < count($currip[0]); $i++){
+				$this->view->$currip[1][$i] = $currip[3][$i];
+				$this->view->fixedinterface = $currip[1][$i]; // this interface will get a fixed IP if set
+				$this->view->lanip = $currip[3][$i];
+				$this->view->networkmask = $currip[5][$i];
+			}
 		}
 		
 		$shellanswer_eth = $this->writeDynamicScript(array("cat ".$this->networkinterfaces));
@@ -308,6 +387,9 @@ class Wlan extends Service {
 		
 		//WPS-Config
 		$this->view->wpsenabled = trim(shell_exec('cat /etc/rc.local | grep wps_config | wc -l')) > 0 ? true : false;
+		
+		//Auto Accesspoint
+		$this->view->auto_accesspoint_mode = $this->getConfigFileParameter('/opt/max2play/options.conf', 'auto_accesspoint_mode');
 		return true;
 	}
 	

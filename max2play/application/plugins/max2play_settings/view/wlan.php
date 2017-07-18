@@ -120,6 +120,16 @@
 		    
 		    </p>
 		  </div>
+		  <h3><?php echo _('Accesspoint Mode on missing network connection') ?></h3>
+		  <div>
+		    <p>
+		    <?php echo _("Activate to automatically start Accesspoint Mode on Boot, if no WiFi or LAN connection is available.") ?> : <input type="checkbox" id="auto_accesspoint_mode" name="auto_accesspoint_mode" value="1" <?php if($wlan->view->auto_accesspoint_mode) echo 'checked'; ?> /> 
+			<br /><br /><?php echo _("This enables you to configure WiFi from your Smartphone - no need for any LAN-Connection. Useful, if you don't want to connect the Max2Play-device with a network cable for initial setup of WiFi.") ?>
+		    <br /><br /><?php echo _("<b>HowTo</b> (assuming no user changes on Accesspoint Plugin page): Plug-In Power cable -> wait for 2 minutes -> choose <i>max2play</i> as WiFi network on your smartphone -> enter passphrase <i>mypasscode</i> -> point your browser to http://max2play and configure WiFi as normally"); ?>
+		    <br /><br />
+		    <input type="button" value="<?php echo _("Save all settings") ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />		    
+		    </p>
+		  </div>
 		  <h3><?php echo _('Configure LAN Mac-Address') ?></h3>
 		  <div>
 		    <p>

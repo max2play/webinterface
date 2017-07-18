@@ -51,17 +51,16 @@ class Rpi_functions extends Service {
 			'durio-sound-pro' => array('dtoverlay' => 'hifiberry-dac', 'name' => 'Durio Sound Pro'));
 
 	/**
-	 * Raspberry Pi Function to Save /boot/config.txt Parameter
 	 * Important! dtoverlay Parameter might be set multiple times in config.txt -> separate handling needed
 	 * @param string $value
 	 * @param string $dto_type Possible values: soundcard, single_option
 	 * @return boolean
 	 */
-	public function saveDTOverlayConfig($value = '', $dto_type = 'notset', $dto_param = ''){
+	private function saveDTOverlayConfig($value = '', $dto_type = 'notset'){		
 		$dto_entries['soundcard'] = array();
 		$dto_entries['i2s-mmap'] = array('i2s-mmap'); // Support for Alsa DMIX on Soundcards
 		$dto_entries['bluetooth'] = array('pi3-disable-bt');
-		$dto_entries['lirc'] = array('lirc-rpi');
+		$dto_entries['lirc'] = array('lirc-rpi(,gpio_in_pin=[0-9]+)?(,gpio_out_pin=[0-9]+)?');
 		$dto_value = '';
 		$separator = '=';
 		$configfile = '/boot/config.txt';
@@ -74,27 +73,35 @@ class Rpi_functions extends Service {
 		if(file_exists($configfile)){
 			$old_parameter = explode("\n", trim($this->getConfigFileParameter($configfile, $parameter)));
 			// $old_parameter is an array
-			// get the right value to replace / add new
+			// get the right value to replace / add new			
 			foreach($old_parameter as $oldparam){
-				if(isset($dto_entries[$dto_type]) && in_array($oldparam, $dto_entries[$dto_type])){
-					$dto_value = $oldparam;
+				if($dto_type == 'lirc'){
+					// pattern recognition for flexible parameter values
+					foreach($dto_entries[$dto_type] as $type){
+						if(preg_match('@'.$type.'@', $oldparam, $match)){
+							$dto_value = $oldparam;
+						}
+					}
+				}else{
+					// normal recognition
+					if(in_array($oldparam, $dto_entries[$dto_type])){
+						$dto_value = $oldparam;
+					}
 				}
+				
 				if($oldparam == $value){
 					//Value existing -> do not change!
 					return true;
-				}
-			}
-	
+				}				
+			}		
+			
 			if($dto_value != '' && $value == ''){
 				// Remove by oldvalue
-				$this->writeDynamicScript(array('sed -i "s/^[ \t]*'.$parameter.$separator.$dto_value.'$//g" '.$configfile));
+				$this->writeDynamicScript(array('sed -i "s/^[ \t]*'.$parameter.$separator.$dto_value.'$//g" '.$configfile));				
 				$this->view->message[] = _("Update Configfile - existing Entry removed");
-			}elseif($dto_value == ''){
+			}elseif($dto_value == ''){				
 				// Add new
 				$this->writeDynamicScript(array('echo "'.$parameter.$separator.$value.'" >> '.$configfile));
-				//TODO remove Dirty Hack - works only the first time
-				if($dto_param != '')
-					$this->writeDynamicScript(array('echo "dtparam='.$dto_param.'" >> '.$configfile));
 				$this->view->message[] = _("Update Configfile - new Entry created");
 			}else{
 				// Replace by old value
@@ -103,5 +110,34 @@ class Rpi_functions extends Service {
 			}
 		}
 		return true;
+	}
+	
+	/**
+	 * Get current KernelVersion as Array
+	 * @return array
+	 */
+	public function getKernelVersion(){
+		$kernelversion = explode('.',trim($this->shell_exec('uname --all | grep -oe " [0-9]\+\.[0-9\.]\+"')));
+		return $kernelversion;
+	}
+	
+	/**
+	 * Compare a given Kernel Version to the currently installed Kernel
+	 * $version = String of Kernel Version
+	 * @param Kernelversion $version e.g. 4.9.31
+	 * @return true if installed Kernel Version is behind given version 
+	 */
+	public function compareKernelVersion($version){
+		$kernelversion = $this->getKernelVersion();
+		$version=explode('.', $version);
+		$smaller=false;
+		foreach($version as $key => $min){
+			if(isset($kernelversion[$key]) && $kernelversion[$key] >= $min){
+				// OK
+			}else{
+				$smaller=true;
+			}
+		}
+		return $smaller;
 	}
 }

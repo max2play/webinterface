@@ -26,6 +26,7 @@
 class Passwordprotection_Setup extends Service {
 	
 	public $scriptPath = '';
+	public $ssh = array();
 	
 	public function __construct(){
 		parent::__construct();
@@ -33,7 +34,7 @@ class Passwordprotection_Setup extends Service {
 		//Set your Pluginname
 		$this->pluginname = _('Password Protection');
 		
-		$this->registerLocale(dirname(__FILE__).'/../locale', 'passwordprotection');
+		//$this->registerLocale(dirname(__FILE__).'/../locale', 'passwordprotection');
 		
 		$this->_getProtectionInfo();
 		
@@ -52,7 +53,9 @@ class Passwordprotection_Setup extends Service {
 			if($_REQUEST['action'] == 'savepassworduser'){
 				$this->_changeUserPassword($this->getSystemUser(), $_REQUEST['userpassword']);
 			}
-		}				
+		}
+
+		$this->_sshHandler();
 				
 	}
 	
@@ -76,7 +79,7 @@ class Passwordprotection_Setup extends Service {
 		$script[] = '/usr/bin/htpasswd -b -c /var/www/max2play/.htpasswd "'.$user.'" "'.$pass.'"';
 		$script[] = 'echo "'.$htaccess_code.'" > /var/www/max2play/public/.htaccess_add';
 		$this->writeDynamicScript($script);
-		$this->view->message[] = _t('Password Protection is now installed!');
+		$this->view->message[] = _('Password Protection is now installed!');
 		$this->_getProtectionInfo();
 		return true;
 	}
@@ -86,7 +89,7 @@ class Passwordprotection_Setup extends Service {
 		$script[] = '/bin/sed -i "/##AUTHENTICATION START/,/##AUTHENTICATION END/ { /##AUTHENTICATION END/"\'!\'" d; }" /var/www/max2play/public/.htaccess';
 		$script[] = '/bin/rm /var/www/max2play/.htpasswd;/bin/rm /var/www/max2play/public/.htaccess_add';
 		$this->writeDynamicScript($script);
-		$this->view->message[] = _t('Password Protection is now removed!');
+		$this->view->message[] = _('Password Protection is now removed!');
 		$this->_getProtectionInfo();
 	}
 	
@@ -94,12 +97,39 @@ class Passwordprotection_Setup extends Service {
 		if($user == '')
 			return false;
 		if($pass == ''){
-			$this->view->message[] = _t('Password not set (must not be empty)');
+			$this->view->message[] = _('Password not set (must not be empty)');
 			return false;
 		}
 		$script[] = 'echo -e "'.$pass.'\n'.$pass.'\n" | passwd '.$user;
 		$this->writeDynamicScript($script);
-		$this->view->message[] = _t('Password changed for user').' '. $user;
+		$this->view->message[] = _('Password changed for user').' '. $user;
+		return true;
+	}
+	
+	private function _sshHandler(){
+		$this->ssh['autostart'] = $this->checkAutostart('ssh', false);
+		
+		if($_REQUEST['action'] == 'saveSSH'){
+			$this->_configureSSH();
+		}
+		if($_REQUEST['action'] == 'startSSH'){
+			$this->view->message[] = $this->start('sshd', $command = 'systemctl start ssh', 'sshd', $rootstart = true);
+		}
+		if($_REQUEST['action'] == 'stopSSH'){
+			$this->view->message[] = $this->stop('sshd', $command = 'systemctl stop ssh', 'sshd', $rootstop = true);
+		}
+		$this->ssh['pid'] = $this->status('sshd');
+		return true;
+	}
+	
+	/**
+	 * Change Autostart, Port SSH Config
+	 */
+	private function _configureSSH(){
+		if(isset($_REQUEST['autostartssh']) && !$this->ssh['autostart'] || !isset($_REQUEST['autostartssh']) && $this->ssh['autostart']){
+		    $this->selectAutostart(isset($_REQUEST['autostartssh']), false, 'ssh'); //systemctl start/stop/enable/disable ssh
+		    $this->ssh['autostart'] = $this->checkAutostart('ssh', false);
+		}
 		return true;
 	}
 		

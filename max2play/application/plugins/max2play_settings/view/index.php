@@ -50,7 +50,7 @@
 	<br /><br />
 	<?php echo _('Questions concerning this project? Please refer to <a href="http://www.max2play.com" target="_blank">www.Max2Play.com</a>') ?><br />	
 	
-	<?php if($start->view->setupstartpage == 1){ ?>
+	<?php if($start->view->setupstartpage == 1 && !$start->view->nointernet){ ?>
 		<script>
 		  $( function() {
 		    $( "#dialog-setupstartpage" ).dialog({

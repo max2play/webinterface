@@ -105,7 +105,7 @@ fi
 #Fix for rc.local file to make Mounting more robust
 sed -i 's/done;\/bin\/mount -a/done;set +e;\/bin\/mount -a;set -e;/' /etc/rc.local
 
-HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709\|BCM2837" | wc -l)
+HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709\|BCM2837\|BCM2835\|BCM2836" | wc -l)
 if [ "$HW_RASPBERRY" -gt "0" ]; then
 	#Fix for wrong hostname in Image 2.31
 	HOSTNAME=$(cat /etc/hostname)
@@ -260,6 +260,16 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
   	
   	if [ "$(grep -i '^default-fragments = 5' /etc/pulse/daemon.conf | wc -l)" -lt "1" ]; then
        echo "default-fragments = 5\ndefault-fragment-size-msec = 2\n" >> /etc/pulse/daemon.conf
+    fi
+    
+    # Fix for unlimited Network Timeout on Boot (prevents booting)
+    if [ -e /lib/systemd/system/networking.service.d/network-pre.conf -a "$(grep TimeoutStartSec /lib/systemd/system/networking.service.d/network-pre.conf | wc -l)" -lt "1" ]; then
+    	echo "\n[Service]\nTimeoutStartSec=45\n" >> /lib/systemd/system/networking.service.d/network-pre.conf
+    fi
+    
+    # Start Accesspoint on Boot only for RPI
+    if [ "$(grep -i "start_accesspoint_onboot.sh" /etc/rc.local | wc -l)" -lt "1" ]; then
+    	sudo sed -i "s@^exit 0@#Start Accesspoint on Boot if no network connection available\n/var/www/max2play/application/plugins/accesspoint/scripts/start_accesspoint_onboot.sh\nexit 0@" /etc/rc.local
     fi
 fi
 

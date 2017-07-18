@@ -5,7 +5,7 @@
    
    Extend this class for custom start pages and use custom view file
     
-   @Copyright 2015 Stefan Rick   
+   @Copyright 2017 Stefan Rick   
    @author Stefan Rick
    Mail: stefan@rick-software.de
    Web: http://www.netzberater.de   
@@ -35,7 +35,13 @@ class Start extends Service {
 		
 		$this->checkPicturesAndHeader();
 
-		$this->checkForUpdate();
+		if($this->checkForUpdate() === FALSE){
+			// probalby no internet connection!
+			$this->view->nointernet = true;
+			// Check for Accesspoint Mode
+			if(intval(trim($this->shell_exec('ps -Al | grep hostapd | wc -l'))) > 0)
+				$this->view->message[] = _('Accesspoint Mode Active: Go to WiFi/LAN page to setup your local WiFi for this device.');
+		}
 
 		if(isset($_REQUEST['action'])){
 			if($_REQUEST['action'] == 'save_purpose'){

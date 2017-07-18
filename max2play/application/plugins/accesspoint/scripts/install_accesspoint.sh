@@ -4,32 +4,61 @@
 
 # $1 Parameter is scriptpath
 # probably /var/max2play/application/plugins/accesspoint/scripts/
+# Parameter $2 for Accesspoint Setup First Start (fast switch between AP and WiFi Mode)
 
 # Check for WiFi Adapter!
 WIFI_AVAILABLE=$(sudo /sbin/ifconfig | grep wlan0 | wc -l)
 if [ "$WIFI_AVAILABLE" -lt "1" ]; then
-	echo "No WiFi detected - make sure a WiFi stick is attached to your device!"
-	exit 1
+	wpa_supplicant -B w -D wext -i wlan0 -c /opt/max2play/wpa_supplicant.conf
+	WIFI_AVAILABLE=$(sudo /sbin/ifconfig | grep wlan0 | wc -l)
+	if [ "$WIFI_AVAILABLE" -lt "1" ]; then
+		echo "No WiFi detected - make sure a WiFi stick is attached to your device!"	
+		exit 1
+	fi
 else
 	echo "WiFi detected"
 fi
 	
-# Install everything
-apt-get update
-echo "Y" | apt-get install hostapd dnsmasq
+# Install everything and Check if hostapd and dnsmasq are existing
+if [ ! "$2" == "1" ]; then
+	apt-get update
+	echo "Y" | apt-get install hostapd dnsmasq
 
-# Check for Realtek Chipset (Edimax) and switch hostapd binary
-# ONLY for Debian Wheezy...
-IS_EDIMAX=$(sudo lsusb | grep "Wireless\|Edimax" | grep "RTL8188CUS\|Edimax" | wc -l)
-if [ "$IS_EDIMAX" -gt "0" -a "$(lsb_release -r | grep '8.0' | wc -l)" -lt "1" ]; then 
-    echo "Change hostapd-Binary to Edimax RTL8188CUS Chipset for Debian Wheezy"
-    sudo cp /usr/sbin/hostapd /usr/sbin/hostapd-old;sudo cp -f /opt/max2play/hostapd-rtl /usr/sbin/hostapd
-elif [ -e /usr/sbin/hostapd-old ]; then
-	sudo cp /usr/sbin/hostapd-old /usr/sbin/hostapd
+
+	# Check for Realtek Chipset (Edimax) and switch hostapd binary
+	# ONLY for Debian Wheezy...
+	IS_EDIMAX=$(sudo lsusb | grep "Wireless\|Edimax" | grep "RTL8188CUS\|Edimax" | wc -l)
+	if [ "$IS_EDIMAX" -gt "0" -a "$(lsb_release -r | grep '8.0' | wc -l)" -lt "1" ]; then 
+	    echo "Change hostapd-Binary to Edimax RTL8188CUS Chipset for Debian Wheezy"
+	    sudo cp /usr/sbin/hostapd /usr/sbin/hostapd-old;sudo cp -f /opt/max2play/hostapd-rtl /usr/sbin/hostapd
+	elif [ -e /usr/sbin/hostapd-old ]; then
+		sudo cp /usr/sbin/hostapd-old /usr/sbin/hostapd
+	fi
+
+	# Copy config file for DHCP Server
+	cp -f $1dnsmasq.conf /etc/dnsmasq.conf
 fi
-
-# Copy config file for DHCP Server
-cp -f $1dnsmasq.conf /etc/dnsmasq.conf
+	
+if [ "$2" == "1" ]; then
+	if [ "$(dpkg -s hostapd | grep "install ok" | wc -l)" -lt "1" -o "$(dpkg -s dnsmasq | grep "install ok" | wc -l)" -lt "1" ]; then
+		# Check for Internet connection...
+		if [ "$(LANG=C && /sbin/ifconfig eth0 | grep 'inet addr:' | wc -l)" -lt "1" -a "$(LANG=C && /sbin/ifconfig wlan0 | grep 'HWaddr' | wc -l)" -gt "0" -a "$(LANG=C && /sbin/ifconfig wlan0 | grep 'inet addr:' | grep -v '169.254' | wc -l)" -lt "1" ]; then
+			echo "Big Problem: no Internet connection to install hostapd and dnsmasq - you should do this earlier..."
+			exit 1
+		else
+			# Fallback to install required packages
+			apt-get update
+			echo "Y" | apt-get install hostapd dnsmasq
+			cp -f $1dnsmasq.conf /etc/dnsmasq.conf
+		fi
+	fi 
+	## Script start_accesspoint_onboot.sh will do the startup if not network connection available
+	update-rc.d hostapd remove
+	update-rc.d dnsmasq remove
+	if [ "$3" == "onlyinstall" ]; then
+		exit 0
+	fi
+fi
 
 # Insert hostname to /etc/hosts
 HOSTNAME=$(cat /etc/hostname)

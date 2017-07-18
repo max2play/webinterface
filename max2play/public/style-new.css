@@ -294,6 +294,7 @@ and (max-width : 800px)
        background: url("/logo_k.png") no-repeat scroll left top transparent;
        width: 140px;
        height: 65px;
+       margin: 0 0 10px;
    }
    .widget-area {
        float: none;
@@ -321,6 +322,7 @@ and (max-width : 800px)
    header, #main, footer {
    	   padding: 0 0.8rem;
    }
+   header {height: 75px;}
    .headerinfo {font-size:0.8em;}
    
    #toppicture {display:none;}
