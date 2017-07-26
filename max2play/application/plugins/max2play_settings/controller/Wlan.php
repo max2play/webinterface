@@ -41,8 +41,7 @@ class Wlan extends Service {
 		
 		if(isset($_GET['action'])){
 			if($_GET['action'] == 'save'){
-				$this->_saveWirelessConfig();
-				$this->view->message[] = _("Data saved");
+				$this->_saveWirelessConfig();				
 				$this->_getWirelessConfig();
 			}
 			if($_GET['action'] == 'start_wps'){
@@ -72,9 +71,8 @@ class Wlan extends Service {
 			$status = $this->getProgressWithAjax($progressfile, $create = 0, $reloadWhenFinished = 1, $lastlines = 30);
 			$this->view->message[] = nl2br($status);
 			// Parse Output for String "finished"
-			if(strpos($status, 'finished') !== FALSE){
-				//Finished Progress - did not delete progressfile yet
-				$this->view->message[] = _('Setup finished');
+			if(strpos($status, 'Finished') !== FALSE){
+				//Finished Progress - did not delete progressfile yet				
 				//Delete Progressfile
 				shell_exec('rm '.$progressfile);
 			}
@@ -89,26 +87,37 @@ class Wlan extends Service {
 	}
 	
 	private function _showWlanNetworks(){
-		$shellanswer = shell_exec("LANG=C && sudo iwlist scan 2>&1");
-		if(preg_match('=wlan0.*Network is down=',$shellanswer) == 1){
-			$this->view->message[] = _("Restarting Interface WLAN0...");
-			$this->writeDynamicScript(array("wpa_supplicant -B w -D wext -i wlan0 -c /opt/max2play/wpa_supplicant.conf; sleep 3;"));
+		// try 2 Attempts - in case Network Card is busy / not Network found... iwlist might take a while on first run
+		$searchSuccess = false;
+		$attempts = 0;
+		while(!$searchSuccess && $attempts < 3){
+			$message = array();
+			if($attempts > 0)
+				sleep(4);
 			$shellanswer = shell_exec("LANG=C && sudo iwlist scan 2>&1");
+			if(preg_match('=wlan0.*Network is down=',$shellanswer) == 1){
+				$message[] = _("Restarting Interface WLAN0...");
+				$this->writeDynamicScript(array("wpa_supplicant -B w -D wext -i wlan0 -c /opt/max2play/wpa_supplicant.conf; sleep 3;"));
+				$shellanswer = shell_exec("LANG=C && sudo iwlist scan 2>&1");
+			}
+			if(strpos($shellanswer, 'Device or resource busy') !== false){
+				$message[] = _("WLAN Device not responding - Reboot and try again.");
+				return false;
+			}
+			
+			preg_match_all('=ESSID:"(.{1,50}?)".*?Group Cipher : (TKIP|CCMP|CCMP TKIP).*?Pairwise Ciphers \([0-2]\) : (TKIP|CCMP|CCMP TKIP).*?Authentication Suites \([0-2]\) : (PSK)=is',$shellanswer, $matches);
+			if(count($matches[1]) > 0){
+				$message[] = _("Networks found and added to dropdown list");
+				for($i = 0; $i < count($matches[1]); $i++){
+					$this->view->wlanNetworks[] = array('ESSID' => $matches[1][$i], 'GCIPHER' => $matches[2][$i], 'PCIPHER' => $matches[3][$i], 'AUTH' => $matches[4][$i]);
+				}
+				$searchSuccess = true;
+			}else{
+				$message[] = _("No networks found");
+			}
+			$attempts++;
 		}
-		if(strpos($shellanswer, 'Device or resource busy') !== false){
-			$this->view->message[] = _("WLAN Device not responding - Reboot and try again.");
-			return false;
-		}
-		
-		preg_match_all('=ESSID:"(.{1,50}?)".*?Group Cipher : (TKIP|CCMP|CCMP TKIP).*?Pairwise Ciphers \([0-2]\) : (TKIP|CCMP|CCMP TKIP).*?Authentication Suites \([0-2]\) : (PSK)=is',$shellanswer, $matches);
-		if(count($matches[1]) > 0){
-			$this->view->message[] = _("Networks found and added to dropdown list");
-			for($i = 0; $i < count($matches[1]); $i++){
-				$this->view->wlanNetworks[] = array('ESSID' => $matches[1][$i], 'GCIPHER' => $matches[2][$i], 'PCIPHER' => $matches[3][$i], 'AUTH' => $matches[4][$i]);
-			}			
-		}else{
-			$this->view->message[] = _("No networks found");
-		}
+		$this->view->message = array_merge($this->view->message,$message);
 		return true;
 	}
 	
@@ -132,7 +141,7 @@ class Wlan extends Service {
 			if($hostapd_running > 0 && !isset($this->view->eth0)){
 				$script[] = "/etc/init.d/hostapd stop;";
 			}
-			// TODO: move everything to Background with AJAX Call -> show loading -> prevent connection error			
+			// move everything to Background with AJAX Call -> show loading -> prevent connection error -> setupAjaxWifi doing that	
 			$script[] = "ifdown wlan0; killall -q wpa_supplicant && sleep 3;wpa_supplicant -B w -D wext -i wlan0 -c ".$this->wpa_config.";";		
 			// Change connection settings to wpa_cli OR use Default Config File if no ssid is set
 			if(strlen(str_replace('*', '', $psk)) > 0 && strlen($ssid) > 0){							
@@ -290,6 +299,8 @@ class Wlan extends Service {
 		}elseif(!isset($_REQUEST['auto_accesspoint_mode']) && $this->view->auto_accesspoint_mode == 1){
 			$this->saveConfigFileParameter('/opt/max2play/options.conf', 'auto_accesspoint_mode', 0);
 		}
+		
+		$this->view->message[] = _("Data saved");
 		return true;
 	}
 	

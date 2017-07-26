@@ -52,11 +52,14 @@
 			<div class="chooseplayer">
 				<?php if($service->info->devices) { ?>
 					<?php //echo _('Choose active Player')?>
-					<select name="chooseplayer" class="chooseplayer" style="margin-bottom:5px;" onChange="window.open(this.options[this.selectedIndex].value,'_self');">
+					<select name="chooseplayer" class="chooseplayer" style="width: 84%;margin-bottom:5px;" onChange="window.open(this.options[this.selectedIndex].value,'_self');">
 						<?php foreach($service->info->devices as $device) { ?>
 							<option <?php if($device['current'] == 1) echo 'selected'; ?> value="http://<?php echo $device['ip'] ?>"><?php echo $device['name'] ?> (<?php echo $device['ip'] ?>)</option>
 						<?php }?>		
 					</select>
+					<a class="button-small ui-state-default ui-corner-all clickloading" title="Refresh Device List" style="float:left;background-image: none; background-color: rgb(255, 255, 255);padding: 0;" href="<?php echo "//{$_SERVER['HTTP_HOST']}".strtok($_SERVER["REQUEST_URI"],'?').'?refreshDeviceList=1'; ?>" >
+						<span class="ui-icon ui-icon-refresh"></span>
+					</a>
 				<?php }?>				
 				<span class="headerinfo">					
 					<?php echo _('Version').' '.$service->info->version ?>

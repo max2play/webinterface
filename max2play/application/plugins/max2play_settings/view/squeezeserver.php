@@ -22,6 +22,12 @@
 	 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */ 
 ?>
+<script type="text/javascript">
+	function changeFormMethod(method) {
+	    $("#form1").attr("method", method);
+	    $("#form1").attr("enctype", "");
+	}
+</script>
 
 <h1 class="entry-header">
 	<?php echo $sp->viewname.' - '._('Status, Start & Stop') ?>
@@ -32,7 +38,7 @@
     	  $error=$sp->view->error; 
     	  include(APPLICATION_PATH.'/view/messages.php');?>
 	
-	<form action="" method="post" enctype="multipart/form-data">
+	<form id=form1 action="" method="post" enctype="multipart/form-data">
 	<input type="hidden" id="action" name="action" value="" />
 	
 	<?php if($sp->view->installed == true) { ?>
@@ -79,9 +85,9 @@
 	<?php echo _('Alternative other source from Slimdevices (package must be .deb)') ?>: 
 	<input id="downloadurl" type="text" value="<?php echo $lmsdefault;?>" name="downloadurl" style="" /><br /><br /> 		
 	
-	<?php if ($sp->view->perlversion > "5.18" ) echo '<br /><span style="color:red;">'._('IMPORTANT: You must choose 7.9 Nightly as 7.8 is currently not supported for this version of Perl: '.$sp->view->perlversion).'</span><br />'; ?>
+	<?php /*ERROR MESSAGE for Perl Version deactivated # if ($sp->view->perlversion > "5.18" ) echo '<br /><span style="color:red;">'._('IMPORTANT: You must choose 7.9 Nightly as 7.8 is currently not supported for this version of Perl: '.$sp->view->perlversion).'</span><br />'; */?>
 	
-	<input type="button" value="<?php echo str_replace('$NAME', $sp->viewname, _('$NAME start installation')) ?>" name="install" onclick="document.getElementById('action').value='install';submit();" />
+	<input type="button" value="<?php echo str_replace('$NAME', $sp->viewname, _('$NAME start installation')) ?>" name="install" onclick="changeFormMethod('GET');document.getElementById('action').value='install';submit();" />
 	<br /><br /> <?php echo _('The installation takes about 5 to 10 minutes depending on your internet connection. At first it downloads the package from http://downloads.slimdevices.com/ and afterwards it installs the package. You may reload this page by clicking the button again to see the status of the install process.')?>			
 	
 	<br /><br />
@@ -93,7 +99,7 @@
 		<option value="shairtunes"><?php echo _('Install Shairtunes Plugin (All connected Squeezeplayers can be used as Airplay Devices)') ?></option>
 		<option value="googlemusic"><?php echo _('Install GoogleMusic Plugin (Use your GoogleMusic Account and connect it with your Squeezebox Server)') ?></option>				
 	</select>
-	<input type="button" value="<?php echo _('Install choosen Plugin (takes some time)') ?>" name="plugininstall" onclick="document.getElementById('action').value='plugininstall';submit();" />
+	<input type="button" value="<?php echo _('Install choosen Plugin (takes some time)') ?>" name="plugininstall" onclick="changeFormMethod('GET');document.getElementById('action').value='plugininstall';submit();" />
 	
 	<br /><br />
 	<br />

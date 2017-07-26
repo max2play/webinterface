@@ -128,6 +128,10 @@ class Passwordprotection_Setup extends Service {
 	private function _configureSSH(){
 		if(isset($_REQUEST['autostartssh']) && !$this->ssh['autostart'] || !isset($_REQUEST['autostartssh']) && $this->ssh['autostart']){
 		    $this->selectAutostart(isset($_REQUEST['autostartssh']), false, 'ssh'); //systemctl start/stop/enable/disable ssh
+		    if(!isset($_REQUEST['autostartssh']))
+		    	$this->writeDynamicScript(array('systemctl disable ssh'));
+		    else
+		    	$this->writeDynamicScript(array('systemctl enable ssh'));
 		    $this->ssh['autostart'] = $this->checkAutostart('ssh', false);
 		}
 		return true;

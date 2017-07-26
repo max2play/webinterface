@@ -56,6 +56,7 @@ class Service {
 			error_reporting(E_ERROR | E_WARNING | E_PARSE);
 			ini_set("display_errors", "stdout");
 		}
+		$this->checkAccessRights();
 	}		
 	
 	/**
@@ -63,22 +64,45 @@ class Service {
 	 */
 	public function loadDefaults(){		
 		$this->getPlayername();
+		if(isset($_REQUEST['refreshDeviceList']) && $_REQUEST['refreshDeviceList'] == 1){
+			$this->resetNetworkPlayerList();
+		}
 		$this->getAllNetworkPlayers();
 		$this->getVersion();
 		$this->getDonate();
 		$this->getHardwareInfo();
 		if(isset($_REQUEST['closeguide']) && $_REQUEST['closeguide'] == 1){
 			$this->setHelpOnSidebar(false);
-		}
-		$this->showLicenseMessage();
+		}		
+		$this->showLicenseMessage();		
 		return true;
 	}
 	
+	/**
+	 * get Status of Process by name
+	 * @param string $name
+	 * @return boolean | int PID
+	 */
+	public function status($name = ''){
+		if($name == '')
+			return false;
+	
+		$shellanswer = $this->shell_exec("ps -ef | grep '".$name."' | grep -v grep");
+		if($shellanswer != ''){
+			preg_match('=([ ]*)([0-9]*)=', substr($shellanswer, 9,5), $match);
+			if($match[2]){
+				$process_id = $match[2];
+				return $process_id;
+			}
+		}
+		return false;
+	}
+	/* Outdated - replaced by new status function
 	public function status($name = ''){
 		if($name == '')
 			return false;
 		
-		$shellanswer = $this->shell_exec("ps -Al | grep ".$name);		
+		$shellanswer = $this->shell_exec("ps -Al | grep ".$name);
 		if($shellanswer != ''){
 			preg_match('=([ ]*)([0-9]*)=', substr($shellanswer, 10,5), $match);
 			if($match[2]){
@@ -87,7 +111,7 @@ class Service {
 			}		
 		}
 		return false;			
-	}
+	}*/
 	
 	public function start($name = '', $command = '', $statusname = '', $rootstart = false, $background = false){
 		if($name == '')
@@ -244,7 +268,7 @@ class Service {
 		if($name == '')
 			return false;
 		if(!$autostartconf){
-			$isactive = $this->shell_exec("ls /etc/rc2.d | grep ".$name);
+			$isactive = $this->shell_exec("ls /etc/rc2.d | grep -e 'S.*".$name."'");
 			if(strpos($isactive, $name) !== FALSE){
 				$isactive = true;
 			}else{
@@ -716,7 +740,7 @@ class Service {
 	public function getHardwareInfo(){
 		$hwByRevisionRegex = array('a.2082' => 'Raspberry PI 3', 
 								   'a.[12]04[12]' => 'Raspberry PI 2',
-								   '90009[23]' => 'Raspberry PI Zero', 
+								   '^9000[923c1]+' => 'Raspberry PI Zero', 
 								   '000[23456def]' => 'Raspberry PI B',
 								   '001[03]' => 'Raspberry PI B+',
 								   '000[789]' => 'Raspberry PI A',
@@ -1237,6 +1261,31 @@ class Service {
 			$this->Rpi_functions = new Rpi_functions(); 
 		}
 		return $this->Rpi_functions;
+	}
+	
+	/**
+	 * Load new DeviceList
+	 */
+	public function resetNetworkPlayerList(){
+		$this->view->message[] = _('Network Player List is currently generated in background and will be available in ~10 seconds.');
+		$this->shell_exec('rm /opt/max2play/cache/list_devices.txt');
+		return true;
+	}
+	
+	/**
+	 * Function to Allow / Disallow specific functions
+	 */
+	public function checkAccessRights(){
+		if(file_exists('/tmp/automatic_accesspoint_mode')){
+			// Disallow all but WiFi Configuration			
+			if(!in_array(get_called_class(), array('Service', 'Wlan'))){
+				$this->view->message[] = _('Device is started in Automatic Accesspoint Mode. For security, only WiFi configuration is possible to connect Max2Play to your local network.');
+				unset($_REQUEST);
+				unset($_GET);
+				unset($_POST);
+			}
+		}
+		return true;
 	}
 }
 

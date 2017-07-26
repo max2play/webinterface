@@ -45,16 +45,12 @@
 		<td><input type="checkbox" id="wlan_configured" name="wlan_configured" <?php if($wlan->view->wlan_configured == true) echo 'checked'; ?> value="1" /></td>
 	</tr>
 	<tr><td><?php echo _("Network SSID") ?>:</td> 
-		<td><input type="text" id="ssid" name="ssid" value="<?php echo $wlan->view->ssid ?>" /></td>
+		<td><input type="text" id="ssid" style="width: 150px;" name="ssid" value="<?php echo $wlan->view->ssid ?>" /></td>
 	</tr>
 	<tr>	
 		<td><?php echo _("Password") ?>:</td>
-		<td><input type="text" id="psk" name="psk" value="<?php echo $wlan->view->webpsk ?>" /></td>
-	</tr>
-	<?php /*<tr>
-		<td><?php echo _("Group Cipher") ?>:</td>
-		<td><input type="text" id="groupcipher" name="groupcipher" value="<?php echo $wlan->view->groupcipher ?>" /></td>
-	</tr>*/	?>
+		<td><input type="text" style="width: 150px;" id="psk" name="psk" value="<?php echo $wlan->view->webpsk ?>" /></td>
+	</tr>	
 	</table>
 
 	<br /><br />
@@ -95,7 +91,7 @@
 	<input type="button" value="<?php echo _("Save all settings") ?>" name="save" onclick="document.getElementById('action').value='save';submit();" />
 	
 	<br /><br />
-		<div id="wifiadvanced" style="max-height:400px;">
+		<div id="wifiadvanced" style="max-height:700px;">
 		  <h3><?php echo _('Automatic WiFi Setup with WPS') ?></h3> 
 		  <div>
 		    <p>
@@ -123,7 +119,7 @@
 		  <h3><?php echo _('Accesspoint Mode on missing network connection') ?></h3>
 		  <div>
 		    <p>
-		    <?php echo _("Activate to automatically start Accesspoint Mode on Boot, if no WiFi or LAN connection is available.") ?> : <input type="checkbox" id="auto_accesspoint_mode" name="auto_accesspoint_mode" value="1" <?php if($wlan->view->auto_accesspoint_mode) echo 'checked'; ?> /> 
+		    <?php echo _("Activate to automatically start Accesspoint Mode during boot up, if no WiFi or LAN connection is available") ?> : <input type="checkbox" id="auto_accesspoint_mode" name="auto_accesspoint_mode" value="1" <?php if($wlan->view->auto_accesspoint_mode) echo 'checked'; ?> /> 
 			<br /><br /><?php echo _("This enables you to configure WiFi from your Smartphone - no need for any LAN-Connection. Useful, if you don't want to connect the Max2Play-device with a network cable for initial setup of WiFi.") ?>
 		    <br /><br /><?php echo _("<b>HowTo</b> (assuming no user changes on Accesspoint Plugin page): Plug-In Power cable -> wait for 2 minutes -> choose <i>max2play</i> as WiFi network on your smartphone -> enter passphrase <i>mypasscode</i> -> point your browser to http://max2play and configure WiFi as normally"); ?>
 		    <br /><br />

@@ -37,6 +37,8 @@ if [ ! "$2" == "1" ]; then
 
 	# Copy config file for DHCP Server
 	cp -f $1dnsmasq.conf /etc/dnsmasq.conf
+	update-rc.d hostapd defaults
+	update-rc.d dnsmasq defaults
 fi
 	
 if [ "$2" == "1" ]; then
@@ -57,6 +59,9 @@ if [ "$2" == "1" ]; then
 	update-rc.d dnsmasq remove
 	if [ "$3" == "onlyinstall" ]; then
 		exit 0
+	else
+		#Save Variable to know device is in Automatic Accesspoint Mode - Check in Service Class to allow/disallow functions
+		echo "1" > /tmp/automatic_accesspoint_mode
 	fi
 fi
 
@@ -95,8 +100,6 @@ sed -i 's/.*DAEMON_CONF.*/DAEMON_CONF="\/etc\/hostapd\/hostapd.conf"/' /etc/defa
 
 # Set up hostapd init-script to always use fixed WiFi IP - otherwise WLAN0 sometimes wont have a IP
 cp -f $1hostapd /etc/init.d/
-
-update-rc.d hostapd enable
 
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT

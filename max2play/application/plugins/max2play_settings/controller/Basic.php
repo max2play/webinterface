@@ -374,6 +374,7 @@ class Basic extends Service {
 	public function updateMax2playNetworkLookup(){
 		if($this->updateAutostart('Max2PlayNetworkLookup', (bool)$_REQUEST['Max2PlayNetworkLookup'], true)){
 			$this->view->message[] = _('Max2Play Network Player Lookup saved');
+			$this->view->message[] = _('Network Player List is currently generated in background and will be available in ~10 seconds.');
 			$this->loadViewHeader(true);
 		}
 		return true;

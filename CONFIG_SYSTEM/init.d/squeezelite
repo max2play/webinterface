@@ -54,8 +54,8 @@ case "$1" in
   ;;
   stop)
     echo "Stopping Squeezelite"
-    /sbin/start-stop-daemon --stop --quiet --pidfile /opt/squeezelite/log/squeezelite.pid
-    rm -f /opt/squeezelite/log/squeezelite.pid
+    /sbin/start-stop-daemon --stop --quiet --pidfile /tmp/squeezelite.pid
+    rm -f /tmp/squeezelite.pid
   ;;
   *)
     echo "Usage: /etc/init.d/squeezelite {start|stop}"

@@ -40,8 +40,8 @@ case "$1" in
   ;;
   stop)
     echo "Stopping Shairport"
-    /sbin/start-stop-daemon --stop --quiet --pidfile /opt/shairport/log/shairport.pid
-    rm -f /opt/squeezelite/log/shairport.pid
+    /sbin/start-stop-daemon --stop --quiet --pidfile /tmp/shairport.pid
+    rm -f /tmp/shairport.pid
   ;;
   *)
     echo "Usage: /etc/init.d/shairport {start|stop}"

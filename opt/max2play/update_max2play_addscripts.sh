@@ -258,7 +258,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
   		fi
   	fi
   	
-  	if [ "$(grep -i '^default-fragments = 5' /etc/pulse/daemon.conf | wc -l)" -lt "1" ]; then
+  	if [ -e /etc/pulse/daemon.conf -a "$(grep -i '^default-fragments = 5' /etc/pulse/daemon.conf | wc -l)" -lt "1" ]; then
        echo "default-fragments = 5\ndefault-fragment-size-msec = 2\n" >> /etc/pulse/daemon.conf
     fi
     

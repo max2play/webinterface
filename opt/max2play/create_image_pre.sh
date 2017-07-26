@@ -16,6 +16,9 @@ rm /home/$USER/.jivelite/userpath/settings/DesktopJive.lua
 rm /etc/dhcpcd.duid
 rm /etc/dhcpcd.secret
 rm /etc/resolv.conf
+# TODO Check SSH Deletes
+#rm /etc/ssh/*key
+#rm /etc/ssh/*pub 
 
 # Clear Log Files!
 rm /var/log/syslog
@@ -35,5 +38,9 @@ su -l pi -c "history -c"
 rm /root/.bash_history
 history -c
 
+echo "TODO: Clean old modules / Kernel Files"
+echo "TODO: Upgrade / Update to latest Kernel and Update Packages"
+echo "TODO: Add Autoresize to Boot config"
+echo "TODO: Final Check Webinterface!"
 echo "finished"
 exit 0

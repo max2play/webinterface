@@ -362,7 +362,7 @@ class Filesystem extends Service {
 	 */
 	public function getSMBTree($directoutput = true){
 		$this->view->networkshares = array();
-		$output = shell_exec('smbtree -N');
+		$output = $this->shell_exec('smbtree -N');
 		if(preg_match_all('=(\\\\[^\$\t]*)[\t]+([^\n]*)$=im', $output, $matches)){
 			for($i = 0; $i < count($matches[0]); $i++ ){
 				$this->view->networkshares[] = array('serverpath' => str_replace('\\','/',$matches[1][$i]), 'description' =>  $matches[2][$i]);
