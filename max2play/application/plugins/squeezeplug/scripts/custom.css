@@ -1,16 +1,17 @@
 .logo2 {
-        background: url("/addons/squeezeplug/Squeezeplug.gif") no-repeat scroll left top transparent;
-        width:220px;
-        float: left;
-        height:120px;
-        margin-left:20px;
+	background: url("/addons/squeezeplug/Squeezeplug.gif") no-repeat scroll
+		left top transparent;
+	width: 220px;
+	float: left;
+	height: 120px;
+	margin-left: 20px;
 }
-@media only screen 
-and (max-width : 800px) 
-{ 
-   .logo2 {
-       background: url("/addons/squeezeplug/Squeezeplug_k.gif") no-repeat scroll left top transparent;
-       width: 100px;
-       height: 60px;
-   }
+
+@media only screen and (max-width : 800px) {
+	.logo2 {
+		background: url("/addons/squeezeplug/Squeezeplug_k.gif") no-repeat
+			scroll left top transparent;
+		width: 100px;
+		height: 60px;
+	}
 }

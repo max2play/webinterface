@@ -1,31 +1,31 @@
 <?php
 /**
-	 Example Setup View File
-	
-	 @Copyright 2014 Stefan Rick
-	 @author Stefan Rick
-	 Mail: stefan@rick-software.de
- 	 Web: http://www.netzberater.de
-	
-	 This program is free software; you can redistribute it and/or modify
-	 it under the terms of the GNU General Public License as published by
-	 the Free Software Foundation; either version 2 of the License, or
-	 (at your option) any later version.
-	
-	 This program is distributed in the hope that it will be useful,
-	 but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 GNU General Public License for more details.
-	
-	 You should have received a copy of the GNU General Public License along
-	 with this program; if not, write to the Free Software Foundation, Inc.,
-	 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */ 
+ Example Setup View File
+ 
+ @Copyright 2014 Stefan Rick
+ @author Stefan Rick
+ Mail: stefan@rick-software.de
+ Web: http://www.netzberater.de
+ 
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License along
+ with this program; if not, write to the Free Software Foundation, Inc.,
+ 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
 
 /**
- *   Put HTML and Javascript Content here
+ * Put HTML and Javascript Content here
  */
-?>											
+?>
 
 
 <h1 class="entry-header">
@@ -34,125 +34,170 @@
 <div class="entry-content">
 	<?php if(isset($exampleclass->view->message[0])){ ?>
 		<div class="ui-widget">
-			<div class="ui-state-highlight ui-corner-all" style="margin-bottom: 10px; padding: 0.4em .7em;">
-				<p>
-					<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+		<div class="ui-state-highlight ui-corner-all"
+			style="margin-bottom: 10px; padding: 0.4em .7em;">
+			<p>
+				<span class="ui-icon ui-icon-info"
+					style="float: left; margin-right: .3em;"></span>
 					<?php echo implode('<br />', $exampleclass->view->message); ?>					
 				</p>
-			</div>
 		</div>
+	</div>
 	<?php } ?>
 	
-	<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
-			<span class="ui-icon ui-icon-wrench" style="float:left; margin:-2px 5px 0 0;"></span>
-			<b><?php echo _("This is the Example Setup Page. Configure and Test your own Plugin :)") ?></b></p>		
-	
+	<p class="ui-state-default ui-corner-all"
+		style="padding: 4px; margin-bottom: 1em;">
+		<span class="ui-icon ui-icon-wrench"
+			style="float: left; margin: -2px 5px 0 0;"></span> <b><?php echo _("This is the Example Setup Page. Configure and Test your own Plugin :)") ?></b>
+	</p>
+
 	<br />
 	<?php echo _t("Example Variable: ") ?><?php echo $exampleclass->view->example ?>
 	
 	<form id="form1" action="" method="get">
 		<input type="hidden" id="action" name="action" value="" />
 		
-		<?php /*
-			This is a comment
-			Put everything that should be sent inside this form - you may have a look at the other files of max2play and copy / paste their content		
-			*/?>
+		<?php 
+/*
+       * This is a comment
+       * Put everything that should be sent inside this form - you may have a look at the other files of max2play and copy / paste their content
+       */
+?>
 		
-		<div class="optiondetails"> 
+		<div class="optiondetails">
 			<table class="settings">
-			  <tr>
-				<td><?php echo _t("Example Button") ?></td>
-				<td><input type="button" id="doSomething" name="doSomething" onclick="document.getElementById('action').value='doSomething';submit();" value="<?php echo _("Do Something") ?>" /></td>
-				<td><?php echo _("Do something to get things done ...") ?></td> 
-			  </tr>	 
-			  <tr>
-				<td><?php echo _t("Example Input") ?></td>
-				<td><input type="text" id="inputtext" name="inputtext" value="<?php echo $exampleclass->inputtext ?>" /></td>
-				<td><?php echo _t("Well - explain what this should do...") ?></td> 
-			  </tr>	 
+				<tr>
+					<td><?php echo _t("Example Button") ?></td>
+					<td><input type="button" id="doSomething" name="doSomething"
+						onclick="document.getElementById('action').value='doSomething';submit();"
+						value="<?php echo _("Do Something") ?>" /></td>
+					<td><?php echo _("Do something to get things done ...") ?></td>
+				</tr>
+				<tr>
+					<td><?php echo _t("Example Input") ?></td>
+					<td><input type="text" id="inputtext" name="inputtext"
+						value="<?php echo $exampleclass->inputtext ?>" /></td>
+					<td><?php echo _t("Well - explain what this should do...") ?></td>
+				</tr>
 			</table>
-			
-			<input type="button" id="save" name="<?php echo _("save") ?>" onclick="document.getElementById('action').value='save';submit();" value="<?php echo _("save") ?>" /></td>		
+
+			<input type="button" id="save" name="<?php echo _("save") ?>"
+				onclick="document.getElementById('action').value='save';submit();"
+				value="<?php echo _("save") ?>" />
+			</td>
 		</div>
 		<br />
 		
 		
-		<?php /*
-			Tab navigation	
-			*/?>
-		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
-			<span class="ui-icon ui-icon-wrench" style="float:left; margin:-2px 5px 0 0;"></span>
-			<b><?php echo _t('This is an example of a tab navigation within the page:') ?></b></p>				
+		<?php 
+/*
+           * Tab navigation
+           */
+?>
+		<p class="ui-state-default ui-corner-all"
+			style="padding: 4px; margin-bottom: 1em;">
+			<span class="ui-icon ui-icon-wrench"
+				style="float: left; margin: -2px 5px 0 0;"></span> <b><?php echo _t('This is an example of a tab navigation within the page:') ?></b>
+		</p>
 		<div id="tabs-min">
-		  <ul>
-		    <li><a href="#tabs-1"><?php echo _t('name of tab 1') ?></a></li>
-		    <li><a href="#tabs-2"><?php echo _t('name of tab 2') ?></a></li>	    
-		  </ul>
-		  <div id="tabs-1">
-		    <p>
-		    	<?php echo _t('Enter something here')?> <input type="text" id="installpath" name="installpath" value="" />	
-				<input type="button" value="<?php echo _t("Complex Installer with Ajax") ?>" name="install1" onclick="document.getElementById('action').value='install';submit();" /><br />	    	 
-		 	</p>
-		  </div>
-		  <div id="tabs-2">
-		    <p>
+			<ul>
+				<li><a href="#tabs-1"><?php echo _t('name of tab 1') ?></a></li>
+				<li><a href="#tabs-2"><?php echo _t('name of tab 2') ?></a></li>
+			</ul>
+			<div id="tabs-1">
+				<p>
+		    	<?php echo _t('Enter something here')?> <input type="text"
+						id="installpath" name="installpath" value="" /> <input
+						type="button"
+						value="<?php echo _t("Complex Installer with Ajax") ?>"
+						name="install1"
+						onclick="document.getElementById('action').value='install';submit();" /><br />
+				</p>
+			</div>
+			<div id="tabs-2">
+				<p>
 		      <?php echo _('Custom tab content 2');?>: 			  
-			  <input type="button" value="<?php echo _t("Simple Script Start") ?>" name="install2" onclick="document.getElementById('action').value='runMyScript';submit();" /><br />		     
-		    </p>
-		  </div>	  
+			  <input type="button"
+						value="<?php echo _t("Simple Script Start") ?>" name="install2"
+						onclick="document.getElementById('action').value='runMyScript';submit();" /><br />
+				</p>
+			</div>
 		</div>
-	
-		  <script>
+
+		<script>
 		  $(function() {
 		    $( "#tabs-min" ).tabs();
 		  });
 		  </script>
-		  
+
 		<br /> 
-		<?php /*
-			Accordion Example	
-			*/?>
-		<p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
-			<span class="ui-icon ui-icon-wrench" style="float:left; margin:-2px 5px 0 0;"></span>
-			<b><?php echo _t('This is an accordion element:') ?></b></p>		
-		<div id="accordion" style="max-height:500px;">
-		  <h3><?php echo _t('First Row in Accordion') ?></h3> 
-		  <div>
-		    <p>
+		<?php 
+/*
+           * Accordion Example
+           */
+?>
+		<p class="ui-state-default ui-corner-all"
+			style="padding: 4px; margin-bottom: 1em;">
+			<span class="ui-icon ui-icon-wrench"
+				style="float: left; margin: -2px 5px 0 0;"></span> <b><?php echo _t('This is an accordion element:') ?></b>
+		</p>
+		<div id="accordion" style="max-height: 500px;">
+			<h3><?php echo _t('First Row in Accordion') ?></h3>
+			<div>
+				<p>
 		    	<?php echo _t('Do something nice...') ?>
-		    	<a class="button-small clickloading" href="#" onclick="document.getElementById('action').value='save_purpose';$('#form1').submit();"><?php echo _("Push the button") ?></a>
-		    </p>
-		  </div>
-		  <h3><?php echo _t('Second Row') ?></h3>
-		  <div>
-		    <p>
+		    	<a class="button-small clickloading" href="#"
+						onclick="document.getElementById('action').value='save_purpose';$('#form1').submit();"><?php echo _("Push the button") ?></a>
+				</p>
+			</div>
+			<h3><?php echo _t('Second Row') ?></h3>
+			<div>
+				<p>
 		    	<?php echo _('This is easy - isn\'t it?') ?>
-		    	<ul class="description">
-		    		<li><?php echo _t('One Point'); ?></li>
-		    		<li><?php echo _t('Second Point'); ?></li>
-		    	</ul>		    	
-		    	<a class="button-small clickloading" href="#" onclick="document.getElementById('action').value='save_purpose';$('#form1').submit();"><?php echo _("Let's do it!") ?></a>
-		    
-		    </p>
-		  </div>
-		  <h3><?php echo _t('Third Row') ?></h3>
-		  <div>
-		    <p>
-			    <p class="ui-state-default ui-corner-all" style="padding:4px;margin-bottom:1em;">
-					<span class="ui-icon ui-icon-volume-on" style="float:left; margin:-2px 5px 0 0;"></span>					
+		    	
+				
+				
+				<ul class="description">
+					<li><?php echo _t('One Point'); ?></li>
+					<li><?php echo _t('Second Point'); ?></li>
+				</ul>
+				<a class="button-small clickloading" href="#"
+					onclick="document.getElementById('action').value='save_purpose';$('#form1').submit();"><?php echo _("Let's do it!") ?></a>
+
+				</p>
+			</div>
+			<h3><?php echo _t('Third Row') ?></h3>
+			<div>
+				<p>
+				
+				
+				<p class="ui-state-default ui-corner-all"
+					style="padding: 4px; margin-bottom: 1em;">
+					<span class="ui-icon ui-icon-volume-on"
+						style="float: left; margin: -2px 5px 0 0;"></span>					
 					<?php if ($exampleclass->view->pid) { ?>
-						<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $exampleclass->viewname, _('$SERVICENAME is running with processID')) ?> <b><?php echo $exampleclass->view->pid ?></b></p>
-						<input type="button" value="<?php echo str_replace('$SERVICENAME', $exampleclass->viewname, _('stop $SERVICENAME')) ?>" name="stop" onclick="document.getElementById('action').value='stop';submit();" />
-						<input type="button" value="<?php echo str_replace('$SERVICENAME', $exampleclass->viewname, _('kill $SERVICENAME')) ?>" name="kill" onclick="document.getElementById('action').value='kill';submit();" />
+						<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $exampleclass->viewname, _('$SERVICENAME is running with processID')) ?> <b><?php echo $exampleclass->view->pid ?></b>
+				</p>
+				<input type="button"
+					value="<?php echo str_replace('$SERVICENAME', $exampleclass->viewname, _('stop $SERVICENAME')) ?>"
+					name="stop"
+					onclick="document.getElementById('action').value='stop';submit();" />
+				<input type="button"
+					value="<?php echo str_replace('$SERVICENAME', $exampleclass->viewname, _('kill $SERVICENAME')) ?>"
+					name="kill"
+					onclick="document.getElementById('action').value='kill';submit();" />
 					<?php }else { ?>
 						<b><?php echo _('Status') ?>:</b> <?php echo str_replace('$SERVICENAME', $exampleclass->viewname, _('$SERVICENAME not running')) ?></p>
-						<input type="button" value="<?php echo str_replace('$SERVICENAME', $exampleclass->viewname, _('start $SERVICENAME')) ?>" name="start" onclick="document.getElementById('action').value='start';submit();" />	
+				<input type="button"
+					value="<?php echo str_replace('$SERVICENAME', $exampleclass->viewname, _('start $SERVICENAME')) ?>"
+					name="start"
+					onclick="document.getElementById('action').value='start';submit();" />	
 					<?php } ?> 
 		    </p>
-		  </div>
-		</div>	
-	
-	 <script>
+			</div>
+		</div>
+
+		<script>
 	  $(function() {
 	    $( "#accordion" ).accordion({
 	      heightStyle: "content",	      
@@ -160,14 +205,17 @@
 	    });   
 	  });  
  	 </script>
-		
+
 	</form>
-	
-	<br /><br />
-	<a href="#javascript" onclick="document.getElementById('debug').style.display='';return false;"><?php echo _("DEBUG Informations") ?></a>
-	<textarea id="debug" rows="30" cols="70" style="display:none;"><?php foreach ($exampleclass->view->debug as $key => $debug) {
+
+	<br />
+	<br /> <a href="#javascript"
+		onclick="document.getElementById('debug').style.display='';return false;"><?php echo _("DEBUG Informations") ?></a>
+	<textarea id="debug" rows="30" cols="70" style="display: none;"><?php
+
+foreach ($exampleclass->view->debug as $key => $debug) {
 			echo "#### ". $key. " ####\n"; 
 			 echo $debug." \n\n"; 
 		 }?>
 	</textarea>
-</div>	
+</div>
