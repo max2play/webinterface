@@ -296,7 +296,7 @@ class Basic extends Service
                 // No changes!
             } else {
                 // Timezone setzen
-                $script[] = 'echo "' . $timezone . '" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata';
+            	$script[] = 'echo "'.$timezone.'" > /etc/timezone && ln -fs /usr/share/zoneinfo/`cat /etc/timezone` /etc/localtime && dpkg-reconfigure -f noninteractive tzdata';            	
                 $linux = $this->getLinuxVersion();
                 if (isset($linux[1]) && $linux[1] == 'xenial') {
                     // Ubuntu 16.04: timedatectl set-timezone $timezone

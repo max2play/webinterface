@@ -122,6 +122,7 @@ sudo echo "Y" | apt-get install samba samba-common samba-common-bin mc ntfs-3g c
 
 sudo apt-get install debconf-utils
 if [ "$HW_RASPBERRY" -gt "0" ] || [ "$LINUX" == "Debian" ]; then  	
+  	echo "Generate Locales for predefined languages..."
   	sed -i 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/;s/# it_IT.UTF-8 UTF-8/it_IT.UTF-8 UTF-8/;s/# fr_FR.UTF-8 UTF-8/fr_FR.UTF-8 UTF-8/;s/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/;s/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/' /etc/locale.gen
   	locale-gen
 else	
@@ -134,6 +135,7 @@ fi
 export LANG=en_GB.UTF-8
 dpkg-reconfigure -f noninteractive locales
 echo "Europe/Berlin" > /etc/timezone
+ln -fs /usr/share/zoneinfo/`cat /etc/timezone` /etc/localtime
 dpkg-reconfigure -f noninteractive tzdata
 
 sudo apt-get install ifplugd
@@ -165,7 +167,7 @@ cp -R /usr/lib/alsa-lib/* /usr/lib/arm-linux-gnueabihf/alsa-lib/
 #Squeezelite
 echo -e "Y\ny\n" | apt-get install libav-tools cmake
 # Debian Wheezy soxr
-if [ "$HW_RASPBERRY" -gt "0" ] || [ "$LINUX" == "Debian" ]; then	
+if [ "$HW_RASPBERRY" -gt "0" ] && [ "$LINUX" == "Debian" ]; then	
 	# not neccesary with Raspbian Jessie
 	echo -e "Y\ny\n" | apt-get install libavformat-dev libmpg123-dev libfaad-dev libvorbis-dev libmad0-dev libflac-dev libasound2-dev	
 	echo -e "Y\ny\n" | apt-get install ffmpeg
@@ -177,8 +179,8 @@ if [ "$HW_RASPBERRY" -gt "0" ] || [ "$LINUX" == "Debian" ]; then
 	cd Release
 	make install
 else
-   	echo -e "Y\ny\n" | apt-get install libavformat-dev ffmpeg libmpg123-dev libfaad-dev libvorbis-dev libmad0-dev libflac-dev libasound2-dev
-   	echo -e "Y\ny\n" | apt-get install libsoxr-dev lirc liblircclient-dev wiringpi
+   	echo -e "Y\ny\n" | apt-get install libavformat-dev ffmpeg libmpg123-dev libfaad-dev libvorbis-dev libmad0-dev libflac-dev libasound2-dev -y
+   	echo -e "Y\ny\n" | apt-get install libsoxr-dev lirc liblircclient-dev wiringpi -y
    	ldconfig
 fi
 
@@ -334,7 +336,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		if [ "$RELEASE" == "stretch" ]; then
 		   echo "Change Network Device Names back to old style eth0"
 		   if [ "$(grep 'net.ifnames=0' /boot/cmdline.txt | wc -l)" -lt "1"  ]; then 
-		      sed -i 's/rootwait/net.ifnames=0 biosdevname=0 avoid_safe_mode=1 rootwait' /boot/cmdline.txt
+		      sed -i 's/rootwait/net.ifnames=0 biosdevname=0 avoid_safe_mode=1 rootwait/' /boot/cmdline.txt
 		   fi		   
 		   echo "Set Autologin to Desktop"
 		   echo -e "[SeatDefaults]\ngreeter-session=lightdm-gtk-greeter\nautologin-user=pi" >> /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf

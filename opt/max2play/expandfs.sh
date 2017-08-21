@@ -82,8 +82,9 @@ sed -i "s/\$PARTITION/$PARTITION/" /etc/init.d/resize2fs_once
 chmod +x /etc/init.d/resize2fs_once
 update-rc.d resize2fs_once defaults
 
-# On Raspbian Jessie just start script...
-if [ "$(lsb_release -r | grep '8.0' | wc -l)" -gt "0" ]; then
+# On Raspbian Jessie or Stretch just start script...
+VERSION=$(lsb_release -a 2>/dev/null | grep "Codename" | sed "s/Codename:\t//")
+if [ "$VERSION" = "jessie" -o "$VERSION" = "stretch" ]; then
 	/etc/init.d/resize2fs_once start
 	sed -i "s@^exit 0@resize2fs /dev/$PARTITION;sed -i \"s=resize.*==\" /etc/rc.local\nexit 0@" /etc/rc.local
 fi

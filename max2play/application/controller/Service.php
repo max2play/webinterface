@@ -1270,15 +1270,15 @@ class Service
             for ($i = 0; $i < count($matches[1]); $i ++) {
                 $tmpequal[$matches[1][$i]] = $matches[2][$i];
             }
-            // Use Mapping only for Pi as Odroid has other Frequencies
-            if ($user == pi) {
+            // DISABLED NOT USEFUL... Use Mapping only for Pi as Odroid has other Frequencies
+            /*if ($user == pi) {
                 foreach ($this->equal as $key) {
                     $this->equalvalues[$key] = $tmpequal[$key];
                 }
-            } else {
-                $this->equal = array_keys($tmpequal);
-                $this->equalvalues = $tmpequal;
-            }
+            } else {*/
+            $this->equal = array_keys($tmpequal);
+            $this->equalvalues = $tmpequal;
+            
         }
         return true;
     }
