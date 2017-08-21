@@ -30,7 +30,7 @@ if [ "$(whoami)" != "root" ]; then
 	exit 1
 fi
 
-HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709\|BCM2837" | wc -l)
+HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709\|BCM2837\|BCM2835\|BCM2836" | wc -l)
 HW_ODROID=$(cat /proc/cpuinfo | grep Hardware | grep -i Odroid | wc -l)
 
 LINUX=$(lsb_release -a 2>/dev/null | grep Distributor | sed "s/Distributor ID:\t//")
@@ -50,10 +50,18 @@ if [ "$HW_ODROID" -gt "0" ]; then
 fi
 
 if [ "$HW_RASPBERRY" -gt "0" ]; then
-  USER=pi  
+  USER=pi
   echo "Hardware is Raspberry"
-  echo "Starting from Raspbian Jessie Lite you should: expand the filesystem to a size little lower than 4 GB before setting up Max2Play"
-   
+  echo "Starting from Raspbian Jessie Lite you should: expand the filesystem to a size little lower than 4 GB before setting up Max2Play"  
+  p2_start=`fdisk -l /dev/mmcblk0 | grep mmcblk0p2 | awk '{print $2}'`
+  p2_end_current=`fdisk -l /dev/mmcblk0 | grep mmcblk0p2 | awk '{print $3}'`
+  if [ "$p2_end_current" -lt "7000000" ]; then
+  	echo "Do this by checking this values:"
+  	echo "Partition 2 Start: $p2_start , Partition 2 current end: $p2_end_current"
+  	echo "Raise Partition 2 to at least 7000 by:"
+  	echo -e "fdisk /dev/mmcblk0 <<EOF &>> resize\np\nd\n2\nn\np\n2\n$p2_start\n7000000\np\nw\nEOF\n"
+  	echo "Execute 'sed -i \"s@^exit 0@resize2fs /dev/mmcblk0p2;sed -i \\\"s=resize.*==\\\" /etc/rc.local\nexit 0@\" /etc/rc.local' and reboot to finish Filesystem expand!"
+  fi
   # Remove further not wanted packages?
   echo "Y" | sudo apt-get remove wolfram-engine
   
