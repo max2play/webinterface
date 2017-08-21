@@ -142,8 +142,10 @@ cp -f max2play/CONFIG_SYSTEM/usbmount/usbmount.conf /etc/usbmount/usbmount.conf
 
 echo "Y" | apt-get install nettle-dev caps libasound2-dev
 pushd /tmp
-wget http://www.thedigitalmachine.net/tools/alsaequal-0.6.tar.bz2
-tar xvjf alsaequal-0.6.tar.bz2 
+# switch to Github
+#wget http://www.thedigitalmachine.net/tools/alsaequal-0.6.tar.bz2
+#tar xvjf alsaequal-0.6.tar.bz2 
+git clone https://github.com/raedwulf/alsaequal.git
 cd alsaequal/
 patch ctl_equal.c < $CWD/max2play/OTHER/alsaequal_ctl_equal.patch
 make
@@ -156,8 +158,8 @@ cp -R /usr/lib/alsa-lib/* /usr/lib/arm-linux-gnueabihf/alsa-lib/
 echo -e "Y\ny\n" | apt-get install libav-tools cmake
 # Debian Wheezy soxr
 if [ "$HW_RASPBERRY" -gt "0" ] || [ "$LINUX" == "Debian" ]; then	
-	echo -e "Y\ny\n" | apt-get install libavformat-dev libmpg123-dev libfaad-dev libvorbis-dev libmad0-dev libflac-dev libasound2-dev
-	# not neccesary with Jessie
+	# not neccesary with Raspbian Jessie
+	echo -e "Y\ny\n" | apt-get install libavformat-dev libmpg123-dev libfaad-dev libvorbis-dev libmad0-dev libflac-dev libasound2-dev	
 	echo -e "Y\ny\n" | apt-get install ffmpeg
 	pushd /tmp
 	wget -O soxr.tar.gz --max-redirect=3 "http://downloads.sourceforge.net/project/soxr/soxr-0.1.1-Source.tar.xz"
@@ -168,18 +170,21 @@ if [ "$HW_RASPBERRY" -gt "0" ] || [ "$LINUX" == "Debian" ]; then
 	make install
 else
    	echo -e "Y\ny\n" | apt-get install libavformat-dev ffmpeg libmpg123-dev libfaad-dev libvorbis-dev libmad0-dev libflac-dev libasound2-dev
-   	echo -e "Y\ny\n" | apt-get install libsoxr-dev   	
+   	echo -e "Y\ny\n" | apt-get install libsoxr-dev lirc liblircclient-dev wiringpi
+   	ldconfig
 fi
 
 pushd /tmp
-# Optional: Replace with modified Squeezelite from Max2Play (Bluetoothsync, Alsasync)
-git clone https://github.com/ralph-irving/squeezelite
+# Use modified Squeezelite from Max2Play (Bluetoothsync, Alsasync)!
+git clone https://github.com/max2play/squeezelite
 cd squeezelite
-OPTS="-DFFMPEG -DRESAMPLE -DVISEXPORT -DDSD" make
+make -f Makefile.m2p
 mkdir /opt/squeezelite
 mkdir /opt/squeezelite/log
 chmod 777 /opt/squeezelite/log
-cp /tmp/squeezelite/squeezelite /opt/squeezelite/
+cp /tmp/squeezelite/squeezelite-m2p /opt/squeezelite/squeezelite
+cp /tmp/squeezelite/scripts/btcheck.sh /opt/squeezelite/
+chmod 777 /opt/squeezelite/btcheck.sh
 pushd $CWD
 
 #### Squeezeboxserver Basic ####
@@ -274,7 +279,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	#echo "deb http://archive.mene.za.net/raspbian wheezy contrib" >> /etc/apt/sources.list.d/mene.list
 	#sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key 5243CDED
 	#sudo sudo apt-get update
-	#echo "Y" | apt-get install kodi
+	echo "Y" | apt-get install kodi
 	sudo echo "KERNEL==\"tty[0-9]*\", GROUP=\"tty\", MODE=\"0660\"" >> /etc/udev/rules.d/99-input.rules 
 	sudo usermod -a -G tty pi
 	sudo sh -c "echo \"gpu_mem=128\" >> /boot/config.txt"
@@ -305,7 +310,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	echo "TODO: Run raspbi-config at least one time AND Reboot!"
 	
 	#Debian Jessie Lite:
-	if [ "$(lsb_release -r | grep '8.0' | wc -l)" -gt "0" ]; then 
+	if [ "$(lsb_release -r | grep '8.0' | wc -l)" -gt "0" -o "$RELEASE" == "stretch" ]; then 
 		pushd $CWD
 		# optional: run some fixes when upgrading from wheezy
 		# https://www.raspberrypi.org/forums/viewtopic.php?t=121880
@@ -318,11 +323,25 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		# eth0 Start by ifplugd 
 		cp -rf max2play/CONFIG_SYSTEM/default/ifplugd /etc/default/ifplugd
 		
+		if [ "$RELEASE" == "stretch" ]; then
+		   echo "Change Network Device Names back to old style eth0"
+		   if [ "$(grep 'net.ifnames=0' /boot/cmdline.txt | wc -l)" -lt "1"  ]; then 
+		      sed -i 's/rootwait/net.ifnames=0 biosdevname=0 avoid_safe_mode=1 rootwait' /boot/cmdline.txt
+		   fi		   
+		   echo "Set Autologin to Desktop"
+		   echo -e "[SeatDefaults]\ngreeter-session=lightdm-gtk-greeter\nautologin-user=pi" >> /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf
+		   echo "Switch Autostart Desktop - Disable autostart"
+		   systemctl disable lightdm.service
+		   echo "TODO: MANUAL BEFORE FIRST BOOT if you want to make a Master-Image!!! Remove Autoresize Filesystem from Command Line on First Boot! init=/usr/lib/raspi-config/init_resize.sh"
+		   echo "TODO: check /etc/pulse/daemon.conf for Bluetooth"
+		fi   
+		
 		#set to anybody for access as user pi 
 		sed -i "s@^allowed_users=.*@allowed_users=anybody@" /etc/X11/Xwrapper.config		
 		
 		#Wallpaper
 		cp -f max2play/OTHER/m2p_odroid_desktop.jpg /home/pi/m2p_desktop.jpg
+		echo "TODO: this will need a restart first... execute separetly"
 		sed -i "s@^wallpaper=.*@wallpaper=/home/pi/m2p_desktop.jpg@" /home/pi/.config/pcmanfm/LXDE/desktop-items-0.conf
 		
 		#Disable Screensaver
@@ -335,7 +354,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		#Disable IPv6 for Apache
 		sed -i 's/Listen 80/Listen 0.0.0.0:80/' /etc/apache2/ports.conf
 		
-		echo "optional: run raspbi-config and choose wait for network at boot"
+		echo "optional: run raspbi-config and choose wait for network at boot, as this is done in rc.local!"
 	fi
 fi
 
