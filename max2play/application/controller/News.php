@@ -60,7 +60,7 @@ class News extends Service
                 $this->saveConfigFileParameter('/opt/max2play/options.conf', 'newslocation', $this->newslocation);
             }
             $lang = substr(setlocale(LC_MESSAGES, 0), 0, 2);
-            if ($this->newslocation !== '' && strpos($this->newslocation, 'http:') !== FALSE) {
+            if ($this->newslocation !== '' && strpos($this->newslocation, 'http') !== FALSE) {
                 $new_content = $this->getExternalFile($this->newslocation . '?position=' . $position . '&device=' . urlencode($this->info->hardware) . '&lang=' . $lang . '&image=' . urlencode($image), 2);
             }
             if (! $new_content) {
