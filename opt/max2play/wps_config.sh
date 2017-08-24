@@ -5,7 +5,7 @@
 # Automatically sets up and saves WiFi Connection
 
 # only run if there's no current wifi connection and WiFi is enabled
-if [ "$(LANG=C && /sbin/ifconfig wlan0 | grep 'HWaddr' | wc -l)" -gt "0" -a "$(LANG=C && /sbin/ifconfig wlan0 | grep 'inet addr:' | grep -v '169.254' | wc -l)" -lt "1" ]; then
+if [ "$(LANG=C && /sbin/ifconfig wlan0 | grep 'HWaddr\|ether' | wc -l)" -gt "0" -a "$(LANG=C && /sbin/ip addr show wlan0 | grep 'inet ' | grep -v '169.254' | wc -l)" -lt "1" ]; then
     killall -q wpa_supplicant
     sleep 1
     # Check if "update_config=1" needed in /opt/max2play/wpa_supplicant.conf for Autoconfig

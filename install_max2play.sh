@@ -320,7 +320,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	echo "TODO: Run raspbi-config at least one time AND Reboot!"
 	
 	#Debian Jessie Lite:
-	if [ "$(lsb_release -r | grep '8.0' | wc -l)" -gt "0" -o "$RELEASE" == "stretch" ]; then 
+	if [ "$RELEASE" == "jessie" -o "$RELEASE" == "stretch" ]; then 
 		pushd $CWD
 		# optional: run some fixes when upgrading from wheezy
 		# https://www.raspberrypi.org/forums/viewtopic.php?t=121880
@@ -386,7 +386,7 @@ sudo amixer -q set "PCM" 100
 sudo alsactl store 0
 
 #Add Net-Availability Check for Mountpoints to /etc/rc.local and make it more robust with "set +e"
-sudo sed -i "s/^exit 0/#Network Check for Mountpoints\nCOUNTER=0;while \[ -z \"\$\(\/sbin\/ifconfig eth0 \| grep -i 'inet ad'\)\" -a -z \"\$\(\/sbin\/ifconfig wlan0 \| grep -i 'inet ad'\)\" -a \"\$COUNTER\" -lt \"5\" \]; do echo \"Waiting for network\";COUNTER=\$\(\(COUNTER+1\)\);sleep 3;done;set +e;\/bin\/mount -a;set -e;\n\nexit 0/" /etc/rc.local
+sudo sed -i "s/^exit 0/#Network Check for Mountpoints\nCOUNTER=0;while \[ -z \"\$\(\/sbin\/ip addr show eth0 \| grep -i 'inet '\)\" -a -z \"\$\(\/sbin\/ip addr show wlan0 \| grep -i 'inet '\)\" -a \"\$COUNTER\" -lt \"5\" \]; do echo \"Waiting for network\";COUNTER=\$\(\(COUNTER+1\)\);sleep 3;done;set +e;\/bin\/mount -a;set -e;\n\nexit 0/" /etc/rc.local
 
 # Autostart Audioplayer in rc.local (not waiting for cron)
 sudo sed -i "s/^exit 0/#Max2Play Start Audioplayer\nsudo -u $USER -H -s \/opt\/max2play\/start_audioplayer.sh > \/dev\/null 2>\&1 \&\n\nexit 0/" /etc/rc.local

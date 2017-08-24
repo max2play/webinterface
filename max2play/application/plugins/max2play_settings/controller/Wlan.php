@@ -343,7 +343,7 @@ class Wlan extends Service
         $wpsenabled = trim(shell_exec('cat /etc/rc.local | grep wps_config | wc -l')) > 0 ? true : false;
         if (isset($_REQUEST['wpsenabled']) && $wpsenabled == FALSE) {
             $this->writeDynamicScript(array(
-                'sed -i "s@^exit 0@if [ \"\$(LANG=C \&\& /sbin/ifconfig eth0 | grep \'inet addr:\' | wc -l)\" -lt \"1\" ]; then sudo /opt/max2play/wps_config.sh; fi\nexit 0@" /etc/rc.local'
+                'sed -i "s@^exit 0@if [ \"\$(LANG=C \&\& /sbin/ip addr show eth0 | grep \'inet \' | wc -l)\" -lt \"1\" ]; then sudo /opt/max2play/wps_config.sh; fi\nexit 0@" /etc/rc.local'
             ));
         } elseif (! isset($_REQUEST['wpsenabled']) && $wpsenabled == TRUE) {
             $this->writeDynamicScript(array(
@@ -376,12 +376,12 @@ class Wlan extends Service
         
         // Get Current IP-address from first interface OR any other interface but not lo
         // Also check if more than one Interface is configured and set eth0_active and wlan0_active
-        if (preg_match_all('/(?=(eth0|wlan0).*?)((?!packets).)+inet addr:(([0-9]{1,3}\.){3}[0-9]{1,3})(?<!127\.0\.0\.1).*?Mask:(([0-9]{1,3}\.){3}[0-9]{1,3})/si', $shellanswer_if, $currip)) {
+        if (preg_match_all('/(?=(eth0|wlan0).*?)((?!packets).)+(inet addr:|inet )(([0-9]{1,3}\.){3}[0-9]{1,3})(?<!127\.0\.0\.1).*?(Mask:|netmask )(([0-9]{1,3}\.){3}[0-9]{1,3})/si', $shellanswer_if, $currip)) {
             for ($i = 0; $i < count($currip[0]); $i ++) {
-                $this->view->$currip[1][$i] = $currip[3][$i];
+                $this->view->$currip[1][$i] = $currip[4][$i];
                 $this->view->fixedinterface = $currip[1][$i]; // this interface will get a fixed IP if set
-                $this->view->lanip = $currip[3][$i];
-                $this->view->networkmask = $currip[5][$i];
+                $this->view->lanip = $currip[4][$i];
+                $this->view->networkmask = $currip[7][$i];
             }
         }
         
@@ -394,7 +394,7 @@ class Wlan extends Service
             $this->view->wlan_configured = false;
         } else {
             $this->view->wlan_configured = true;
-            $this->view->wlan_ip = trim(shell_exec("LANG=C && /sbin/ifconfig wlan0 | grep -o 'inet addr:[0-9.]\+' | grep -o '[0-9.]\+'"));
+            $this->view->wlan_ip = trim(shell_exec("LANG=C && /sbin/ip addr show wlan0 | grep -o 'inet [0-9.]\+' | grep -o '[0-9.]\+'"));
             if ($this->view->wlan_ip == '') {
                 $this->view->wlan_ip = _('NO IP! No connection!');
             }

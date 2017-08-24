@@ -2,7 +2,7 @@
 # start_accesspoint_onboot.sh
 
 # Check for existing connection
-if [ "$(LANG=C && /sbin/ifconfig eth0 | grep 'inet addr:' | wc -l)" -lt "1" -a "$(LANG=C && /sbin/ifconfig wlan0 | grep 'HWaddr' | wc -l)" -gt "0" -a "$(LANG=C && /sbin/ifconfig wlan0 | grep 'inet addr:' | grep -v '169.254' | wc -l)" -lt "1" ]; then
+if [ "$(LANG=C && /sbin/ip addr show eth0 | grep 'inet ' | wc -l)" -lt "1" -a "$(LANG=C && /sbin/ip addr show wlan0 | grep 'ether' | wc -l)" -gt "0" -a "$(LANG=C && /sbin/ip addr show wlan0 | grep 'inet ' | grep -v '169.254' | wc -l)" -lt "1" ]; then
 	echo "No network connection..." 
 else
 	exit 0

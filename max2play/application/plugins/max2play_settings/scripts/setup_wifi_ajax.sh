@@ -5,7 +5,7 @@
 
 # Make sure previous script is loaded to prevent connection abort
 sleep 5
-eth_connected=$(LANG=C && /sbin/ifconfig eth0 | grep -o 'inet addr:[0-9.]\+' | grep -o '[0-9.]\+')
+eth_connected=$(LANG=C && /sbin/ip addr show eth0 | grep -o 'inet [0-9.]\+' | grep -o '[0-9.]\+')
 
 hostapd_running=$(ps -Al | grep hostapd | wc -l)
 if [ "$hostapd_running" -gt "0" ]; then
@@ -37,7 +37,7 @@ checkwifi=$(LANG=C && ifup wlan0 2>&1 | grep "No DHCPOFFERS received" | wc -l)
 sleep 3
 
 # Check Wlan connection problem: sometimes IP still on accesspoint | grep -v '192.168.189.1 '
-if [ "$checkwifi" -gt "0" -o "$(LANG=C && /sbin/ifconfig wlan0 | grep 'inet addr:' | grep -v '169.254' | wc -l)" -lt "1" ]; then
+if [ "$checkwifi" -gt "0" -o "$(LANG=C && /sbin/ip addr show wlan0 | grep 'inet ' | grep -v '169.254' | wc -l)" -lt "1" ]; then
 	echo "<b>No IP-Address could be received - WiFi NOT working correctly. Please check Network-ID and Passphrase!</b>"
 	sed -i 's/^pre-up wpa_supplicant/#pre-up wpa_supplicant/;s/^allow-hotplug wlan0/#allow-hotplug wlan0/;s/^auto wlan0/#auto wlan0/;s/^iface wlan0 inet dhcp/#iface wlan0 inet dhcp/;s/^post-down killall/#post-down killall/' /etc/network/interfaces
 	ifdown wlan0 2>&1 > /dev/null

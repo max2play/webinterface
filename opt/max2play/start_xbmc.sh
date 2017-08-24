@@ -16,8 +16,8 @@ if [ "1" -gt "$xbmcrunning" ]; then
 	if [ -e /etc/init.d/mpd ]; then 
 		/etc/init.d/mpd stop
 	fi
-	
-	if [ "$(lsb_release -r | grep '8.0' | wc -l)" -lt "1" ]; then
+	RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")
+	if [ "$RELEASE" != "jessie" -a "$RELEASE" != "stretch" ]; then
 		# Fix for XU3/XU4 and Ubuntu 15.04
 		killall pulseaudio
 		# TODO: remove PID Files!

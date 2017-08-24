@@ -28,7 +28,8 @@ if [ ! "$2" == "1" ]; then
 	# Check for Realtek Chipset (Edimax) and switch hostapd binary
 	# ONLY for Debian Wheezy...
 	IS_EDIMAX=$(sudo lsusb | grep "Wireless\|Edimax" | grep "RTL8188CUS\|Edimax" | wc -l)
-	if [ "$IS_EDIMAX" -gt "0" -a "$(lsb_release -r | grep '8.0' | wc -l)" -lt "1" ]; then 
+	RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")	
+	if [ "$IS_EDIMAX" -gt "0" -a "$(lsb_release -r | grep '8.0' | wc -l)" -lt "1" -a "$RELEASE" != "stretch" ]; then 
 	    echo "Change hostapd-Binary to Edimax RTL8188CUS Chipset for Debian Wheezy"
 	    sudo cp /usr/sbin/hostapd /usr/sbin/hostapd-old;sudo cp -f /opt/max2play/hostapd-rtl /usr/sbin/hostapd
 	elif [ -e /usr/sbin/hostapd-old ]; then
@@ -44,7 +45,7 @@ fi
 if [ "$2" == "1" ]; then
 	if [ "$(dpkg -s hostapd | grep "install ok" | wc -l)" -lt "1" -o "$(dpkg -s dnsmasq | grep "install ok" | wc -l)" -lt "1" ]; then
 		# Check for Internet connection...
-		if [ "$(LANG=C && /sbin/ifconfig eth0 | grep 'inet addr:' | wc -l)" -lt "1" -a "$(LANG=C && /sbin/ifconfig wlan0 | grep 'HWaddr' | wc -l)" -gt "0" -a "$(LANG=C && /sbin/ifconfig wlan0 | grep 'inet addr:' | grep -v '169.254' | wc -l)" -lt "1" ]; then
+		if [ "$(LANG=C && /sbin/ip addr show eth0 | grep 'inet ' | wc -l)" -lt "1" -a "$(LANG=C && /sbin/ip addr show wlan0 | grep 'ether' | wc -l)" -gt "0" -a "$(LANG=C && /sbin/ip addr show wlan0 | grep 'inet ' | grep -v '169.254' | wc -l)" -lt "1" ]; then
 			echo "Big Problem: no Internet connection to install hostapd and dnsmasq - you should do this earlier..."
 			exit 1
 		else
@@ -74,7 +75,8 @@ sed -i "s/HOSTNAME/$HOSTNAME/" /etc/dnsmasq.conf
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
 
 # Separate Jessie and Wheezy!
-if [ "$(lsb_release -r | grep '8.0' | wc -l)" -gt "0" ]; then 
+RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")
+if [ "$RELEASE" == "jessie" -o "$RELEASE" == "stretch" ]; then 
 echo "#Accesspoint start
 up iptables-restore < /etc/hostapd/iptables.ap
 #Accesspoint end" >> /etc/network/interfaces

@@ -1344,9 +1344,9 @@ class Service
                 if ($this->info->ipv4)
                     return $this->info->ipv4;
                 // return Name OR get IPv4 Address if possible
-                $output = $this->shell_exec("LANG=C && /sbin/ifconfig | grep -o 'inet addr:[0-9\.]\+' | grep -v '127.0.0.1'");
-                if (strpos($output, 'inet addr:') !== FALSE) {
-                    $address = explode("\n", trim(mb_substr($output, 10)));
+                $output = $this->shell_exec("LANG=C && /sbin/ip addr | grep -o 'inet [0-9\.]\+' | grep -v '127.0.0.1' | head -1");
+                if (strpos($output, 'inet ') !== FALSE) {
+                    $address = explode("\n", trim(mb_substr($output, 5)));
                     $this->info->ipv4 = $address[0];
                     return $this->info->ipv4;
                 } else {

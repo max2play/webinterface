@@ -10,9 +10,16 @@ else
 	if [ "1" -gt "$installcheck" ] || [ "$1" = "update" ]; then
 		
 		#Only on RPI with Jessie: Update to latest Kodi from Repository pplware
-		ISJESSIE=$(lsb_release -r | grep '8.0' | wc -l)
-		if [ "$ISJESSIE" -gt "0" -a "$source" = "kodiupgradepi" ]; then
+		RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")		
+		if [ "$RELEASE" = "jessie" -a "$source" = "kodiupgradepi" ]; then
 			echo "deb http://pipplware.pplware.pt/pipplware/dists/jessie/main/binary /" > /etc/apt/sources.list.d/pplware.list
+    		wget -O - http://pipplware.pplware.pt/pipplware/key.asc | sudo apt-key add -
+    		apt-get update
+    		apt-get install kodi -y
+    		apt-get install kodi-pvr-stalker kodi-pvr-iptvsimple kodi-pvr-demo kodi-pvr-dvblink kodi-pvr-hts kodi-pvr-nextpvr -y
+		elif [ "$RELEASE" = "stretch" -a "$source" = "kodiupgradepi" ]; then
+			echo "TODO: this might not work yet!!! Check repository for Stretch version of Kodi on http://pipplware.pplware.pt/pipplware/dists/stretch/" 
+			echo "deb http://pipplware.pplware.pt/pipplware/dists/stretch/main/binary /" > /etc/apt/sources.list.d/pplware.list
     		wget -O - http://pipplware.pplware.pt/pipplware/key.asc | sudo apt-key add -
     		apt-get update
     		apt-get install kodi -y

@@ -7,10 +7,10 @@ if [ "$scriptrunning" -gt "2" ]; then
 	exit 0
 fi
 
-IP=`/sbin/ifconfig eth0 | grep "inet" | cut -d ":" -f 2 | cut -d " " -f 1`
+IP=`/sbin/ip addr show eth0 | grep "inet " | grep -o 'inet [0-9.]\+' | grep -o '[0-9.]\+'`
 if [ -z "$IP" ]; then
     echo "IP is empty"
-    IP=`/sbin/ifconfig wlan0 | grep "inet" | cut -d ":" -f 2 | cut -d " " -f 1`    
+    IP=`/sbin/ip addr show wlan0 | grep "inet " | grep -o 'inet [0-9.]\+' | grep -o '[0-9.]\+' | grep -v '169.254'`    
 fi
 
 if [ -z "$IP" ]; then
