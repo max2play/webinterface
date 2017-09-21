@@ -140,8 +140,8 @@ include (APPLICATION_PATH . '/view/messages.php');
 				style="float: left; margin: -2px 5px 0 0;"></span>
 		<?php echo _('Install special Plugins for Squeezebox Server') ?></p>
 		<select name="lmsplugin" style="width: 90%;">
-			<option value="shairtunes2"><?php echo _('Install Shairtunes2 (NEW) Plugin (Optimized version for ODROID and Raspberry by disaster123 - All connected Squeezeplayers can be used as Airplay Devices)') ?></option>
-			<option value="shairtunes"><?php echo _('Install Shairtunes Plugin (All connected Squeezeplayers can be used as Airplay Devices)') ?></option>
+			<?php /*<option value="shairtunes2"><?php echo _('Install Shairtunes2 (NEW) Plugin (Optimized version for ODROID and Raspberry by disaster123 - All connected Squeezeplayers can be used as Airplay Devices)') ?></option>
+			<option value="shairtunes"><?php echo _('Install Shairtunes Plugin (All connected Squeezeplayers can be used as Airplay Devices)') ?></option> */?>
 			<option value="googlemusic"><?php echo _('Install GoogleMusic Plugin (Use your GoogleMusic Account and connect it with your Squeezebox Server)') ?></option>
 		</select> <input type="button"
 			value="<?php echo _('Install choosen Plugin (takes some time)') ?>"

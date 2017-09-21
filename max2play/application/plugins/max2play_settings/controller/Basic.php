@@ -45,7 +45,8 @@ class Basic extends Service
             'nederlands' => 'nl_NL.UTF-8',
             'español' => 'es_ES.UTF-8',
             'português' => 'pt_PT.UTF-8',
-            'english / US' => 'en_US.UTF-8'
+            'english / US' => 'en_US.UTF-8',
+            'chinese' => 'zh_CN.UTF-8'
         );
         
         if (isset($_REQUEST['action'])) {

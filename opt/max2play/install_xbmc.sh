@@ -22,8 +22,8 @@ else
 			echo "deb http://pipplware.pplware.pt/pipplware/dists/stretch/main/binary /" > /etc/apt/sources.list.d/pplware.list
     		wget -O - http://pipplware.pplware.pt/pipplware/key.asc | sudo apt-key add -
     		apt-get update
-    		apt-get install kodi -y
-    		apt-get install kodi-pvr-stalker kodi-pvr-iptvsimple kodi-pvr-demo kodi-pvr-dvblink kodi-pvr-hts kodi-pvr-nextpvr -y
+    		apt-get install kodi -y --allow-unauthenticated
+    		apt-get install kodi-pvr-stalker kodi-pvr-iptvsimple kodi-pvr-demo kodi-pvr-dvblink kodi-pvr-hts kodi-pvr-nextpvr -y --allow-unauthenticated
 		else
 		    # Old update routine by path or .deb file
 			apt-get update

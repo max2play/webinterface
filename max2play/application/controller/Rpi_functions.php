@@ -203,7 +203,7 @@ class Rpi_functions extends Service
      *            Possible values: soundcard, single_option
      * @return boolean
      */
-    private function saveDTOverlayConfig($value = '', $dto_type = 'notset')
+    public function saveDTOverlayConfig($value = '', $dto_type = 'notset')
     {
         $dto_entries['soundcard'] = array();
         $dto_entries['i2s-mmap'] = array(

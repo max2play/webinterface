@@ -15,7 +15,8 @@ git clone https://github.com/max2play/squeezelite;cd squeezelite
 make -f Makefile.m2p
 cp /tmp/squeezelite/squeezelite-m2p /opt/squeezelite/squeezelite
 cp /tmp/squeezelite/scripts/btcheck.sh /opt/squeezelite/
-chmod 777 /opt/squeezelite/btcheck.sh
+cp /tmp/squeezelite/scripts/btrecon.sh /opt/squeezelite/
+chmod 777 /opt/squeezelite/btcheck.sh /opt/squeezelite/btrecon.sh
 
 if [ "$1" -gt "0" ]; then
 	#Reactivate Autostart during Update
