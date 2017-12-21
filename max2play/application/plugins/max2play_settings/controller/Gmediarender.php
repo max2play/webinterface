@@ -134,7 +134,8 @@ class Gmediarender extends Service
      */
     public function installGmediarender()
     {
-        $script[] = 'pushd /tmp
+        $script[] = 'apt-get update
+                    pushd /tmp
 					git clone https://github.com/hzeller/gmrender-resurrect.git
 					cd gmrender-resurrect
 					echo "Y" | sudo apt-get install autoconf automake libtool

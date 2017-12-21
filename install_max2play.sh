@@ -343,6 +343,11 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		   echo -e "[SeatDefaults]\ngreeter-session=lightdm-gtk-greeter\nautologin-user=pi" >> /usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf
 		   echo "Switch Autostart Desktop - Disable autostart"
 		   systemctl disable lightdm.service
+		   
+		   echo "Remove spam logging of lircd"
+		   echo "If \$syslogtag contains 'lircd' and \$msg contains 'Error: Cannot glob' then stop" >> /etc/rsyslog.d/lircd-trash.conf
+		   systemctl restart rsyslog
+		   
 		   echo "TODO: MANUAL BEFORE FIRST BOOT if you want to make a Master-Image!!! Remove Autoresize Filesystem from Command Line on First Boot! init=/usr/lib/raspi-config/init_resize.sh"
 		   echo "TODO: check /etc/pulse/daemon.conf for Bluetooth"
 		fi   

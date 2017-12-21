@@ -196,5 +196,5 @@ if (isset($wlan->view->wlanNetworks) && isset($wlan->view->wlanNetworks[0])) {
 	<br />
 	<br />
 	<?php echo _("DEBUG Info") ?>:<br />
-	<textarea rows="5" cols="80" readonly><?php echo $wlan->view->ifconfig_txt ?></textarea>
+	<textarea rows="5" cols="80" readonly><?php echo $wlan->view->ifconfig_txt."\n\n### WLAN ###\n".$wlan->view->wlan_debug ?></textarea>
 </div>

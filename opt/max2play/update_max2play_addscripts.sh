@@ -116,8 +116,10 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	#Timeout fix on Start / Stop (90sec wait)
 	sudo sed -i "s/#DefaultTimeoutStartSec=.*/DefaultTimeoutStartSec=10s/;s/#DefaultTimeoutStopSec=.*/DefaultTimeoutStopSec=10s/" /etc/systemd/system.conf
 	
-	sudo sed -i 's@/var/lib/mpd:/bin/false@/var/lib/mpd:/bin/bash@' /etc/passwd
+	#sudo sed -i 's@/var/lib/mpd:/bin/false@/var/lib/mpd:/bin/bash@' /etc/passwd
 	sudo usermod -aG audio mpd
+	# Fix Permissions for Radio Folder (justboom info in forum)
+	sudo chown -R mpd:audio /var/lib/mpd/music/RADIO
 	sudo sed -i 's/odroid/pi/' /etc/usbmount/usbmount.conf
 	#Fix for rc.local file	
 	sed -i 's/let \"COUNTER++\"/COUNTER=\$\(\(COUNTER+1\)\)/;s/\;mount/\;\/bin\/mount/' /etc/rc.local

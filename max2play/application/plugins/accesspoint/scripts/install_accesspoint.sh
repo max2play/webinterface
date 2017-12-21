@@ -57,7 +57,7 @@ if [ "$2" == "1" ]; then
 	fi 
 	## Script start_accesspoint_onboot.sh will do the startup if not network connection available
 	update-rc.d hostapd remove
-	update-rc.d dnsmasq remove
+	update-rc.d -f dnsmasq remove
 	if [ "$3" == "onlyinstall" ]; then
 		exit 0
 	else

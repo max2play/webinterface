@@ -13,6 +13,7 @@ while true; do
 	HMVAR=( $(echo "$CONFIG" | grep "HM_FRITZ_HMVAR" | sed 's/HM_FRITZ_HMVAR=//') )
 	LOOPTIME=$(echo "$CONFIG" | grep "HM_FRITZ_LOOPTIME" | sed 's/HM_FRITZ_LOOPTIME=//')
 	HMIP=$(echo "$CONFIG" | grep "HM_HOMEMATIC_IP" | sed 's/HM_HOMEMATIC_IP=//')
+	DEBUG=$(echo "$CONFIG" | grep "HM_FRITZ_DEBUG" | sed 's/HM_FRITZ_DEBUG=//')
 	
 	if [ "$HMIP" == "" ]; then
 		HMIP="http://homematic.fritz.box"
@@ -20,6 +21,10 @@ while true; do
 	
 	# Challenge abholen
 	CHALLENGE=`wget -T 10 -t 1 -O - "http://$IP/login_sid.lua" 2>/dev/null | sed 's/.*<Challenge>\(.*\)<\/Challenge>.*/\1/'`
+	if [ "$DEBUG" == "1" ]; then
+		echo "Login..."
+		echo "Challenge: $CHALLENGE | " >> $LOGFILE
+	fi
 	
 	# login aufbauen und hashen
 	CPSTR="$CHALLENGE-$SECRET"
@@ -30,8 +35,13 @@ while true; do
 	
 	# login senden und SID herausfischen
 	SID=`wget -T 10 -t 1 -O - "http://$IP/login_sid.lua?$URL_PARAMS" 2>/dev/null | sed 's/.*<SID>\(.*\)<\/SID>.*/\1/'`
-	if [ "$SID" == "" ];then
-        echo "Fritzbox Anmeldungsfehler"
+	
+	if [ "$DEBUG" == "1" ]; then		
+		echo "SID: $SID | http://$IP/login_sid.lua?$URL_PARAMS" >> $LOGFILE
+	fi
+	
+	if [ "$SID" == "" -o "$SID" == "0000000000000000" ];then
+        echo "Fritzbox Anmeldungsfehler" >> $LOGFILE
     fi
 	
 	

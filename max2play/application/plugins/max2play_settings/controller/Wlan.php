@@ -397,6 +397,8 @@ class Wlan extends Service
             $this->view->wlan_ip = trim(shell_exec("LANG=C && /sbin/ip addr show wlan0 | grep -o 'inet [0-9.]\+' | grep -o '[0-9.]\+'"));
             if ($this->view->wlan_ip == '') {
                 $this->view->wlan_ip = _('NO IP! No connection!');
+            }else{
+                $this->view->wlan_debug = shell_exec("LANG=C && iwconfig wlan0");
             }
         }
         
