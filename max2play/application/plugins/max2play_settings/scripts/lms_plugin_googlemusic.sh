@@ -22,10 +22,6 @@ git clone https://github.com/squeezebox-googlemusic/squeezebox-googlemusic.git .
 chown -R squeezeboxserver /var/lib/squeezeboxserver/Plugins/GoogleMusic
 chmod -R g+wx /var/lib/squeezeboxserver/Plugins/GoogleMusic
 
-# Bugfix for HTTPS
-echo "Apply Bugfix for HTTPS in ProtocolHandler.pm"
-sed -i 's/use base qw(Slim::Player::Protocols::HTTP);/use base qw(Slim::Player::Protocols::HTTPS);/' /var/lib/squeezeboxserver/Plugins/GoogleMusic/ProtocolHandler.pm
-
 /etc/init.d/logitechmediaserver restart
 
 echo "<b>Finished installing Google Music Plugin</b>"
