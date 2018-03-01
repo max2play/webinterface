@@ -43,8 +43,19 @@ if (! isset($_GET['page']) || strpos($_GET['page'], 'plugin') === FALSE) {
         }
     }
 } else {
-    // get Plugin by Config
-    include_once (APPLICATION_PATH . '/' . $_GET['page']);
+    // get Plugin by Config... check for Images or other Content 
+    if(preg_match('=\.(png|jpg|gif|pdf)$=', $_GET['page'])){
+        // just Output Content                
+        $file = APPLICATION_PATH . '/' . $_GET['page'];        
+        ob_clean();
+        $size = getimagesize($file);
+        header('Content-Type: '.$size['mime']);
+        header('Content-Length: '.filesize($file));
+        readfile($file);
+        exit;
+    }else{
+        include_once (APPLICATION_PATH . '/' . $_GET['page']);
+    }
 }
 
 $service->loadViewFooter();

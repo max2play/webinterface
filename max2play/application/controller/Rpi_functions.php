@@ -30,7 +30,9 @@ class Rpi_functions extends Service
     public $usbSoundCards = array(
         '' => array(
             'dtoverlay' => '',
-            'name' => 'none'
+            'name' => 'none',
+            'mpd_mixer_control' => 'PCM',
+            'amixercard' => 'default'
         ),
         'hifiberry-dac' => array(
             'dtoverlay' => 'hifiberry-dac',
@@ -85,6 +87,15 @@ class Rpi_functions extends Service
             'mpd_mixer_control' => 'Master',
             'amixercard' => 'sndrpihifiberry'
         ),
+        'hifiberry-amp2' => array(
+            'dtoverlay' => 'hifiberry-dacplus',
+            'name' => 'Hifi Berry AMP 2 (B+ / PI 2/3)',
+            'squeezelite' => '-o sysdefault:CARD=sndrpihifiberry -a 80:4:: -o hw:1 -V Digital',
+            'shairport' => '-d default:CARD=sndrpihifiberry -t hardware -m hw:1 -c Digital',
+            'mpd_device' => 'default:CARD=sndrpihifiberry',
+            'mpd_mixer_control' => 'Digital',
+            'amixercard' => 'sndrpihifiberry'
+        ),
         'iqaudio-dac' => array(
             'dtoverlay' => 'iqaudio-dac',
             'name' => 'IQaudio Card DAC'
@@ -136,7 +147,7 @@ class Rpi_functions extends Service
         ),
         'snd-usb-asyncaudio' => array(
             'dtoverlay' => '',
-            'name' => 'USB Soundcards (Northstar Essensio, Hiface and others)'
+            'name' => 'USB Soundcards (Northstar Essensio, Hiface and others) - takes ~5 minutes to install!'
         ), // https://github.com/panicking/snd-usb-asyncaudio/wiki
         'justboom-digi' => array(
             'dtoverlay' => 'justboom-digi',
@@ -184,10 +195,17 @@ class Rpi_functions extends Service
             'dtoverlay' => 'allo-piano-dac-plus-pcm512x-audio',
             'name' => 'Allo Piano HiFi DAC 2.1',
             'squeezelite' => '-o default:CARD=PianoDACPlus -o hw:CARD=PianoDACPlus -V Digital -a 80:4::',
-            'shairport' => '-d default:CARD=PianoDACPlus',
+            'shairport' => '-d sysdefault:CARD=PianoDACPlus -t hardware -m hw:CARD=PianoDACPlus -c Digital',
             'mpd_device' => 'default:CARD=PianoDACPlus',
             'mpd_mixer_control' => 'Digital',
             'amixercard' => 'PianoDACPlus'
+        ),
+        'Allo Digione' => array(
+            'dtoverlay' => 'allo-digione',
+            'name' => 'Allo Digione',
+            'squeezelite' => '-o default:CARD=sndallodigione',
+            'shairport' => '-d default:CARD=sndallodigione',
+            'mpd_device' => 'default:CARD=sndallodigione'
         ),
         'durio-sound-pro' => array(
             'dtoverlay' => 'hifiberry-dac',
@@ -275,7 +293,31 @@ class Rpi_functions extends Service
         }
         return true;
     }
-
+    
+    /**
+     * get soundcard position e.g. hw:0 or hw:1
+     * @param string $soundcard (name of amixercard)
+     * @return string for MPD mixer_device
+     */
+    public function getSoundcardPosition($soundcard = ''){
+        $aplayOutput = $this->writeDynamicScript(array('LANG=C && aplay -l | grep "card"'));
+        //card 0: ALSA [bcm2835 ALSA], device 1: bcm2835 ALSA [bcm2835 IEC958/HDMI]
+        //card 1: IQaudIODAC [IQaudIODAC], device 0: IQaudIO DAC HiFi pcm512x-hifi-0 []
+        if(!preg_match_all('=^card ([0-9]): ([^ ]*)=im', $aplayOutput, $aplayMatches)){
+            return 'default';
+        }
+        $count = count($aplayMatches[1]);
+        $aplayCards = array();
+        for($i = 0; $i < $count; $i++){
+            $aplayCards[$aplayMatches[2][$i]] = $aplayMatches[1][$i];
+        }
+        if(isset($aplayCards[$soundcard])){
+            return 'hw:'.$aplayCards[$soundcard];
+        } else {
+            return 'default';
+        }
+    }
+    
     /**
      * Get current KernelVersion as Array
      * 

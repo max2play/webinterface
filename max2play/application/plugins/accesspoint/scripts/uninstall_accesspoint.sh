@@ -10,8 +10,8 @@ if [ ! "$1" == "1" ]; then
 	echo "Y" | apt-get purge dnsmasq
 else
 	update-rc.d hostapd remove 2>&1 > /dev/null
-	# Problem with Apache?
-	update-rc.d -f dnsmasq remove 2>&1 > /dev/null	
+	# Problem with Apache - solved by replace remove with disable
+	update-rc.d -f dnsmasq disable 2>&1 > /dev/null
 	rm /tmp/automatic_accesspoint_mode 2>&1 > /dev/null
 fi
 

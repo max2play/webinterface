@@ -273,6 +273,13 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
     if [ "$(grep -i "start_accesspoint_onboot.sh" /etc/rc.local | wc -l)" -lt "1" ]; then
     	sudo sed -i "s@^exit 0@#Start Accesspoint on Boot if no network connection available\n/var/www/max2play/application/plugins/accesspoint/scripts/start_accesspoint_onboot.sh\nexit 0@" /etc/rc.local
     fi
+    
+    # If no hostapd Running also disable dnsmasq - bugfix for running dmsmasq on some installations
+    if [ "$(ps -Al | grep hostapd | wc -l)" -lt "1" -a "$(ps -Al | grep dnsmasq | wc -l)" -gt "0" ]; then
+    	sudo update-rc.d -f dnsmasq disable
+    	sudo /etc/init.d/dnsmasq stop
+    	echo "Disabled DHCP Server DNSMASQ - Service should only run in Accesspoint Mode."
+    fi
 fi
 
 #htaccess Password Protection Overwrite Backup

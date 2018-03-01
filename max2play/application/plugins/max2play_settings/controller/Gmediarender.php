@@ -141,13 +141,15 @@ class Gmediarender extends Service
 					echo "Y" | sudo apt-get install autoconf automake libtool
 					echo "Y" | sudo apt-get install libupnp-dev libgstreamer0.10-dev \
 					    gstreamer0.10-plugins-base gstreamer0.10-plugins-good \
-					    gstreamer0.10-plugins-bad gstreamer0.10-plugins-ugly \
-					    gstreamer0.10-pulseaudio gstreamer0.10-alsa
-					sudo ./autogen.sh
+					    gstreamer0.10-plugins-ugly \
+					    gstreamer0.10-pulseaudio gstreamer0.10-alsa -y
+					sudo apt-get install gstreamer0.10-plugins-bad -y
+                    sudo ./autogen.sh
 					sudo ./configure
 					sudo make
 					sudo make install';
         $this->view->message[] = nl2br($this->writeDynamicScript($script));
+        $this->view->message[] = "Installation finished - Reload this page to see changes...";
         return true;
     }
 }

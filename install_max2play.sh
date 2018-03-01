@@ -303,8 +303,8 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	sudo sh -c "echo \"options snd-rpi-iqaudio-dac index=-2\" >> /etc/modprobe.d/alsa-base.conf"	
 	
 	#Default Soundoutput
-	sudo sed -i 's/SQUEEZELITE_PARAMETER.*/SQUEEZELITE_PARAMETER=-o default:CARD=ALSA -a 120::16:/' /opt/max2play/audioplayer.conf	
-	sudo sed -i 's/SHAIRPORT_PARAMETER.*/SHAIRPORT_PARAMETER=-d default:CARD=ALSA/' /opt/max2play/audioplayer.conf			
+	sudo sed -i 's/SQUEEZELITE_PARAMETER.*/SQUEEZELITE_PARAMETER=-o sysdefault:CARD=ALSA -a 80::: -C 5/' /opt/max2play/audioplayer.conf
+	sudo sed -i 's/SHAIRPORT_PARAMETER.*/SHAIRPORT_PARAMETER=-d sysdefault:CARD=ALSA/' /opt/max2play/audioplayer.conf
 	
 	#Add Autostart Kodi / XBMC	
 	sudo sed -i 's/^exit 0/#Max2Play\nsudo -u pi -H -s \/opt\/max2play\/autostart_xbmc.sh > \/dev\/null 2>\&1 \&\n\nexit 0/' /etc/rc.local	
@@ -346,10 +346,9 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		   
 		   echo "Remove spam logging of lircd"
 		   echo "If \$syslogtag contains 'lircd' and \$msg contains 'Error: Cannot glob' then stop" >> /etc/rsyslog.d/lircd-trash.conf
-		   systemctl restart rsyslog
+		   systemctl restart rsyslog		   
 		   
-		   echo "TODO: MANUAL BEFORE FIRST BOOT if you want to make a Master-Image!!! Remove Autoresize Filesystem from Command Line on First Boot! init=/usr/lib/raspi-config/init_resize.sh"
-		   echo "TODO: check /etc/pulse/daemon.conf for Bluetooth"
+		   echo "TODO: MANUAL BEFORE FIRST BOOT if you want to make a Master-Image!!! Remove Autoresize Filesystem from Command Line on First Boot! init=/usr/lib/raspi-config/init_resize.sh"		   
 		fi   
 		
 		#set to anybody for access as user pi 

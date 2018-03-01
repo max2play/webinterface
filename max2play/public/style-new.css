@@ -227,6 +227,9 @@ a:hover, .navigation li a:hover {
 	color: #636363;
 }
 
+.ui-widget-content a {
+	color: #21759B;
+}
 .widget-area a {
 	color: #757575;
 }
