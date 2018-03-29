@@ -105,6 +105,7 @@ class Rpi_functions extends Service
             'name' => 'IQaudio Pi-DAC+',
             'squeezelite' => '-o sysdefault:CARD=IQaudIODAC -a 80:4::',
             'shairport' => '-d sysdefault:CARD=IQaudIODAC',
+            'mpd_mixer_control' => 'Digital',
             'amixercard' => 'IQaudIODAC'
         ),
         'iqaudio-ampplus' => array(

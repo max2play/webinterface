@@ -344,6 +344,13 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		   echo "Switch Autostart Desktop - Disable autostart"
 		   systemctl disable lightdm.service
 		   
+		   # Usbmount Fix not needed: https://unix.stackexchange.com/questions/330094/udev-rule-to-mount-disk-does-not-work/330156#330156
+		   # sed -i "s/^MountFlags=.*/MountFlags=shared/" /lib/systemd/system/systemd-udevd.service
+		   # Usbmount use Service and bind to Udev Rule
+		   echo -e "[Unit]\nBindTo=%i.device\nAfter=%i.device\n\n[Service]\nType=oneshot\nTimeoutStartSec=0\nEnvironment=DEVNAME=%I\nExecStart=/usr/share/usbmount/usbmount add\nRemainAfterExit=yes" > /etc/systemd/system/usbmount@.service
+		   echo "# Rules for USBmount -*- conf -*-\nKERNEL==\"sd*\", DRIVERS==\"sbp2\",         ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"sd*\", SUBSYSTEMS==\"usb\",       ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"ub*\", SUBSYSTEMS==\"usb\",       ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"sd*\",                          ACTION==\"remove\",       RUN+=\"/usr/share/usbmount/usbmount remove\"\nKERNEL==\"ub*\",                          ACTION==\"remove\",       RUN+=\"/usr/share/usbmount/usbmount remove\"" > /etc/udev/rules.d/usbmount.rules
+		   rm /lib/udev/rules.d/usbmount.rules
+		   
 		   echo "Remove spam logging of lircd"
 		   echo "If \$syslogtag contains 'lircd' and \$msg contains 'Error: Cannot glob' then stop" >> /etc/rsyslog.d/lircd-trash.conf
 		   systemctl restart rsyslog		   

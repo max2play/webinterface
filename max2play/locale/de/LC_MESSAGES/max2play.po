@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-13 14:25+0100\n"
-"PO-Revision-Date: 2017-06-13 12:48+0000\n"
-"Last-Translator: stefan <stefan@netzberater.de>\n"
+"PO-Revision-Date: 2018-03-20 14:39+0000\n"
+"Last-Translator: heiner <heineru92@gmail.com>\n"
 "Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: y:\\projects\\max2play\n"
 "X-Poedit-SearchPath-1: y:\\projects\\svn_max2play\n"
-"X-POOTLE-MTIME: 1497358119.000000\n"
+"X-POOTLE-MTIME: 1521556778.000000\n"
 "X-Poedit-SearchPath-2: y:\\projects\\max2play\\max2play\\application\\view\n"
 "X-Poedit-SearchPath-3: y:\\projects\\max2play\\max2play\\application\\"
 "config\n"
@@ -364,6 +364,8 @@ msgid ""
 "Plugin Installer ERROR! Maybe missing internet connection or write error on "
 "filesystem."
 msgstr ""
+"Plugin Installer ERROR! Vielleicht durch eine fehlende Internetverbindung "
+"oder einen Schreibfehler im Dateisystem."
 
 #: y:\projects\max2play/max2play/application/controller/Service.php:872
 msgid ""
@@ -763,6 +765,7 @@ msgstr "Passwort Schutz einrichten"
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:47
 msgid "Set up or remove password protection for Max2Play Browserinterface"
 msgstr ""
+"Konfiguriere oder entferne Passwort-Schutz für das Max2Play Browserinterface"
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:48
 msgid ""
@@ -772,10 +775,15 @@ msgid ""
 "change any settings!<br>You can easily remove the password protection again "
 "by clicking unistall."
 msgstr ""
+"Dieses Plugin fragt Nutzer und Passwort ab zum Öffnen des Max2Play-"
+"Browserinterface nach der Einrichtung. Gehe sicher, dass die Login-Daten "
+"nicht verlegt werden nach Einrichtung des Passwort-Schutzes. Ansonsten ist "
+"der Zugriff auf alle Einstellungen verwehrt!<br>Der Passwort-Schutz lässt "
+"sich ganz einfach entfernen indem man  auf Deinstallation klickt."
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:51
 msgid "Protection is currently: "
-msgstr ""
+msgstr "Schutz ist aktuell:"
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:51
 msgid "installed"
@@ -787,19 +795,19 @@ msgstr "Nicht installiert"
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:57
 msgid "Username"
-msgstr ""
+msgstr "Benutzername"
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:63
 msgid "Password for webinterface"
-msgstr ""
+msgstr "Passwort für Webinterface"
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:80
 msgid "Change root and user password for SSH-Login"
-msgstr ""
+msgstr "Ändere root und Nutzerpasswort für SSH-Login"
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:81
 msgid "Change Root Password"
-msgstr ""
+msgstr "Ändere Root Passwort"
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:82
 msgid "savepasswordroot"
@@ -812,7 +820,7 @@ msgstr "speichere Passwort"
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:84
 msgid "Change User Password for user"
-msgstr ""
+msgstr "Ändere Nutzerpasswort für Benutzer"
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:85
 msgid "savepassworduser"
@@ -820,11 +828,11 @@ msgstr "savepassworduser"
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:91
 msgid "Further security settings"
-msgstr ""
+msgstr "Weitere Sicherheitseinstellungen"
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:95
 msgid "SSH Server"
-msgstr ""
+msgstr "SSH Server"
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:98
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:102
@@ -1053,9 +1061,10 @@ msgstr ""
 "automatisch erstellt, falls es noch nicht existiert. <br /><b>Typ:</b> meist "
 "<i>cifs</i> (bei speziellem NFS-Setup <i>nfs</i>)<br /><b>Optionen ("
 "Benutzer, Passwort und Optionen für Freigabe):</b> z.B. "
-"<i>user=name,password=pass,sec=ntlm,iocharset=utf8</i><br />Achtung: Bei den "
-"Optionen bitte immer <i>sec=ntlm</i> angeben! <br /><br><b>Besonderheit bei "
-"NFS-Freigaben:</b> andere IP-Eingabe und kein Benutzerlogin! Bsp: <i>IP-"
+"<i>user=name,password=pass,sec=ntlm,iocharset=utf8,vers=1.0</i><br />Achtung:"
+" Bei den Optionen bitte immer <i>sec=ntlm</i> angeben<br />Bei cifs Mounts "
+"immer <i>vers=1.0</i> mit angeben! <br /><br /><b>Besonderheit bei NFS-"
+"Freigaben:</b> andere IP-Eingabe und kein Benutzerlogin! Bsp: <i>IP-"
 "ADRESSE:PFAD</i> oder <i>*:PFAD</i> <br /><br />Bei Problemen und falschen "
 "Eingaben können die Einstellungen dieser Seite unter \""
 "Ursprungskonfiguration Wiederherstellen\" im Reiter Einstellungen "

@@ -1,19 +1,31 @@
 #!/bin/sh
 
 # if no Parameter is given, this takes in consideration /dev/mmcblk0p2 as the rootfs! 
+# check for existing /dev/mmcblk0p2 - if /dev/mmcblk1p2 is available (RPI3b+ new Kernel 4.14.y) use this instead 
 
+DEVICE="mmcblk0"
 if [ -z "$1" ] ; then
 	PARTITION="mmcblk0p2"
 else
 	PARTITION=$1
 fi
-echo $PARTITION
 
-p2_start=`fdisk -l /dev/mmcblk0 | grep $PARTITION | awk '{print $2}'`
+if [ -e "/dev/$PARTITION" ]; then
+	echo "Use $PARTITION"
+else
+	if [ -e "/dev/mmcblk1p2" ]; then
+		# Change Partition and Device
+		PARTITION="mmcblk1p2"
+		DEVICE="mmcblk1"
+		echo "Use $PARTITION on $DEVICE"
+	fi
+fi
+
+p2_start=`fdisk -l /dev/$DEVICE | grep $PARTITION | awk '{print $2}'`
 # Leave 100 MB for Writable Partition
 # get Maximium Size
-maximum=`fdisk -l /dev/mmcblk0 | grep -o -e "[0-9]\{7,\} sectors" | awk '{print $1}'`
-p2_end_current=`fdisk -l /dev/mmcblk0 | grep $PARTITION | awk '{print $3}'`
+maximum=`fdisk -l /dev/$DEVICE | grep -o -e "[0-9]\{7,\} sectors" | awk '{print $1}'`
+p2_end_current=`fdisk -l /dev/$DEVICE | grep $PARTITION | awk '{print $3}'`
 p2_end=$(($maximum-400000))
 p3_start=$(($p2_end+1))
 
@@ -21,7 +33,7 @@ p3_start=$(($p2_end+1))
 
 # Shrinking is not allowed!
 if [ -z "$p2_start" -o ! "$p2_end_current" -lt "$p2_end" ]; then
-	unusedDisk=$(parted /dev/mmcblk0 unit GB print free | grep 'Free Space' | tail -n1 | awk '{print $3}')
+	unusedDisk=$(parted /dev/$DEVICE unit GB print free | grep 'Free Space' | tail -n1 | awk '{print $3}')
 	if [[ ! $unusedDisk == "0.00GB" ]];then
 	    echo "Resize not successful! Maybe already expanded? Make sure no USB-drives are attached when trying to expand."
 	else
@@ -30,7 +42,7 @@ if [ -z "$p2_start" -o ! "$p2_end_current" -lt "$p2_end" ]; then
 	exit 0;
 fi 
 
-fdisk /dev/mmcblk0 <<EOF &>> $rsflog
+fdisk /dev/$DEVICE <<EOF &>> $rsflog
 p
 d
 2
@@ -67,7 +79,7 @@ case "$1" in
     resize2fs /dev/$PARTITION    
     update-rc.d resize2fs_once remove
     rm /etc/init.d/resize2fs_once
-    mkfs -t ext4 /dev/mmcblk0p3
+    mkfs -t ext4 /dev/$DEVICEp3
     echo "Finished"
     ;;
   *)  

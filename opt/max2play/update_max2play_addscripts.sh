@@ -231,8 +231,11 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		   sed -i 's@<webserver default="true">false</webserver>@<webserver>true</webserver>@' /home/pi/.kodi/userdata/guisettings.xml
 		fi		
 	fi
+	
+	RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")
+	
 	# Fix for NOT JESSIE and deleted usbmount rules
-	if [ "$ISJESSIE" -lt "1" -a ! -e /lib/udev/rules.d/usbmount.rules ]; then
+	if [ "$ISJESSIE" -lt "1" -a ! "$RELEASE" == "stretch" -a ! -e /lib/udev/rules.d/usbmount.rules ]; then
 		echo "Remove Fix for USB-Mount on NON-Jessie"
 		echo "KERNEL==\"sd*\", DRIVERS==\"sbp2\",		ACTION==\"add\",	RUN+=\"/usr/share/usbmount/usbmount add\"\nKERNEL==\"sd*\", SUBSYSTEMS==\"usb\",	ACTION==\"add\",	RUN+=\"/usr/share/usbmount/usbmount add\"\nKERNEL==\"ub*\", SUBSYSTEMS==\"usb\",	ACTION==\"add\",	RUN+=\"/usr/share/usbmount/usbmount add\"\nKERNEL==\"sd*\",				ACTION==\"remove\",	RUN+=\"/usr/share/usbmount/usbmount remove\"\nKERNEL==\"ub*\",				ACTION==\"remove\",	RUN+=\"/usr/share/usbmount/usbmount remove\"" > /lib/udev/rules.d/usbmount.rules
 		rm /etc/systemd/system/usbmount@.service

@@ -91,7 +91,7 @@ class Gmediarender extends Service
             $value = 'sysdefault';
         }
         
-        if ($this->saveConfigFileParameter('/opt/max2play/audioplayer.conf', 'GMEDIARENDER_ALSA_DEVICE', $value)) {
+        if ($this->saveConfigFileParameter('/opt/max2play/audioplayer.conf', 'GMEDIARENDERER_ALSA_DEVICE', $value)) {
             $this->view->message[] = str_replace('$SERVICE', $this->viewname, _('Updated $SERVICE Settings - Restart $SERVICE to apply changes!'));
             
             if ($this->status($this->pname) !== FALSE) {
@@ -111,7 +111,7 @@ class Gmediarender extends Service
      */
     public function getAudioDevice()
     {
-        $output = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'GMEDIARENDER_ALSA_DEVICE');
+        $output = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'GMEDIARENDERER_ALSA_DEVICE');
         if ($output) {
             $this->view->gmediarender_soundcard = $output;
         } else {

@@ -9,6 +9,11 @@ if [ "$1" = "check" ]; then
 else
 	if [ "1" -gt "$installcheck" ] || [ "$1" = "update" ]; then
 		echo `date +"%Y-%m-%d %H:%M|"` > /opt/max2play/cache/install_lms.txt
+		apt-get update
+		
+		# Needed for SSL connections e.g. Github Repositories
+		apt-get install libio-socket-ssl-perl -y
+		
 		#Uninstall to remove problems with plugins
 		apt-get remove logitechmediaserver
 		wget -O /opt/max2play/lms.deb $source -a /opt/max2play/cache/install_lms.txt
@@ -50,11 +55,7 @@ else
    					echo "Linking CPAN to Latest"
    				fi
    				;;
-		esac	
-		
-		apt-get update
-		# Needed for SSL connections e.g. Github Repositories
-		apt-get install libio-socket-ssl-perl -y
+		esac				
 		
 		(echo "y") | apt-get install lame -y
 		

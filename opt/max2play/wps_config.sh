@@ -26,10 +26,10 @@ if [ "$(LANG=C && /sbin/ifconfig wlan0 | grep 'HWaddr\|ether' | wc -l)" -gt "0" 
     for i in `wpa_cli -iwlan0 list_networks | grep ^[0-9] | cut -f1`; do wpa_cli -iwlan0 remove_network $i; done
     
     # get Routers supporting WPS, sorted by signal strength        
-    SSID=$(/sbin/wpa_cli scan_results | grep "WPS" | sort -r -k3 | awk 'END{print $NF}')
+    SSID=$(/sbin/wpa_cli -iwlan0 scan_results | grep "WPS" | sort -r -k3 | awk 'END{print $NF}')
     echo "Using $SSID for WPS"
-    #SUCCESS=$(wpa_cli wps_pbc $SSID)
-    SUCCESS=$(wpa_cli wps_pbc)
+    #SUCCESS=$(wpa_cli -iwlan0 wps_pbc $SSID)
+    SUCCESS=$(wpa_cli -iwlan0 wps_pbc)
     sleep 10
     
     # Check for Entry in wpa_supplicant.conf

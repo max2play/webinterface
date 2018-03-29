@@ -84,7 +84,7 @@ foreach ($fs->view->mounts as $mount) {
 				<span class="small">cifs</span></td>
 				<td><input style="width: 95%;" type="text" name="options" value=""
 					size="40" /><br />
-				<span class="small">user=name,password=pass,sec=ntlm,iocharset=utf8</span></td>
+				<span class="small">user=name,password=pass,sec=ntlm,iocharset=utf8,vers=1.0</span></td>
 				<td valign=top><input type="button" value="<?php echo _('Save'); ?>"
 					name="add"
 					onclick="document.getElementById('action').value='add';submit();" /></td>

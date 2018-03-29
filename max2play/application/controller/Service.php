@@ -317,6 +317,14 @@ class Service
                 $isactive = false;
             }
             return $isactive;
+        } elseif ($autostartconf === 'systemd') {
+            $output = $this->shell_exec("systemctl status $name | grep '.service; enabled' | wc -l");
+            if (trim($output) == 1) {
+                $isactive = true;
+            } else {
+                $isactive = false;
+            }
+            return $isactive;
         } else {
             $output = $this->shell_exec('grep -i "^' . $name . '=1" ' . $this->autostartconf);
             if (strpos($output, $name . '=1') === 0) {
@@ -366,13 +374,17 @@ class Service
         if ($active == false) {
             if (! $autostartconf) {
                 $this->shell_exec("sudo update-rc.d -f " . $name . " remove");
+            } elseif ($autostartconf === 'systemd') {
+                $output = $this->writeDynamicScript(array("systemctl disable $name"));                
             } else {
                 // Write Config-file
                 return $this->saveConfigFileParameter($this->autostartconf, $name, 0);
-            }
+            }        
         } else {
             if (! $autostartconf) {
                 $this->shell_exec("sudo update-rc.d " . $name . " defaults");
+            } elseif ($autostartconf === 'systemd') {
+                $output = $this->writeDynamicScript(array("systemctl enable $name"));
             } else {
                 // Write Config-file
                 return $this->saveConfigFileParameter($this->autostartconf, $name, 1);
