@@ -46,7 +46,13 @@ while true; do
 	
 	
 	DEVICES=`wget -T 10 -t 1 -O - "http://$IP/net/network_user_devices.lua?sid=$SID" 2>/dev/null | grep uiLanActive | sed 's/.*uiLanActive\(.*\)uiLanPassive.*/\1/'`
-	
+	if [ "$DEVICES" == "" ]; then
+        if [ "$DEBUG" == "1" ]; then
+            echo "try FritzOS 7.0 Dataaccess" >> $LOGFILE
+        fi
+        DEVICES=`wget --post-data="page=netDev" -T 10 -t 1 -O - "http://$IP/data.lua?sid=$SID" 2>/dev/null | grep -o -e '"state":"\(globe_online\|led_green\)","port":"WLAN","name":"[^"]\+"'`
+    fi
+        
 	for (( i = 0; i < ${#DEVICE_LIST[@]} ; i++ ))
 	do
 	    active=$(echo $DEVICES | grep "${DEVICE_LIST[$i]}" | wc -l)
