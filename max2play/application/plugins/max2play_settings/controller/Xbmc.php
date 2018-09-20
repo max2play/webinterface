@@ -200,12 +200,17 @@ class Xbmc extends Service
                 $this->view->message[] = nl2br($this->writeDynamicScript(array(
                     'sudo /var/www/max2play/application/plugins/max2play_settings/scripts/installkodiplatform-jessie-pi.sh'
                 )));
+            } elseif (strpos($url, 'kodi-17-pvr') !== FALSE) {
+                $this->view->message[] = nl2br($this->writeDynamicScript(array(
+                    'sudo apt-get update && apt-get install kodi-pvr-demo kodi-pvr-iptvsimple kodi-pvr-hts kodi-pvr-dvblink kodi-pvr-mythtv kodi-pvr-stalker kodi-pvr-nextpvr -y'
+                )));
+                $this->view->message[] = _('Plugin installed');
             } else {
                 shell_exec('wget -P /opt/max2play/cache "' . $url . '" -o /opt/max2play/cache/download.txt');
                 $this->view->message[] = nl2br(shell_exec('cat /opt/max2play/cache/download.txt'));
                 $this->view->message[] = _('Plugin downloaded to path /opt/max2play/cache');
             }
-            // TODO Check for Kodi Plattform Files - No PVR Plugins working if Kodi Platform not present
+            // TODO Check for Kodi Plattform Files - No PVR Plugins working if Kodi Platform not present            
         }
         
         return true;

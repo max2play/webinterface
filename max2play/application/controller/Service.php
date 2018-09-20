@@ -735,7 +735,7 @@ class Service
      *            URL after finished
      * @return Message for Ajax-Output
      */
-    public function getProgressWithAjax($progressfile = '', $create = 0, $reloadWhenFinished = 0, $lastlines = 0, $message = false, $url = false, $failmessage = false)
+    public function getProgressWithAjax($progressfile = '', $create = 0, $reloadWhenFinished = 0, $lastlines = 0, $message = false, $url = false, $failmessage = false, $finishedText = 'finished|Finished')
     {
         if (! file_exists($progressfile) && $create == 1) {
             // Create File and set Message Output for Ajax-Call
@@ -747,7 +747,7 @@ class Service
             // Separate Parameters from current Filename
             if (! url)
                 $url = preg_replace('=\?.*$=', '', $_SERVER['REQUEST_URI']);
-            $this->view->message[] = '<div id="msgprogress"></div><script type="text/javascript">setTimeout(function(){reloadprogress("msgprogress", "' . $url . '", ' . $reloadWhenFinished . ')}, 3000);</script>';
+                $this->view->message[] = '<div id="msgprogress"></div><script type="text/javascript">setTimeout(function(){reloadprogress("msgprogress", "' . $url . '", ' . $reloadWhenFinished . ', "'.$finishedText.'")}, 3000);</script>';
             return true;
         } elseif (file_exists($progressfile) && $create == 0) {
             // Check for Status finished and return current status and progressfile and reload if neccesary
@@ -930,6 +930,7 @@ class Service
      * 
      * @return array 0=> Ubuntu 1=> trusty
      *         array 0=> Ubuntu 1=> xenial
+     *         array 0=> Raspbian 1=> stretch
      */
     public function getLinuxVersion()
     {

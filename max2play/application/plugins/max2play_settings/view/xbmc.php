@@ -117,6 +117,8 @@ include (APPLICATION_PATH . '/view/messages.php');
 			<option
 				value="https://github.com/kolinger/plugin.video.youtube/archive/master.zip">Update/Install
 				Youtube Addon to fix Error (IMPORTANT first step: click "sign in")</option>
+			<option
+				value="	kodi-17-pvr">Install Kodi 17 PVR Addons (IPTVSimple, Stalker, Myth, TVHeadend)</option>
 		</select>
 		<script type="text/javascript">
 			function copytodownloadurl(item){

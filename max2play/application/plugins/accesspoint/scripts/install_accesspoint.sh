@@ -53,11 +53,12 @@ if [ "$2" == "1" ]; then
 			apt-get update
 			echo "Y" | apt-get install hostapd dnsmasq
 			cp -f $1dnsmasq.conf /etc/dnsmasq.conf
+			## Script start_accesspoint_onboot.sh will do the startup if not network connection available
+			update-rc.d hostapd remove
+			update-rc.d -f dnsmasq disable
 		fi
 	fi 
-	## Script start_accesspoint_onboot.sh will do the startup if not network connection available
-	update-rc.d hostapd remove
-	update-rc.d -f dnsmasq disable
+	
 	if [ "$3" == "onlyinstall" ]; then
 		exit 0
 	else

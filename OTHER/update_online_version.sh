@@ -23,11 +23,14 @@ NEWSPATH='/var/www/max2play/wordpress/wp-content/uploads/max2play/news/'
 chmod -R 777 $SOURCEPATH/max2play
 chmod -R 777 $SOURCEPATH/opt/max2play
 find $SOURCEPATH -name "*.sh" | xargs chmod 777
+find $SOURCEPATH -name "*.exp" | xargs chmod 777
 find $SOURCEPATH -type f -regextype sed -regex ".*/init.d/[^\.]*" | xargs chmod 777
 find $SOURCEPATHPREMIUM -name "*.sh" | xargs chmod 777
+find $SOURCEPATHPREMIUM -name "*.exp" | xargs chmod 777
+find $SOURCEPATHPREMIUM -not -name "*.*" -not -type d | xargs chmod 777
 
 HOSTS=( "176.9.62.131")
-PREMIUMPLUGINS=( "clementine" "fhem" "jivelite" "callbot" "homematic" "raspberrysettings" "multisqueeze" "sdcardprotection" "vnc" "printserver" "hifiberry" "iqaudio" "justboom" "mpd" "imageburner" "rpitouchdisplay" "rpicam" "rpisensehat" "voicecontrol" "frankenmatic" "bluetooth" "remotecontrol" "pluginbuilder" "allo" "multishairport" "autostartbrowser" "audiophonics" "arbalet" "spotifyconnect" "hardwarecontrol" )
+PREMIUMPLUGINS=( "clementine" "fhem" "jivelite" "callbot" "homematic" "raspberrysettings" "multisqueeze" "sdcardprotection" "vnc" "printserver" "hifiberry" "iqaudio" "justboom" "mpd" "imageburner" "rpitouchdisplay" "rpicam" "rpisensehat" "voicecontrol" "frankenmatic" "bluetooth" "remotecontrol" "pluginbuilder" "allo" "multishairport" "autostartbrowser" "audiophonics" "arbalet" "spotifyconnect" "hardwarecontrol" "openhab" )
 # integrate "accesspoint" and "passwordprotection" in default Max2Play -> removed from ODPLUGINS
 ODPLUGINS=( "kernelmodules_odroid_u3" "speechcontrol" "squeezeplug" )
 PLUGINS=("${ODPLUGINS[@]}" "${PREMIUMPLUGINS[@]}")

@@ -152,7 +152,7 @@ class Rpi_functions extends Service
         ), // https://github.com/panicking/snd-usb-asyncaudio/wiki
         'justboom-digi' => array(
             'dtoverlay' => 'justboom-digi',
-            'name' => 'JustBoom Digi (Requires minimum Kernel 4.4.y, Kernelupdate at bottom of this page)',
+            'name' => 'JustBoom Digi',
             'squeezelite' => '-o sysdefault:CARD=sndrpijustboomd -a 80:4::',
             'shairport' => '-d sysdefault:CARD=sndrpijustboomd',
             'mpd_device' => 'hw:CARD=sndrpijustboomd,DEV=0',
@@ -160,7 +160,7 @@ class Rpi_functions extends Service
         ),
         'justboom-dac' => array(
             'dtoverlay' => 'justboom-dac',
-            'name' => 'JustBoom DAC (Requires minimum Kernel 4.4.y, Kernelupdate at bottom of this page)',
+            'name' => 'JustBoom DAC',
             'squeezelite' => '-o sysdefault:CARD=sndrpijustboomd -a 80:4:: -o hw:CARD=sndrpijustboomd -V Digital',
             'shairport' => '-d sysdefault:CARD=sndrpijustboomd -t hardware -m hw:CARD=sndrpijustboomd -c Digital',
             'mpd_device' => 'sysdefault:CARD=sndrpijustboomd',
@@ -169,7 +169,7 @@ class Rpi_functions extends Service
         ),
         'justboom-amp' => array(
             'dtoverlay' => 'justboom-dac',
-            'name' => 'JustBoom AMP (Requires minimum Kernel 4.4.y, Kernelupdate at bottom of this page)',
+            'name' => 'JustBoom AMP',
             'squeezelite' => '-o sysdefault:CARD=sndrpijustboomd -a 80:4:: -o hw:CARD=sndrpijustboomd -V Digital',
             'shairport' => '-d sysdefault:CARD=sndrpijustboomd -t hardware -m hw:CARD=sndrpijustboomd -c Digital',
             'mpd_device' => 'sysdefault:CARD=sndrpijustboomd',
@@ -208,6 +208,7 @@ class Rpi_functions extends Service
             'shairport' => '-d default:CARD=sndallodigione',
             'mpd_device' => 'default:CARD=sndallodigione'
         ),
+        'mamboberry-hd-DAC' => array('dtoverlay' => 'hifiberry-dac', 'name' => 'Mamboberry HD DAC+', 'squeezelite' => '-o sysdefault:CARD=sndrpihifiberry -a 80:4::', 'shairport' => '-d default:CARD=sndrpihifiberry',  'mpd_device' => 'default:CARD=sndrpihifiberry','mpd_mixer_control' => 'Digital', 'amixercard' => 'sndrpihifiberry'),
         'durio-sound-pro' => array(
             'dtoverlay' => 'hifiberry-dac',
             'name' => 'Durio Sound Pro'
@@ -296,6 +297,66 @@ class Rpi_functions extends Service
     }
     
     /**
+     * Important! dtparam Parameter might be set multiple times in config.txt -> separate handling needed
+     *
+     * @param string $value
+     * @param string $dto_type
+     *            Possible values: i2s, spi, i2c1,i2c_arm
+     * @return boolean
+     */
+    public function saveDTParamConfig($value = '', $dto_type = 'notset')
+    {        
+        $dto_entries = array('i2s' => array('i2s=on','i2s=off'), 'spi' => array('spi=on','spi=off'), 'i2c1' => array('i2c1=on', 'i2c1=off'), 'i2c_arm' => 0);        
+        $dto_value = '';
+        $separator = '=';
+        $configfile = '/boot/config.txt';
+        $parameter = 'dtparam';
+        // fill possible soundcard values
+        
+        if (file_exists($configfile)) {
+            $old_parameter = explode("\n", trim($this->getConfigFileParameter($configfile, $parameter)));
+            // $old_parameter is an array
+            // get the right value to replace / add new
+            foreach ($old_parameter as $oldparam) {
+                // normal recognition
+                if (in_array($oldparam, $dto_entries[$dto_type])) {
+                    $dto_value = $oldparam;
+                }                
+                
+                if ($oldparam == $value) {
+                    // Value existing -> do not change!
+                    return true;
+                }
+            }
+            
+            if ($dto_value != '' && $value == '') {
+                // Remove by oldvalue
+                $this->writeDynamicScript(array(
+                    'sed -i "s/^[ \t]*' . $parameter . $separator . $dto_value . '$//g" ' . $configfile
+                ));
+                $this->view->message[] = _("Update Configfile - existing Entry removed");
+            } elseif ($dto_value == '') {
+                // Add new
+                $this->writeDynamicScript(array(
+                    'echo "' . $parameter . $separator . $value . '" >> ' . $configfile
+                ));
+                $this->view->message[] = _("Update Configfile - new Entry created");
+            } else {
+                // Replace by old value
+                $this->writeDynamicScript(array(
+                    'sed -i "s/^[ \t]*' . $parameter . $separator . $dto_value . '$/' . $parameter . $separator . str_replace(array(
+                        '/'
+                    ), array(
+                        '\/'
+                    ), $value) . '/g" ' . $configfile
+                ));
+                $this->view->message[] = _("Update Configfile - existing Entry changed");
+            }
+        }
+        return true;
+    }
+    
+    /**
      * get soundcard position e.g. hw:0 or hw:1
      * @param string $soundcard (name of amixercard)
      * @return string for MPD mixer_device
@@ -344,8 +405,10 @@ class Rpi_functions extends Service
         $version = explode('.', $version);
         $smaller = false;
         foreach ($version as $key => $min) {
-            if (isset($kernelversion[$key]) && $kernelversion[$key] >= $min) {
-                // OK
+            if(isset($kernelversion[$key]) && $kernelversion[$key] > $min){
+                return false;
+            }elseif(isset($kernelversion[$key]) && $kernelversion[$key] == $min){
+                // Check further...            
             } else {
                 $smaller = true;
             }

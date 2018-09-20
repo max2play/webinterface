@@ -233,9 +233,16 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	fi
 	
 	RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")
+	if [ "$RELEASE" = "stretch" ]; then		
+		if [ ! -e /etc/systemd/system/apache2.service ]; then
+			cp /lib/systemd/system/apache2.service /etc/systemd/system/
+			echo "Apply Fix for private /tmp folder in Apache Service"
+			sed -i 's@PrivateTmp=true@PrivateTmp=false@' /etc/systemd/system/apache2.service
+		fi		
+	fi
 	
 	# Fix for NOT JESSIE and deleted usbmount rules
-	if [ "$ISJESSIE" -lt "1" -a ! "$RELEASE" == "stretch" -a ! -e /lib/udev/rules.d/usbmount.rules ]; then
+	if [ "$ISJESSIE" -lt "1" -a ! "$RELEASE" = "stretch" -a ! -e /lib/udev/rules.d/usbmount.rules ]; then
 		echo "Remove Fix for USB-Mount on NON-Jessie"
 		echo "KERNEL==\"sd*\", DRIVERS==\"sbp2\",		ACTION==\"add\",	RUN+=\"/usr/share/usbmount/usbmount add\"\nKERNEL==\"sd*\", SUBSYSTEMS==\"usb\",	ACTION==\"add\",	RUN+=\"/usr/share/usbmount/usbmount add\"\nKERNEL==\"ub*\", SUBSYSTEMS==\"usb\",	ACTION==\"add\",	RUN+=\"/usr/share/usbmount/usbmount add\"\nKERNEL==\"sd*\",				ACTION==\"remove\",	RUN+=\"/usr/share/usbmount/usbmount remove\"\nKERNEL==\"ub*\",				ACTION==\"remove\",	RUN+=\"/usr/share/usbmount/usbmount remove\"" > /lib/udev/rules.d/usbmount.rules
 		rm /etc/systemd/system/usbmount@.service

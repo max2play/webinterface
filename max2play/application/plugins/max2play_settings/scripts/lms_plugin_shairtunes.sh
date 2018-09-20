@@ -2,7 +2,8 @@
 # new setup on Stretch for libssl 1.0.0 bug
 
 echo "Fix libssl to make sure Shairtunes2 is working..."
-wget -O /opt/max2play/cache/libssl1.0.0.deb /opt/max2play/cache/ http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb7u3_armhf.deb 
+# TODO: Move Download to Max2Play
+wget -O /opt/max2play/cache/libssl1.0.0.deb /opt/max2play/cache/ http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb7u4_armhf.deb
 dpkg -i /opt/max2play/cache/libssl1.0.0.deb
 
 /etc/init.d/logitechmediaserver restart

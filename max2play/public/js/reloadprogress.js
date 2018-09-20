@@ -1,5 +1,5 @@
 var reloadcount = 0;
-function reloadprogress(msgboxid, successurl, reloadWindowWhenFinished){
+function reloadprogress(msgboxid, successurl, reloadWindowWhenFinished, finishedText){
 	$("body").addClass("loading");
 	$.ajax({
         url : document.URL,
@@ -7,7 +7,11 @@ function reloadprogress(msgboxid, successurl, reloadWindowWhenFinished){
         data : "ajax=1&loadprogress=1"
     }).done(function (data) {
     	//reload message box (still in progress) OR reload window (finished) -> variable finished
-    	var Finished = data.match(/finished|Finished/g);
+    	if(!finishedText)
+    		finishedText = new RegExp('finished|Finished', "g");
+    	else
+    		finishedText = new RegExp(finishedText, "g");
+    	var Finished = data.match(finishedText);
     	if (Finished){
     		if(reloadWindowWhenFinished){
     			document.getElementById(msgboxid).innerHTML = data;

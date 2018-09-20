@@ -6,10 +6,13 @@ echo "Install Google Music as Plugin for Squeezebox Server"
 
 # Setup Environment
 apt-get update
-apt-get install python-pip python-dev cpanminus libio-socket-perl -y
-pip install gmusicapi==10.0.1
+apt-get install python-pip python-dev cpanminus -y
+apt-get install libio-socket-perl -y
+apt-get install libio-socket-ssl-perl libinline-python-perl -y
+pip install gmusicapi==10.1.2
 cpanm --notest Inline
 cpanm --notest Inline::Python
+cpanm --notest IO::Socket::SSL
 
 
 # Install Plugin

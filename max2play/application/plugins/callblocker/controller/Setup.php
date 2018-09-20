@@ -153,11 +153,12 @@ class Callblocker_Setup extends Service
         if ($this->linphone->host != '' && $this->linphone->user != '') {
             $this->linphone->running = $this->status('linphonec');
             $this->linphone->registered = $this->writeDynamicScript(array(
-                'linphonecsh generic "status registered"'
+                'linphonecsh generic "status registered"' //  2>&1 -> Pipe Connect Error on Debian Stretch Apache2
             ));
-            
+            // TODO: Add Debug Mode for start_linphone -d
+            // TODO: cannot connect to Pipe with www-data! Error is printed instead -  strpos($this->linphone->registered, 'ERROR') !== FALSE
             if (strpos($this->linphone->registered, 'registered=-1') !== FALSE || strpos($this->linphone->registered, 'registered=0') !== FALSE) {
-                $this->linphone->registered = _t('<span style="color:red;">Connection Failure - SIP not connected (check settings)</span>');
+                $this->linphone->registered = _t('<span style="color:red;">Connection Failure - SIP not connected (check settings)</span>'). ' '. $this->linphone->registered;
             } else {
                 $this->linphone->registered = _t('Successfull Connected') . ' ' . $this->linphone->registered;
             }
@@ -174,12 +175,20 @@ class Callblocker_Setup extends Service
             "echo '--host " . $_GET['linphone_host'] . " --username " . $_GET['linphone_user'] . " --password " . $_GET['linphone_password'] . "' > /opt/callblocker/linphone.conf",
             'sed -i "s/audiofile=[0-9]/audiofile=' . $_GET['tellows_audiofile'] . '/" /opt/callblocker/tellows.conf'
         ));
-        
-        // Restart Linphone Service
-        $this->writeDynamicScript(array(
-            "linphonecsh init;sleep 2;linphonecsh generic 'soundcard use files';linphonecsh register $(cat /opt/callblocker/linphone.conf);sleep 2;chmod a+rw /dev/null;"
-        ));
         $this->view->message[] = _t('VOIP-Settings Updated');
+        // Restart Linphone Service
+        
+        // TODO: NOT Working as User www-data with Apache on Stretch! -> shift to background service
+        // if Stretch -> Reboot is needed! Workaround: use Nginx or run command in cron        
+        $version = $this->getLinuxVersion();
+        if(isset($version[1]) && $version[1] == "stretch"){
+            $this->view->message[] = _t('Important: You need to reboot the device now, to connect to the VOIP Service.');
+        }else{
+            $this->writeDynamicScript(array(
+                "linphonecsh init;sleep 2;linphonecsh generic 'soundcard use files';linphonecsh register $(cat /opt/callblocker/linphone.conf);sleep 2;chmod a+rw /dev/null;"
+            ));
+        }
+        
         return true;
     }
 

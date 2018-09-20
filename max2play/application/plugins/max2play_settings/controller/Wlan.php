@@ -263,10 +263,11 @@ class Wlan extends Service
                     // set fixed IP
                     // $this->view->fixedinterface is set to eth0 / wlan0
                     // Set dnsserver to fixed Google DNS
-                    $shellanswer_eth = str_replace('iface ' . $this->view->fixedinterface . ' inet dhcp', "iface " . $this->view->fixedinterface . " inet static\n  address " . $fixedIP . "\n  gateway " . $gateway . "\n  dns-nameservers 8.8.8.8\n  netmask " . $this->view->networkmask, $shellanswer_eth);
+                    $shellanswer_eth = str_replace('iface ' . $this->view->fixedinterface . ' inet dhcp', "iface " . $this->view->fixedinterface . " inet static\n  address " . $fixedIP . "\n  gateway " . $gateway . "\n  dns-nameservers " . $gateway . "\n  dns-nameservers 8.8.8.8\n  netmask " . $this->view->networkmask, $shellanswer_eth);
                     $this->writeDynamicScript(array(
                         "sleep 3;echo '" . $shellanswer_eth . "' > " . $this->networkinterfaces . "; ifdown " . $this->view->fixedinterface . "; ifup " . $this->view->fixedinterface . ";"
                     ), $background = false, $deamon = true);
+                    sleep(5);
                     $this->view->message[] = str_replace('$FIXEDIP', $fixedIP, _('IP-Address set to $FIXEDIP'));
                     $this->view->message[] = _('Restarting Interface (especially WLAN0) might take some time (up to 1 minute)!');
                 } else {
