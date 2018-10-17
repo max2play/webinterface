@@ -268,6 +268,9 @@ class Rpi_functions extends Service
                     return true;
                 }
             }
+            if($dto_type == 'soundcard' && count($old_parameter) > 1){
+                // TODO: Remove all but one entry - should never have more than 1? -- not really needed
+            }
             
             if ($dto_value != '' && $value == '') {
                 // Remove by oldvalue

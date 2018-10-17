@@ -525,6 +525,12 @@ class Basic extends Service
             // check for updates
             if (isset($plugin['updateurl']) && $plugin['updateurl'] != '' && ! is_array($plugin['updateurl'])) {
                 $lastupdate = new DateTime();
+                // Check for missing complete Path in UpdateURL (e.g. coming from other sources / Preinstalled) and add path to Max2Play Server
+                // https://shop.max2play.com/media/downloadable/currentversion/$1.tar
+                if(strpos($plugin['updateurl'], 'http') === FALSE){
+                    $plugin['updateurl'] = 'https://shop.max2play.com/media/downloadable/currentversion/'. $plugin['updateurl'] .'.tar';
+                }
+                
                 // Switch Version of Plugin to beta / currentversion and change URL and force Update if path Changed
                 if ($version == 'beta') {
                     // PATH: http://shop.max2play.com/media/downloadable/beta/accesspoint.tar

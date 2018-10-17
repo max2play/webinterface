@@ -16,7 +16,7 @@ cpanm --notest IO::Socket::SSL
 
 
 # Install Plugin
-
+rm -R /var/lib/squeezeboxserver/Plugins/GoogleMusic
 pushd /var/lib/squeezeboxserver/Plugins
 mkdir GoogleMusic
 pushd /var/lib/squeezeboxserver/Plugins/GoogleMusic
