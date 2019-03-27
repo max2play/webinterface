@@ -238,7 +238,8 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 			cp /lib/systemd/system/apache2.service /etc/systemd/system/
 			echo "Apply Fix for private /tmp folder in Apache Service"
 			sed -i 's@PrivateTmp=true@PrivateTmp=false@' /etc/systemd/system/apache2.service
-		fi		
+		fi
+		sed -i 's@DefaultTimeoutStartSec=10@DefaultTimeoutStartSec=20@' /etc/systemd/system.conf
 	fi
 	
 	# Fix for NOT JESSIE and deleted usbmount rules

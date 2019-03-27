@@ -310,7 +310,7 @@ class Service
         if ($name == '')
             return false;
         if (! $autostartconf) {
-            $isactive = $this->shell_exec("ls /etc/rc2.d | grep -e 'S.*" . $name . "'");
+            $isactive = $this->shell_exec("ls /etc/rc2.d /etc/rc3.d | grep -e 'S.*" . $name . "'");
             if (strpos($isactive, $name) !== FALSE) {
                 $isactive = true;
             } else {

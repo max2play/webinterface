@@ -414,6 +414,7 @@ class Rpi_functions extends Service
                 // Check further...            
             } else {
                 $smaller = true;
+                return $smaller;
             }
         }
         return $smaller;

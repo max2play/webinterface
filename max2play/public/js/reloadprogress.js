@@ -8,10 +8,9 @@ function reloadprogress(msgboxid, successurl, reloadWindowWhenFinished, finished
     }).done(function (data) {
     	//reload message box (still in progress) OR reload window (finished) -> variable finished
     	if(!finishedText)
-    		finishedText = new RegExp('finished|Finished', "g");
-    	else
-    		finishedText = new RegExp(finishedText, "g");
-    	var Finished = data.match(finishedText);
+    		finishedText = 'finished|Finished';    	
+    	finishedRegex = new RegExp(finishedText, "g");
+    	var Finished = data.match(finishedRegex);
     	if (Finished){
     		if(reloadWindowWhenFinished){
     			document.getElementById(msgboxid).innerHTML = data;
@@ -21,7 +20,7 @@ function reloadprogress(msgboxid, successurl, reloadWindowWhenFinished, finished
     		}
     	}else{
     		document.getElementById(msgboxid).innerHTML = data;    	
-    		setTimeout(function(){reloadprogress("msgprogress", successurl, reloadWindowWhenFinished)}, 3000);
+    		setTimeout(function(){reloadprogress("msgprogress", successurl, reloadWindowWhenFinished, finishedText)}, 3000);
     	}
     	    	
     	$("body").removeClass("loading");
@@ -29,7 +28,7 @@ function reloadprogress(msgboxid, successurl, reloadWindowWhenFinished, finished
         //count tries
     	reloadcount = reloadcount + 1;
     	if(reloadcount < 200){    		
-    		setTimeout(function(){reloadprogress("msgprogress", successurl, reloadWindowWhenFinished)}, 3000);
+    		setTimeout(function(){reloadprogress("msgprogress", successurl, reloadWindowWhenFinished, finishedText)}, 3000);
     		//$("body").removeClass("loading");
     	}else{
     		alert('ERROR');
