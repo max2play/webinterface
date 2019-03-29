@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-13 14:25+0100\n"
-"PO-Revision-Date: 2018-03-20 15:47+0000\n"
+"PO-Revision-Date: 2019-03-06 08:44+0000\n"
 "Last-Translator: heiner <heineru92@gmail.com>\n"
 "Language-Team: \n"
 "Language: hu\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: y:\\projects\\max2play\n"
 "X-Poedit-SearchPath-1: y:\\projects\\svn_max2play\n"
-"X-POOTLE-MTIME: 1521560877.000000\n"
+"X-POOTLE-MTIME: 1551861853.000000\n"
 
 #: y:\projects\max2play/max2play/application/view/header.php:62
 #: y:\projects\max2play/max2play/application/plugins/squeezeplug/view/header_custom.php:64
@@ -29,7 +29,7 @@ msgstr ""
 #: y:\projects\svn_max2play/plugins/iqaudio/view/header_custom.php:62
 #: y:\projects\svn_max2play/plugins/frankenmatic/view/header_custom.php:62
 msgid "Version"
-msgstr ""
+msgstr "Verzió"
 
 #: y:\projects\max2play/max2play/application/view/header.php:68
 #: y:\projects\svn_max2play/plugins/audiophonics/view/header_custom.php:68
@@ -39,7 +39,7 @@ msgstr ""
 #: y:\projects\svn_max2play/plugins/iqaudio/view/header_custom.php:68
 #: y:\projects\svn_max2play/plugins/frankenmatic/view/header_custom.php:68
 msgid "License Activated"
-msgstr ""
+msgstr "Aktivált licensz"
 
 #: y:\projects\max2play/max2play/application/view/header.php:74
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/basic.php:64
@@ -50,29 +50,29 @@ msgstr ""
 #: y:\projects\svn_max2play/plugins/iqaudio/view/header_custom.php:74
 #: y:\projects\svn_max2play/plugins/frankenmatic/view/header_custom.php:74
 msgid "Not Activated"
-msgstr ""
+msgstr "Nincs aktiválva"
 
 #: y:\projects\max2play/max2play/application/view/faq.php:28
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/faq.php:28
 msgid "FAQ - frequently asked questions"
-msgstr ""
+msgstr "GYIK - Gyakran ismételt kérdések"
 
 #: y:\projects\max2play/max2play/application/view/footer.php:42
 msgid "Help on Sidebar can be reactivated on Settings-Page."
-msgstr ""
+msgstr "Az oldalsó súgót ki tudod kapcsolni a \"Beállítások\" menüben"
 
 #: y:\projects\max2play/max2play/application/view/footer.php:53
 #: y:\projects\max2play/max2play/application/plugins/callblocker/view/footer_custom.php:30
 msgid "Topics"
-msgstr ""
+msgstr "Témák"
 
 #: y:\projects\max2play/max2play/application/view/footer.php:56
 msgid "Wiki for this page"
-msgstr ""
+msgstr "Wiki, ezen az oldalon"
 
 #: y:\projects\max2play/max2play/application/view/footer.php:58
 msgid "Features"
-msgstr ""
+msgstr "Jellemzők"
 
 #: y:\projects\max2play/max2play/application/view/footer.php:59
 msgid "http://www.max2play.com/faq/"
@@ -81,7 +81,7 @@ msgstr "http://www.max2play.com/en/faq-2/"
 #: y:\projects\max2play/max2play/application/view/footer.php:59
 #: y:\projects\max2play/max2play/application/plugins/callblocker/view/footer_custom.php:33
 msgid "FAQ - Questions & Answers"
-msgstr ""
+msgstr "GYIK - Kérdések és válaszok"
 
 #: y:\projects\max2play/max2play/application/view/footer.php:60
 #, fuzzy
@@ -90,20 +90,19 @@ msgstr "http://www.max2play.com/en/faq-2/"
 
 #: y:\projects\max2play/max2play/application/view/footer.php:60
 msgid "Addons and Feature Requests"
-msgstr ""
+msgstr "Kiegészítőkkel és szolgáltatásokkal kapcsolatos kérések"
 
 #: y:\projects\max2play/max2play/application/view/footer.php:61
-#, fuzzy
 msgid "http://www.max2play.com/en/forums/"
-msgstr "http://www.max2play.com/en/faq-2/"
+msgstr "http://www.max2play.com/en/forums/"
 
 #: y:\projects\max2play/max2play/application/view/footer.php:61
 msgid "Technical Support"
-msgstr ""
+msgstr "Műszaki Támogatás"
 
 #: y:\projects\max2play/max2play/application/view/footer.php:66
 msgid "News"
-msgstr ""
+msgstr "Hírek"
 
 #: y:\projects\max2play/max2play/application/view/footer.php:71
 msgid "DONATE-BUTTON"
@@ -140,7 +139,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/controller/Start.php:89
 msgid "Created View-Files"
-msgstr ""
+msgstr "Nézet fájl létrehozása"
 
 #: y:\projects\max2play/max2play/application/controller/Start.php:150
 #: y:\projects\svn_max2play/plugins/audiophonics/controller/Setup.php:87

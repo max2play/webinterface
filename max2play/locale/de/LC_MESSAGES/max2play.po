@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Max2Play Übersetzungen\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-13 14:25+0100\n"
-"PO-Revision-Date: 2018-03-20 14:39+0000\n"
+"PO-Revision-Date: 2018-09-04 13:48+0000\n"
 "Last-Translator: heiner <heineru92@gmail.com>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: y:\\projects\\max2play\n"
 "X-Poedit-SearchPath-1: y:\\projects\\svn_max2play\n"
-"X-POOTLE-MTIME: 1521556778.000000\n"
+"X-POOTLE-MTIME: 1536068904.000000\n"
 "X-Poedit-SearchPath-2: y:\\projects\\max2play\\max2play\\application\\view\n"
 "X-Poedit-SearchPath-3: y:\\projects\\max2play\\max2play\\application\\"
 "config\n"
@@ -909,6 +909,9 @@ msgid ""
 "Enable / Disable SSH in Autostart. If you dont't need SSH (console login) "
 "you may just disable the service or only start it when needed."
 msgstr ""
+"Aktiviere / Deaktiviere SSH im Autostart. Falls SSH (Konsolenlogin) nicht "
+"benötigt wird, empfiehlt es sich diesen Service zu deaktivieren oder nur zu "
+"starten wenn nötig."
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/view/setup.php:117
 msgid ""
@@ -917,6 +920,10 @@ msgid ""
 "Anyway it is not recommended to make your device visible from the internet "
 "(e.g. portforwarding from router)."
 msgstr ""
+"Falls das Gerät erreichbar über das Internet sein sollte, sind sowohl "
+"Passwortschutz als auch die Einrichtung eines eigenen SSH Logins zwingend "
+"NOTWENDIG. Grundsätzlich ist es jedoch nicht empfohlen, das Gerät überhaupt "
+"sichtbar im Internet zu machen (z.B. mit Portforwarding vom Router)."
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/controller/Setup.php:35
 msgid "Password Protection"
@@ -924,19 +931,19 @@ msgstr "Passwortschutz"
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/controller/Setup.php:82
 msgid "Password Protection is now installed!"
-msgstr ""
+msgstr "Passwortschutz ist jetzt installiert!"
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/controller/Setup.php:92
 msgid "Password Protection is now removed!"
-msgstr ""
+msgstr "Passwortschutz ist jetzt entfernt!"
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/controller/Setup.php:100
 msgid "Password not set (must not be empty)"
-msgstr ""
+msgstr "Passwort nicht eingerichtet (darf nicht leer sein)"
 
 #: y:\projects\max2play/max2play/application/plugins/passwordprotection/controller/Setup.php:105
 msgid "Password changed for user"
-msgstr ""
+msgstr "Passwort geändert für user"
 
 #: y:\projects\max2play/max2play/application/plugins/example/view/setup.php:48
 msgid "This is the Example Setup Page. Configure and Test your own Plugin :)"
@@ -1884,32 +1891,36 @@ msgstr "Installiere gewähltes Plugin (benötigt etwas Zeit)"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeserver.php:102
 msgid "Save / Restore Squeezebox Server Settings"
-msgstr ""
+msgstr "Sichern / Wiederherstellen von Squeezebox Server Einstellungen"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeserver.php:106
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeserver.php:112
 msgid "Save Settings to File"
-msgstr ""
+msgstr "Sichere Einstellungen auf Datei"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeserver.php:107
 msgid "Restore Settings from File"
-msgstr ""
+msgstr "Einstellungen wiederherstellen von Datei"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeserver.php:111
 msgid ""
 "This saves the preferences directory of your Squeezebox Server to a single "
 "file, that can be used to restore settings later."
 msgstr ""
+"Dies speichert den Präferenzen-Ordner des Squeezebox Servers auf eine Datei, "
+"welche später genutzt werden kann zum Wiederherstellen der Einstellungen."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeserver.php:118
 msgid ""
 "Upload Settings File (created with the Max2Play export Settings tool) and "
 "Restore/Overwrite existing Settings"
 msgstr ""
+"Einstellungen Datei hochladen (erstellt mit dem Max2Play Export Settings "
+"Tool) und wiederherstellen/überschreiben der bestehenden Einstellungen"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeserver.php:120
 msgid "Restore Settings"
-msgstr ""
+msgstr "Einstellungen wiederherstellen"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/view/squeezeserver.php:138
 msgid "SQUEEZESERVER INFO DESCRIPTION"
@@ -2648,26 +2659,30 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeserver.php:277
 msgid "Cachefolder created"
-msgstr ""
+msgstr "Cache Ordner erstellt"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeserver.php:283
 msgid ""
 "Download Settings File: <a href=\"/cache/squeezebox_server_settings.tar"
 "\">squeezebox_server_settings.tar</a>"
 msgstr ""
+"Download Einstellungsdatei:<a href=\"/cache/squeezebox_server_settings.tar\""
+">squeezebox_server_settings.tar</a>"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeserver.php:288
 msgid "Trying to Restore Squeezebox Server Settings..."
-msgstr ""
+msgstr "Versuche Squeezebox Server Einstellungen wiederherzustellen..."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeserver.php:300
 msgid "Settings successfully restored! Please restart Squeezebox Server now."
 msgstr ""
+"Einstellungen erfolgreich wiederhergestellt! Bitte den Squeezebox Server "
+"jetzt neustarten."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeserver.php:302
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Squeezeserver.php:305
 msgid "Upload NOT successful!"
-msgstr ""
+msgstr "Hochladen NICHT erfolgreich!"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Filesystem.php:44
 msgid "Filesystem Mount"
@@ -2856,6 +2871,8 @@ msgstr ""
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:154
 msgid "Previous Reboot status unknown - click Reboot again to force Reboot."
 msgstr ""
+"Voriger Neustart Status unbekannt - klicke Neustart erneut um einen Neustart "
+"zu erzwingen."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:222
 msgid "Changed display resolution - Reboot needed"
@@ -2920,6 +2937,12 @@ msgid ""
 "email-address</a>. This is also useful if you lose your code or want to "
 "receive the Max2Play Magazine with tips on Setup and Hardware."
 msgstr ""
+"<b>Um ein Premium im Max2Play Forum angezeigt zu bekommen</b>, muss man <a "
+"href=\"https://www.max2play.com/en/getting-started/connect-your-license-code-"
+"to-your-email-address/\" target=\"_blank\"> den Premiumcode mit seiner Email-"
+"Adresse verknüpfen</a>. Dies hilft außerdem, dass man den Code nicht mehr "
+"verlieren kann und dass man das Max2Play Magazin erhält mit Tipps zur "
+"Einrichtung und Hardware."
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:418
 msgid ""
@@ -2991,7 +3014,7 @@ msgstr "Bitte klick hier um jetzt neuzustarten"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:554
 msgid "Filesystem already expanded - Nothing to do!"
-msgstr ""
+msgstr "Dateisystem bereits expandiert - nichts zu tun!"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:556
 msgid ""
@@ -3011,19 +3034,19 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:572
 msgid "NO Connection"
-msgstr ""
+msgstr "KEINE Verbindung"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:572
 msgid "Connected"
-msgstr ""
+msgstr "Verbunden"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:576
 msgid "Low Voltage (< 4.65V)"
-msgstr ""
+msgstr "Niedrige Spannung (<4.65V)"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:576
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:628
 msgid "udev-Rules added and reloaded... Completed"
@@ -3051,7 +3074,7 @@ msgstr ""
 
 #: y:\projects\max2play/max2play/application/plugins/max2play_settings/controller/Basic.php:684
 msgid "Health Checker"
-msgstr ""
+msgstr "Status Checker"
 
 #: y:\projects\max2play/max2play/application/plugins/kernelmodules_odroid_u3/view/setup.php:28
 msgid "Enable Kernelmodules for Odroid U3"
@@ -3117,7 +3140,7 @@ msgstr "In Liste gespeichert"
 
 #: y:\projects\svn_max2play/plugins/imageburner/controller/Setup.php:366
 msgid "Plugin $PLUGINNAME activated and added to main navigation."
-msgstr ""
+msgstr "Plugin $PLUGINNAME aktiviert und zum Hauptmenü hinzugefügt."
 
 #: y:\projects\svn_max2play/plugins/mpd/view/ampache.php:27
 #: y:\projects\svn_max2play/plugins/rpicam/view/setup.php:49
@@ -3149,7 +3172,7 @@ msgstr "Music Player MPD"
 
 #: y:\projects\svn_max2play/plugins/arbalet/controller/Setup.php:30
 msgid "Arbalet Control Center"
-msgstr ""
+msgstr "Arbalet Kontrollzentrum"
 
 #: y:\projects\svn_max2play/plugins/fhem/controller/Setup.php:27
 msgid "Fhem Setup"
@@ -3164,13 +3187,12 @@ msgstr "FHEM Deinstallation gestarted"
 #: y:\projects\svn_max2play/plugins/allo/view/setup.php:112
 #: y:\projects\svn_max2play/plugins/hifiberry/view/setup.php:88
 #: y:\projects\svn_max2play/plugins/iqaudio/view/setup.php:166
-#, fuzzy
 msgid "//www.youtube.com/embed/pZB4aSiW4c0"
 msgstr "http://www.youtube.com/embed/pZB4aSiW4c0"
 
 #: y:\projects\svn_max2play/plugins/audiophonics/controller/Setup.php:27
 msgid "Audiophonics"
-msgstr ""
+msgstr "Audiophonics"
 
 #: y:\projects\svn_max2play/plugins/audiophonics/controller/Setup.php:86
 #: y:\projects\svn_max2play/plugins/raspberrysettings/controller/Setup.php:355
@@ -3389,13 +3411,12 @@ msgstr "Druckserver Einstellungen"
 
 #: y:\projects\svn_max2play/plugins/justboom/view/setup.php:81
 msgid "Restart"
-msgstr ""
+msgstr "Neustarten"
 
 #: y:\projects\svn_max2play/plugins/justboom/view/setup.php:131
 #: y:\projects\svn_max2play/plugins/justboom/view/setup.php:141
-#, fuzzy
 msgid "Reset with Defaults"
-msgstr "Reset zum Standard"
+msgstr "Neustarten mit Standardeinstellungen"
 
 #: y:\projects\svn_max2play/plugins/justboom/controller/Setup.php:35
 msgid "JustBoom"
@@ -3406,6 +3427,9 @@ msgid ""
 "Card driver is not loaded yet! Please reboot and choose soundcard again to "
 "make sure MPD uses the correct card for volume settings!"
 msgstr ""
+"Kartentreiber noch nicht geladen! Bitte neustarten und Sounkarte erneut "
+"auswählen, um sicherzugehen, dass MPD die korrekte Karte für "
+"Lautstärkeregelung nutzt!"
 
 #: y:\projects\svn_max2play/plugins/jivelite/controller/Setup.php:21
 msgid "Jivelite"
@@ -3485,7 +3509,7 @@ msgstr "Frankenmatic"
 
 #: y:\projects\svn_max2play/plugins/spotifyconnect/controller/Setup.php:42
 msgid "Spotify Connect"
-msgstr ""
+msgstr "Spotify Connect"
 
 #~ msgid ""
 #~ "Activate Plugins by selecting them. Do multiple Selects by holding &quot;"

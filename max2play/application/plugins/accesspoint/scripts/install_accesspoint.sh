@@ -77,7 +77,10 @@ sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
 
 # Separate Jessie and Wheezy!
 RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")
-if [ "$RELEASE" == "jessie" -o "$RELEASE" == "stretch" ]; then 
+if [ "$RELEASE" == "jessie" -o "$RELEASE" == "stretch" ]; then
+# needed for new Stretch version to move to systemd script
+systemctl unmask hostapd
+cp -f $1hostapd.service /etc/systemd/system/
 echo "#Accesspoint start
 up iptables-restore < /etc/hostapd/iptables.ap
 #Accesspoint end" >> /etc/network/interfaces

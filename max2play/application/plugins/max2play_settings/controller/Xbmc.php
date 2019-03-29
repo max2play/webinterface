@@ -39,9 +39,14 @@ class Xbmc extends Service
         
         if (file_exists('/usr/local/bin/kodi') || file_exists('/usr/bin/kodi'))
             $this->pname = 'kodi';
-        $this->binaryname = '';
+        
+        $this->binaryname = '';        
         if (file_exists('/usr/lib/arm-linux-gnueabihf/kodi/kodi_v7.bin')) {
-            $this->binaryname = '_v7';
+            $this->binaryname = '_v7.bin';
+        }elseif (file_exists('/usr/lib/arm-linux-gnueabihf/kodi/kodi-rbpi_v7')) {
+            $this->binaryname = '-rbpi_v7';
+        }else{
+            $this->binaryname = '.bin';
         }
         
         if ($_REQUEST['ajax'] == 1 && strpos($_REQUEST['action'], 'install') !== FALSE) {
@@ -85,7 +90,7 @@ class Xbmc extends Service
             
             if ($_GET['action'] == 'stop') {
                 $this->stop('kodi-standalone', 'sudo kill -9 $PID');
-                $this->view->message[] = $this->stop($this->pname . $this->binaryname . '.bin', 'sudo kill -9 $PID');
+                $this->view->message[] = $this->stop($this->pname . $this->binaryname, 'sudo kill -9 $PID');
                 /*
                  * if($this->getHardwareInfo() == 'ODROID-XU3'){
                  * //on XU reinitX after stopping Kodi - TODO: Ubuntu 15.4 special?
@@ -108,7 +113,7 @@ class Xbmc extends Service
             }
         }
         $this->view->autostart = $this->checkAutostart($this->pname, true);
-        $this->view->pid = $this->status($this->pname . $this->binaryname . '.bin');
+        $this->view->pid = $this->status($this->pname . $this->binaryname);
         $this->getXbmcVersion();
         $this->getAllLogs();
     }

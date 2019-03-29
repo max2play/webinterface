@@ -212,7 +212,16 @@ class Rpi_functions extends Service
         'durio-sound-pro' => array(
             'dtoverlay' => 'hifiberry-dac',
             'name' => 'Durio Sound Pro'
-        )
+        ),
+        'aroio-dac' => array(
+            'dtoverlay' => 'hifiberry-dac', 
+            'name' => 'Aroio DAC', 
+            'squeezelite' => '-o sysdefault:CARD=sndrpihifiberry -a 80:4::', 
+            'shairport' => '-d default:CARD=sndrpihifiberry',  'mpd_device' => 
+            'default:CARD=sndrpihifiberry',
+            'mpd_mixer_control' => 'Digital', 
+            'amixercard' => 'sndrpihifiberry'
+        )        
     );
 
     /**
