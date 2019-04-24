@@ -1,6 +1,6 @@
 [Unit]
 Description=hostapd
-After=network.taget
+After=network.target remote_fs.target
 
 [Service]
 Type=forking

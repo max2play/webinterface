@@ -18,7 +18,14 @@ if [ "$WIFI_AVAILABLE" -lt "1" ]; then
 else
 	echo "WiFi detected"
 fi
-	
+
+RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")
+if [ "$RELEASE" == "jessie" -o "$RELEASE" == "stretch" ]; then
+    # needed for new Stretch version to move to systemd script
+    systemctl unmask hostapd
+    cp -f $1hostapd.service /etc/systemd/system/
+fi
+
 # Install everything and Check if hostapd and dnsmasq are existing
 if [ ! "$2" == "1" ]; then
 	apt-get update
@@ -38,8 +45,13 @@ if [ ! "$2" == "1" ]; then
 
 	# Copy config file for DHCP Server
 	cp -f $1dnsmasq.conf /etc/dnsmasq.conf
-	update-rc.d hostapd defaults
-	update-rc.d dnsmasq defaults
+	if [ "$RELEASE" == "stretch" ]; then
+		systemctl enable hostapd
+		systemctl enable dnsmasq
+	else	
+		update-rc.d hostapd defaults
+		update-rc.d dnsmasq defaults
+	fi	
 fi
 	
 if [ "$2" == "1" ]; then
@@ -76,11 +88,7 @@ sed -i "s/HOSTNAME/$HOSTNAME/" /etc/dnsmasq.conf
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
 
 # Separate Jessie and Wheezy!
-RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")
 if [ "$RELEASE" == "jessie" -o "$RELEASE" == "stretch" ]; then
-# needed for new Stretch version to move to systemd script
-systemctl unmask hostapd
-cp -f $1hostapd.service /etc/systemd/system/
 echo "#Accesspoint start
 up iptables-restore < /etc/hostapd/iptables.ap
 #Accesspoint end" >> /etc/network/interfaces
