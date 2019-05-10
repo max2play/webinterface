@@ -50,7 +50,18 @@ while true; do
         if [ "$DEBUG" == "1" ]; then
             echo "try FritzOS 7.0 Dataaccess" >> $LOGFILE
         fi
-        DEVICES=`wget --post-data="page=netDev" -T 10 -t 1 -O - "http://$IP/data.lua?sid=$SID" 2>/dev/null | grep -o -e '"state":"\(globe_online\|led_green\)","port":"WLAN","name":"[^"]\+"'`
+        # DEVICES=`wget --post-data="page=netDev" -T 10 -t 1 -O - "http://$IP/data.lua?sid=$SID" 2>/dev/null | grep -o -e '"state":"\(globe_online\|led_green\)","port":"WLAN","name":"[^"]\+"'`
+        
+        # Version 7.0
+        DEVICECALL=`wget --post-data="page=netDev" -T 10 -t 1 -O - "http://$IP/data.lua?sid=$SID" 2>/dev/null`
+        DEVICES=`echo $DEVICECALL | grep -o -e '"state":"\(globe_online\|led_green\)","port":"WLAN","name":"[^"]\+"'`
+        if [ "$DEVICES" == "" ]; then
+            if [ "$DEBUG" == "1" ]; then
+                echo "try FritzOS 7.1 Dataaccess" >> $LOGFILE
+            fi
+            # Version 7.10
+            DEVICES=`echo $DEVICECALL | grep -o -e '"port":"WLAN","name":"[^"]\+","model":"active","state":"\(globe_online\|led_green\)"'`
+        fi        
     fi
         
 	for (( i = 0; i < ${#DEVICE_LIST[@]} ; i++ ))
