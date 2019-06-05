@@ -297,8 +297,14 @@ class Filesystem extends Service
 
     public function setSambaPassword()
     {
-        if (strlen(str_replace('*', '', $_GET['sambpass'])) > 0) {
-            $output = shell_exec('sudo /opt/max2play/setSambaPass.sh "' . $_GET['sambpass'] . '"');
+        $pass = str_replace('*', '', $_REQUEST['sambpass']);
+        // make sure password has no quotes
+        if(strpos($pass, '"') !== FALSE){
+            $this->view->message[] = _('Password contains quotes - please use other characters') . ' - ' . $output;
+            return;
+        }
+        if (strlen($pass) > 0) {
+            $output = shell_exec('sudo /opt/max2play/setSambaPass.sh "' . $pass . '"');
             $this->view->message[] = _('Password changed') . ' - ' . $output;
             $this->restartSamba();
         }
