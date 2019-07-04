@@ -335,7 +335,7 @@ class Filesystem extends Service
                     $test2 = $m->setPath('/mnt/extdrive');
                 $test3 = $m->setType($this->view->mountpointsSDA[$device]['type']);
                 // Skip nobootwait on Debian Jessie! Use nofail instead
-                if (isset($version[1]) && ($version[1] == 'jessie' || $version[1] == 'xenial' || $version[1] == 'stretch')) {
+                if (isset($version[1]) && ($version[1] == 'jessie' || $version[1] == 'xenial' || $version[1] == 'stretch' || $version[1] == 'buster')) {
                     $bootoption = 'nofail,iocharset=utf8';
                 } else {
                     $bootoption = 'nobootwait';

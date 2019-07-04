@@ -36,6 +36,9 @@ HW_ODROID=$(cat /proc/cpuinfo | grep Hardware | grep -i Odroid | wc -l)
 LINUX=$(lsb_release -a 2>/dev/null | grep Distributor | sed "s/Distributor ID:\t//")
 RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")
 
+if [ "$LINUX" == "Raspbian" ]; then
+	LINUX="Debian"
+fi
 echo "Linux is $LINUX"
 echo "Release is $RELEASE"
 
@@ -61,6 +64,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
   	echo "Raise Partition 2 to at least 7000 by:"
   	echo -e "fdisk /dev/mmcblk0 <<EOF &>> resize\np\nd\n2\nn\np\n2\n$p2_start\n7000000\np\nw\nEOF\n"
   	echo "Execute 'sed -i \"s@^exit 0@resize2fs /dev/mmcblk0p2;sed -i \\\"s=resize.*==\\\" /etc/rc.local\nexit 0@\" /etc/rc.local' and reboot to finish Filesystem expand!"
+  	exit 1
   fi
   # Remove further not wanted packages?
   echo "Y" | sudo apt-get remove wolfram-engine
@@ -108,6 +112,8 @@ if [ "$RELEASE" == "xenial" ]; then
 	# Make sure eth0 is named correctly	
 	# TODO: double Check this entry!
 	sudo echo 'SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="*", ATTR{dev_id}=="0x0", ATTR{type}=="1", KERNEL=="eth*", NAME="eth0"' >> /etc/udev/rules.d/70-persistent-net.rules
+elif [ "$RELEASE" == "buster" ]; then
+	sudo echo "Y" | apt-get install apache2 php php-json php-xml -y
 else
 	sudo echo "Y" | apt-get install apache2 php5 php5-json -y
 fi
@@ -163,14 +169,17 @@ mkdir /usr/lib/alsa-lib
 make install
 mkdir /usr/lib/arm-linux-gnueabihf/alsa-lib/
 cp -R /usr/lib/alsa-lib/* /usr/lib/arm-linux-gnueabihf/alsa-lib/
+cp /usr/lib/ladspa/caps.so /usr/lib/
 
 #Squeezelite
-echo -e "Y\ny\n" | apt-get install libav-tools cmake
+echo -e "Y\ny\n" | apt-get install libav-tools cmake -y
+echo -e "Y\ny\n" | apt-get install cmake -y
 # Debian Wheezy soxr
 if [ "$HW_RASPBERRY" -gt "0" ] && [ "$LINUX" == "Debian" ]; then	
 	# not neccesary with Raspbian Jessie
 	echo -e "Y\ny\n" | apt-get install libavformat-dev libmpg123-dev libfaad-dev libvorbis-dev libmad0-dev libflac-dev libasound2-dev	
 	echo -e "Y\ny\n" | apt-get install ffmpeg
+	echo -e "Y\ny\n" | apt-get install liblircclient-dev wiringpi -y		
 	pushd /tmp
 	wget -O soxr.tar.gz --max-redirect=3 "http://downloads.sourceforge.net/project/soxr/soxr-0.1.1-Source.tar.xz"
 	tar -xf soxr.tar.gz
@@ -180,7 +189,8 @@ if [ "$HW_RASPBERRY" -gt "0" ] && [ "$LINUX" == "Debian" ]; then
 	make install
 else
    	echo -e "Y\ny\n" | apt-get install libavformat-dev ffmpeg libmpg123-dev libfaad-dev libvorbis-dev libmad0-dev libflac-dev libasound2-dev -y
-   	echo -e "Y\ny\n" | apt-get install libsoxr-dev lirc liblircclient-dev wiringpi -y
+   	echo -e "Y\ny\n" | apt-get install libsoxr-dev liblircclient-dev wiringpi -y
+   	echo "Install lirc later..."
    	ldconfig
 fi
 
@@ -240,13 +250,19 @@ pushd $CWD
 if [ "$LINUX" == "Debian" ]; then
 	#Doesnt work on Ubuntu 14.04
 	pushd /tmp
-	git clone https://github.com/hzeller/gmrender-resurrect.git
+	
+	if [ "$RELEASE" == "buster" ]; then
+		git clone https://github.com/coldtobi/gmrender-resurrect.git --branch upnp-18		
+		sudo apt-get install libupnp-dev libgstreamer0.10-dev libglib2.0-dev gstreamer0.10-plugins-base gstreamer0.10-alsa -y
+	else
+		git clone https://github.com/hzeller/gmrender-resurrect.git
+	fi
 	cd gmrender-resurrect
 	echo "Y" | sudo apt-get install autoconf automake libtool
 	echo "Y" | sudo apt-get install libupnp-dev libgstreamer0.10-dev \
 	    gstreamer0.10-plugins-base gstreamer0.10-plugins-good \
 	    gstreamer0.10-plugins-bad gstreamer0.10-plugins-ugly \	    
-	    gstreamer0.10-pulseaudio gstreamer0.10-alsa
+	    gstreamer0.10-pulseaudio gstreamer0.10-alsa -y
 	#gstreamer0.10-ffmpeg -> debian jessie not available
 	sudo ./autogen.sh
 	sudo ./configure
@@ -267,6 +283,13 @@ cp /opt/max2play/audioplayer.conf /opt/max2play/audioplayer.conf.sav
 
 if [ "$HW_RASPBERRY" -gt "0" ]; then
 	pushd $CWD					
+	
+	# Lirc installieren
+	apt-get install lirc -y
+	cp /etc/lirc/lirc_options.conf.dist /etc/lirc/lirc_options.conf
+	apt-get install -f
+	# Dhcpcd not needed because of etc/network/interfaces
+	systemctl disable dhcpcd
 	
 	#Raspberry PI: User PI nutzen!
 	echo "SYSTEM_USER=pi" >> /opt/max2play/audioplayer.conf	
@@ -321,7 +344,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	echo "TODO: Run raspbi-config at least one time AND Reboot!"
 	
 	#Debian Jessie Lite:
-	if [ "$RELEASE" == "jessie" -o "$RELEASE" == "stretch" ]; then 
+	if [ "$RELEASE" == "jessie" -o "$RELEASE" == "stretch" -o "$RELEASE" == "buster" ]; then 
 		pushd $CWD
 		# optional: run some fixes when upgrading from wheezy
 		# https://www.raspberrypi.org/forums/viewtopic.php?t=121880
@@ -334,7 +357,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		# eth0 Start by ifplugd 
 		cp -rf max2play/CONFIG_SYSTEM/default/ifplugd /etc/default/ifplugd
 		
-		if [ "$RELEASE" == "stretch" ]; then
+		if [ "$RELEASE" == "stretch" -o "$RELEASE" == "buster" ]; then
 		   echo "Change Network Device Names back to old style eth0"
 		   if [ "$(grep 'net.ifnames=0' /boot/cmdline.txt | wc -l)" -lt "1"  ]; then 
 		      sed -i 's/rootwait/net.ifnames=0 biosdevname=0 avoid_safe_mode=1 rootwait/' /boot/cmdline.txt
@@ -348,7 +371,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		   # sed -i "s/^MountFlags=.*/MountFlags=shared/" /lib/systemd/system/systemd-udevd.service
 		   # Usbmount use Service and bind to Udev Rule
 		   echo -e "[Unit]\nBindTo=%i.device\nAfter=%i.device\n\n[Service]\nType=oneshot\nTimeoutStartSec=0\nEnvironment=DEVNAME=%I\nExecStart=/usr/share/usbmount/usbmount add\nRemainAfterExit=yes" > /etc/systemd/system/usbmount@.service
-		   echo "# Rules for USBmount -*- conf -*-\nKERNEL==\"sd*\", DRIVERS==\"sbp2\",         ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"sd*\", SUBSYSTEMS==\"usb\",       ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"ub*\", SUBSYSTEMS==\"usb\",       ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"sd*\",                          ACTION==\"remove\",       RUN+=\"/usr/share/usbmount/usbmount remove\"\nKERNEL==\"ub*\",                          ACTION==\"remove\",       RUN+=\"/usr/share/usbmount/usbmount remove\"" > /etc/udev/rules.d/usbmount.rules
+		   echo -e "# Rules for USBmount -*- conf -*-\nKERNEL==\"sd??\", DRIVERS==\"sbp2\",         ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"sd??\", SUBSYSTEMS==\"usb\",       ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"ub*\", SUBSYSTEMS==\"usb\",       ACTION==\"add\",  PROGRAM=\"/bin/systemd-escape -p --template=usbmount@.service \$env{DEVNAME}\", ENV{SYSTEMD_WANTS}+=\"%c\"\nKERNEL==\"sd??\",                          ACTION==\"remove\",       RUN+=\"/usr/share/usbmount/usbmount remove\"\nKERNEL==\"ub*\",                          ACTION==\"remove\",       RUN+=\"/usr/share/usbmount/usbmount remove\"" > /etc/udev/rules.d/usbmount.rules
 		   rm /lib/udev/rules.d/usbmount.rules
 		   
 		   echo "Remove spam logging of lircd"
@@ -376,6 +399,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		#Disable IPv6 for Apache
 		sed -i 's/Listen 80/Listen 0.0.0.0:80/' /etc/apache2/ports.conf
 		
+		echo "put setupstartpage=1 to /opt/max2play/options.conf"
 		echo "optional: run raspbi-config and choose wait for network at boot, as this is done in rc.local!"
 	fi
 fi
@@ -506,6 +530,8 @@ if [ "$HW_ODROID" -gt "0" ]; then
 	echo "ON XU4: set kodi sound to always on"
 	echo "TODO: REBOOT !!!"
 fi
+
+chmod 777 /opt/max2play/wpa_supplicant.conf
 
 echo "To Install Autoconfig run: "
 echo "sed -i \"s@^#Max2Play\\\$@#Max2Play\nif [ -e /boot/max2play.conf ]; then /opt/max2play/autoconfig.sh; fi\n@\" /etc/rc.local" 

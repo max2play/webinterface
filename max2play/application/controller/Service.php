@@ -588,9 +588,10 @@ class Service
         
         fwrite($fp, "#!/bin/bash\n");
         
-        foreach ($script as $s)
-            fwrite($fp, "\n" . str_ireplace("\x0D", "", $s));
-        
+        if(is_array($script)){
+            foreach ($script as $s)
+                fwrite($fp, "\n" . str_ireplace("\x0D", "", $s));
+        }
         fclose($fp);
         
         if ($this->readonly_fs)
@@ -745,7 +746,7 @@ class Service
             else
                 $this->view->message[] = _('Installation startet - This Messages refreshes every 3 seconds to show current status of installation. If finished this message disappears.');
             // Separate Parameters from current Filename
-            if (! url)
+            if (! $url)
                 $url = preg_replace('=\?.*$=', '', $_SERVER['REQUEST_URI']);
                 $this->view->message[] = '<div id="msgprogress"></div><script type="text/javascript">setTimeout(function(){reloadprogress("msgprogress", "' . $url . '", ' . $reloadWhenFinished . ', "'.$finishedText.'")}, 3000);</script>';
             return true;
@@ -859,13 +860,16 @@ class Service
     public function getHardwareInfo()
     {
         $hwByRevisionRegex = array(
-            'a.2082' => 'Raspberry PI 3',
+            'a.208[23]' => 'Raspberry PI 3',
             'a.[12]04[12]' => 'Raspberry PI 2',
             '^9000[923c1]+' => 'Raspberry PI Zero',
             '000[23456def]' => 'Raspberry PI B',
             '001[03]' => 'Raspberry PI B+',
             '000[789]' => 'Raspberry PI A',
-            '0012' => 'Raspberry PI A+'
+            '0012' => 'Raspberry PI A+',
+            'a03111' => 'Raspberry PI 4B 1GB',
+            'b03111' => 'Raspberry PI 4B 2GB',
+            'c03111' => 'Raspberry PI 4B 4GB'
         );
         
         if (! $this->info->hardware) {

@@ -241,6 +241,9 @@ class Rpi_functions extends Service
         $dto_entries['bluetooth'] = array(
             'pi3-disable-bt'
         );
+        $dto_entries['display'] = array(
+            'vc4-fkms-v3d'
+        );
         // TODO: add dtoverlay=gpio-ir-tx,gpio_pin=18 for transmitting
         $dto_entries['lirc'] = array(
             'lirc-rpi(,gpio_in_pin=[0-9]+)?(,gpio_out_pin=[0-9]+)?',

@@ -181,7 +181,7 @@ class Callblocker_Setup extends Service
         // TODO: NOT Working as User www-data with Apache on Stretch! -> shift to background service
         // if Stretch -> Reboot is needed! Workaround: use Nginx or run command in cron        
         $version = $this->getLinuxVersion();
-        if(isset($version[1]) && $version[1] == "stretch"){
+        if(isset($version[1]) && ($version[1] == "stretch" || $version[1] == "buster")){
             $this->view->message[] = _t('Important: You need to reboot the device now, to connect to the VOIP Service.');
         }else{
             $this->writeDynamicScript(array(

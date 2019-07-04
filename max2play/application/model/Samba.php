@@ -90,7 +90,7 @@ class Samba
         } elseif ($assoc) {
             return $this->options;
         } else {
-            $opt = '';
+            $opt = array();
             foreach ($this->options as $key => $value)
                 $opt[] = $key . ' = ' . $value;
             return implode("\r\n", $opt);

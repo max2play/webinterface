@@ -10,7 +10,7 @@ if [ ! "$1" == "1" ]; then
 	echo "Y" | apt-get purge dnsmasq
 else
 	RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")
-	if [ "$RELEASE" == "stretch" ]; then
+	if [ "$RELEASE" == "stretch" -o "$RELEASE" == "buster" ]; then
 		systemctl disable hostapd
 		systemctl disable dnsmasq
 	else

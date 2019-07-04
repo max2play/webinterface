@@ -285,7 +285,12 @@ class Squeezeserver extends Service
     {
         $out['SQUEEZESERVER LOG'] = shell_exec('cat /var/log/squeezeboxserver/server.log 2>/dev/null');
         $out['PERL VERSION'] = trim(shell_exec('perl -v | grep -e "v[0-9\.]\{5,\}" -o'));
-        $this->view->perlversion = substr($out['PERL VERSION'], 1, 4);
+        $this->view->perlversion = trim(substr($out['PERL VERSION'], 1, 4));
+        // Check for existing Perl support in SqueezeboxServer
+        $out['SQUEEZEBOXSERVER PERL VERSION FOUND'] = trim(shell_exec('ls /usr/share/squeezeboxserver/CPAN/arch | grep "'.$this->view->perlversion.'"'));
+        if($out['SQUEEZEBOXSERVER PERL VERSION FOUND'] == '' && $this->view->installed){
+            $this->view->error[] = _('ERROR: Installed Squeezeboxserver Version does not support installed Perl Version. Try to install the Nightly Version of Squeezebox Server!').' '.'Perl Version: '.$this->view->perlversion;
+        }
         $this->view->debug = $out;
         return true;
     }

@@ -96,7 +96,7 @@ update-rc.d resize2fs_once defaults
 
 # On Raspbian Jessie or Stretch just start script...
 VERSION=$(lsb_release -a 2>/dev/null | grep "Codename" | sed "s/Codename:\t//")
-if [ "$VERSION" = "jessie" -o "$VERSION" = "stretch" ]; then
+if [ "$VERSION" = "jessie" -o "$VERSION" = "stretch" -o "$VERSION" = "buster" ]; then
 	/etc/init.d/resize2fs_once start
 	sed -i "s@^exit 0@resize2fs /dev/$PARTITION;sed -i \"s=resize.*==\" /etc/rc.local\nexit 0@" /etc/rc.local
 fi

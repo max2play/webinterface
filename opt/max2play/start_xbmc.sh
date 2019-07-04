@@ -17,7 +17,7 @@ if [ "1" -gt "$xbmcrunning" ]; then
 		/etc/init.d/mpd stop
 	fi
 	RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")
-	if [ "$RELEASE" != "jessie" -a "$RELEASE" != "stretch" ]; then
+	if [ "$RELEASE" != "jessie" -a "$RELEASE" != "stretch" -a "$RELEASE" != "buster" ]; then
 		# Fix for XU3/XU4 and Ubuntu 15.04
 		killall pulseaudio
 		# TODO: remove PID Files!
@@ -27,7 +27,9 @@ if [ "1" -gt "$xbmcrunning" ]; then
 	# foreground black is specifically needed if desktop is restarting in background or any other console tasks are running
 	sudo sh -c "TERM=linux setterm -foreground black --clear all >/dev/tty0"
 	
-	if [ -e /usr/local/bin/kodi ]; then
+	if [ "$RELEASE" == "buster" ]; then
+		/usr/bin/kodi
+	elif [ -e /usr/local/bin/kodi ]; then
 		/usr/local/bin/kodi
 	elif [ -e /usr/bin/kodi-standalone ]; then
         /usr/bin/kodi-standalone

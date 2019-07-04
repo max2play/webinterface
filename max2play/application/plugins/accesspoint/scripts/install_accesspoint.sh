@@ -20,10 +20,14 @@ else
 fi
 
 RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")
-if [ "$RELEASE" == "jessie" -o "$RELEASE" == "stretch" ]; then
+if [ "$RELEASE" == "jessie" -o "$RELEASE" == "stretch" -o "$RELEASE" == "buster" ]; then
     # needed for new Stretch version to move to systemd script
     systemctl unmask hostapd
     cp -f $1hostapd.service /etc/systemd/system/
+    if [ ! -e /etc/hostapd/hostapd.conf ]; then
+    	cp -f $1hostapd.conf /etc/hostapd/hostapd.conf
+		sed -i 's/.*DAEMON_CONF.*/DAEMON_CONF="\/etc\/hostapd\/hostapd.conf"/' /etc/default/hostapd
+	fi
 fi
 
 # Install everything and Check if hostapd and dnsmasq are existing
@@ -45,7 +49,7 @@ if [ ! "$2" == "1" ]; then
 
 	# Copy config file for DHCP Server
 	cp -f $1dnsmasq.conf /etc/dnsmasq.conf
-	if [ "$RELEASE" == "stretch" ]; then
+	if [ "$RELEASE" == "stretch" -o "$RELEASE" == "buster" ]; then
 		systemctl enable hostapd
 		systemctl enable dnsmasq
 	else	
@@ -66,8 +70,13 @@ if [ "$2" == "1" ]; then
 			echo "Y" | apt-get install hostapd dnsmasq
 			cp -f $1dnsmasq.conf /etc/dnsmasq.conf
 			## Script start_accesspoint_onboot.sh will do the startup if not network connection available
-			update-rc.d hostapd remove
-			update-rc.d -f dnsmasq disable
+			if [ "$RELEASE" == "buster" ]; then
+				systemctl disable hostapd
+				systemctl disable dnsmasq
+			else	
+				update-rc.d hostapd remove
+				update-rc.d -f dnsmasq disable
+			fi			
 		fi
 	fi 
 	
@@ -88,7 +97,7 @@ sed -i "s/HOSTNAME/$HOSTNAME/" /etc/dnsmasq.conf
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
 
 # Separate Jessie and Wheezy!
-if [ "$RELEASE" == "jessie" -o "$RELEASE" == "stretch" ]; then
+if [ "$RELEASE" == "jessie" -o "$RELEASE" == "stretch" -o "$RELEASE" == "buster" ]; then
 echo "#Accesspoint start
 up iptables-restore < /etc/hostapd/iptables.ap
 #Accesspoint end" >> /etc/network/interfaces

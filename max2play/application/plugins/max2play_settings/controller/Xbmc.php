@@ -75,7 +75,7 @@ class Xbmc extends Service
                 
                 if ($this->getSystemUser() == 'pi') {
                     // auf Rasbperry PI 1/2
-                    $this->view->message[] = $this->start($this->pname, 'export DISPLAY=\':0\';sudo -u pi -H -s /opt/max2play/start_xbmc.sh >> /dev/null 2>&1 &', '', true);
+                    $this->view->message[] = $this->start($this->pname, 'export DISPLAY=\':0\';sudo -u pi -H -E -s /opt/max2play/start_xbmc.sh >> /dev/null 2>&1 &', '', true);
                     sleep(3);
                 } elseif ($this->getSystemUser() != '') {
                     // Methode odroid
