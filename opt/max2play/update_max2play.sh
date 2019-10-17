@@ -7,8 +7,8 @@ else
 fi
    
 echo "Get Data"
-wget "http://shop.max2play.com/media/downloadable/$VERSION/webinterface.zip" -O /opt/max2play/cache/webinterface.zip
-wget "http://shop.max2play.com/media/downloadable/$VERSION/scripts.zip" -O /opt/max2play/cache/scripts.zip
+wget "https://shop.max2play.com/media/downloadable/$VERSION/webinterface.zip" -O /opt/max2play/cache/webinterface.zip
+wget "https://shop.max2play.com/media/downloadable/$VERSION/scripts.zip" -O /opt/max2play/cache/scripts.zip
 
 echo "Install Webinterface"
 if [ -e /var/www/max2play/application/config/plugins.xml ]; then 

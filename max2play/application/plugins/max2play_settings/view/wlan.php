@@ -176,6 +176,19 @@ if (isset($wlan->view->wlanNetworks) && isset($wlan->view->wlanNetworks[0])) {
 						onclick="document.getElementById('action').value='save';submit();" />
 				</p>
 			</div>
+			
+			<h3><?php echo _('Install missing WiFi drivers') ?></h3>
+			<div>
+				<p>
+		    <?php echo _("If your current WiFi Module is not working due to a missing driver (e.g. TP-LINK TL-WN823N) you may install the driver by clicking the button below.") ?><br />
+		    <?php echo _("Make sure to have the WiFi dongle connected to the Pi when starting to install the driver. The install script is from fars-robotics.net") ?>
+		    <br />
+		    <input type="button"
+						value="<?php echo _("Install Driver") ?>" name="installwifidriver"
+						onclick="document.getElementById('action').value='installwifidriver';submit();" />
+				</p>
+			</div>
+			
 		</div>
 
 		<script>

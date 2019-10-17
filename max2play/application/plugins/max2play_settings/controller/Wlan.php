@@ -53,6 +53,9 @@ class Wlan extends Service
             if ($_GET['action'] == 'scanWlanNetworks') {
                 $this->_showWlanNetworks();
             }
+            if ($_GET['action'] == 'installwifidriver') {
+                $this->installWifiDriver();
+            }
         }
         $this->showHelpSidebar();
     }
@@ -477,6 +480,15 @@ class Wlan extends Service
         global $helpSidebar;
         $helpSidebar['title'] = _('Help - WiFi & LAN');
         $helpSidebar['content'] = _('<ul><li>On this page you may set up and configure your WiFi and see details on the connected interfaces and their IP-Address.</li><li><a href="https://youtu.be/HsEBb_CIJ5A" target="blank">Watch a video showing WiFi setup with Max2Play</a></li><li>Step by Step: search for networks - choose you prefered network, activate the enable WiFi checkbox, enter the password and click save.</li></ul>');
+        return true;
+    }
+    
+    public function installWifiDriver(){
+        $this->view->message[] = nl2br($this->writeDynamicScript(array(
+            'wget http://fars-robotics.net/install-wifi -O /opt/max2play/install-wifi.sh',
+            'chmod +x /opt/max2play/install-wifi.sh',
+            '/opt/max2play/install-wifi.sh'
+        )));
         return true;
     }
 }

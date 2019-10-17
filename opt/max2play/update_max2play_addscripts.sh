@@ -242,6 +242,11 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		sed -i 's@DefaultTimeoutStartSec=10@DefaultTimeoutStartSec=20@' /etc/systemd/system.conf
 	fi
 	
+	# Fix for moving Repository mode from testing to stable 
+	if [ "$RELEASE" = "buster" ]; then
+		apt update -y
+	fi
+	
 	# Fix for NOT JESSIE and deleted usbmount rules
 	if [ "$ISJESSIE" -lt "1" -a ! "$RELEASE" = "stretch" -a ! "$RELEASE" = "buster" -a ! -e /lib/udev/rules.d/usbmount.rules ]; then
 		echo "Remove Fix for USB-Mount on NON-Jessie"

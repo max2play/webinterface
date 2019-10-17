@@ -14,6 +14,12 @@ else
 		# Needed for SSL connections e.g. Github Repositories
 		apt-get install libio-socket-ssl-perl -y
 		
+		# Buster Fix
+		RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")
+		if [ "$RELEASE" = "buster" ]; then
+			apt-get install libcrypt-openssl-rsa-perl -y
+		fi
+		
 		#Uninstall to remove problems with plugins
 		apt-get remove logitechmediaserver
 		wget -O /opt/max2play/lms.deb $source -a /opt/max2play/cache/install_lms.txt

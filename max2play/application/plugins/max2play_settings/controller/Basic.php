@@ -483,7 +483,7 @@ class Basic extends Service
         $this->_checkPluginUpdates($version);
         
         // Check auf Update
-        $file = file_get_contents('http://shop.max2play.com/media/downloadable/currentversion/version.txt');
+        $file = file_get_contents('https://shop.max2play.com/media/downloadable/currentversion/version.txt');
         if ((float) $this->info->version < (float) $file) {
             $this->view->message[] = _('Max2Play update started');
             // Start Script -> Download Files for Webserver and /opt/max2play
@@ -529,6 +529,10 @@ class Basic extends Service
                 // https://shop.max2play.com/media/downloadable/currentversion/$1.tar
                 if(strpos($plugin['updateurl'], 'http') === FALSE){
                     $plugin['updateurl'] = 'https://shop.max2play.com/media/downloadable/currentversion/'. $plugin['updateurl'] .'.tar';
+                }
+                // Always use https for shop.max2play
+                if(strpos($plugin['updateurl'], 'https') === FALSE && strpos($plugin['updateurl'], 'shop.max2play.com') !== FALSE){
+                    $plugin['updateurl'] = str_replace('http', 'https', $plugin['updateurl']);
                 }
                 
                 // Switch Version of Plugin to beta / currentversion and change URL and force Update if path Changed

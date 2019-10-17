@@ -6,6 +6,8 @@ xbmcrunning=$(ps -Al | grep "xbmc.bin\|kodi.bin" | wc -l)
 # Only stop Audioplayer for XBMC when no USB-DAC is used
 useusbdac=$(grep -a USE_USB_DAC=1 /opt/max2play/audioplayer.conf | wc -l)
 
+RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")
+
 if [ "1" -gt "$xbmcrunning" ]; then
 
 	if [ "1" -gt "$useusbdac" ]; then
@@ -16,7 +18,7 @@ if [ "1" -gt "$xbmcrunning" ]; then
 	if [ -e /etc/init.d/mpd ]; then 
 		/etc/init.d/mpd stop
 	fi
-	RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")
+	
 	if [ "$RELEASE" != "jessie" -a "$RELEASE" != "stretch" -a "$RELEASE" != "buster" ]; then
 		# Fix for XU3/XU4 and Ubuntu 15.04
 		killall pulseaudio
@@ -27,8 +29,9 @@ if [ "1" -gt "$xbmcrunning" ]; then
 	# foreground black is specifically needed if desktop is restarting in background or any other console tasks are running
 	sudo sh -c "TERM=linux setterm -foreground black --clear all >/dev/tty0"
 	
-	if [ "$RELEASE" == "buster" ]; then
-		/usr/bin/kodi
+	if [ "$RELEASE" = "buster" ]; then	    
+		sudo chvt 8
+		/usr/bin/kodi-rpi4		
 	elif [ -e /usr/local/bin/kodi ]; then
 		/usr/local/bin/kodi
 	elif [ -e /usr/bin/kodi-standalone ]; then

@@ -45,7 +45,10 @@ class Xbmc extends Service
             $this->binaryname = '_v7.bin';
         }elseif (file_exists('/usr/lib/arm-linux-gnueabihf/kodi/kodi-rbpi_v7')) {
             $this->binaryname = '-rbpi_v7';
-        }else{
+        }elseif (file_exists('/usr/bin/kodi-rpi4')) {
+            $this->binaryname = '-rpi4';
+        }
+        else{
             $this->binaryname = '.bin';
         }
         
@@ -90,7 +93,14 @@ class Xbmc extends Service
             
             if ($_GET['action'] == 'stop') {
                 $this->stop('kodi-standalone', 'sudo kill -9 $PID');
-                $this->view->message[] = $this->stop($this->pname . $this->binaryname, 'sudo kill -9 $PID');
+                if($this->binaryname == '-rpi4'){
+                    // for buster additional stop                    
+                    $this->view->message[] = $this->stop('kodi-gbm', 'sudo kill -9 $PID');
+                    $this->writeDynamicScript(array('export DISPLAY=:0;chvt 2;'));
+                }else{
+                    $this->view->message[] = $this->stop($this->pname . $this->binaryname, 'sudo kill -9 $PID');
+                }
+                
                 /*
                  * if($this->getHardwareInfo() == 'ODROID-XU3'){
                  * //on XU reinitX after stopping Kodi - TODO: Ubuntu 15.4 special?
@@ -156,6 +166,22 @@ class Xbmc extends Service
         $this->xbmcversion = trim($this->writeDynamicScript(array(
             'dpkg -s ' . $this->pname . ' | grep Version'
         )));
+
+        // Check for Buster and Beta Kodi        
+        $this->getHardwareInfo();
+        if($this->info->hardware == 'Raspberry PI' && strpos($this->info->boardname, 'Raspberry PI 4B') !== FALSE){
+            $version = $this->getLinuxVersion();
+            if(isset($version[1]) && $version[1] == 'buster'){
+                if($this->binaryname != '-rpi4'){
+                    $this->view->error[] = _('A Beta version of Kodi for RPI-4 is available for installation! <a href="/plugins/max2play_settings/controller/Xbmc.php?action=install&downloadurl=kodiupgradepi">Click here to install now</a>.');
+                }else{
+                    $this->xbmcversion = trim($this->writeDynamicScript(array(
+                        'dpkg -s ' . $this->pname . '-rpi4 | grep Version'
+                    )));
+                }
+            }
+        }
+        
         if ($this->xbmcversion == '')
             $this->xbmcversion = $this->writeDynamicScript(array(
                 'dpkg -s xbmc | grep Version'

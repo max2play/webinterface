@@ -494,7 +494,7 @@ class Service
     {
         $this->getVersion();
         // Check for Update
-        $file = $this->getExternalFile('http://shop.max2play.com/media/downloadable/currentversion/version.txt', 3);
+        $file = $this->getExternalFile('https://shop.max2play.com/media/downloadable/currentversion/version.txt', 3);
         if (strpos($this->info->version, 'Beta') !== FALSE) {
             $this->view->message[] = _('You are running a Beta-Version of Max2Play!');
         } elseif ((float) $this->info->version < (float) $file) {
