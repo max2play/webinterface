@@ -1474,11 +1474,14 @@ class Service
     public function checkAccessRights()
     {
         if (file_exists('/tmp/automatic_accesspoint_mode')) {
-            // Disallow all but WiFi Configuration
+            // Disallow all but WiFi Configuration            
             if (! in_array(get_called_class(), array(
                 'Service',
                 'Wlan'
             ))) {
+                // Allow Reboot and Shutdown Basic.php?action=reboot
+                if(get_called_class() == 'Basic' && ($_REQUEST['action'] == 'reboot' || $_REQUEST['action'] == 'shutdown'))
+                    return true;
                 $this->view->message[] = _('Device is started in Automatic Accesspoint Mode. For security, only WiFi configuration is possible to connect Max2Play to your local network.');
                 unset($_REQUEST);
                 unset($_GET);

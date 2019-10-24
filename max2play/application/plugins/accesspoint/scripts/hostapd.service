@@ -5,6 +5,7 @@ After=network.target remote_fs.target
 [Service]
 Type=forking
 PIDFile=/var/run/hostapd.pid
+#ExecStartPre=/bin/sleep 5
 ExecStart=/usr/sbin/hostapd -B -P /var/run/hostapd.pid /etc/hostapd/hostapd.conf -d
 # Additional Configure Parameters to WiFi
 ExecStartPost=/sbin/ifconfig wlan0 192.168.189.1

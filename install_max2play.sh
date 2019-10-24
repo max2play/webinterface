@@ -401,6 +401,9 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		
 		echo "put setupstartpage=1 to /opt/max2play/options.conf"
 		echo "optional: run raspbi-config and choose wait for network at boot, as this is done in rc.local!"
+		
+		# Howto: https://scribles.net/customizing-boot-up-screen-on-raspberry-pi/
+		echo "optional edit Bootscreen and Splashscreen"
 	fi
 fi
 
