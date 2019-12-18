@@ -244,7 +244,7 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	
 	# Fix for moving Repository mode from testing to stable 
 	if [ "$RELEASE" = "buster" ]; then
-		apt update -y
+		apt-get --allow-releaseinfo-change update -y
 	fi
 	
 	# Fix for NOT JESSIE and deleted usbmount rules
