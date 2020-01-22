@@ -51,6 +51,7 @@ class Shairport extends Service
             if ($_GET['action'] == 'save') {
                 $this->selectAutostart(isset($_GET['autostartap']) ? 1 : 0);
                 $this->saveShairportCommandline();
+                $this->getParameters();
             }
         }
         $this->view->pid = $this->status($this->pname);
@@ -63,6 +64,7 @@ class Shairport extends Service
     private function getParameters()
     {
         $this->view->squeezebox_serverip = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'LMSIP');
+        $this->view->ignore_running_kodi = $this->getConfigFileParameter('/opt/max2play/audioplayer.conf', 'IGNORE_KODI_SHAIRPORT');
         return true;
     }
 
@@ -72,6 +74,9 @@ class Shairport extends Service
      */
     public function saveShairportCommandline()
     {
+        if ($this->saveConfigFileParameter('/opt/max2play/audioplayer.conf', 'IGNORE_KODI_SHAIRPORT', intval($_REQUEST['ignore_running_kodi']))) {
+            $this->view->message[] = str_replace('$SERVICE', 'Shairport', _('Updated $SERVICE Settings - Restart $SERVICE to apply changes!'));
+        }
         $commandLine = array();
         $setsoundcard = $_REQUEST['shairport_soundcard'];
         // Sounddevices werden in Squeezeplayer geladen!
@@ -99,6 +104,7 @@ class Shairport extends Service
             $this->saveConfigFileParameter('/opt/max2play/audioplayer.conf', 'LMSIP', str_replace('http://', '', $_REQUEST['squeezebox_serverip']));
             $this->getParameters();
         }
+        
         return true;
     }
 

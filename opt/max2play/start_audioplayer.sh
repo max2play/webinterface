@@ -22,20 +22,24 @@ then
 		if [ "1" -gt "$running_squeezelite" ]; then
 			sudo /etc/init.d/squeezelite start
 		fi
-    fi   
+    fi
 fi
 
-if [ "1" -gt "$xbmcrunning" ]; then
-	
-	autostart_shairport=$(cat /opt/max2play/autostart.conf | grep shairport=1 | wc -l)    
+ignorerunningkodi=$(grep -a IGNORE_KODI_SHAIRPORT=1 /opt/max2play/audioplayer.conf | wc -l)
+if [ "1" -gt "$xbmcrunning" -o "0" -lt "$ignorerunningkodi" ]
+then
+    autostart_shairport=$(cat /opt/max2play/autostart.conf | grep shairport=1 | wc -l)    
     if [ "0" -lt "$autostart_shairport" ]
         then
         running_shairport=$(ps -Al | grep shairport | wc -l)
         if [ "1" -gt "$running_shairport" ]; then
         	sudo /etc/init.d/shairport start
         fi
-    fi        
-    
+    fi
+fi
+
+if [ "1" -gt "$xbmcrunning" ]; then
+	
     autostart_gmediarender=$(cat /opt/max2play/autostart.conf | grep gmediarender=1 | wc -l)    
     if [ "0" -lt "$autostart_gmediarender" ]
         then

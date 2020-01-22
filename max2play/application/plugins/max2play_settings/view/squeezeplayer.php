@@ -248,6 +248,13 @@ include (APPLICATION_PATH . '/view/messages.php');
 						value="<?php echo $ap->view->squeezebox_serverip ?>" /></td>
 					<td><?php echo _('Enter the Squeezebox-Server URL-Name or IP-Address. It enables automatic switching between Squeezelite and Shairport (running Squeezelite and Shairport with soundcards that only support one audio-stream at a time like HiFiBerry DACs). Everything else beside the Squeezebox Server IP is set up automatically. Just start Airplay and the Squeezeplayer will Soft-Power-Off. Stop Airplay and will Soft-Power-On again. Example IP (when running Server on this device): ').$_SERVER['SERVER_ADDR'] ?> </td>
 				</tr>
+				<tr>
+					<td><?php echo _('Ignore Running Kodi') ?></td>
+					<td><input type="checkbox" name="ignore_running_kodi"
+					<?php if ($ap->view->ignore_running_kodi == 1) echo "checked" ?> value="1" />
+					</td>
+					<td><?php echo _('Enable for simultaneous usage of Kodi AND Shairport - only possible if either Kodi and Squeezelite are using a separate Audiooutput or if they are not playing at the same time (Kodi must be set up to deactivate audio output if not needed).') ?></td>
+				</tr>
 			</table>
 			<input type="button" name="save" value="<?php echo _('save') ?>"
 				onclick="document.getElementById('action').value='save';submit();" />

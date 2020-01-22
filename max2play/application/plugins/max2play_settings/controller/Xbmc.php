@@ -125,6 +125,7 @@ class Xbmc extends Service
         $this->view->autostart = $this->checkAutostart($this->pname, true);
         $this->view->pid = $this->status($this->pname . $this->binaryname);
         $this->getXbmcVersion();
+        $this->showHelpSidebar();
         $this->getAllLogs();
     }
 
@@ -251,6 +252,14 @@ class Xbmc extends Service
     {
         $out['KODI_LOG'] = shell_exec('cat /home/' . $this->getSystemUser() . '/.kodi/temp/kodi.log');
         $this->view->debug = $out;
+        return true;
+    }
+    public function showHelpSidebar()
+    {
+        global $helpSidebar;
+        $helpSidebar['title'] = _('Help - Kodi');
+        $helpSidebar['content'] = _('<ul><li>Activate CEC on your TV to use your normal IR-Remote of your TV to control Kodi.</li><li>Use an App for your Smartphone (search for Kodi on Appstore) to control Kodi - this needs the Webservice in System-Services to be activated! Otherwise use mouse/keyboard attached to your Raspberry.</li><li>If you want to use Kodi and squeezeplayer simultanously (e.g. autostart) make sure to enable the checkbox on Audioplayer Squeezelite advanced settings "Use USB-Soundcard" and add the parameter "-C 5" to the commandline options of Squeezelite</li></ul>');
+        $helpSidebar['wikilink'] = 'https://www.max2play.com/en/wiki/audioplayer-squeezelites-shairport/';
         return true;
     }
 }
