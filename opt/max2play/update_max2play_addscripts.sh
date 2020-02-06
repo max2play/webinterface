@@ -245,6 +245,10 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	# Fix for moving Repository mode from testing to stable 
 	if [ "$RELEASE" = "buster" ]; then
 		apt-get --allow-releaseinfo-change update -y
+		# Wiring Pi update
+		cd /tmp
+	    wget https://project-downloads.drogon.net/wiringpi-latest.deb
+        sudo dpkg -i wiringpi-latest.deb
 	fi
 	
 	# Fix for NOT JESSIE and deleted usbmount rules
