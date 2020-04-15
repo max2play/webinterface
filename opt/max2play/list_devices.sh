@@ -18,7 +18,7 @@ if [ -z "$IP" ]; then
         echo `date +"%Y-%m-%d %H:%M"` > /opt/max2play/cache/list_devices.txt
 else        
         SUBNET=${IP%.*}
-        OUTPUT=`nmap -R -p 80 --open $SUBNET.* | grep -o -e "\([a-zA-Z0-9\.]\+ ([0-9\.]\+)\)\|\([0-9\.]\{6,\}\)$" | sed 's/ (/|/;s/)//'`
+        OUTPUT=`nmap -R -p 80 --open $SUBNET.* | grep -o -e "\([a-zA-Z0-9\.\-]\+ ([0-9\.]\+)\)\|\([0-9\.]\{6,\}\)$" | sed 's/ (/|/;s/)//'`
         FILEWRITE=`date +"%Y-%m-%d %H:%M"`
         # Check for Max2Play Webinterface
         while read -r line ; do
