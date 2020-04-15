@@ -463,7 +463,7 @@ class Squeezeplayer extends Service
  * curl -v -X GET "http://max2play/plugins/max2play_settings/controller/Squeezeplayer.php?apijson=1&use_equalizer=1"
  *
  * @apiExample {json} Example change Equalizer Values (GET):
- * curl -v -X GET "http://max2play/plugins/max2play_settings/controller/Squeezeplayer.php?apijson=1&use_equalizer=1&action=saveEqualizer&settingsEqualizer[01.+31+Hz]=54&settingsEqualizer[02.+63+Hz]=66%25&settingsEqualizer[03.+125+Hz]=66%25&settingsEqualizer[04.+250+Hz]=66%25&settingsEqualizer[05.+500+Hz]=66%25&settingsEqualizer[06.+1+kHz]=66%25&settingsEqualizer[07.+2+kHz]=66%25&settingsEqualizer[08.+4+kHz]=66%25&settingsEqualizer[09.+8+kHz]=66%25&settingsEqualizer[10.+16+kHz]=66%25
+ * curl -v --globoff -X GET "http://max2play/plugins/max2play_settings/controller/Squeezeplayer.php?apijson=1&use_equalizer=1&action=saveEqualizer&settingsEqualizer[01.+31+Hz]=54&settingsEqualizer[02.+63+Hz]=66%25&settingsEqualizer[03.+125+Hz]=66%25&settingsEqualizer[04.+250+Hz]=66%25&settingsEqualizer[05.+500+Hz]=66%25&settingsEqualizer[06.+1+kHz]=66%25&settingsEqualizer[07.+2+kHz]=66%25&settingsEqualizer[08.+4+kHz]=66%25&settingsEqualizer[09.+8+kHz]=66%25&settingsEqualizer[10.+16+kHz]=66%25
  *
  * @apiExample {json} Example reset Equalizer Values (GET):
  * curl -v -X GET "http://max2play/plugins/max2play_settings/controller/Squeezeplayer.php?apijson=1&use_equalizer=1&action=resetEqualizer"

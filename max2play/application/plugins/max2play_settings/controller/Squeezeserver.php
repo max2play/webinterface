@@ -232,7 +232,7 @@ class Squeezeserver extends Service
         
         // get Nightly Builds
         $html = file_get_contents($slimdevices_download . 'nightly/');
-        $count = preg_match_all('/<a href=([^>]+(7\.8|7\.9))>([^<]*)<\/a><br>/i', $html, $versions);
+        $count = preg_match_all('/<a href=([^>]+(8\.0|7\.9))>([^<]*)<\/a><br>/i', $html, $versions);
         for ($i = 0; $i < $count; ++ $i) {
             $html_version = file_get_contents($slimdevices_download . 'nightly/' . $versions[1][$i]);
             $found = preg_match_all('/<a href="(.*_arm\.deb)">[^<]*<\/a>/i', $html_version, $html_link);
