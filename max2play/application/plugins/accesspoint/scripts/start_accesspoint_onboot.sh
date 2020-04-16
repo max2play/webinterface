@@ -4,7 +4,7 @@
 # Check for existing connection AND (new) cable disconnected on eth0
 # Could also check for Opstate of eth0 (/sys/class/net/eth0/operstate)
 # Slow routers seem to make problems without carrier check
-if [ "$(cat /sys/class/net/eth0/carrier)" -lt "1" -a "$(LANG=C && /sbin/ip addr show eth0 | grep 'inet ' | wc -l)" -lt "1" -a "$(LANG=C && /sbin/ip addr show wlan0 | grep 'ether' | wc -l)" -gt "0" -a "$(LANG=C && /sbin/ip addr show wlan0 | grep 'inet ' | grep -v '169.254' | wc -l)" -lt "1" ]; then
+if [ "$(cat /sys/class/net/eth0/carrier)" -lt "1" -a "$(LANG=C && /sbin/ip addr show eth0 | grep 'inet ' | wc -l)" -lt "1" -a "$(LANG=C && /sbin/ip addr show wlan0 | grep 'ether' | wc -l)" -gt "0" -a "$(grep 'ssid=\".\+\"' /opt/max2play/wpa_supplicant.conf | wc -l)" -lt "1" ]; then
 	echo "No network connection..." 
 else
 	exit 0

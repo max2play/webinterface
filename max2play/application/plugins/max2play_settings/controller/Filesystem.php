@@ -359,6 +359,9 @@ class Filesystem extends Service
         $output = explode("\n", $this->writeDynamicScript(array(
             "blkid"
         )));
+        $this->view->debug = array();
+        $this->view->debug['blkid'] = implode("\n", $output);
+        
         if (isset($output[0])) {
             $this->view->mountpointsSDA = array();
             foreach ($output as $value) {
@@ -385,6 +388,8 @@ class Filesystem extends Service
             $this->view->mountpointsSDA = false;
         
         $output = explode("\n", shell_exec("mount | grep /dev/sd"));
+        $this->view->debug['mounted'] = implode("\n", $output);
+        
         if (isset($output[0])) {
             foreach ($output as $value) {
                 if (preg_match('=(/dev/sd[^ ]*) on (/[^ ]*) type =', $value, $match)) {

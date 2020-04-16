@@ -230,4 +230,12 @@ foreach ($fs->view->sambashares as $samba) {
 	<br /> <b><?php echo _('Samba Important Information') ?>:</b><br />
 	<?php echo _('Important Information Samba Description') ?>	
 	
+	<br /><br />
+	<a href="#javascript"
+		onclick="document.getElementById('debugfooter').style.display='';return false;"><?php echo _("DEBUG Info") ?></a><br />
+	<textarea id="debugfooter" style="display: none;" rows="5" cols="80" readonly><?php foreach ($fs->view->debug as $key => $debug) {
+			echo "#### ". $key. " ####\n"; 
+			 echo $debug." \n\n"; 
+		 }?></textarea>
+	
 </div>

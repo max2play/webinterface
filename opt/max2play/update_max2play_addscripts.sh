@@ -240,6 +240,9 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 			sed -i 's@PrivateTmp=true@PrivateTmp=false@' /etc/systemd/system/apache2.service
 		fi
 		sed -i 's@DefaultTimeoutStartSec=10@DefaultTimeoutStartSec=20@' /etc/systemd/system.conf
+		if [ -e /var/www/max2play/application/plugins/bluetooth/scripts/btcheck.sh ]; then
+			cp -f /var/www/max2play/application/plugins/bluetooth/scripts/btcheck.sh /opt/squeezelite/btcheck.sh
+		fi
 	fi
 	
 	# Fix for moving Repository mode from testing to stable 
