@@ -141,7 +141,7 @@ include (APPLICATION_PATH . '/view/messages.php');
 		<?php echo _('Install special Plugins for Squeezebox Server') ?></p>
 		<select name="lmsplugin" style="width: 90%;">
 			<option value="shairtunes2"><?php echo _('Bugfix for Shairtunes2 on Max2Play Raspberry with Debian Stretch - Fixes Libssl Error! (see debug log when Shairtunes2 Plugin is not working)') ?></option>
-			<?php /*<option value="shairtunes"><?php echo _('Install Shairtunes Plugin (All connected Squeezeplayers can be used as Airplay Devices)') ?></option> */?>
+			<option value="waveinput"><?php echo _('Reinstall WaveInput Plugin - Fix for Server 8.x') ?></option>
 			<option value="googlemusic"><?php echo _('Install GoogleMusic Plugin (Use your GoogleMusic Account and connect it with your Squeezebox Server)') ?></option>
 		</select> <input type="button"
 			value="<?php echo _('Install choosen Plugin (takes some time)') ?>"

@@ -252,8 +252,10 @@ if [ "$LINUX" == "Debian" ]; then
 	pushd /tmp
 	
 	if [ "$RELEASE" == "buster" ]; then
-		git clone https://github.com/coldtobi/gmrender-resurrect.git --branch upnp-18		
-		sudo apt-get install libupnp-dev libgstreamer0.10-dev libglib2.0-dev gstreamer0.10-plugins-base gstreamer0.10-alsa -y
+		# git clone https://github.com/coldtobi/gmrender-resurrect.git --branch upnp-18		
+		# sudo apt-get install libupnp-dev libgstreamer0.10-dev libglib2.0-dev gstreamer0.10-plugins-base gstreamer0.10-alsa -y
+		sudo apt install gstreamer1.0-alsa gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-plugins-bad gstreamer1.0-gl gmediarender -y
+		sudo cp /usr/bin/gmediarender /usr/local/bin/gmediarender
 	else
 		git clone https://github.com/hzeller/gmrender-resurrect.git
 	fi

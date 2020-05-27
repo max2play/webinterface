@@ -250,6 +250,10 @@ class Squeezeserver extends Service
     {
         ignore_user_abort(true);
         set_time_limit(1800);
+        if ($_REQUEST['lmsplugin'] == 'waveinput')
+            $this->view->message[] = $this->formatMessageOutput($this->writeDynamicScript(array(
+                $this->scriptPath . 'lms_plugin_waveinput.sh'
+            )));
         if ($_REQUEST['lmsplugin'] == 'shairtunes')
             $this->view->message[] = $this->formatMessageOutput($this->writeDynamicScript(array(
                 $this->scriptPath . 'lms_plugin_shairtunes.sh'
