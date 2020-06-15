@@ -261,6 +261,14 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		fi
 	fi
 	
+	if [ "$RELEASE" = "buster" -o "$RELEASE" = "jessie" -o "$RELEASE" = "stretch" -o "$RELEASE" = "wheezy" ]; then
+		# Fix for SSL Update root certificate https://support.sectigo.com/Com_KnowledgeDetailPage?Id=kA03l00000117LT
+		if [ "$(grep -e '^mozilla/AddTrust_External_Root.crt' /etc/ca-certificates.conf | wc -l)" -gt "0" ]; then
+		    sudo sed -i 's@^mozilla/AddTrust_External_Root.crt@#mozilla/AddTrust_External_Root.crt@' /etc/ca-certificates.conf	
+		    sudo update-ca-certificates -f -v
+		fi
+	fi
+	
 	# Fix for NOT JESSIE and deleted usbmount rules
 	if [ "$ISJESSIE" -lt "1" -a ! "$RELEASE" = "stretch" -a ! "$RELEASE" = "buster" -a ! -e /lib/udev/rules.d/usbmount.rules ]; then
 		echo "Remove Fix for USB-Mount on NON-Jessie"

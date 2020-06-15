@@ -30,7 +30,7 @@ find $SOURCEPATHPREMIUM -name "*.exp" | xargs chmod 777
 find $SOURCEPATHPREMIUM -not -name "*.*" -not -type d | xargs chmod 777
 
 HOSTS=( "176.9.62.131")
-PREMIUMPLUGINS=( "clementine" "fhem" "jivelite" "callbot" "homematic" "raspberrysettings" "multisqueeze" "sdcardprotection" "vnc" "printserver" "hifiberry" "iqaudio" "justboom" "mpd" "imageburner" "rpitouchdisplay" "rpicam" "rpisensehat" "voicecontrol" "frankenmatic" "bluetooth" "remotecontrol" "pluginbuilder" "allo" "multishairport" "autostartbrowser" "audiophonics" "arbalet" "spotifyconnect" "hardwarecontrol" "openhab" )
+PREMIUMPLUGINS=( "clementine" "fhem" "jivelite" "callbot" "homematic" "raspberrysettings" "multisqueeze" "sdcardprotection" "vnc" "printserver" "hifiberry" "iqaudio" "justboom" "mpd" "imageburner" "rpitouchdisplay" "rpicam" "rpisensehat" "voicecontrol" "frankenmatic" "bluetooth" "remotecontrol" "pluginbuilder" "allo" "multishairport" "autostartbrowser" "audiophonics" "arbalet" "spotifyconnect" "hardwarecontrol" "openhab" "SSLConnectionFix" )
 # integrate "accesspoint" and "passwordprotection" in default Max2Play -> removed from ODPLUGINS
 ODPLUGINS=( "kernelmodules_odroid_u3" "speechcontrol" "squeezeplug" )
 PLUGINS=("${ODPLUGINS[@]}" "${PREMIUMPLUGINS[@]}")
