@@ -15,7 +15,7 @@ echo "Sync to $VERSION"
 LOGFILE='rsync.log'
 SOURCEPATH='/home/webuser/projects/max2play'
 SOURCEPATHPREMIUM='/home/webuser/projects/svn_max2play'
-DESTPATH="/var/www/shop.max2play.com/magento/media/downloadable/$VERSION"
+DESTPATH="/var/www/shopmax2play/magento2/pub/media/downloadable/$VERSION"
 SOURCEPATHOPT='/home/webuser/projects/max2play/opt/max2play/'
 NEWSPATH='/var/www/max2play/wordpress/wp-content/uploads/max2play/news/'
 
@@ -29,7 +29,8 @@ find $SOURCEPATHPREMIUM -name "*.sh" | xargs chmod 777
 find $SOURCEPATHPREMIUM -name "*.exp" | xargs chmod 777
 find $SOURCEPATHPREMIUM -not -name "*.*" -not -type d | xargs chmod 777
 
-HOSTS=( "176.9.62.131")
+HOSTS=( "176.9.62.132")
+DESTHOSTNEWS="176.9.62.131"
 PREMIUMPLUGINS=( "clementine" "fhem" "jivelite" "callbot" "homematic" "raspberrysettings" "multisqueeze" "sdcardprotection" "vnc" "printserver" "hifiberry" "iqaudio" "justboom" "mpd" "imageburner" "rpitouchdisplay" "rpicam" "rpisensehat" "voicecontrol" "frankenmatic" "bluetooth" "remotecontrol" "pluginbuilder" "allo" "multishairport" "autostartbrowser" "audiophonics" "arbalet" "spotifyconnect" "hardwarecontrol" "openhab" "SSLConnectionFix" )
 # integrate "accesspoint" and "passwordprotection" in default Max2Play -> removed from ODPLUGINS
 ODPLUGINS=( "kernelmodules_odroid_u3" "speechcontrol" "squeezeplug" )
@@ -100,7 +101,7 @@ do
 done
 
 #################################### NEWS #############################################
-scp $SOURCEPATHPREMIUM/news/news.php root@$DESTHOST:$NEWSPATH
+scp $SOURCEPATHPREMIUM/news/news.php root@$DESTHOSTNEWS:$NEWSPATH
 
 #################################### Callblocker #######################################
 # Update Version Script
