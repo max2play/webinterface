@@ -860,23 +860,27 @@ class Service
     public function getHardwareInfo()
     {
         $hwByRevisionRegex = array(
+            'a.20d3' => 'Raspberry PI 3b+',
+            'a22083' => 'Raspberry PI 3b',
             'a.208[23]' => 'Raspberry PI 3',
             'a.[12]04[12]' => 'Raspberry PI 2',
             '^9000[923c1]+' => 'Raspberry PI Zero',
+            '^9200[923c1]+' => 'Raspberry PI Zero',
             '000[23456def]' => 'Raspberry PI B',
             '001[03]' => 'Raspberry PI B+',
             '000[789]' => 'Raspberry PI A',
             '0012' => 'Raspberry PI A+',
             'a03111' => 'Raspberry PI 4B 1GB',
-            'b03111' => 'Raspberry PI 4B 2GB',
-            'c03111' => 'Raspberry PI 4B 4GB'
+            'b0311[12]' => 'Raspberry PI 4B 2GB',
+            'c0311[12]' => 'Raspberry PI 4B 4GB',
+            'd03114' => 'Raspberry PI 4B 4GB',
         );
         
         if (! $this->info->hardware) {
             $output = $this->shell_exec("cat /proc/cpuinfo | grep 'Hardware\|Revision'");
             $this->info->hardware = '';
             if (preg_match('=Hardware.*: ([^ \n]*)=', $output, $matches)) {
-                if (strpos($output, 'BCM2708') || strpos($output, 'BCM2709') || strpos($output, 'BCM2837') || strpos($output, 'BCM2835') || strpos($output, 'BCM2836')) {
+                if (strpos($output, 'BCM2708') || strpos($output, 'BCM2709') || strpos($output, 'BCM2837') || strpos($output, 'BCM2835') || strpos($output, 'BCM2836') || strpos($output, 'BCM2711')) {
                     $this->info->hardware = 'Raspberry PI';
                     $this->info->chipset = trim($matches[1]);
                     // Pi Version? Check Revision
