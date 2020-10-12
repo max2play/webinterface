@@ -172,10 +172,11 @@ class Xbmc extends Service
         $this->getHardwareInfo();
         if($this->info->hardware == 'Raspberry PI' && strpos($this->info->boardname, 'Raspberry PI 4B') !== FALSE){
             $version = $this->getLinuxVersion();
-            if(isset($version[1]) && $version[1] == 'buster'){
+            $kodiver = explode(':' , $this->xbmcversion);
+            if(intval(substr($kodiver[2],0,2)) < 18 && isset($version[1]) && $version[1] == 'buster'){
                 if($this->binaryname != '-rpi4'){
                     $this->view->error[] = _('A Beta version of Kodi for RPI-4 is available for installation! <a href="/plugins/max2play_settings/controller/Xbmc.php?action=install&downloadurl=kodiupgradepi">Click here to install now</a>.');
-                }else{
+                }elseif($this->binaryname == '-rpi4') {
                     $this->xbmcversion = trim($this->writeDynamicScript(array(
                         'dpkg -s ' . $this->pname . '-rpi4 | grep Version'
                     )));

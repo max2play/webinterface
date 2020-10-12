@@ -29,13 +29,16 @@ if [ "1" -gt "$xbmcrunning" ]; then
 	# foreground black is specifically needed if desktop is restarting in background or any other console tasks are running
 	sudo sh -c "TERM=linux setterm -foreground black --clear all >/dev/tty0"
 	
-	if [ "$RELEASE" = "buster" ]; then	    
+	if [ "$RELEASE" = "buster" -a -e /usr/bin/kodi-rpi4 ]; then
 		sudo chvt 8
-		/usr/bin/kodi-rpi4		
+		/usr/bin/kodi-rpi4
 	elif [ -e /usr/local/bin/kodi ]; then
 		/usr/local/bin/kodi
 	elif [ -e /usr/bin/kodi-standalone ]; then
         /usr/bin/kodi-standalone
+    elif [ -e /usr/bin/kodi ]; then
+		# NEW BUSTER AFTER KODI UPGRADE KERNEL 5.x
+		/usr/bin/kodi
     else 	
 		/usr/local/bin/xbmc
 	fi

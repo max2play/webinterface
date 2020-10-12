@@ -28,16 +28,19 @@ else
 			# https://github.com/popcornmix/xbmc/tree/leia_pi4
 			# build instructions: https://github.com/popcornmix/xbmc/blob/leia_pi4/docs/README.RaspberryPi.md
 			# ready build: https://www.raspberrypi.org/forums/viewtopic.php?f=38&t=246837
-			echo "This is a BETA for Kodi on RPI 4! Check https://www.raspberrypi.org/forums/viewtopic.php?f=38&t=246837 for details and remove Autostart desktop from main settings." 
-			wget -O /opt/kodi-rpi4.deb http://cdn.max2play.com/kodi-rpi4/kodi-rpi4_18.3-5_armhf.deb
-			sudo apt install /opt/kodi-rpi4.deb -y
+			#echo "This is a BETA for Kodi on RPI 4! Check https://www.raspberrypi.org/forums/viewtopic.php?f=38&t=246837 for details and remove Autostart desktop from main settings."
+			#wget -O /opt/kodi-rpi4.deb http://cdn.max2play.com/kodi-rpi4/kodi-rpi4_18.3-5_armhf.deb
+			#sudo apt install /opt/kodi-rpi4.deb -y
 			
 			# PVR Addons
-			rm /etc/apt/sources.list.d/pplware.list
-			echo "deb http://pipplware.pplware.pt/pipplware/dists/buster/main/binary /" > /etc/apt/sources.list.d/pplware.list
-    		wget -O - http://pipplware.pplware.pt/pipplware/key.asc | sudo apt-key add -
+			#rm /etc/apt/sources.list.d/pplware.list
+			#echo "deb http://pipplware.pplware.pt/pipplware/dists/buster/main/binary /" > /etc/apt/sources.list.d/pplware.list
+    		#wget -O - http://pipplware.pplware.pt/pipplware/key.asc | sudo apt-key add -
+
+    		# NEW VERSION: https://www.raspberrypi.org/forums/viewtopic.php?t=251645
+    		apt-get remove kodi kodi-data kodi-repository-kodi -y
     		apt-get update
-    		apt-get install kodi-pvr-stalker kodi-pvr-iptvsimple kodi-pvr-demo kodi-pvr-dvblink kodi-pvr-hts kodi-pvr-nextpvr -y --allow-unauthenticated
+    		apt-get install kodi kodi-pvr-stalker kodi-pvr-iptvsimple kodi-pvr-demo kodi-pvr-dvblink kodi-pvr-hts kodi-pvr-nextpvr -y
 		else
 		    # Old update routine by path or .deb file
 			apt-get update
