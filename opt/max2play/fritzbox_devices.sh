@@ -53,7 +53,7 @@ while true; do
         # DEVICES=`wget --post-data="page=netDev" -T 10 -t 1 -O - "http://$IP/data.lua?sid=$SID" 2>/dev/null | grep -o -e '"state":"\(globe_online\|led_green\)","port":"WLAN","name":"[^"]\+"'`
         
         # Version 7.0
-        DEVICECALL=`wget --post-data="page=netDev" -T 10 -t 1 -O - "http://$IP/data.lua?sid=$SID" 2>/dev/null`
+        DEVICECALL=`wget --post-data="page=netDev&xhrId=cleanup" -T 10 -t 1 -O - "http://$IP/data.lua?sid=$SID" 2>/dev/null`
         DEVICES=`echo $DEVICECALL | grep -o -e '"state":"\(globe_online\|led_green\)","port":"WLAN","name":"[^"]\+"'`
         if [ "$DEVICES" == "" ]; then
             if [ "$DEBUG" == "1" ]; then
