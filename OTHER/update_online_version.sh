@@ -13,10 +13,10 @@ fi
 echo "Sync to $VERSION"
 
 LOGFILE='rsync.log'
-SOURCEPATH='/home/webuser/projects/max2play'
-SOURCEPATHPREMIUM='/home/webuser/projects/svn_max2play'
+SOURCEPATH='/home/webuser/projects/max2play_git'
+SOURCEPATHPREMIUM='/home/webuser/projects/Max2Play_Premium'
 DESTPATH="/var/www/shopmax2play/magento2/pub/media/downloadable/$VERSION"
-SOURCEPATHOPT='/home/webuser/projects/max2play/opt/max2play/'
+SOURCEPATHOPT='/home/webuser/projects/max2play_git/opt/max2play/'
 NEWSPATH='/var/www/max2play/wordpress/wp-content/uploads/max2play/news/'
 
 #Change File permissions due to eclipse Bug
@@ -85,7 +85,7 @@ do
 	#Create and upload Plugins
 	for ODPLUGIN in "${ODPLUGINS[@]}"
 	do
-		tar -cf $ODPLUGIN.tar -C $SOURCEPATH/max2play/application/plugins/ $ODPLUGIN
+    	tar -cf $ODPLUGIN.tar -C $SOURCEPATH/max2play/application/plugins/ $ODPLUGIN
 		scp $SOURCEPATH/$ODPLUGIN.tar root@$DESTHOST:$DESTPATH
 		rm $ODPLUGIN.tar
 	done
@@ -99,6 +99,8 @@ do
 	done
 		
 done
+
+exit
 
 #################################### NEWS #############################################
 scp $SOURCEPATHPREMIUM/news/news.php root@$DESTHOSTNEWS:$NEWSPATH
