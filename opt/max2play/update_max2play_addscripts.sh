@@ -206,8 +206,9 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	fi
 	
 	# USBMOUNT Charset Umlaute Fix Fat32
-	if [ "$(grep -i "iocharset=iso8859-1" /etc/usbmount/usbmount.conf | wc -l)" -lt "1" ]; then
-		sudo sed -i "s/fstype=vfat,gid=users,uid=pi/fstype=vfat,gid=users,uid=pi,iocharset=iso8859-1/" /etc/usbmount/usbmount.conf
+	if [ "$(grep -i "uid=pi,dmask=0000" /etc/usbmount/usbmount.conf | wc -l)" -lt "1" ]; then
+		sudo sed -i "s/fstype=vfat,gid=users,uid=pi/fstype=vfat,gid=users,uid=pi,dmask=0000,fmask=0000/" /etc/usbmount/usbmount.conf
+		sudo sed -i "s/-fstype=ntfs,gid=users,uid=pi/-fstype=ntfs,gid=users,uid=pi,dmask=0000,fmask=0000/" /etc/usbmount/usbmount.conf
 	fi
 	
 	# Fix wrong YMPD Parameter webport
