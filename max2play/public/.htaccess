@@ -1,13 +1,8 @@
-<IfModule mod_php5.c>
-   # Squeezebox Server Settings Export / Import
-   php_value upload_max_filesize 500M
-   php_value post_max_size 500M
-</IfModule>
-<IfModule mod_php7.c>
-   # Squeezebox Server Settings Export / Import
-   php_value upload_max_filesize 500M
-   php_value post_max_size 500M
-</IfModule>
+# Squeezebox Server Settings Export / Import
+php_value upload_max_filesize 500M
+php_value post_max_size 500M
+php_value max_input_time 120
+php_value max_execution_time 120
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f

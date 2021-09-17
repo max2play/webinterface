@@ -171,7 +171,7 @@ include (APPLICATION_PATH . '/view/messages.php');
 			</div>
 			<div id="tabs-2">
 				<p>
-					<input type="hidden" name="MAX_FILE_SIZE" value="50000000" />
+					<input type="hidden" name="MAX_FILE_SIZE" value="512000000" />
 		  <?php echo _('Upload Settings File (created with the Max2Play export Settings tool) and Restore/Overwrite existing Settings');?>: 
 		  <input name="restoresettingsfile" type="file" /> <input
 						type="button" value="<?php echo _("Restore Settings") ?>"
