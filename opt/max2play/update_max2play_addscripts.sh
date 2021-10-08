@@ -268,6 +268,11 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		    sudo sed -i 's@^mozilla/AddTrust_External_Root.crt@#mozilla/AddTrust_External_Root.crt@' /etc/ca-certificates.conf	
 		    sudo update-ca-certificates -f -v
 		fi
+		# https://letsencrypt.org/docs/dst-root-ca-x3-expiration-september-2021/
+		if [ "$(grep -e '^mozilla/DST_Root_CA_X3.crt' /etc/ca-certificates.conf | wc -l)" -gt "0" ]; then
+		    sudo sed -i 's@^mozilla/DST_Root_CA_X3.crt@#mozilla/DST_Root_CA_X3.crt@' /etc/ca-certificates.conf
+		    sudo update-ca-certificates -f -v
+		fi
 	fi
 	
 	# Fix for NOT JESSIE and deleted usbmount rules
