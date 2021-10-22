@@ -871,9 +871,9 @@ class Service
             '000[789]' => 'Raspberry PI A',
             '0012' => 'Raspberry PI A+',
             'a03111' => 'Raspberry PI 4B 1GB',
-            'b0311[12]' => 'Raspberry PI 4B 2GB',
-            'c0311[12]' => 'Raspberry PI 4B 4GB',
-            'd03114' => 'Raspberry PI 4B 4GB',
+            'b0311[124]' => 'Raspberry PI 4B 2GB',
+            'c0311[124]' => 'Raspberry PI 4B 4GB',
+            'd03114' => 'Raspberry PI 4B 8GB',
         );
         
         if (! $this->info->hardware) {
