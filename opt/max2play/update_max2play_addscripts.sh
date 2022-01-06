@@ -136,6 +136,8 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		apt-get update
 		echo "Y" | apt-get install ntfs-3g lsb-release expect -y
 	fi
+	# Update with Release Info Changed (Buster -> oldstable)
+	apt-get update --allow-releaseinfo-change
 	
 	#Remove "-a 120::16:" from squeezelite_parameter due to fixed sample rate
 	sed -i 's/\-a 120::16:/\-a 120:::/' /opt/max2play/audioplayer.conf
