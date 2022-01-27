@@ -365,7 +365,7 @@ class Filesystem extends Service
         if (isset($output[0])) {
             $this->view->mountpointsSDA = array();
             foreach ($output as $value) {
-                if (preg_match('@(/dev/sd[^:]*):( SEC_TYPE="[^"]*")?( LABEL="([^"]*)")? UUID="([^"]*)" TYPE="([^"]*)"@', $value, $match)) {
+                if (preg_match('@(/dev/sd[^:]*):( SEC_TYPE="[^"]*")?.*?( LABEL="([^"]*)")? UUID="([^"]*)" TYPE="([^"]*)"@', $value, $match)) {
                     $this->view->mountpointsSDA[$match[1]] = array(
                         'device' => $match[1],
                         'label' => $match[4],

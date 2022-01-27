@@ -105,13 +105,20 @@ fi
 #Fix for rc.local file to make Mounting more robust
 sed -i 's/done;\/bin\/mount -a/done;set +e;\/bin\/mount -a;set -e;/' /etc/rc.local
 
-HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709\|BCM2837\|BCM2835\|BCM2836" | wc -l)
+HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709\|BCM2837\|BCM2835\|BCM2836\|BCM2711" | wc -l)
 if [ "$HW_RASPBERRY" -gt "0" ]; then
 	#Fix for wrong hostname in Image 2.31
 	HOSTNAME=$(cat /etc/hostname)
 	if [ ! "$HOSTNAME" = "" ]; then 		
 		sudo sed -i "s/raspberrypi/$HOSTNAME/;s/max2play/$HOSTNAME/" /etc/hosts
 	fi
+
+	# Pi4 Fix USBMOUNT
+	#if [ ! -e /etc/systemd/system/systemd-udevd.service.d/00-max2play-mountflags.conf -a $(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2711" | wc -l) ]; then
+	#    mkdir /etc/systemd/system/systemd-udevd.service.d
+    #    echo "[Service]\nPrivateMounts=no" > /etc/systemd/system/systemd-udevd.service.d/00-max2play-mountflags.conf
+    #fi
+
 	
 	#Timeout fix on Start / Stop (90sec wait)
 	sudo sed -i "s/#DefaultTimeoutStartSec=.*/DefaultTimeoutStartSec=10s/;s/#DefaultTimeoutStopSec=.*/DefaultTimeoutStopSec=10s/" /etc/systemd/system.conf
