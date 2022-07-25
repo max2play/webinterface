@@ -105,7 +105,7 @@ fi
 #Fix for rc.local file to make Mounting more robust
 sed -i 's/done;\/bin\/mount -a/done;set +e;\/bin\/mount -a;set -e;/' /etc/rc.local
 
-HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709\|BCM2837\|BCM2835\|BCM2836" | wc -l)
+HW_RASPBERRY=$(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2708\|BCM2709\|BCM2837\|BCM2835\|BCM2836\|BCM2711" | wc -l)
 if [ "$HW_RASPBERRY" -gt "0" ]; then
 	#Fix for wrong hostname in Image 2.31
 	HOSTNAME=$(cat /etc/hostname)
