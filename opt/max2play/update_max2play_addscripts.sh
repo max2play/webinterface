@@ -112,6 +112,13 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	if [ ! "$HOSTNAME" = "" ]; then 		
 		sudo sed -i "s/raspberrypi/$HOSTNAME/;s/max2play/$HOSTNAME/" /etc/hosts
 	fi
+
+	# Pi4 Fix USBMOUNT
+	#if [ ! -e /etc/systemd/system/systemd-udevd.service.d/00-max2play-mountflags.conf -a $(cat /proc/cpuinfo | grep Hardware | grep -i "BCM2711" | wc -l) ]; then
+	#    mkdir /etc/systemd/system/systemd-udevd.service.d
+    #    echo "[Service]\nPrivateMounts=no" > /etc/systemd/system/systemd-udevd.service.d/00-max2play-mountflags.conf
+    #fi
+
 	
 	#Timeout fix on Start / Stop (90sec wait)
 	sudo sed -i "s/#DefaultTimeoutStartSec=.*/DefaultTimeoutStartSec=10s/;s/#DefaultTimeoutStopSec=.*/DefaultTimeoutStopSec=10s/" /etc/systemd/system.conf
@@ -136,6 +143,8 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 		apt-get update
 		echo "Y" | apt-get install ntfs-3g lsb-release expect -y
 	fi
+	# Update with Release Info Changed (Buster -> oldstable)
+	apt-get update --allow-releaseinfo-change
 	
 	#Remove "-a 120::16:" from squeezelite_parameter due to fixed sample rate
 	sed -i 's/\-a 120::16:/\-a 120:::/' /opt/max2play/audioplayer.conf
