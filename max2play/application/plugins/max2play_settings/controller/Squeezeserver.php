@@ -227,7 +227,7 @@ class Squeezeserver extends Service
         $count = preg_match_all('@<a href="(LogitechMediaServer_v[78]+\.[0129]+\.[0-9]+/)">([^<]*)</a>@i', $html, $files);
         for ($i = 0; $i < $count; ++ $i) {
             $name = str_replace('_v', '_', substr($files[1][$i], 0, strlen($files[1][$i]) - 1));
-            // $this->lmsversions[substr($files[2][$i], 0, strlen($files[2][$i]) - 1)] = $slimdevices_download . $files[1][$i] . strtolower($name) . '_arm.deb';
+            //  $this->lmsversions[substr($files[2][$i], 0, strlen($files[2][$i]) - 1)] = $slimdevices_download . $files[1][$i] . strtolower($name) . '_arm.deb';
             $this->lmsversions[$name] = $slimdevices_download . $files[1][$i] . strtolower($name) . '_arm.deb';
         }
         
