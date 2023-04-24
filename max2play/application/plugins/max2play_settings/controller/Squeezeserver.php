@@ -79,7 +79,7 @@ class Squeezeserver extends Service
             }
             
             if ($_REQUEST['action'] == 'save') {
-                $this->selectAutostart(isset($_REQUEST['autostart']) ? 1 : 0, false);
+                $this->selectAutostart(isset($_REQUEST['autostart']) ? 1 : 0, 'systemd');
             }
             
             if ($_REQUEST['action'] == 'savesettings') {
@@ -106,7 +106,7 @@ class Squeezeserver extends Service
         }
         
         $this->view->installed = $this->checkInstall();
-        $this->view->autostart = $this->checkAutostart($this->pname);
+        $this->view->autostart = $this->checkAutostart($this->pname, 'systemd');
         $this->view->pid = $this->status($this->prozessname);
         $this->getAllLogs();
     }
