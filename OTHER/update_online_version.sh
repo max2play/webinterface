@@ -13,11 +13,16 @@ fi
 echo "Sync to $VERSION"
 
 LOGFILE='rsync.log'
-SOURCEPATH='/home/webuser/projects/max2play_git'
-SOURCEPATHPREMIUM='/home/webuser/projects/Max2Play_Premium'
-DESTPATH="/var/www/shopmax2play/magento2/pub/media/downloadable/$VERSION"
-SOURCEPATHOPT='/home/webuser/projects/max2play_git/opt/max2play/'
+#SOURCEPATH='/home/webuser/projects/max2play_git'
+#SOURCEPATHPREMIUM='/home/webuser/projects/Max2Play_Premium'
+#SOURCEPATHOPT='/home/webuser/projects/max2play_git/opt/max2play/'
 NEWSPATH='/var/www/max2play/wordpress/wp-content/uploads/max2play/news/'
+
+# Running on Webserver06!
+SOURCEPATH='/opt/max2play-build/max2play'
+SOURCEPATHPREMIUM='/opt/max2play-build/max2play_premium'
+DESTPATH="/var/www/shopmax2play/magento2/pub/media/downloadable/$VERSION"
+SOURCEPATHOPT='/opt/max2play-build/max2play/opt/max2play/'
 
 #Change File permissions due to eclipse Bug
 chmod -R 777 $SOURCEPATH/max2play
@@ -29,7 +34,7 @@ find $SOURCEPATHPREMIUM -name "*.sh" | xargs chmod 777
 find $SOURCEPATHPREMIUM -name "*.exp" | xargs chmod 777
 find $SOURCEPATHPREMIUM -not -name "*.*" -not -type d | xargs chmod 777
 
-HOSTS=( "176.9.62.132")
+HOSTS=( "176.9.62.131") # Shop Max2Play IP
 DESTHOSTNEWS="176.9.62.131"
 PREMIUMPLUGINS=( "clementine" "fhem" "jivelite" "callbot" "homematic" "raspberrysettings" "multisqueeze" "sdcardprotection" "vnc" "printserver" "hifiberry" "iqaudio" "justboom" "mpd" "imageburner" "rpitouchdisplay" "rpicam" "rpisensehat" "voicecontrol" "frankenmatic" "bluetooth" "remotecontrol" "pluginbuilder" "allo" "multishairport" "autostartbrowser" "audiophonics" "arbalet" "spotifyconnect" "hardwarecontrol" "openhab" "SSLConnectionFix" )
 # integrate "accesspoint" and "passwordprotection" in default Max2Play -> removed from ODPLUGINS
@@ -107,7 +112,7 @@ scp $SOURCEPATHPREMIUM/news/news.php root@$DESTHOSTNEWS:$NEWSPATH
 
 #################################### Callblocker #######################################
 # Update Version Script
- 
+
 LOGFILE='rsync.log'
 SOURCEPATH='/home/webuser/projects/max2play/max2play/application/plugins'
 DESTPATH="/var/www/cdn.tellows/wordpress/uploads/downloads/callblocker/$VERSION"
