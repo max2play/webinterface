@@ -220,26 +220,22 @@ class Squeezeserver extends Service
      */
     public function getLMSVersions()
     {
-        $slimdevices_download = 'http://downloads.slimdevices.com/';
+        $slimdevices_download = 'https://lms-community.github.io/lms-server-repository/';
         $html = file_get_contents($slimdevices_download);
         
         // get Regular Builds: "./LogitechMediaServer_v8.3.1/logitechmediaserver_8.3.1_arm.deb"
-        $count = preg_match_all('@<a href="(\./LogitechMediaServer_v[8]+\.[0-9]+\.[0-9]+/logitechmediaserver_[8]+\.[0-9]+\.[0-9]+\_arm\.deb)">([^<]*)</a>@i', $html, $files);
+        $count = preg_match_all('@<a href="(.*?/logitechmediaserver_[8]+\.[0-9]+\.[0-9]+\_arm\.deb)">([^<]*)</a>@i', $html, $files);
         for ($i = 0; $i < $count; ++ $i) {
             $name = $files[2][$i];//str_replace('_v', '_', substr($files[1][$i], 0, strlen($files[1][$i]) - 1));
             //  $this->lmsversions[substr($files[2][$i], 0, strlen($files[2][$i]) - 1)] = $slimdevices_download . $files[1][$i] . strtolower($name) . '_arm.deb';
-            $this->lmsversions[$name] = $slimdevices_download . $files[1][$i];
+            $this->lmsversions[$name] = $files[1][$i];
         }
         
         // get Nightly Builds
-        $html = file_get_contents($slimdevices_download . 'nightly/');
-        $count = preg_match_all('/<a href=([^>]+(8\.[0-9]+|7\.9))>([^<]*)<\/a><br>/i', $html, $versions);
+        //$html = file_get_contents($slimdevices_download . 'nightly/');
+        $count = preg_match_all('@<a href="(.*?/logitechmediaserver_[8]+\.[0-9]+\.[0-9]+[~0-9]+\_arm\.deb)">([^<]*)</a>@i', $html, $versions);
         for ($i = 0; $i < $count; ++ $i) {
-            $html_version = file_get_contents($slimdevices_download . 'nightly/' . $versions[1][$i]);
-            $found = preg_match_all('/<a href="(.*_arm\.deb)">[^<]*<\/a>/i', $html_version, $html_link);
-            if ($found) {
-                $this->lmsversions['Nightly ' . $versions[2][$i]] = $slimdevices_download . 'nightly/' . $html_link[1][0];
-            }
+            $this->lmsversions['Nightly ' . $versions[2][$i]] = $versions[1][$i];
         }
         return true;
     }

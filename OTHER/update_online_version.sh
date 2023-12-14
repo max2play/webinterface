@@ -1,4 +1,5 @@
 #!/bin/bash
+# Run this on root@webserver-06 /opt/max2play-build/max2play/OTHER
 # Update Version Script
 # Zip Files for new Version - Update Version and send Files to Server
 echo "Usage: update_online_version.sh live|beta"
