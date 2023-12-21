@@ -16,7 +16,7 @@ else
 		
 		# Buster Fix
 		RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")
-		if [ "$RELEASE" = "buster" ]; then
+		if [ "$RELEASE" = "buster" -or "$RELEASE" = "bookworm" ]; then
 			apt-get install libcrypt-openssl-rsa-perl -y
 		fi
 		
