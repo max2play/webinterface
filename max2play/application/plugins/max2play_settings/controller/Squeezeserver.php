@@ -140,7 +140,7 @@ class Squeezeserver extends Service
                 $this->view->message[] = '<!-- finished -->';
                 return false;
             }
-            if ($_REQUEST['downloadurl'] != '' && strpos($_REQUEST['downloadurl'], 'http://downloads.slimdevices.com') === 0) {
+            if ($_REQUEST['downloadurl'] != '' && strpos($_REQUEST['downloadurl'], 'https://downloads.slimdevices.com') === 0) {
                 $downurl = $_REQUEST['downloadurl'];
             } else {
                 $downurl = $this->lmsversions[$lmsversion];

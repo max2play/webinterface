@@ -16,12 +16,13 @@ else
 		
 		# Buster Fix
 		RELEASE=$(lsb_release -a 2>/dev/null | grep Codename | sed "s/Codename:\t//")
-		if [ "$RELEASE" = "buster" -or "$RELEASE" = "bookworm" ]; then
+		if [ "$RELEASE" = "buster" -o "$RELEASE" = "bookworm" ]; then
 			apt-get install libcrypt-openssl-rsa-perl -y
+			apt --fix-broken install -y
 		fi
 		
 		#Uninstall to remove problems with plugins
-		apt-get remove logitechmediaserver
+		apt-get remove logitechmediaserver -y
 		wget -O /opt/max2play/lms.deb $source -a /opt/max2play/cache/install_lms.txt
 		echo "| START INSTALL | " >> /opt/max2play/cache/install_lms.txt
 		dpkg -i /opt/max2play/lms.deb >> /opt/max2play/cache/install_lms.txt
@@ -96,7 +97,8 @@ else
 		#Audio Fix für DSD
 		wget -O /opt/max2play/cache/CPAN_AUDIO_DSD_7.9.tar shop.max2play.com/media/downloadable/beta/CPAN_AUDIO_DSD_7.9.tar
 		tar -xf /opt/max2play/cache/CPAN_AUDIO_DSD_7.9.tar -C /opt		
-		wget -O /opt/max2play/cache/dsdplayer-bin.zip www.max2play.com/downloads/squeezebox-server/dsdplayer-bin.zip
+		#wget -O /opt/max2play/cache/dsdplayer-bin.zip www.max2play.com/downloads/squeezebox-server/dsdplayer-bin.zip
+		wget -O /opt/max2play/cache/dsdplayer-bin.zip https://cdn.max2play.com/squeezebox-server/dsdplayer-bin.zip
 		unzip -o /opt/max2play/cache/dsdplayer-bin.zip -d /usr/share/squeezeboxserver/Bin/
 		
 		sleep 3

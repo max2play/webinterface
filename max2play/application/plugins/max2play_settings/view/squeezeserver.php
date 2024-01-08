@@ -107,12 +107,7 @@ include (APPLICATION_PATH . '/view/messages.php');
 				<?php if(strpos($value, '7.9') !== FALSE) {echo "selected"; $lmsdefault = $value; } ?>><?php echo $key ?></option>
 	<?php } ?>
 	</select>
-		<script type="text/javascript">
-		function copytodownloadurl(item){
-			document.getElementById("downloadurl").value = item.options[item.selectedIndex].value;
-			document.getElementById("downloadurl").style.width = "500px";
-		}			
-	</script>
+
 		<input type="button"
 			value="<?php echo _('Show available Versions') ?>" name="fetchLMS"
 			onclick="document.getElementById('action').value='showavailablelms';submit();" /><br />
@@ -121,8 +116,18 @@ include (APPLICATION_PATH . '/view/messages.php');
 	<?php echo _('Alternative other source from Slimdevices (package must be .deb)') ?>: 
 	<input id="downloadurl" type="text" value="<?php echo $lmsdefault;?>"
 			name="downloadurl" style="" /><br />
-		<br /> 		
-	
+		<br />
+
+    <script type="text/javascript">
+        function copytodownloadurl(item){
+            document.getElementById("downloadurl").value = item.options[item.selectedIndex].value;
+            document.getElementById("downloadurl").style.width = "500px";
+        }
+        if(document.getElementById("lmsversion").options[0]){
+            document.getElementById("downloadurl").value = document.getElementById("lmsversion").value;
+        }
+    </script>
+
 	<?php /*ERROR MESSAGE for Perl Version deactivated # if ($sp->view->perlversion > "5.18" ) echo '<br /><span style="color:red;">'._('IMPORTANT: You must choose 7.9 Nightly as 7.8 is currently not supported for this version of Perl: '.$sp->view->perlversion).'</span><br />'; */?>
 	
 	<input type="button"
