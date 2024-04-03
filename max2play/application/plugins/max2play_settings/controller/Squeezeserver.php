@@ -140,7 +140,8 @@ class Squeezeserver extends Service
                 $this->view->message[] = '<!-- finished -->';
                 return false;
             }
-            if ($_REQUEST['downloadurl'] != '' && strpos($_REQUEST['downloadurl'], 'https://downloads.slimdevices.com') === 0) {
+            // https://lyrion.org/lms-server-repository/ new Repository - removed LMS Check completely due to too many recent changes
+            if ($_REQUEST['downloadurl'] != '') {
                 $downurl = $_REQUEST['downloadurl'];
             } else {
                 $downurl = $this->lmsversions[$lmsversion];
@@ -224,7 +225,7 @@ class Squeezeserver extends Service
         $html = file_get_contents($slimdevices_download);
         
         // get Regular Builds: "./LogitechMediaServer_v8.3.1/logitechmediaserver_8.3.1_arm.deb"
-        $count = preg_match_all('@<a href="(.*?/logitechmediaserver_[8]+\.[0-9]+\.[0-9]+\_arm\.deb)">([^<]*)</a>@i', $html, $files);
+        $count = preg_match_all('@<a href="(.*?/logitechmediaserver_[89]+\.[0-9]+\.[0-9]+\_arm\.deb)">([^<]*)</a>@i', $html, $files);
         for ($i = 0; $i < $count; ++ $i) {
             $name = $files[2][$i];//str_replace('_v', '_', substr($files[1][$i], 0, strlen($files[1][$i]) - 1));
             //  $this->lmsversions[substr($files[2][$i], 0, strlen($files[2][$i]) - 1)] = $slimdevices_download . $files[1][$i] . strtolower($name) . '_arm.deb';
@@ -233,7 +234,7 @@ class Squeezeserver extends Service
         
         // get Nightly Builds
         //$html = file_get_contents($slimdevices_download . 'nightly/');
-        $count = preg_match_all('@<a href="(.*?/logitechmediaserver_[8]+\.[0-9]+\.[0-9]+[~0-9]+\_arm\.deb)">([^<]*)</a>@i', $html, $versions);
+        $count = preg_match_all('@<a href="(.*?/logitechmediaserver_[89]+\.[0-9]+\.[0-9]+[~0-9]+\_arm\.deb)">([^<]*)</a>@i', $html, $versions);
         for ($i = 0; $i < $count; ++ $i) {
             $this->lmsversions['Nightly ' . $versions[2][$i]] = $versions[1][$i];
         }

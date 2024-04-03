@@ -35,8 +35,8 @@ find $SOURCEPATHPREMIUM -name "*.sh" | xargs chmod 777
 find $SOURCEPATHPREMIUM -name "*.exp" | xargs chmod 777
 find $SOURCEPATHPREMIUM -not -name "*.*" -not -type d | xargs chmod 777
 
-HOSTS=( "176.9.62.131") # Shop Max2Play IP
-DESTHOSTNEWS="176.9.62.131"
+HOSTS=( "192.168.0.14") # Shop Max2Play IP 176.9.62.131
+DESTHOSTNEWS="192.168.0.18"
 PREMIUMPLUGINS=( "clementine" "fhem" "jivelite" "callbot" "homematic" "raspberrysettings" "multisqueeze" "sdcardprotection" "vnc" "printserver" "hifiberry" "iqaudio" "justboom" "mpd" "imageburner" "rpitouchdisplay" "rpicam" "rpisensehat" "voicecontrol" "frankenmatic" "bluetooth" "remotecontrol" "pluginbuilder" "allo" "multishairport" "autostartbrowser" "audiophonics" "arbalet" "spotifyconnect" "hardwarecontrol" "openhab" "SSLConnectionFix" )
 # integrate "accesspoint" and "passwordprotection" in default Max2Play -> removed from ODPLUGINS
 ODPLUGINS=( "kernelmodules_odroid_u3" "speechcontrol" "squeezeplug" )
@@ -106,12 +106,14 @@ do
 		
 done
 
-exit
 
 #################################### NEWS #############################################
 scp $SOURCEPATHPREMIUM/news/news.php root@$DESTHOSTNEWS:$NEWSPATH
 
 #################################### Callblocker #######################################
+
+exit
+
 # Update Version Script
 
 LOGFILE='rsync.log'
@@ -119,7 +121,7 @@ SOURCEPATH='/home/webuser/projects/max2play/max2play/application/plugins'
 DESTPATH="/var/www/cdn.tellows/wordpress/uploads/downloads/callblocker/$VERSION"
 SOURCEPATHOPT='/home/webuser/projects/callblocker'
 
-HOSTS=( "176.9.62.132" )
+HOSTS=( "192.168.0.15" ) # 176.9.62.132
 
 for DESTHOST in "${HOSTS[@]}"
 do
