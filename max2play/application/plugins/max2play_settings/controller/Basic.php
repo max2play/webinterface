@@ -434,6 +434,12 @@ class Basic extends Service
     public function updateEMail($email = '')
     {
         if ($this->saveConfigFileParameter('/opt/max2play/options.conf', 'email', $email)) {
+
+            if(empty($email)){
+                $this->view->message[] = _('Your email address / activation code has been reset');
+                return false;    
+            }
+         
             $this->view->message[] = _('Your eMail-address / activation code is saved.');
             if ($this->checkLicense() != false) {
                 $this->view->message[] = _('Your license is validated. Now you have access to all features and plugins.');
