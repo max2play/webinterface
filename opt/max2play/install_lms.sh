@@ -1,11 +1,19 @@
 #!/bin/sh
-installcheck=$(dpkg -s logitechmediaserver | grep 'Status: install' | wc -l)
-
+installcheck=$(dpkg -s lyrionmusicserver | grep 'Status: install' | wc -l)
+if [ "1" -gt "$installcheck" ]; then
+    installcheck=$(dpkg -s logitechmediaserver | grep 'Status: install' | wc -l)
+    if [ "1" -gt "$installcheck" ]; then
+      name="logitechmediaserver"
+    fi
+else
+  name="lyrionmusicserver"
+fi
 source=$2
 
 #Only Check if installed 
 if [ "$1" = "check" ]; then	
 	echo "installed=$installcheck"
+	echo "name=$name"
 else
 	if [ "1" -gt "$installcheck" ] || [ "$1" = "update" ]; then
 		echo `date +"%Y-%m-%d %H:%M|"` > /opt/max2play/cache/install_lms.txt
@@ -100,9 +108,13 @@ else
 		#wget -O /opt/max2play/cache/dsdplayer-bin.zip www.max2play.com/downloads/squeezebox-server/dsdplayer-bin.zip
 		wget -O /opt/max2play/cache/dsdplayer-bin.zip https://cdn.max2play.com/squeezebox-server/dsdplayer-bin.zip
 		unzip -o /opt/max2play/cache/dsdplayer-bin.zip -d /usr/share/squeezeboxserver/Bin/
-		
+
+		if [ "1" -gt $(grep lyrionmusicserver /etc/sudoers.d/max2play | wc -l) ]; then
+		  sed -i 's@logitechmediaserver@logitechmediaserver,/etc/init.d/lyrionmusicserver@' /etc/sudoers.d/max2play
+	  fi
 		sleep 3
 		/etc/init.d/logitechmediaserver restart
+		/etc/init.d/lyrionmusicserver restart
 	else
 		echo "Ist bereits installiert - installed=$installcheck"
 	fi

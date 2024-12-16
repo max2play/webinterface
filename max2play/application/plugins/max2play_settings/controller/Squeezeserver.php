@@ -40,7 +40,7 @@ class Squeezeserver extends Service
         parent::__construct();
         $this->pluginname = _('Squeezebox Server');
         $this->scriptPath = dirname(__FILE__) . '/../scripts/';
-        
+
         if ($_REQUEST['ajax'] == 1 && $_REQUEST['action'] == 'plugininstall') {
             $this->_pluginInstall($ajax = 1);
             ob_end_clean();
@@ -58,7 +58,9 @@ class Squeezeserver extends Service
             ob_flush();
             die();
         }
-        
+
+        $this->view->installed = $this->checkInstall();
+
         $this->getNomysqueezebox();
         $this->getDelayedStartup();
         
@@ -104,8 +106,7 @@ class Squeezeserver extends Service
                 $this->_pluginInstall();
             }
         }
-        
-        $this->view->installed = $this->checkInstall();
+
         $this->view->autostart = $this->checkAutostart($this->pname, 'systemd');
         $this->view->pid = $this->status($this->prozessname);
         $this->getAllLogs();
@@ -211,6 +212,10 @@ class Squeezeserver extends Service
     {
         $shellanswer = shell_exec("sudo /opt/max2play/install_lms.sh check 2>/dev/null");
         if (strpos($shellanswer, 'installed=1') !== FALSE) {
+            if (strpos($shellanswer, 'lyrionmusicserver') !== FALSE)
+                $this->pname = 'lyrionmusicserver';
+            else
+                $this->pname = 'logitechmediaserver';
             return true;
         } else
             return false;
