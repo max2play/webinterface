@@ -257,6 +257,9 @@ if [ "$HW_RASPBERRY" -gt "0" ]; then
 	
 	# Fix for moving Repository mode from testing to stable 
 	if [ "$RELEASE" = "buster" ]; then
+	  echo "deb http://legacy.raspbian.org/raspbian/ buster main contrib non-free rpi" > /etc/apt/sources.list
+    apt update –allow-releaseinfo-change
+    apt –fix-broken install
 		apt-get --allow-releaseinfo-change update -y
 		# Wiring Pi update
 		cd /tmp
